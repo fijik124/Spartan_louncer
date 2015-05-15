@@ -1,0 +1,10 @@
+c:\users\javier\documents\visual studio 2013\Projects\11thLauncher\11thLauncher\bin\Debug\11thLauncher.exe.config
+c:\users\javier\documents\visual studio 2013\Projects\11thLauncher\11thLauncher\bin\Debug\11thLauncher.exe
+c:\users\javier\documents\visual studio 2013\Projects\11thLauncher\11thLauncher\bin\Debug\11thLauncher.pdb
+c:\users\javier\documents\visual studio 2013\Projects\11thLauncher\11thLauncher\obj\Debug\_11thLauncher.Form1.resources
+c:\users\javier\documents\visual studio 2013\Projects\11thLauncher\11thLauncher\obj\Debug\_11thLauncher.Properties.Resources.resources
+c:\users\javier\documents\visual studio 2013\Projects\11thLauncher\11thLauncher\obj\Debug\11thLauncher.csproj.GenerateResource.Cache
+c:\users\javier\documents\visual studio 2013\Projects\11thLauncher\11thLauncher\obj\Debug\11thLauncher.exe
+c:\users\javier\documents\visual studio 2013\Projects\11thLauncher\11thLauncher\obj\Debug\11thLauncher.pdb
+C:\Users\Javier\Documents\Visual Studio 2013\Projects\11thLauncher\11thLauncher\bin\Debug\MetroFramework.dll
+C:\Users\Javier\Documents\Visual Studio 2013\Projects\11thLauncher\11thLauncher\bin\Debug\MetroFramework.Fonts.dll
