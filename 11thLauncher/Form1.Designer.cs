@@ -60,6 +60,7 @@
             this.image_arma3HC = new System.Windows.Forms.PictureBox();
             this.image_coopA3 = new System.Windows.Forms.PictureBox();
             this.image_academiaA3 = new System.Windows.Forms.PictureBox();
+            this.image_aliveA3 = new System.Windows.Forms.PictureBox();
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
             this.combo_profiles = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
@@ -119,6 +120,25 @@
             this.textBox_parameters = new MetroFramework.Controls.MetroTextBox();
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.picture_serverQuery = new System.Windows.Forms.PictureBox();
+            this.textBox_serverMods = new MetroFramework.Controls.MetroTextBox();
+            this.textBox_serverVersion = new MetroFramework.Controls.MetroTextBox();
+            this.listBox_serverPlayers = new System.Windows.Forms.ListBox();
+            this.textBox_serverPlayers = new MetroFramework.Controls.MetroTextBox();
+            this.textBox_serverPing = new MetroFramework.Controls.MetroTextBox();
+            this.textBox_serverMap = new MetroFramework.Controls.MetroTextBox();
+            this.textBox_serverDesc = new MetroFramework.Controls.MetroTextBox();
+            this.textBox_serverName = new MetroFramework.Controls.MetroTextBox();
+            this.button_serverStatus = new MetroFramework.Controls.MetroButton();
+            this.combo_serversStatus = new MetroFramework.Controls.MetroComboBox();
+            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel31 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel15 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.metroLabel27 = new MetroFramework.Controls.MetroLabel();
@@ -126,13 +146,13 @@
             this.metroLabel23 = new MetroFramework.Controls.MetroLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.picture_logo = new System.Windows.Forms.PictureBox();
-            this.image_aliveA3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.image_arma3MP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_arma3SP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_arma3HC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_coopA3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_academiaA3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.metroPanel3.SuspendLayout();
@@ -142,10 +162,11 @@
             this.tabPage5.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.metroTabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picture_serverQuery)).BeginInit();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture_logo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).BeginInit();
             this.SuspendLayout();
             // 
             // metroToolTip1
@@ -495,6 +516,17 @@
             this.image_academiaA3.TabIndex = 33;
             this.image_academiaA3.TabStop = false;
             this.metroToolTip1.SetToolTip(this.image_academiaA3, "Comprobando estado...");
+            // 
+            // image_aliveA3
+            // 
+            this.image_aliveA3.Image = global::_11thLauncher.Properties.Resources.unknown;
+            this.image_aliveA3.Location = new System.Drawing.Point(72, 82);
+            this.image_aliveA3.Name = "image_aliveA3";
+            this.image_aliveA3.Size = new System.Drawing.Size(20, 20);
+            this.image_aliveA3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.image_aliveA3.TabIndex = 34;
+            this.image_aliveA3.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.image_aliveA3, "Comprobando estado...");
             // 
             // metroStyleManager1
             // 
@@ -1237,7 +1269,7 @@
             this.metroTabControl1.Controls.Add(this.tabPage6);
             this.metroTabControl1.Location = new System.Drawing.Point(-4, 162);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(615, 323);
             this.metroTabControl1.TabIndex = 25;
             this.metroTabControl1.UseSelectable = true;
@@ -1245,11 +1277,259 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.picture_serverQuery);
+            this.tabPage1.Controls.Add(this.textBox_serverMods);
+            this.tabPage1.Controls.Add(this.textBox_serverVersion);
+            this.tabPage1.Controls.Add(this.listBox_serverPlayers);
+            this.tabPage1.Controls.Add(this.textBox_serverPlayers);
+            this.tabPage1.Controls.Add(this.textBox_serverPing);
+            this.tabPage1.Controls.Add(this.textBox_serverMap);
+            this.tabPage1.Controls.Add(this.textBox_serverDesc);
+            this.tabPage1.Controls.Add(this.textBox_serverName);
+            this.tabPage1.Controls.Add(this.button_serverStatus);
+            this.tabPage1.Controls.Add(this.combo_serversStatus);
+            this.tabPage1.Controls.Add(this.metroLabel4);
+            this.tabPage1.Controls.Add(this.metroLabel31);
+            this.tabPage1.Controls.Add(this.metroLabel15);
+            this.tabPage1.Controls.Add(this.metroLabel10);
+            this.tabPage1.Controls.Add(this.metroLabel9);
+            this.tabPage1.Controls.Add(this.metroLabel8);
+            this.tabPage1.Controls.Add(this.metroLabel7);
+            this.tabPage1.Controls.Add(this.metroLabel6);
             this.tabPage1.Location = new System.Drawing.Point(4, 38);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(607, 281);
             this.tabPage1.TabIndex = 6;
             this.tabPage1.Text = "Servidores";
+            // 
+            // picture_serverQuery
+            // 
+            this.picture_serverQuery.Image = global::_11thLauncher.Properties.Resources.info;
+            this.picture_serverQuery.Location = new System.Drawing.Point(549, 12);
+            this.picture_serverQuery.Name = "picture_serverQuery";
+            this.picture_serverQuery.Size = new System.Drawing.Size(32, 32);
+            this.picture_serverQuery.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picture_serverQuery.TabIndex = 80;
+            this.picture_serverQuery.TabStop = false;
+            // 
+            // textBox_serverMods
+            // 
+            this.textBox_serverMods.Lines = new string[0];
+            this.textBox_serverMods.Location = new System.Drawing.Point(84, 217);
+            this.textBox_serverMods.MaxLength = 32767;
+            this.textBox_serverMods.Multiline = true;
+            this.textBox_serverMods.Name = "textBox_serverMods";
+            this.textBox_serverMods.PasswordChar = '\0';
+            this.textBox_serverMods.ReadOnly = true;
+            this.textBox_serverMods.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.textBox_serverMods.SelectedText = "";
+            this.textBox_serverMods.Size = new System.Drawing.Size(497, 59);
+            this.textBox_serverMods.TabIndex = 79;
+            this.textBox_serverMods.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.textBox_serverMods.UseSelectable = true;
+            // 
+            // textBox_serverVersion
+            // 
+            this.textBox_serverVersion.Lines = new string[0];
+            this.textBox_serverVersion.Location = new System.Drawing.Point(84, 176);
+            this.textBox_serverVersion.MaxLength = 32767;
+            this.textBox_serverVersion.Name = "textBox_serverVersion";
+            this.textBox_serverVersion.PasswordChar = '\0';
+            this.textBox_serverVersion.ReadOnly = true;
+            this.textBox_serverVersion.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.textBox_serverVersion.SelectedText = "";
+            this.textBox_serverVersion.Size = new System.Drawing.Size(275, 23);
+            this.textBox_serverVersion.TabIndex = 75;
+            this.textBox_serverVersion.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.textBox_serverVersion.UseSelectable = true;
+            // 
+            // listBox_serverPlayers
+            // 
+            this.listBox_serverPlayers.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.listBox_serverPlayers.FormattingEnabled = true;
+            this.listBox_serverPlayers.Location = new System.Drawing.Point(371, 116);
+            this.listBox_serverPlayers.Name = "listBox_serverPlayers";
+            this.listBox_serverPlayers.ScrollAlwaysVisible = true;
+            this.listBox_serverPlayers.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBox_serverPlayers.Size = new System.Drawing.Size(210, 95);
+            this.listBox_serverPlayers.TabIndex = 73;
+            // 
+            // textBox_serverPlayers
+            // 
+            this.textBox_serverPlayers.Lines = new string[0];
+            this.textBox_serverPlayers.Location = new System.Drawing.Point(449, 85);
+            this.textBox_serverPlayers.MaxLength = 32767;
+            this.textBox_serverPlayers.Name = "textBox_serverPlayers";
+            this.textBox_serverPlayers.PasswordChar = '\0';
+            this.textBox_serverPlayers.ReadOnly = true;
+            this.textBox_serverPlayers.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.textBox_serverPlayers.SelectedText = "";
+            this.textBox_serverPlayers.Size = new System.Drawing.Size(132, 23);
+            this.textBox_serverPlayers.TabIndex = 72;
+            this.textBox_serverPlayers.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_serverPlayers.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.textBox_serverPlayers.UseSelectable = true;
+            // 
+            // textBox_serverPing
+            // 
+            this.textBox_serverPing.Lines = new string[0];
+            this.textBox_serverPing.Location = new System.Drawing.Point(84, 146);
+            this.textBox_serverPing.MaxLength = 32767;
+            this.textBox_serverPing.Name = "textBox_serverPing";
+            this.textBox_serverPing.PasswordChar = '\0';
+            this.textBox_serverPing.ReadOnly = true;
+            this.textBox_serverPing.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.textBox_serverPing.SelectedText = "";
+            this.textBox_serverPing.Size = new System.Drawing.Size(275, 23);
+            this.textBox_serverPing.TabIndex = 70;
+            this.textBox_serverPing.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.textBox_serverPing.UseSelectable = true;
+            // 
+            // textBox_serverMap
+            // 
+            this.textBox_serverMap.Lines = new string[0];
+            this.textBox_serverMap.Location = new System.Drawing.Point(84, 116);
+            this.textBox_serverMap.MaxLength = 32767;
+            this.textBox_serverMap.Name = "textBox_serverMap";
+            this.textBox_serverMap.PasswordChar = '\0';
+            this.textBox_serverMap.ReadOnly = true;
+            this.textBox_serverMap.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.textBox_serverMap.SelectedText = "";
+            this.textBox_serverMap.Size = new System.Drawing.Size(275, 23);
+            this.textBox_serverMap.TabIndex = 68;
+            this.textBox_serverMap.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.textBox_serverMap.UseSelectable = true;
+            // 
+            // textBox_serverDesc
+            // 
+            this.textBox_serverDesc.Lines = new string[0];
+            this.textBox_serverDesc.Location = new System.Drawing.Point(84, 85);
+            this.textBox_serverDesc.MaxLength = 32767;
+            this.textBox_serverDesc.Name = "textBox_serverDesc";
+            this.textBox_serverDesc.PasswordChar = '\0';
+            this.textBox_serverDesc.ReadOnly = true;
+            this.textBox_serverDesc.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.textBox_serverDesc.SelectedText = "";
+            this.textBox_serverDesc.Size = new System.Drawing.Size(275, 23);
+            this.textBox_serverDesc.TabIndex = 66;
+            this.textBox_serverDesc.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.textBox_serverDesc.UseSelectable = true;
+            // 
+            // textBox_serverName
+            // 
+            this.textBox_serverName.Lines = new string[0];
+            this.textBox_serverName.Location = new System.Drawing.Point(84, 53);
+            this.textBox_serverName.MaxLength = 32767;
+            this.textBox_serverName.Name = "textBox_serverName";
+            this.textBox_serverName.PasswordChar = '\0';
+            this.textBox_serverName.ReadOnly = true;
+            this.textBox_serverName.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.textBox_serverName.SelectedText = "";
+            this.textBox_serverName.Size = new System.Drawing.Size(497, 23);
+            this.textBox_serverName.TabIndex = 64;
+            this.textBox_serverName.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.textBox_serverName.UseSelectable = true;
+            // 
+            // button_serverStatus
+            // 
+            this.button_serverStatus.Location = new System.Drawing.Point(331, 13);
+            this.button_serverStatus.Name = "button_serverStatus";
+            this.button_serverStatus.Size = new System.Drawing.Size(210, 29);
+            this.button_serverStatus.Style = MetroFramework.MetroColorStyle.Red;
+            this.button_serverStatus.TabIndex = 54;
+            this.button_serverStatus.Text = "Mostrar/Actualizar estado";
+            this.button_serverStatus.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.button_serverStatus.UseSelectable = true;
+            this.button_serverStatus.Click += new System.EventHandler(this.button_serverStatus_Click);
+            // 
+            // combo_serversStatus
+            // 
+            this.combo_serversStatus.FontWeight = MetroFramework.MetroComboBoxWeight.Light;
+            this.combo_serversStatus.FormattingEnabled = true;
+            this.combo_serversStatus.ItemHeight = 23;
+            this.combo_serversStatus.Items.AddRange(new object[] {
+            "Cooperativo",
+            "Academia",
+            "ALiVE"});
+            this.combo_serversStatus.Location = new System.Drawing.Point(84, 13);
+            this.combo_serversStatus.Name = "combo_serversStatus";
+            this.combo_serversStatus.Size = new System.Drawing.Size(221, 29);
+            this.combo_serversStatus.TabIndex = 53;
+            this.combo_serversStatus.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.combo_serversStatus.UseSelectable = true;
+            // 
+            // metroLabel4
+            // 
+            this.metroLabel4.AutoSize = true;
+            this.metroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel4.Location = new System.Drawing.Point(6, 20);
+            this.metroLabel4.Name = "metroLabel4";
+            this.metroLabel4.Size = new System.Drawing.Size(68, 19);
+            this.metroLabel4.TabIndex = 22;
+            this.metroLabel4.Text = "Servidor";
+            // 
+            // metroLabel31
+            // 
+            this.metroLabel31.AutoSize = true;
+            this.metroLabel31.Location = new System.Drawing.Point(8, 222);
+            this.metroLabel31.Name = "metroLabel31";
+            this.metroLabel31.Size = new System.Drawing.Size(42, 19);
+            this.metroLabel31.TabIndex = 78;
+            this.metroLabel31.Text = "Mods";
+            // 
+            // metroLabel15
+            // 
+            this.metroLabel15.AutoSize = true;
+            this.metroLabel15.Location = new System.Drawing.Point(6, 177);
+            this.metroLabel15.Name = "metroLabel15";
+            this.metroLabel15.Size = new System.Drawing.Size(51, 19);
+            this.metroLabel15.TabIndex = 74;
+            this.metroLabel15.Text = "Versión";
+            // 
+            // metroLabel10
+            // 
+            this.metroLabel10.AutoSize = true;
+            this.metroLabel10.Location = new System.Drawing.Point(371, 85);
+            this.metroLabel10.Name = "metroLabel10";
+            this.metroLabel10.Size = new System.Drawing.Size(69, 19);
+            this.metroLabel10.TabIndex = 71;
+            this.metroLabel10.Text = "Jugadores";
+            // 
+            // metroLabel9
+            // 
+            this.metroLabel9.AutoSize = true;
+            this.metroLabel9.Location = new System.Drawing.Point(6, 146);
+            this.metroLabel9.Name = "metroLabel9";
+            this.metroLabel9.Size = new System.Drawing.Size(35, 19);
+            this.metroLabel9.TabIndex = 69;
+            this.metroLabel9.Text = "Ping";
+            // 
+            // metroLabel8
+            // 
+            this.metroLabel8.AutoSize = true;
+            this.metroLabel8.Location = new System.Drawing.Point(6, 116);
+            this.metroLabel8.Name = "metroLabel8";
+            this.metroLabel8.Size = new System.Drawing.Size(43, 19);
+            this.metroLabel8.TabIndex = 67;
+            this.metroLabel8.Text = "Mapa";
+            // 
+            // metroLabel7
+            // 
+            this.metroLabel7.AutoSize = true;
+            this.metroLabel7.Location = new System.Drawing.Point(6, 85);
+            this.metroLabel7.Name = "metroLabel7";
+            this.metroLabel7.Size = new System.Drawing.Size(47, 19);
+            this.metroLabel7.TabIndex = 65;
+            this.metroLabel7.Text = "Misión";
+            // 
+            // metroLabel6
+            // 
+            this.metroLabel6.AutoSize = true;
+            this.metroLabel6.Location = new System.Drawing.Point(6, 53);
+            this.metroLabel6.Name = "metroLabel6";
+            this.metroLabel6.Size = new System.Drawing.Size(59, 19);
+            this.metroLabel6.TabIndex = 55;
+            this.metroLabel6.Text = "Nombre";
             // 
             // tabPage6
             // 
@@ -1285,11 +1565,11 @@
             // metroLabel26
             // 
             this.metroLabel26.AutoSize = true;
-            this.metroLabel26.Location = new System.Drawing.Point(194, 37);
+            this.metroLabel26.Location = new System.Drawing.Point(213, 37);
             this.metroLabel26.Name = "metroLabel26";
-            this.metroLabel26.Size = new System.Drawing.Size(198, 19);
+            this.metroLabel26.Size = new System.Drawing.Size(146, 19);
             this.metroLabel26.TabIndex = 1;
-            this.metroLabel26.Text = "Versión 1.1 - 06/01/2015 - BETA 2";
+            this.metroLabel26.Text = "Versión 1.2 - 15/05/2015";
             // 
             // metroLabel23
             // 
@@ -1317,17 +1597,6 @@
             this.picture_logo.Size = new System.Drawing.Size(409, 157);
             this.picture_logo.TabIndex = 29;
             this.picture_logo.TabStop = false;
-            // 
-            // image_aliveA3
-            // 
-            this.image_aliveA3.Image = global::_11thLauncher.Properties.Resources.unknown;
-            this.image_aliveA3.Location = new System.Drawing.Point(72, 82);
-            this.image_aliveA3.Name = "image_aliveA3";
-            this.image_aliveA3.Size = new System.Drawing.Size(20, 20);
-            this.image_aliveA3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.image_aliveA3.TabIndex = 34;
-            this.image_aliveA3.TabStop = false;
-            this.metroToolTip1.SetToolTip(this.image_aliveA3, "Comprobando estado...");
             // 
             // Form1
             // 
@@ -1358,6 +1627,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.image_arma3HC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_coopA3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_academiaA3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
@@ -1374,11 +1644,13 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.metroTabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picture_serverQuery)).EndInit();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture_logo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1483,6 +1755,25 @@
         private System.Windows.Forms.PictureBox image_coopA3;
         private System.Windows.Forms.PictureBox image_academiaA3;
         private System.Windows.Forms.PictureBox image_aliveA3;
+        private MetroFramework.Controls.MetroLabel metroLabel6;
+        private MetroFramework.Controls.MetroLabel metroLabel7;
+        private MetroFramework.Controls.MetroLabel metroLabel8;
+        private MetroFramework.Controls.MetroLabel metroLabel9;
+        private MetroFramework.Controls.MetroLabel metroLabel10;
+        private MetroFramework.Controls.MetroLabel metroLabel15;
+        private MetroFramework.Controls.MetroLabel metroLabel31;
+        private MetroFramework.Controls.MetroLabel metroLabel4;
+        private MetroFramework.Controls.MetroComboBox combo_serversStatus;
+        private MetroFramework.Controls.MetroButton button_serverStatus;
+        private MetroFramework.Controls.MetroTextBox textBox_serverName;
+        private MetroFramework.Controls.MetroTextBox textBox_serverDesc;
+        private MetroFramework.Controls.MetroTextBox textBox_serverMap;
+        private MetroFramework.Controls.MetroTextBox textBox_serverPing;
+        private MetroFramework.Controls.MetroTextBox textBox_serverPlayers;
+        private System.Windows.Forms.ListBox listBox_serverPlayers;
+        private MetroFramework.Controls.MetroTextBox textBox_serverVersion;
+        private MetroFramework.Controls.MetroTextBox textBox_serverMods;
+        private System.Windows.Forms.PictureBox picture_serverQuery;
     }
 }
 

@@ -158,12 +158,13 @@ namespace _11thLauncher
             Util.minimizeNotification = this.radioButton_minimizeNotificationBar.Checked;
         }
 
+        //Server status
         private delegate void UpdateStatusCallback(int index);
         public void updateStatus(int index)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke((Delegate)new Form1.UpdateStatusCallback(this.updateStatus), (object)index);
+                this.Invoke(new UpdateStatusCallback(updateStatus), index);
             }
             else
             {
@@ -171,13 +172,47 @@ namespace _11thLauncher
                 if (Net.serversStatus[index])
                 {
                     pictureBoxArray[index].Image = global::_11thLauncher.Properties.Resources.on;
-                    this.metroToolTip1.SetToolTip((Control)pictureBoxArray[index], "Online");
+                    this.metroToolTip1.SetToolTip(pictureBoxArray[index], "Online");
                 }
                 else
                 {
                     pictureBoxArray[index].Image = global::_11thLauncher.Properties.Resources.off;
-                    this.metroToolTip1.SetToolTip((Control)pictureBoxArray[index], "Desconocido / Offline");
+                    this.metroToolTip1.SetToolTip(pictureBoxArray[index], "Desconocido / Offline");
                 }
+            }
+        }
+
+        //Server info
+        private delegate void ShowInfoCallback(int index);
+        public void showInfo(int index)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new ShowInfoCallback(showInfo),index);
+            }
+            else
+            {
+                this.textBox_serverName.Text = "";
+                this.textBox_serverDesc.Text = "";
+                this.textBox_serverPing.Text = "";
+                this.textBox_serverMap.Text = "";
+                this.textBox_serverPlayers.Text = "";
+                this.textBox_serverVersion.Text = "";
+                this.listBox_serverPlayers.Items.Clear();
+                this.textBox_serverMods.Text = "";
+                this.textBox_serverName.Text = Net.serverInfo[0];
+                this.textBox_serverDesc.Text = Net.serverInfo[1];
+                this.textBox_serverPing.Text = Net.serverInfo[2];
+                this.textBox_serverMap.Text = Net.serverInfo[3];
+                this.textBox_serverPlayers.Text = Net.serverInfo[4] + "/" + Net.serverInfo[5];
+                this.textBox_serverVersion.Text = Net.serverInfo[6];
+                foreach (object obj in Net.serverPlayers)
+                    this.listBox_serverPlayers.Items.Add(obj);
+                this.textBox_serverMods.Text = Net.serverMods;
+                if (Net.queryException)
+                    this.picture_serverQuery.Image = global::_11thLauncher.Properties.Resources.error;
+                else
+                    this.picture_serverQuery.Image = global::_11thLauncher.Properties.Resources.info;
             }
         }
 
@@ -654,6 +689,26 @@ namespace _11thLauncher
                 checkedListBox_arma3Addons.SetItemCheckState(i, CheckState.Unchecked);
             }
             arma3addons_allowCheck = false;
+        }
+
+        private void button_serverStatus_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = this.combo_serversStatus.SelectedIndex;
+
+            if (selectedIndex == -1) return;
+
+            this.textBox_serverName.Text = "";
+            this.textBox_serverDesc.Text = "";
+            this.textBox_serverPing.Text = "";
+            this.textBox_serverMap.Text = "";
+            this.textBox_serverPlayers.Text = "";
+            this.textBox_serverVersion.Text = "";
+            this.listBox_serverPlayers.Items.Clear();
+            this.textBox_serverMods.Text = "";
+            this.picture_serverQuery.Image = global::_11thLauncher.Properties.Resources.image_856487;
+
+            Net.queryException = false;
+            new Thread(new ParameterizedThreadStart(Net.queryServerInfo)).Start(selectedIndex);
         }
     }
 }

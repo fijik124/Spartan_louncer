@@ -116,7 +116,7 @@ namespace _11thLauncher
                 }
                 serverMods = mods;
 
-                //Program.form.showInfo(index);
+                Program.form.showInfo(index);
             }
             catch (SocketException) 
             {
@@ -124,7 +124,7 @@ namespace _11thLauncher
                 serverPlayers = new List<String>();
                 serverMods = "";
                 queryException = true;
-                //Program.form.showInfo(index);
+                Program.form.showInfo(index);
                 MetroFramework.MetroMessageBox.Show(Program.form, "Error de comunicación con el servidor seleccionado", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
