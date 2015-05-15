@@ -23,3 +23,7 @@ This is the 11th Marine Expeditionary Unit launcher
 ## Libraries
  * [MetroFramework] (http://thielj.github.io/MetroFramework/) 
  * [QueryMaster] (http://querymaster.codeplex.com/) 
+ 
+ 
+## Download
+1.2 DEV Version (build 15052015)[QueryMaster] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher120_dev15052015.zip) 
