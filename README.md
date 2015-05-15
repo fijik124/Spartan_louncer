@@ -9,3 +9,8 @@ This is the 11th Marine Expeditionary Unit launcher
 
 ## Authors
  * [Thrax](https://github.com/Thraxs/)
+
+ 
+## Libraries
+ * [MetroFramework] (http://thielj.github.io/MetroFramework/) 
+ * [QueryMaster] (http://querymaster.codeplex.com/) 

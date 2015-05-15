@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,6 +21,7 @@ namespace _11thLauncher
         {
             InitializeComponent();
             this.ActiveControl = this.picture_logo;
+            Program.form = this;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -86,6 +88,9 @@ namespace _11thLauncher
             //Set saved selected profile
             this.combo_profiles.SelectedIndex = this.combo_profiles.Items.IndexOf(Util.defaultProfile);
             this.Refresh();
+
+            //Check servers status
+            new Thread(new ThreadStart(Net.checkServers)).Start();
         }
 
         private void updateDisplay()
@@ -151,6 +156,29 @@ namespace _11thLauncher
             Util.startClose = this.radioButton_startClose.Checked;
             Util.startMinimize = this.radioButton_startMinimize.Checked;
             Util.minimizeNotification = this.radioButton_minimizeNotificationBar.Checked;
+        }
+
+        private delegate void UpdateStatusCallback(int index);
+        public void updateStatus(int index)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((Delegate)new Form1.UpdateStatusCallback(this.updateStatus), (object)index);
+            }
+            else
+            {
+                PictureBox[] pictureBoxArray = new PictureBox[3] { image_coopA3, image_academiaA3, image_aliveA3 };
+                if (Net.serversStatus[index])
+                {
+                    pictureBoxArray[index].Image = global::_11thLauncher.Properties.Resources.on;
+                    this.metroToolTip1.SetToolTip((Control)pictureBoxArray[index], "Online");
+                }
+                else
+                {
+                    pictureBoxArray[index].Image = global::_11thLauncher.Properties.Resources.off;
+                    this.metroToolTip1.SetToolTip((Control)pictureBoxArray[index], "Desconocido / Offline");
+                }
+            }
         }
 
         //-----------------------------------------------

@@ -47,7 +47,7 @@ namespace _11thLauncher
                 {
                     serversStatus[i] = false;
                 }
-                //Program.form.updateStatus(i);
+                Program.form.updateStatus(i);
 			}
         }
 

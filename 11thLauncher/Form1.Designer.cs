@@ -58,6 +58,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button_arma3HC = new MetroFramework.Controls.MetroButton();
             this.image_arma3HC = new System.Windows.Forms.PictureBox();
+            this.image_coopA3 = new System.Windows.Forms.PictureBox();
+            this.image_academiaA3 = new System.Windows.Forms.PictureBox();
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
             this.combo_profiles = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
@@ -116,6 +118,7 @@
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.textBox_parameters = new MetroFramework.Controls.MetroTextBox();
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.metroLabel27 = new MetroFramework.Controls.MetroLabel();
@@ -123,10 +126,13 @@
             this.metroLabel23 = new MetroFramework.Controls.MetroLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.picture_logo = new System.Windows.Forms.PictureBox();
+            this.image_aliveA3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.image_arma3MP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_arma3SP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_arma3HC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_coopA3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_academiaA3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.metroPanel3.SuspendLayout();
@@ -139,6 +145,7 @@
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture_logo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).BeginInit();
             this.SuspendLayout();
             // 
             // metroToolTip1
@@ -467,6 +474,28 @@
             this.metroToolTip1.SetToolTip(this.image_arma3HC, "   Click para copiar la línea de inicio al portapapeles   ");
             this.image_arma3HC.Click += new System.EventHandler(this.image_arma3HC_Click);
             // 
+            // image_coopA3
+            // 
+            this.image_coopA3.Image = global::_11thLauncher.Properties.Resources.unknown;
+            this.image_coopA3.Location = new System.Drawing.Point(72, 17);
+            this.image_coopA3.Name = "image_coopA3";
+            this.image_coopA3.Size = new System.Drawing.Size(20, 20);
+            this.image_coopA3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.image_coopA3.TabIndex = 32;
+            this.image_coopA3.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.image_coopA3, "Comprobando estado...");
+            // 
+            // image_academiaA3
+            // 
+            this.image_academiaA3.Image = global::_11thLauncher.Properties.Resources.unknown;
+            this.image_academiaA3.Location = new System.Drawing.Point(72, 50);
+            this.image_academiaA3.Name = "image_academiaA3";
+            this.image_academiaA3.Size = new System.Drawing.Size(20, 20);
+            this.image_academiaA3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.image_academiaA3.TabIndex = 33;
+            this.image_academiaA3.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.image_academiaA3, "Comprobando estado...");
+            // 
             // metroStyleManager1
             // 
             this.metroStyleManager1.Owner = this;
@@ -506,7 +535,7 @@
             this.tabPage4.Controls.Add(this.metroLabel14);
             this.tabPage4.Location = new System.Drawing.Point(4, 38);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(607, 275);
+            this.tabPage4.Size = new System.Drawing.Size(607, 281);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = " Opciones";
             // 
@@ -846,6 +875,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.image_aliveA3);
+            this.groupBox1.Controls.Add(this.image_academiaA3);
+            this.groupBox1.Controls.Add(this.image_coopA3);
             this.groupBox1.Controls.Add(this.metroLabel3);
             this.groupBox1.Controls.Add(this.button_IFA3);
             this.groupBox1.Controls.Add(this.button_aliveA3);
@@ -969,7 +1001,7 @@
             this.tabPage5.Controls.Add(this.button_deleteProfile);
             this.tabPage5.Location = new System.Drawing.Point(4, 38);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(607, 275);
+            this.tabPage5.Size = new System.Drawing.Size(607, 281);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = " Perfiles";
             // 
@@ -1073,7 +1105,7 @@
             this.tabPage3.Controls.Add(this.check_noPatching);
             this.tabPage3.Location = new System.Drawing.Point(4, 38);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(607, 275);
+            this.tabPage3.Size = new System.Drawing.Size(607, 281);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = " Parámetros";
             // 
@@ -1198,6 +1230,7 @@
             // metroTabControl1
             // 
             this.metroTabControl1.Controls.Add(this.tabPage2);
+            this.metroTabControl1.Controls.Add(this.tabPage1);
             this.metroTabControl1.Controls.Add(this.tabPage3);
             this.metroTabControl1.Controls.Add(this.tabPage5);
             this.metroTabControl1.Controls.Add(this.tabPage4);
@@ -1209,6 +1242,15 @@
             this.metroTabControl1.TabIndex = 25;
             this.metroTabControl1.UseSelectable = true;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Location = new System.Drawing.Point(4, 38);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(607, 281);
+            this.tabPage1.TabIndex = 6;
+            this.tabPage1.Text = "Servidores";
+            // 
             // tabPage6
             // 
             this.tabPage6.BackColor = System.Drawing.Color.White;
@@ -1218,7 +1260,7 @@
             this.tabPage6.Controls.Add(this.metroLabel23);
             this.tabPage6.Location = new System.Drawing.Point(4, 38);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(607, 275);
+            this.tabPage6.Size = new System.Drawing.Size(607, 281);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = " Acerca de";
             // 
@@ -1276,6 +1318,17 @@
             this.picture_logo.TabIndex = 29;
             this.picture_logo.TabStop = false;
             // 
+            // image_aliveA3
+            // 
+            this.image_aliveA3.Image = global::_11thLauncher.Properties.Resources.unknown;
+            this.image_aliveA3.Location = new System.Drawing.Point(72, 82);
+            this.image_aliveA3.Name = "image_aliveA3";
+            this.image_aliveA3.Size = new System.Drawing.Size(20, 20);
+            this.image_aliveA3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.image_aliveA3.TabIndex = 34;
+            this.image_aliveA3.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.image_aliveA3, "Comprobando estado...");
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1303,6 +1356,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.image_arma3SP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_arma3HC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_coopA3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_academiaA3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
@@ -1323,6 +1378,7 @@
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture_logo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1423,6 +1479,10 @@
         private System.Windows.Forms.PictureBox image_arma3HC;
         private MetroFramework.Controls.MetroLabel metroLabel3;
         private MetroFramework.Controls.MetroButton button_IFA3;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.PictureBox image_coopA3;
+        private System.Windows.Forms.PictureBox image_academiaA3;
+        private System.Windows.Forms.PictureBox image_aliveA3;
     }
 }
 
