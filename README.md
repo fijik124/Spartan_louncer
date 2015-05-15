@@ -26,4 +26,4 @@ This is the 11th Marine Expeditionary Unit launcher
  
  
 ## Download
-1.2 DEV Version (build 15052015)[QueryMaster] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher120_dev15052015.zip) 
+1.2 DEV Version (build 15052015) - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher120_dev15052015.zip) 
