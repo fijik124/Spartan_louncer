@@ -116,8 +116,6 @@
     <None Include="Resources\error.gif" />
     <None Include="Resources\image_856487.gif" />
     <None Include="Resources\off.png" />
-    <None Include="Resources\CBA-Logo.png" />
-    <None Include="Resources\ACE3-Logo.png" />
     <None Include="Resources\on.png" />
     <None Include="Resources\unknown.png" />
     <None Include="Resources\icon.png" />

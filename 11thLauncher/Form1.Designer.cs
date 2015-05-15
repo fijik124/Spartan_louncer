@@ -54,6 +54,13 @@
             this.check_videoMemory = new MetroFramework.Controls.MetroCheckBox();
             this.check_HT = new MetroFramework.Controls.MetroCheckBox();
             this.button_arma3HC = new MetroFramework.Controls.MetroButton();
+            this.image_arma3HC = new System.Windows.Forms.PictureBox();
+            this.image_aliveA3 = new System.Windows.Forms.PictureBox();
+            this.image_academiaA3 = new System.Windows.Forms.PictureBox();
+            this.image_coopA3 = new System.Windows.Forms.PictureBox();
+            this.image_arma3MP = new System.Windows.Forms.PictureBox();
+            this.image_arma3SP = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
             this.combo_profiles = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
@@ -113,6 +120,7 @@
             this.textBox_parameters = new MetroFramework.Controls.MetroTextBox();
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.picture_serverQuery = new System.Windows.Forms.PictureBox();
             this.textBox_serverMods = new MetroFramework.Controls.MetroTextBox();
             this.textBox_serverVersion = new MetroFramework.Controls.MetroTextBox();
             this.listBox_serverPlayers = new System.Windows.Forms.ListBox();
@@ -132,20 +140,19 @@
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.metroLabel27 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel26 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel23 = new MetroFramework.Controls.MetroLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.picture_logo = new System.Windows.Forms.PictureBox();
-            this.image_arma3HC = new System.Windows.Forms.PictureBox();
-            this.image_aliveA3 = new System.Windows.Forms.PictureBox();
-            this.image_academiaA3 = new System.Windows.Forms.PictureBox();
-            this.image_coopA3 = new System.Windows.Forms.PictureBox();
-            this.image_arma3MP = new System.Windows.Forms.PictureBox();
-            this.image_arma3SP = new System.Windows.Forms.PictureBox();
-            this.picture_serverQuery = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.image_arma3HC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_academiaA3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_coopA3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_arma3MP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_arma3SP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.metroPanel3.SuspendLayout();
@@ -156,17 +163,10 @@
             this.tabPage3.SuspendLayout();
             this.metroTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_logo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_arma3HC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_academiaA3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_coopA3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_arma3MP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_arma3SP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture_serverQuery)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picture_logo)).BeginInit();
             this.SuspendLayout();
             // 
             // metroToolTip1
@@ -370,11 +370,11 @@
             // 
             // button_arma3MP
             // 
-            this.button_arma3MP.Location = new System.Drawing.Point(256, 82);
+            this.button_arma3MP.Location = new System.Drawing.Point(250, 82);
             this.button_arma3MP.Name = "button_arma3MP";
-            this.button_arma3MP.Size = new System.Drawing.Size(119, 45);
+            this.button_arma3MP.Size = new System.Drawing.Size(125, 45);
             this.button_arma3MP.TabIndex = 43;
-            this.button_arma3MP.Text = "Iniciar multijugador";
+            this.button_arma3MP.Text = "Unirse a multijugador";
             this.metroToolTip1.SetToolTip(this.button_arma3MP, "     Iniciar ArmA 3 con la configuración actual y unirse al servidor indicado    " +
         " ");
             this.button_arma3MP.UseSelectable = true;
@@ -382,9 +382,9 @@
             // 
             // button_arma3SP
             // 
-            this.button_arma3SP.Location = new System.Drawing.Point(256, 26);
+            this.button_arma3SP.Location = new System.Drawing.Point(250, 26);
             this.button_arma3SP.Name = "button_arma3SP";
-            this.button_arma3SP.Size = new System.Drawing.Size(119, 45);
+            this.button_arma3SP.Size = new System.Drawing.Size(125, 45);
             this.button_arma3SP.TabIndex = 42;
             this.button_arma3SP.Text = "Iniciar ArmA 3";
             this.metroToolTip1.SetToolTip(this.button_arma3SP, "   Iniciar ArmA 3 con la configuración actual   ");
@@ -440,14 +440,93 @@
             // 
             // button_arma3HC
             // 
-            this.button_arma3HC.Location = new System.Drawing.Point(256, 138);
+            this.button_arma3HC.Location = new System.Drawing.Point(250, 138);
             this.button_arma3HC.Name = "button_arma3HC";
-            this.button_arma3HC.Size = new System.Drawing.Size(119, 45);
+            this.button_arma3HC.Size = new System.Drawing.Size(125, 45);
             this.button_arma3HC.TabIndex = 58;
             this.button_arma3HC.Text = "Iniciar headless client";
             this.metroToolTip1.SetToolTip(this.button_arma3HC, "     Iniciar ArmA 3 como cliente sin cabeza uniendose al servidor indicado     ");
             this.button_arma3HC.UseSelectable = true;
             this.button_arma3HC.Click += new System.EventHandler(this.button_arma3HC_Click);
+            // 
+            // image_arma3HC
+            // 
+            this.image_arma3HC.Image = global::_11thLauncher.Properties.Resources.clip;
+            this.image_arma3HC.Location = new System.Drawing.Point(375, 148);
+            this.image_arma3HC.Name = "image_arma3HC";
+            this.image_arma3HC.Size = new System.Drawing.Size(25, 22);
+            this.image_arma3HC.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.image_arma3HC.TabIndex = 59;
+            this.image_arma3HC.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.image_arma3HC, "   Click para copiar la línea de inicio al portapapeles   ");
+            this.image_arma3HC.Click += new System.EventHandler(this.image_arma3HC_Click);
+            // 
+            // image_aliveA3
+            // 
+            this.image_aliveA3.Image = global::_11thLauncher.Properties.Resources.unknown;
+            this.image_aliveA3.Location = new System.Drawing.Point(72, 82);
+            this.image_aliveA3.Name = "image_aliveA3";
+            this.image_aliveA3.Size = new System.Drawing.Size(20, 20);
+            this.image_aliveA3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.image_aliveA3.TabIndex = 34;
+            this.image_aliveA3.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.image_aliveA3, "Comprobando estado...");
+            // 
+            // image_academiaA3
+            // 
+            this.image_academiaA3.Image = global::_11thLauncher.Properties.Resources.unknown;
+            this.image_academiaA3.Location = new System.Drawing.Point(72, 50);
+            this.image_academiaA3.Name = "image_academiaA3";
+            this.image_academiaA3.Size = new System.Drawing.Size(20, 20);
+            this.image_academiaA3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.image_academiaA3.TabIndex = 33;
+            this.image_academiaA3.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.image_academiaA3, "Comprobando estado...");
+            // 
+            // image_coopA3
+            // 
+            this.image_coopA3.Image = global::_11thLauncher.Properties.Resources.unknown;
+            this.image_coopA3.Location = new System.Drawing.Point(72, 17);
+            this.image_coopA3.Name = "image_coopA3";
+            this.image_coopA3.Size = new System.Drawing.Size(20, 20);
+            this.image_coopA3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.image_coopA3.TabIndex = 32;
+            this.image_coopA3.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.image_coopA3, "Comprobando estado...");
+            // 
+            // image_arma3MP
+            // 
+            this.image_arma3MP.Image = global::_11thLauncher.Properties.Resources.clip;
+            this.image_arma3MP.Location = new System.Drawing.Point(375, 92);
+            this.image_arma3MP.Name = "image_arma3MP";
+            this.image_arma3MP.Size = new System.Drawing.Size(25, 22);
+            this.image_arma3MP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.image_arma3MP.TabIndex = 51;
+            this.image_arma3MP.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.image_arma3MP, "   Click para copiar la línea de inicio al portapapeles   ");
+            this.image_arma3MP.Click += new System.EventHandler(this.image_arma3MP_Click);
+            // 
+            // image_arma3SP
+            // 
+            this.image_arma3SP.Image = global::_11thLauncher.Properties.Resources.clip;
+            this.image_arma3SP.Location = new System.Drawing.Point(375, 40);
+            this.image_arma3SP.Name = "image_arma3SP";
+            this.image_arma3SP.Size = new System.Drawing.Size(25, 22);
+            this.image_arma3SP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.image_arma3SP.TabIndex = 46;
+            this.image_arma3SP.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.image_arma3SP, "   Click para copiar la línea de inicio al portapapeles   ");
+            this.image_arma3SP.Click += new System.EventHandler(this.image_arma3SP_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::_11thLauncher.Properties.Resources.icon;
+            this.pictureBox1.Location = new System.Drawing.Point(322, 218);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(17, 17);
+            this.pictureBox1.TabIndex = 76;
+            this.pictureBox1.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.pictureBox1, "  Solo disponible en CPU\'s Intel a partir de Pentium 4  ");
             // 
             // metroStyleManager1
             // 
@@ -1223,6 +1302,16 @@
             this.tabPage1.TabIndex = 6;
             this.tabPage1.Text = "Servidores";
             // 
+            // picture_serverQuery
+            // 
+            this.picture_serverQuery.Image = global::_11thLauncher.Properties.Resources.info;
+            this.picture_serverQuery.Location = new System.Drawing.Point(561, 12);
+            this.picture_serverQuery.Name = "picture_serverQuery";
+            this.picture_serverQuery.Size = new System.Drawing.Size(32, 32);
+            this.picture_serverQuery.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picture_serverQuery.TabIndex = 80;
+            this.picture_serverQuery.TabStop = false;
+            // 
             // textBox_serverMods
             // 
             this.textBox_serverMods.Lines = new string[0];
@@ -1455,6 +1544,15 @@
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = " Acerca de";
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::_11thLauncher.Properties.Resources.dashboard;
+            this.pictureBox3.Location = new System.Drawing.Point(8, 93);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(591, 179);
+            this.pictureBox3.TabIndex = 7;
+            this.pictureBox3.TabStop = false;
+            // 
             // metroLabel27
             // 
             this.metroLabel27.AutoSize = true;
@@ -1500,104 +1598,6 @@
             this.picture_logo.TabIndex = 29;
             this.picture_logo.TabStop = false;
             // 
-            // image_arma3HC
-            // 
-            this.image_arma3HC.Image = global::_11thLauncher.Properties.Resources.clip;
-            this.image_arma3HC.Location = new System.Drawing.Point(375, 148);
-            this.image_arma3HC.Name = "image_arma3HC";
-            this.image_arma3HC.Size = new System.Drawing.Size(25, 22);
-            this.image_arma3HC.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.image_arma3HC.TabIndex = 59;
-            this.image_arma3HC.TabStop = false;
-            this.metroToolTip1.SetToolTip(this.image_arma3HC, "   Click para copiar la línea de inicio al portapapeles   ");
-            this.image_arma3HC.Click += new System.EventHandler(this.image_arma3HC_Click);
-            // 
-            // image_aliveA3
-            // 
-            this.image_aliveA3.Image = global::_11thLauncher.Properties.Resources.unknown;
-            this.image_aliveA3.Location = new System.Drawing.Point(72, 82);
-            this.image_aliveA3.Name = "image_aliveA3";
-            this.image_aliveA3.Size = new System.Drawing.Size(20, 20);
-            this.image_aliveA3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.image_aliveA3.TabIndex = 34;
-            this.image_aliveA3.TabStop = false;
-            this.metroToolTip1.SetToolTip(this.image_aliveA3, "Comprobando estado...");
-            // 
-            // image_academiaA3
-            // 
-            this.image_academiaA3.Image = global::_11thLauncher.Properties.Resources.unknown;
-            this.image_academiaA3.Location = new System.Drawing.Point(72, 50);
-            this.image_academiaA3.Name = "image_academiaA3";
-            this.image_academiaA3.Size = new System.Drawing.Size(20, 20);
-            this.image_academiaA3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.image_academiaA3.TabIndex = 33;
-            this.image_academiaA3.TabStop = false;
-            this.metroToolTip1.SetToolTip(this.image_academiaA3, "Comprobando estado...");
-            // 
-            // image_coopA3
-            // 
-            this.image_coopA3.Image = global::_11thLauncher.Properties.Resources.unknown;
-            this.image_coopA3.Location = new System.Drawing.Point(72, 17);
-            this.image_coopA3.Name = "image_coopA3";
-            this.image_coopA3.Size = new System.Drawing.Size(20, 20);
-            this.image_coopA3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.image_coopA3.TabIndex = 32;
-            this.image_coopA3.TabStop = false;
-            this.metroToolTip1.SetToolTip(this.image_coopA3, "Comprobando estado...");
-            // 
-            // image_arma3MP
-            // 
-            this.image_arma3MP.Image = global::_11thLauncher.Properties.Resources.clip;
-            this.image_arma3MP.Location = new System.Drawing.Point(375, 92);
-            this.image_arma3MP.Name = "image_arma3MP";
-            this.image_arma3MP.Size = new System.Drawing.Size(25, 22);
-            this.image_arma3MP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.image_arma3MP.TabIndex = 51;
-            this.image_arma3MP.TabStop = false;
-            this.metroToolTip1.SetToolTip(this.image_arma3MP, "   Click para copiar la línea de inicio al portapapeles   ");
-            this.image_arma3MP.Click += new System.EventHandler(this.image_arma3MP_Click);
-            // 
-            // image_arma3SP
-            // 
-            this.image_arma3SP.Image = global::_11thLauncher.Properties.Resources.clip;
-            this.image_arma3SP.Location = new System.Drawing.Point(375, 40);
-            this.image_arma3SP.Name = "image_arma3SP";
-            this.image_arma3SP.Size = new System.Drawing.Size(25, 22);
-            this.image_arma3SP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.image_arma3SP.TabIndex = 46;
-            this.image_arma3SP.TabStop = false;
-            this.metroToolTip1.SetToolTip(this.image_arma3SP, "   Click para copiar la línea de inicio al portapapeles   ");
-            this.image_arma3SP.Click += new System.EventHandler(this.image_arma3SP_Click);
-            // 
-            // picture_serverQuery
-            // 
-            this.picture_serverQuery.Image = global::_11thLauncher.Properties.Resources.info;
-            this.picture_serverQuery.Location = new System.Drawing.Point(561, 12);
-            this.picture_serverQuery.Name = "picture_serverQuery";
-            this.picture_serverQuery.Size = new System.Drawing.Size(32, 32);
-            this.picture_serverQuery.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picture_serverQuery.TabIndex = 80;
-            this.picture_serverQuery.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::_11thLauncher.Properties.Resources.icon;
-            this.pictureBox1.Location = new System.Drawing.Point(322, 218);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(17, 17);
-            this.pictureBox1.TabIndex = 76;
-            this.pictureBox1.TabStop = false;
-            this.metroToolTip1.SetToolTip(this.pictureBox1, "  Solo disponible en CPU\'s Intel a partir de Pentium 4  ");
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::_11thLauncher.Properties.Resources.dashboard;
-            this.pictureBox3.Location = new System.Drawing.Point(8, 93);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(591, 179);
-            this.pictureBox3.TabIndex = 7;
-            this.pictureBox3.TabStop = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1621,6 +1621,13 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.Resize += new System.EventHandler(this.Form1_Resize);
+            ((System.ComponentModel.ISupportInitialize)(this.image_arma3HC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_academiaA3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_coopA3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_arma3MP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image_arma3SP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
@@ -1639,18 +1646,11 @@
             this.metroTabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picture_serverQuery)).EndInit();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_logo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_arma3HC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_academiaA3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_coopA3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_arma3MP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.image_arma3SP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_serverQuery)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picture_logo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

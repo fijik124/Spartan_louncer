@@ -547,5 +547,11 @@ namespace _11thLauncher
 
             return path + " " + launchParams;
         }
+
+        //Handle a unhandled exception
+        public static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            MetroFramework.MetroMessageBox.Show(Program.form, e.ExceptionObject.ToString(), "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

@@ -27,6 +27,9 @@ namespace _11thLauncher
         private void Form1_Load(object sender, EventArgs e)
         {
             this.initialize();
+
+            //Unhandled exceptions handler
+            AppDomain.CurrentDomain.UnhandledException += Util.CurrentDomainUnhandledException;
         }
 
         private void initialize()
@@ -690,7 +693,6 @@ namespace _11thLauncher
             }
             arma3addons_allowCheck = false;
         }
-
         private void button_serverStatus_Click(object sender, EventArgs e)
         {
             int selectedIndex = this.combo_serversStatus.SelectedIndex;

@@ -51,6 +51,7 @@ namespace _11thLauncher
 			}
         }
 
+        //Query the server with the given index
         public static void queryServerInfo(object input)
         {
             int index = (int)input;
