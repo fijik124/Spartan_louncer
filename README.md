@@ -8,11 +8,13 @@ This is the 11th Marine Expeditionary Unit launcher
 
 
 ## Screenshots
-<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/cap1.png" width="250px" />
+<p align="center">
+	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/capture1.png" width="250px" />
 
-<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/cap2.png" width="250px" />
+	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/capture2.png" width="250px" />
 
-<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/cap3.png" width="250px" />
+	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/capture3.png" width="250px" />
+</p>
 
 ## Authors
  * [Thrax](https://github.com/Thraxs/)
