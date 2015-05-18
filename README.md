@@ -27,7 +27,7 @@ This is the 11th Marine Expeditionary Unit launcher
  
 ## Download
 1.2 Stable Version (build 18052015)
-<p><b>File</b>: [11thLauncher120_stable.zip] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher120_stable.zip)</p>
+<p><b>File</b>:</p> [11thLauncher120_stable.zip] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher120_stable.zip)
 <p><b>CRC-32</b>: 65052ea6</p>
 <p><b>MD4</b>: cd65c5d6be186f25a6cf39dda34cfc87</p>
 <p><b>MD5</b>: 9875e70c238fa92842789bd4ed6ddad8</p>
