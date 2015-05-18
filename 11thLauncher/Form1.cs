@@ -309,24 +309,33 @@ namespace _11thLauncher
                 case 0:
                     foreach (String addon in normal)
                     {
-                        int index = checkedListBox_arma3Addons.Items.Add(addon);
-                        checkedListBox_arma3Addons.SetItemChecked(index, true);
+                        if (Util.arma3AddonsList.Contains(addon))
+                        {
+                            int index = checkedListBox_arma3Addons.Items.Add(addon);
+                            checkedListBox_arma3Addons.SetItemChecked(index, true);
+                        }
                     }
                     break;
                 //ALiVE
                 case 1:
                     foreach (String addon in alive)
                     {
-                        int index = checkedListBox_arma3Addons.Items.Add(addon);
-                        checkedListBox_arma3Addons.SetItemChecked(index, true);
+                        if (Util.arma3AddonsList.Contains(addon))
+                        {
+                            int index = checkedListBox_arma3Addons.Items.Add(addon);
+                            checkedListBox_arma3Addons.SetItemChecked(index, true);
+                        }
                     }
                     break;
                 //Iron Front
                 case 2:
                     foreach (String addon in ironFront)
                     {
-                        int index = checkedListBox_arma3Addons.Items.Add(addon);
-                        checkedListBox_arma3Addons.SetItemChecked(index, true);
+                        if (Util.arma3AddonsList.Contains(addon))
+                        {
+                            int index = checkedListBox_arma3Addons.Items.Add(addon);
+                            checkedListBox_arma3Addons.SetItemChecked(index, true);
+                        }
                     }
                     break;
                 default:
@@ -405,7 +414,10 @@ namespace _11thLauncher
             foreach (String addon in Util.arma3AddonsList)
             {
                 int index = checkedListBox_arma3Addons.Items.Add(addon);
-                checkedListBox_arma3Addons.SetItemChecked(index, Util.tryParse(Util.arma3Addons[addon],false));
+                if (Util.arma3Addons.ContainsKey(addon))
+                {
+                    checkedListBox_arma3Addons.SetItemChecked(index, Util.tryParse(Util.arma3Addons[addon], false));
+                }
             }
         }
 

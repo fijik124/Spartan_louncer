@@ -1569,7 +1569,7 @@
             this.metroLabel26.Name = "metroLabel26";
             this.metroLabel26.Size = new System.Drawing.Size(146, 19);
             this.metroLabel26.TabIndex = 1;
-            this.metroLabel26.Text = "Versión 1.2 - 15/05/2015";
+            this.metroLabel26.Text = "Versión 1.2 - 18/05/2015";
             // 
             // metroLabel23
             // 
