@@ -6,17 +6,20 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using MetroFramework.Forms;
 
 namespace _11thLauncher
 {
     public partial class Form1 : Form
     {
+        [DllImport("user32.dll")]
+        private static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+
         public Form1()
         {
             InitializeComponent();
@@ -294,9 +297,8 @@ namespace _11thLauncher
         bool arma3addons_allowCheck { get; set; }
         private void combo_arma3addons_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<String> normal = new List<String>(new String[] { "@CBA", "@TFAR", "@11th_armas", "@11th_facciones", "@11th_fx", "@11th_islas", "@11th_luz", "@11th_misc", "@11th_sonido", "@11th_vehiculos", "@AGM", "@CSE" });
-            List<String> alive = new List<String>(new String[] { "@CBA", "@TFAR", "@11th_armas", "@11th_facciones", "@11th_fx", "@11th_islas", "@11th_luz", "@11th_misc", "@11th_sonido", "@11th_vehiculos", "@AGM", "@CSE", "@ALiVE" });
-            List<String> ironFront = new List<String>(new String[] { "@CBA", "@LIB_DLC_1", "@IF_other_addons", "@IF", "@IFA3SA", "@IFA3M", "@IFA3", "@TFAR", "@11th_armas", "@11th_misc", "@AGM", "@CSE" });
+            List<String> normal = new List<String>(new String[] { "@cba", "@ace", "@tfar", "@meu", "@meu_maps", "@fx", "@jsrs" });
+            List<String> alive = new List<String>(new String[] { "@cba", "@ace", "@tfar", "@meu", "@meu_maps", "@fx", "@jsrs", "@alive" });
 
             arma3addons_allowCheck = true;
 
@@ -319,17 +321,6 @@ namespace _11thLauncher
                 //ALiVE
                 case 1:
                     foreach (String addon in alive)
-                    {
-                        if (Util.arma3AddonsList.Contains(addon))
-                        {
-                            int index = checkedListBox_arma3Addons.Items.Add(addon);
-                            checkedListBox_arma3Addons.SetItemChecked(index, true);
-                        }
-                    }
-                    break;
-                //Iron Front
-                case 2:
-                    foreach (String addon in ironFront)
                     {
                         if (Util.arma3AddonsList.Contains(addon))
                         {
@@ -390,6 +381,21 @@ namespace _11thLauncher
         private void checkedListBox_arma3Addons_DragOver(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
+
+            const Single scrollRegion = 20;
+
+            Point pt =  checkedListBox_arma3Addons.PointToClient(Cursor.Position);
+
+            if ((pt.Y + scrollRegion) > checkedListBox_arma3Addons.Height)
+            {
+                //Scroll down
+                SendMessage(checkedListBox_arma3Addons.Handle, (int)277, (int)1, 0);
+            }
+            else if (pt.Y < scrollRegion)
+            {
+                //Scroll up
+                SendMessage(checkedListBox_arma3Addons.Handle, (int)277, (int)0, 0);
+            }
         }
         private void checkedListBox_arma3Addons_DragDrop(object sender, DragEventArgs e)
         {

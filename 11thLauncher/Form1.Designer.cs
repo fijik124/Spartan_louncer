@@ -93,8 +93,6 @@
             this.metroLabel19 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel20 = new MetroFramework.Controls.MetroLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
-            this.button_IFA3 = new MetroFramework.Controls.MetroButton();
             this.button_aliveA3 = new MetroFramework.Controls.MetroButton();
             this.metroLabel29 = new MetroFramework.Controls.MetroLabel();
             this.button_academiaA3 = new MetroFramework.Controls.MetroButton();
@@ -817,8 +815,7 @@
             this.combo_arma3addons.ItemHeight = 23;
             this.combo_arma3addons.Items.AddRange(new object[] {
             "Guerra moderna",
-            "Guerra moderna [ALiVE]",
-            "2ª Guerra Mundial [IFA3]"});
+            "Guerra moderna [ALiVE]"});
             this.combo_arma3addons.Location = new System.Drawing.Point(10, 26);
             this.combo_arma3addons.Name = "combo_arma3addons";
             this.combo_arma3addons.Size = new System.Drawing.Size(221, 29);
@@ -910,8 +907,6 @@
             this.groupBox1.Controls.Add(this.image_aliveA3);
             this.groupBox1.Controls.Add(this.image_academiaA3);
             this.groupBox1.Controls.Add(this.image_coopA3);
-            this.groupBox1.Controls.Add(this.metroLabel3);
-            this.groupBox1.Controls.Add(this.button_IFA3);
             this.groupBox1.Controls.Add(this.button_aliveA3);
             this.groupBox1.Controls.Add(this.metroLabel29);
             this.groupBox1.Controls.Add(this.button_academiaA3);
@@ -920,31 +915,10 @@
             this.groupBox1.Controls.Add(this.metroLabel25);
             this.groupBox1.Location = new System.Drawing.Point(424, 26);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(173, 144);
+            this.groupBox1.Size = new System.Drawing.Size(173, 113);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Servidores de la comunidad";
-            // 
-            // metroLabel3
-            // 
-            this.metroLabel3.AutoSize = true;
-            this.metroLabel3.FontSize = MetroFramework.MetroLabelSize.Small;
-            this.metroLabel3.Location = new System.Drawing.Point(14, 117);
-            this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(61, 15);
-            this.metroLabel3.TabIndex = 31;
-            this.metroLabel3.Text = "Iront Front";
-            // 
-            // button_IFA3
-            // 
-            this.button_IFA3.Enabled = false;
-            this.button_IFA3.Location = new System.Drawing.Point(95, 111);
-            this.button_IFA3.Name = "button_IFA3";
-            this.button_IFA3.Size = new System.Drawing.Size(72, 26);
-            this.button_IFA3.TabIndex = 30;
-            this.button_IFA3.Text = "N/A";
-            this.button_IFA3.UseSelectable = true;
-            this.button_IFA3.Click += new System.EventHandler(this.button_IFA3_Click);
             // 
             // button_aliveA3
             // 
@@ -1749,8 +1723,6 @@
         private MetroFramework.Controls.MetroLabel label_selectAll;
         private MetroFramework.Controls.MetroButton button_arma3HC;
         private System.Windows.Forms.PictureBox image_arma3HC;
-        private MetroFramework.Controls.MetroLabel metroLabel3;
-        private MetroFramework.Controls.MetroButton button_IFA3;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.PictureBox image_coopA3;
         private System.Windows.Forms.PictureBox image_academiaA3;
