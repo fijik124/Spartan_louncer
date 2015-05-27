@@ -26,9 +26,12 @@ This is the 11th Marine Expeditionary Unit launcher
  
  
 ## Download
-1.2 Stable Version (build 18052015) - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher120_stable.zip) 
-<p><b>File</b>: 11thLauncher120_stable.zip</p>
-<p><b>CRC-32</b>: 65052ea6</p>
-<p><b>MD4</b>: cd65c5d6be186f25a6cf39dda34cfc87</p>
+1.2 Stable Version - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher120_stable.zip) 
 <p><b>MD5</b>: 9875e70c238fa92842789bd4ed6ddad8</p>
-<p><b>SHA-1</b>: 6e23253a26716f0a74f961c8f6d103a8c9f1e3d5</p>
+
+1.2.1 DEV Version (build 27052015) - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher121_dev27052015.zip) 
+<p><b>MD5</b>: b3523cb9375ae5aa3662ae797300114d</p>
+
+## Changelog
+#####Version 1.3
+ * New: Now the launcher detects all the addon folders at any subfolder depth inside the game directory

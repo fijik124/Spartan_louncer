@@ -27,37 +27,33 @@ namespace _11thLauncher
         public static Dictionary<String, String> arma3Addons = new Dictionary<String, String>();
         public static Dictionary<String, String> arma3ServerInfo = new Dictionary<String, String>();
 
+        //Blacklisted addons (not manually activable)
+        private static List<String> vanillaAddons = new List<String> { "Arma 3", "Curator", "Kart", "Heli", "Mark" };
+
         //Reads the addons from the configuration path
         public static void readAddons(CheckedListBox arma3ListBox)
         {
-            List<String> A3Addons = new List<String>();
-
             arma3Addons.Clear();
             arma3AddonsList.Clear();
             arma3ListBox.Items.Clear();
 
-            //Read arma 3 addons
             if (arma3Path != "")
             {
-                foreach (String directory in (Directory.GetDirectories(arma3Path)))
+                string[] directories = Directory.GetDirectories(arma3Path, "addons", SearchOption.AllDirectories);
+                foreach (String directory in directories)
                 {
-                    if (directory.Contains("@"))
+                    if (!vanillaAddons.Contains(Directory.GetParent(directory).Name))
                     {
-                        int index = directory.IndexOf("@");
-                        A3Addons.Add(directory.Substring(index, directory.Length - index));
-                    }
+                        int pathindex = directory.IndexOf(arma3Path) + arma3Path.Length + 1;
+                        String addon = directory.Substring(pathindex, (directory.Length - pathindex) - ("Addons".Length + 1));
 
+                        //Add addon
+                        arma3Addons.Add(addon, "False");
+                        arma3AddonsList.Add(addon);
+                        arma3ListBox.Items.Add(addon);
+                    }
                 }
             }
-
-            //Add arma 3 addons
-            foreach (String s in A3Addons)
-            {
-                arma3Addons.Add(s, "False");
-                arma3AddonsList.Add(s);
-                arma3ListBox.Items.Add(s);
-            }
-
         }
 
         //Checks if the configuration file exists

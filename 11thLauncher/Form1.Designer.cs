@@ -1539,11 +1539,11 @@
             // metroLabel26
             // 
             this.metroLabel26.AutoSize = true;
-            this.metroLabel26.Location = new System.Drawing.Point(213, 37);
+            this.metroLabel26.Location = new System.Drawing.Point(193, 37);
             this.metroLabel26.Name = "metroLabel26";
-            this.metroLabel26.Size = new System.Drawing.Size(146, 19);
+            this.metroLabel26.Size = new System.Drawing.Size(184, 19);
             this.metroLabel26.TabIndex = 1;
-            this.metroLabel26.Text = "Versión 1.2 - 18/05/2015";
+            this.metroLabel26.Text = "Versión 1.2.1 DEV - 27/05/2015";
             // 
             // metroLabel23
             // 
