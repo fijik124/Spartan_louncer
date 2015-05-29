@@ -54,6 +54,7 @@
             this.check_videoMemory = new MetroFramework.Controls.MetroCheckBox();
             this.check_HT = new MetroFramework.Controls.MetroCheckBox();
             this.button_arma3HC = new MetroFramework.Controls.MetroButton();
+            this.image_logViewer = new System.Windows.Forms.PictureBox();
             this.image_arma3HC = new System.Windows.Forms.PictureBox();
             this.image_aliveA3 = new System.Windows.Forms.PictureBox();
             this.image_academiaA3 = new System.Windows.Forms.PictureBox();
@@ -144,6 +145,7 @@
             this.metroLabel23 = new MetroFramework.Controls.MetroLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.picture_logo = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.image_logViewer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_arma3HC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_academiaA3)).BeginInit();
@@ -446,6 +448,18 @@
             this.metroToolTip1.SetToolTip(this.button_arma3HC, "     Iniciar ArmA 3 como cliente sin cabeza uniendose al servidor indicado     ");
             this.button_arma3HC.UseSelectable = true;
             this.button_arma3HC.Click += new System.EventHandler(this.button_arma3HC_Click);
+            // 
+            // image_logViewer
+            // 
+            this.image_logViewer.Image = global::_11thLauncher.Properties.Resources.viewer;
+            this.image_logViewer.Location = new System.Drawing.Point(559, 163);
+            this.image_logViewer.Name = "image_logViewer";
+            this.image_logViewer.Size = new System.Drawing.Size(32, 32);
+            this.image_logViewer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.image_logViewer.TabIndex = 30;
+            this.image_logViewer.TabStop = false;
+            this.metroToolTip1.SetToolTip(this.image_logViewer, "Visor RPT");
+            this.image_logViewer.Click += new System.EventHandler(this.image_logViewer_Click);
             // 
             // image_arma3HC
             // 
@@ -1543,7 +1557,7 @@
             this.metroLabel26.Name = "metroLabel26";
             this.metroLabel26.Size = new System.Drawing.Size(184, 19);
             this.metroLabel26.TabIndex = 1;
-            this.metroLabel26.Text = "Versión 1.2.1 DEV - 27/05/2015";
+            this.metroLabel26.Text = "Versión 1.2.1 DEV - 28/05/2015";
             // 
             // metroLabel23
             // 
@@ -1578,6 +1592,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(596, 482);
+            this.Controls.Add(this.image_logViewer);
             this.Controls.Add(this.picture_logo);
             this.Controls.Add(this.metroLabel11);
             this.Controls.Add(this.combo_profiles);
@@ -1592,9 +1607,11 @@
             this.Name = "Form1";
             this.Padding = new System.Windows.Forms.Padding(20, 30, 20, 20);
             this.Text = "11th MEU Launcher";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.Resize += new System.EventHandler(this.Form1_Resize);
+            ((System.ComponentModel.ISupportInitialize)(this.image_logViewer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_arma3HC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_aliveA3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_academiaA3)).EndInit();
@@ -1746,6 +1763,7 @@
         private MetroFramework.Controls.MetroTextBox textBox_serverVersion;
         private MetroFramework.Controls.MetroTextBox textBox_serverMods;
         private System.Windows.Forms.PictureBox picture_serverQuery;
+        private System.Windows.Forms.PictureBox image_logViewer;
     }
 }
 

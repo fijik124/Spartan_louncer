@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
 using System.Security.Principal;
@@ -27,8 +28,8 @@ namespace _11thLauncher
         public static Dictionary<String, String> arma3Addons = new Dictionary<String, String>();
         public static Dictionary<String, String> arma3ServerInfo = new Dictionary<String, String>();
 
-        //Blacklisted addons (not manually activable)
-        private static List<String> vanillaAddons = new List<String> { "Arma 3", "Curator", "Kart", "Heli", "Mark" };
+        //Blacklisted addon folders (not manually activable)
+        private static List<String> vanillaAddons = new List<String> { "arma 3", "curator", "kart", "heli", "mark", "dlcbundle" };
 
         //Reads the addons from the configuration path
         public static void readAddons(CheckedListBox arma3ListBox)
@@ -42,7 +43,7 @@ namespace _11thLauncher
                 string[] directories = Directory.GetDirectories(arma3Path, "addons", SearchOption.AllDirectories);
                 foreach (String directory in directories)
                 {
-                    if (!vanillaAddons.Contains(Directory.GetParent(directory).Name))
+                    if (!vanillaAddons.Contains(Directory.GetParent(directory).Name.ToLower()))
                     {
                         int pathindex = directory.IndexOf(arma3Path) + arma3Path.Length + 1;
                         String addon = directory.Substring(pathindex, (directory.Length - pathindex) - ("Addons".Length + 1));
@@ -544,10 +545,14 @@ namespace _11thLauncher
             return path + " " + launchParams;
         }
 
-        //Handle a unhandled exception
+        //Handle a unhandled exceptions
         public static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             MetroFramework.MetroMessageBox.Show(Program.form, e.ExceptionObject.ToString(), "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        public static void ThreadUnhandledException(object sender, ThreadExceptionEventArgs e)
+        {
+            MetroFramework.MetroMessageBox.Show(Program.form, e.Exception.ToString(), "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 
+using _11thLauncher.LogViewer;
+
 namespace _11thLauncher
 {
     public partial class Form1 : Form
@@ -27,15 +29,12 @@ namespace _11thLauncher
             Program.form = this;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.initialize();
-
-            //Unhandled exceptions handler
-            AppDomain.CurrentDomain.UnhandledException += Util.CurrentDomainUnhandledException;
+            Program.form = null;
         }
 
-        private void initialize()
+        private void Form1_Load(object sender, EventArgs e)
         {
             //Check privileges
             if (Util.hasPrivileges())
@@ -86,7 +85,7 @@ namespace _11thLauncher
                 this.radioButton_startNothing.Checked = true;
 
                 //Read addons from paths
-                Util.readAddons(this.checkedListBox_arma3Addons);               
+                Util.readAddons(this.checkedListBox_arma3Addons);
                 this.updateDisplay();
                 this.sortAddons();
             }
@@ -94,6 +93,9 @@ namespace _11thLauncher
             //Set saved selected profile
             this.combo_profiles.SelectedIndex = this.combo_profiles.Items.IndexOf(Util.defaultProfile);
             this.Refresh();
+
+            //Initialize log viewer
+            Logger.init();
 
             //Check servers status
             new Thread(new ThreadStart(Net.checkServers)).Start();
@@ -729,6 +731,11 @@ namespace _11thLauncher
 
             Net.queryException = false;
             new Thread(new ParameterizedThreadStart(Net.queryServerInfo)).Start(selectedIndex);
+        }
+        private void image_logViewer_Click(object sender, EventArgs e)
+        {
+            LogViewerForm logViewer = new LogViewerForm();
+            logViewer.Show();
         }
     }
 }

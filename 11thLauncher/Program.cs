@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,6 +17,10 @@ namespace _11thLauncher
         [STAThread]
         static void Main()
         {
+            //Unhandled exceptions handlers
+            AppDomain.CurrentDomain.UnhandledException += Util.CurrentDomainUnhandledException;
+            Application.ThreadException += new ThreadExceptionEventHandler(Util.ThreadUnhandledException);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

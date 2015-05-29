@@ -36,3 +36,9 @@ This is the 11th Marine Expeditionary Unit launcher
 ## Changelog
 #####Version 1.2.1
  * New: Now the launcher detects all the addon folders at any subfolder depth inside the game directory
+ * New: Added RPT Log viewer
+ * Fixed: Added unhandled thread exceptions event handler
+ * Fixed: Error when closing the launcher before the server check has finished
+ 
+#####Version 1.2
+ * Initial public release
