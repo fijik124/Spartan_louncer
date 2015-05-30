@@ -34,7 +34,7 @@ namespace _11thLauncher
             Program.form = null;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Shown(object sender, EventArgs e)
         {
             //Check privileges
             if (Util.hasPrivileges())
@@ -96,6 +96,9 @@ namespace _11thLauncher
 
             //Initialize log viewer
             Logger.init();
+
+            //Check for updates
+            new Thread(new ThreadStart(Version.checkVersion)).Start();;
 
             //Check servers status
             new Thread(new ThreadStart(Net.checkServers)).Start();
@@ -223,6 +226,26 @@ namespace _11thLauncher
                     this.picture_serverQuery.Image = global::_11thLauncher.Properties.Resources.info;
             }
         }
+
+        //Update notification
+        private delegate void ShowUpdateNotificationCallback();
+        public void showUpdateNotification()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new ShowUpdateNotificationCallback(showUpdateNotification));
+            }
+            else
+            {
+                String downloadURL = Version.getLatestDownload();
+                DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Hay una nueva versión disponible para la aplicación (" + Version.latestVersion  + "), ¿quieres descargarla?", "Actualización disponible", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    Process.Start(downloadURL);
+                }
+            }
+        }
+
 
         //-----------------------------------------------
         //Form controls listeners
@@ -444,11 +467,6 @@ namespace _11thLauncher
         {
             this.textBox_arma3server.Text = "11thmeu.es";
             this.textBox_arma3port.Text = "2332";
-        }
-        private void button_IFA3_Click(object sender, EventArgs e)
-        {
-            this.textBox_arma3server.Text = "11thmeu.es";
-            //this.textBox_arma3port.Text = ""; TODO
         }
 
         //Profile edition
@@ -734,8 +752,11 @@ namespace _11thLauncher
         }
         private void image_logViewer_Click(object sender, EventArgs e)
         {
-            LogViewerForm logViewer = new LogViewerForm();
-            logViewer.Show();
+            if (Program.viewer == null)
+            {
+                LogViewerForm logViewer = new LogViewerForm();
+                logViewer.Show();
+            }
         }
     }
 }

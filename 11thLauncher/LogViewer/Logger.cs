@@ -86,7 +86,7 @@ namespace _11thLauncher.LogViewer
 
         public static string[] readfile()
         {
-            string[] lines = ReadAllLines(getLatest().FullName, Encoding.Default, FileShare.ReadWrite);
+            string[] lines = ReadAllLines(getLatestFile().FullName, Encoding.Default, FileShare.ReadWrite);
 
             lastLine = lines.Length;
 
@@ -98,8 +98,8 @@ namespace _11thLauncher.LogViewer
             string[] result = new string[] { };
             try
             {
-                string[] lines = ReadAllLines(getLatest().FullName, Encoding.Default, FileShare.ReadWrite);
-                Console.WriteLine(lines.Length);
+                string[] lines = ReadAllLines(getLatestFile().FullName, Encoding.Default, FileShare.ReadWrite);
+
                 result = new string[lines.Length - lastLine];
                 Array.Copy(lines, lastLine, result, 0, lines.Length - lastLine);
 
@@ -112,7 +112,7 @@ namespace _11thLauncher.LogViewer
             return result;
         }
 
-        public static FileInfo getLatest()
+        public static FileInfo getLatestFile()
         {
             FileInfo result = null;
 

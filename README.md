@@ -30,15 +30,17 @@ This is the 11th Marine Expeditionary Unit launcher
 <p><b>MD5</b>: 9875e70c238fa92842789bd4ed6ddad8</p>
 
 
-1.2.1 DEV Version (build 27052015) - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher121_dev27052015.zip) 
-<p><b>MD5</b>: b3523cb9375ae5aa3662ae797300114d</p>
+1.2.1 DEV Version (build 30052015) - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher121_dev30052015.zip) 
+<p><b>MD5</b>: d109debc7926ab064ee14cac168f33e4</p>
 
 ## Changelog
 #####Version 1.2.1
  * New: Now the launcher detects all the addon folders at any subfolder depth inside the game directory
  * New: Added RPT Log viewer
+ * New: Program update notifications for both branches (stable and dev)
  * Fixed: Added unhandled thread exceptions event handler
  * Fixed: Error when closing the launcher before the server check has finished
+ * Fixed: Some messages were shown before the form finished loading
  
 #####Version 1.2
  * Initial public release

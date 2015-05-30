@@ -1557,7 +1557,7 @@
             this.metroLabel26.Name = "metroLabel26";
             this.metroLabel26.Size = new System.Drawing.Size(184, 19);
             this.metroLabel26.TabIndex = 1;
-            this.metroLabel26.Text = "Versión 1.2.1 DEV - 28/05/2015";
+            this.metroLabel26.Text = "Versión 1.2.1 DEV - 30/05/2015";
             // 
             // metroLabel23
             // 
@@ -1608,7 +1608,7 @@
             this.Padding = new System.Windows.Forms.Padding(20, 30, 20, 20);
             this.Text = "11th MEU Launcher";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.image_logViewer)).EndInit();

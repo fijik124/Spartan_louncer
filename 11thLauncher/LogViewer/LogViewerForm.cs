@@ -17,9 +17,15 @@ namespace _11thLauncher.LogViewer
         public LogViewerForm()
         {
             InitializeComponent();
+            Program.viewer = this;
         }
 
-        private void LogViewer_Load(object sender, EventArgs e)
+        private void LogViewerForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Program.viewer = null;
+        }
+
+        private void LogViewerForm_Shown(object sender, EventArgs e)
         {
             string[] lines = Logger.readfile();
             foreach (string line in lines)
@@ -28,12 +34,15 @@ namespace _11thLauncher.LogViewer
             }
 
             FileSystemWatcher watcher = new FileSystemWatcher();
-            watcher.Path = Logger.getLatest().DirectoryName;
+            watcher.Path = Logger.getLatestFile().DirectoryName;
             watcher.NotifyFilter = NotifyFilters.LastWrite;
             watcher.IncludeSubdirectories = false;
-            watcher.Filter = Path.GetFileName(Logger.getLatest().FullName);
+            watcher.Filter = Path.GetFileName(Logger.getLatestFile().FullName);
             watcher.Changed += new FileSystemEventHandler(OnFileChange);
             watcher.EnableRaisingEvents = true;
+
+            label_viewerStatus.Text = "Monitorizando el archivo: " + Logger.getLatestFile().Name;
+            picture_logStatus.Image = global::_11thLauncher.Properties.Resources.image_856487;
         }
 
         private void OnFileChange(object source, FileSystemEventArgs e)
