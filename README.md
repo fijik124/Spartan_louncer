@@ -37,9 +37,9 @@ This is the 11th Marine Expeditionary Unit launcher
 
 
 ## Requirements
- * Microsoft .NET Framework 4.5 (http://www.microsoft.com/en-us/download/details.aspx?id=30653)
- * (optional) Oracle Java 7 or 8 (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
- * (optional) ArmA3Sync (http://www.sonsofexiled.fr/wiki/index.php/ArmA3Sync_Wiki_English)
+ * [Microsoft .NET Framework 4.5] (http://www.microsoft.com/en-us/download/details.aspx?id=30653)
+ * (optional) [Oracle Java 7 or 8] (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+ * (optional) [ArmA3Sync] (http://www.sonsofexiled.fr/wiki/index.php/ArmA3Sync_Wiki_English)
 
 
 ## Download
