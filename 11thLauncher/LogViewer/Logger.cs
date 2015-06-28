@@ -4,7 +4,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace _11thLauncher.LogViewer
 {
@@ -29,16 +28,16 @@ namespace _11thLauncher.LogViewer
         private static Font italicFont = new Font("Courier New", 9F, FontStyle.Italic);
 
         //Logs folder
-        private static String path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Arma 3";
+        private static string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Arma 3";
 
         //Current file and last line
-        private static String file;
+        //private static string file;
         private static int lastLine = -1;
 
         public static void init()
         {
             patterns = new List<TextPattern>();
-            
+
             //Info
             patterns.Add(new TextPattern(@"\d+/\d+/\d+", infoColor, defaultFont)); //date
             patterns.Add(new TextPattern(@"\d+:\d+:\d+", infoColor, defaultFont)); //time
@@ -107,8 +106,8 @@ namespace _11thLauncher.LogViewer
 
                 return result;
             }
-            catch (OverflowException){}
-            
+            catch (OverflowException) { }
+
             return result;
         }
 
@@ -126,12 +125,12 @@ namespace _11thLauncher.LogViewer
             return result;
         }
 
-        private static string[] ReadAllLines(String file, Encoding encoding, FileShare share)
+        private static string[] ReadAllLines(string file, Encoding encoding, FileShare share)
         {
             using (FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read, share))
             {
-                String line;
-                List<String> lines = new List<String>();
+                string line;
+                List<string> lines = new List<string>();
 
                 using (StreamReader sr = new StreamReader(stream, encoding))
                     while ((line = sr.ReadLine()) != null)

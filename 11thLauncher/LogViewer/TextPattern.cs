@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System.Drawing;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace _11thLauncher.LogViewer
 {
     class TextPattern
     {
-        private String pattern;
-        public String Pattern
+        private string pattern;
+        public string Pattern
         {
             get { return pattern; }
             set { pattern = value; }
@@ -31,14 +26,14 @@ namespace _11thLauncher.LogViewer
             set { font = value; }
         }
 
-        public TextPattern(String pattern, Color color, Font font)
+        public TextPattern(string pattern, Color color, Font font)
         {
             this.pattern = pattern;
             this.color = color;
             this.font = font;
         }
 
-        public MatchCollection getMatches(String text)
+        public MatchCollection getMatches(string text)
         {
             Regex reg = new Regex(pattern, RegexOptions.IgnoreCase);
             return reg.Matches(text);

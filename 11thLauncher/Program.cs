@@ -1,32 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-using _11thLauncher.LogViewer;
+using System.Reflection;
+using _11thLauncher.Net;
 
 namespace _11thLauncher
 {
-    static class Program
+    class Program
     {
-        internal static Form1 form;
-        internal static LogViewerForm viewer;
-
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main(string[] appArgs)
         {
-            //Unhandled exceptions handlers
-            AppDomain.CurrentDomain.UnhandledException += Util.CurrentDomainUnhandledException;
-            Application.ThreadException += new ThreadExceptionEventHandler(Util.ThreadUnhandledException);
+            //Load libraries with reflection
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
+                var resourceName = "_" + Assembly.GetExecutingAssembly().GetName().Name + ".lib." + new AssemblyName(args.Name).Name + ".dll";
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                {
+                    if (stream != null)
+                    {
+                        var assemblyData = new Byte[stream.Length];
+                        stream.Read(assemblyData, 0, assemblyData.Length);
+                        return Assembly.Load(assemblyData);
+                    }
+                }
+                return null;
+            };
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Check startup parameters
+            if (appArgs.Length != 0)
+            {
+                switch (appArgs[0])
+                {
+                    case "-updated":
+                        Updater.Updated = true;
+                        break;
+
+                    case "-updateFailed":
+                        Updater.UpdateFailed = true;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            //Check startup parameters
+            App.Main();
         }
     }
 }
