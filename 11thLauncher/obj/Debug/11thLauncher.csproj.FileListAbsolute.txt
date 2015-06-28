@@ -17,3 +17,4 @@ C:\Users\Javier\documents\visual studio 2015\Projects\11thLauncher\11thLauncher\
 C:\Users\Javier\documents\visual studio 2015\Projects\11thLauncher\11thLauncher\obj\Debug\SettingsWindow.g.cs
 C:\Users\Javier\documents\visual studio 2015\Projects\11thLauncher\11thLauncher\obj\Debug\LogWindow.baml
 C:\Users\Javier\documents\visual studio 2015\Projects\11thLauncher\11thLauncher\obj\Debug\LogWindow.g.cs
+C:\Users\Javier\documents\visual studio 2015\Projects\11thLauncher\11thLauncher\obj\Debug\11thLauncher.csprojResolveAssemblyReference.cache

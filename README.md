@@ -43,15 +43,15 @@ This is the 11th Marine Expeditionary Unit launcher
 
 
 ## Download
-1.2 Stable Version - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher120_stable.zip) 
+1.2.0 Stable Version - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher120_stable.zip) 
 <p><b>MD5</b>: 9875e70c238fa92842789bd4ed6ddad8</p>
 
 
-1.2.1 DEV Version (build 30052015) - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher121_dev30052015.zip) 
-<p><b>MD5</b>: d109debc7926ab064ee14cac168f33e4</p>
+2.0.0 DEV Version (build 27062015) - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher200_dev27062015.zip) 
+<p><b>MD5</b>: 2dba32606ed8509053910afc5d7b6710</p>
 
 ## Changelog
-#####Version 2.0
+#####Version 2.0.0
  * New: Now the launcher detects all the addon folders at any subfolder depth inside the game directory
  * New: Program update notifications for both branches (stable and dev)
  * New: Auto-updater, automatically download, unzip, replace and launch the latest version
@@ -72,5 +72,5 @@ This is the 11th Marine Expeditionary Unit launcher
  * Fixed: Typo in process priority parameter tooltip
  * Removed: Unhandled exception handlers
 
-#####Version 1.2
+#####Version 1.2.0
  * Initial public release
