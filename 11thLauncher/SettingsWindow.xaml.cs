@@ -19,6 +19,8 @@ namespace _11thLauncher
     /// </summary>
     public partial class SettingsWindow : MetroWindow
     {
+        private bool _restarting = false;
+
         public SettingsWindow()
         {
             InitializeComponent();
@@ -78,6 +80,9 @@ namespace _11thLauncher
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            //If application is restarting, dont save settings
+            if (_restarting) return;
+
             //
             //Save current settings
             //
@@ -86,7 +91,17 @@ namespace _11thLauncher
             Settings.CheckUpdates = (bool)checkBox_checkUpdates.IsChecked;
             Settings.CheckServers = (bool)checkBox_checkServers.IsChecked;
             Settings.CheckRepository = (bool)checkBox_checkRepository.IsChecked;
-            Settings.Arma3Path = textBox_gamePath.Text;
+            //If game path has changed, read addons
+            if (Settings.Arma3Path != textBox_gamePath.Text && textBox_gamePath.Text != "")
+            {
+                Settings.Arma3Path = textBox_gamePath.Text;
+                MainWindow.Form.addons.Clear();
+                Addons.ReadAddons();
+                foreach (string addon in Addons.LocalAddons)
+                {
+                    MainWindow.Form.addons.Add(new Addon() { Enabled = false, Name = addon });
+                }
+            }
             Settings.StartClose = false;
             Settings.StartMinimize = false;
             if (comboBox_startAction.SelectedIndex == 1)
@@ -101,7 +116,10 @@ namespace _11thLauncher
             //Repository
             Settings.JavaPath = textBox_javaPath.Text;
             Settings.Arma3SyncPath = textBox_a3sPath.Text;
-            Settings.Arma3SyncRepository = comboBox_repository.SelectedItem.ToString();
+            if (comboBox_repository.SelectedIndex != -1)
+            {
+                Settings.Arma3SyncRepository = comboBox_repository.SelectedItem.ToString();
+            }
             if (!MainWindow.Form.tile_repositoryStatus.IsEnabled)
             {
                 if ((Repository.JavaVersion != "" || Settings.JavaPath != "") && Settings.Arma3SyncPath != "" && Settings.Arma3SyncRepository != "")
@@ -131,6 +149,25 @@ namespace _11thLauncher
         {
             ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Settings.Accents[comboBox_accent.SelectedIndex]), ThemeManager.GetAppTheme("BaseLight"));
             Settings.Accent = comboBox_accent.SelectedIndex;
+        }
+
+        private void button_selectGamePath_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            string path = "";
+
+            dialog.FileName = "arma3.exe";
+            dialog.Filter = "Ejecutables (*.exe) | *.exe";
+
+            if (dialog.ShowDialog() == true)
+            {
+                path = Path.GetDirectoryName(dialog.FileName);
+            }
+
+            if (!path.Equals(""))
+            {
+                textBox_gamePath.Text = path;
+            }
         }
 
         private void button_selectJavaPath_Click(object sender, RoutedEventArgs e)
@@ -181,7 +218,9 @@ namespace _11thLauncher
             if (result == MessageDialogResult.Affirmative)
             {
                 Settings.Delete();
+                _restarting = true;
                 System.Windows.Forms.Application.Restart();
+                Application.Current.Shutdown();
             }
         }
     }

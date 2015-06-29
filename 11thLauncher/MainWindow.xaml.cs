@@ -27,7 +27,7 @@ namespace _11thLauncher
 
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private delegate void UpdateFormCallBack(string method, object[] parameters);
-        private ObservableCollection<Addon> addons = new ObservableCollection<Addon>();
+        internal ObservableCollection<Addon> addons = new ObservableCollection<Addon>();
 
         public MainWindow()
         {
@@ -57,6 +57,9 @@ namespace _11thLauncher
 
                 //Create default profile
                 Profiles.CreateDefault();
+
+                //Save settings
+                Settings.Write();
             }
 
             //Add local addons
@@ -88,6 +91,7 @@ namespace _11thLauncher
             //Notify if update failed
             if (Updater.UpdateFailed)
             {
+                Updater.RemoveUpdater();
                 this.ShowMessageAsync("Error al actualizar", "Se ha producido un error al actualizar la aplicación, vuelve a intentarlo más tarde", MessageDialogStyle.Affirmative);
             }
 
