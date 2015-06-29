@@ -70,6 +70,7 @@ This is the 11th Marine Expeditionary Unit launcher
  * Fixed: Error when closing the launcher before the server check has finished
  * Fixed: Some messages were shown before the form finished loading
  * Fixed: Typo in process priority parameter tooltip
+ * Fixed: Errors when checking servers without having internet connection
  * Removed: Unhandled exception handlers
 
 #####Version 1.2.0

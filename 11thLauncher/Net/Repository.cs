@@ -54,8 +54,14 @@ namespace _11thLauncher.Net
         {
             MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando repositorio" });
 
+            //Extract A3SDS
+            File.WriteAllBytes(_a3sdsPath, Properties.Resources.A3SDS);
+
             deserializeLocalRepository();
             deserializeRemoteRepository();
+
+            //Delete A3SDS
+            File.Delete(_a3sdsPath);
 
             bool updated = false;
 
@@ -77,21 +83,8 @@ namespace _11thLauncher.Net
             MainWindow.UpdateForm("UpdateRepositoryStatus", new object[] { _localRevision, _remoteBuildDate, updated });
         }
 
-        /// <summary>
-        /// Start ArmA3Sync in the configured path
-        /// </summary>
-        public static void StartArmA3Sync()
-        {
-            Process p = new Process();
-            p.StartInfo.WorkingDirectory = Settings.Arma3SyncPath;
-            p.StartInfo.FileName = Settings.Arma3SyncPath + "\\ArmA3Sync.exe";
-            p.Start();
-        }
-
         private static void deserializeLocalRepository()
         {
-            ExtractA3SDS();
-
             string repositoryPath = "\"" + Settings.Arma3SyncPath + "\\resources\\ftp\\" + Settings.Arma3SyncRepository + ".a3s.repository" + "\"";
 
             Process p = new Process();
@@ -113,16 +106,12 @@ namespace _11thLauncher.Net
                 _remotePort = localRepositoryInfo[4];
                 _remoteURL = localRepositoryInfo[5];
             }
-
-            DeleteA3SDS();
         }
 
         private static void deserializeRemoteRepository()
         {
             try
             {
-                ExtractA3SDS();
-
                 string tempPath = Path.GetTempPath() + "repoInfo";
                 FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://" + _remoteURL + "/.a3s/serverinfo");
                 request.Method = WebRequestMethods.Ftp.DownloadFile;
@@ -154,20 +143,8 @@ namespace _11thLauncher.Net
                     _remoteRevision = remoteRepositoryInfo[0];
                     _remoteBuildDate = JavaDateToDatetime(remoteRepositoryInfo[1]);
                 }
-
-                DeleteA3SDS();
             }
             catch (WebException){}
-        }
-
-        private static void ExtractA3SDS()
-        {
-            File.WriteAllBytes(_a3sdsPath, Properties.Resources.A3SDS);
-        }
-
-        private static void DeleteA3SDS()
-        {
-            File.Delete(_a3sdsPath);
         }
 
         /// <summary>
@@ -190,6 +167,17 @@ namespace _11thLauncher.Net
                 p.WaitForExit();
             }
             catch (Exception) { }
+        }
+
+        /// <summary>
+        /// Start ArmA3Sync in the configured path
+        /// </summary>
+        public static void StartArmA3Sync()
+        {
+            Process p = new Process();
+            p.StartInfo.WorkingDirectory = Settings.Arma3SyncPath;
+            p.StartInfo.FileName = Settings.Arma3SyncPath + "\\ArmA3Sync.exe";
+            p.Start();
         }
 
         /// <summary>

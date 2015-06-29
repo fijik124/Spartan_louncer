@@ -9,7 +9,7 @@
         <Label x:Name="label" Content="11th MEU Launcher" HorizontalAlignment="Left" Margin="91,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
         <Label x:Name="label1" Content="Versión 2.0 DEV" HorizontalAlignment="Left" Margin="28,73,0,0" VerticalAlignment="Top" FontWeight="Medium"/>
         <Label x:Name="label2" Content="Creado por Javier &quot;Thrax&quot; Rico" HorizontalAlignment="Left" Margin="97,47,0,0" VerticalAlignment="Top" FontWeight="Medium"/>
-        <Label x:Name="label3" Content="Build 27062015 (27/06/2015)" HorizontalAlignment="Left" Margin="177,73,0,0" VerticalAlignment="Top" FontWeight="Medium"/>
+        <Label x:Name="label3" Content="Build 28062015 (28/06/2015)" HorizontalAlignment="Left" Margin="177,73,0,0" VerticalAlignment="Top" FontWeight="Medium"/>
         <RichTextBox x:Name="richTextBox" HorizontalAlignment="Left" Height="143" Margin="10,104,0,0" VerticalAlignment="Top" Width="354" IsDocumentEnabled="True" IsReadOnly="True" IsEnabled="True" Background="#FFEEEEEE">
             <FlowDocument>
                 <Paragraph>

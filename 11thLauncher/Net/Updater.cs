@@ -17,7 +17,7 @@ namespace _11thLauncher.Net
         private static readonly string _updaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
 
         private static readonly string _currentBuildType = "dev";
-        private static readonly string _currentVersion = "200_dev27062015";
+        private static readonly string _currentVersion = "200_dev28062015";
         private static string _latestVersion = "";
 
         /// <summary>
@@ -54,7 +54,10 @@ namespace _11thLauncher.Net
                     MainWindow.UpdateForm("ShowUpdateNotification", new object[] { _latestVersion, false });
                 }
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                MainWindow.UpdateForm("ShowUpdateNotification", new object[] { null, false });
+            }
         }
 
         /// <summary>

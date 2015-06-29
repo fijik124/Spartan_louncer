@@ -78,8 +78,6 @@ namespace _11thLauncher.Net
         {
             int index = (int)indexobj;
 
-            Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIP().ToString(), _servers[index]);
-
             ServerInfo = new List<string>();
             ServerPlayers = new List<string>();
             ServerMods = "";
@@ -90,6 +88,8 @@ namespace _11thLauncher.Net
 
             try
             {
+                Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIP().ToString(), _servers[index]);
+
                 ServerInfo info = server.GetInfo();
                 IReadOnlyCollection<Player> players = server.GetPlayers();
                 IReadOnlyCollection<Rule> rules = server.GetRules();

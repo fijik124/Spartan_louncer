@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Reflection;
+using System.Security.Principal;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,8 +15,6 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Configuration;
 using _11thLauncher.Net;
-using System.Diagnostics;
-using System.Security.Principal;
 
 namespace _11thLauncher
 {
@@ -124,7 +124,7 @@ namespace _11thLauncher
             }
         }
 
-        private void MetroWindow_Closed(object sender, System.EventArgs e)
+        private void MetroWindow_Closed(object sender, EventArgs e)
         {
             Form = null;
         }
@@ -959,9 +959,11 @@ namespace _11thLauncher
                 tile_repositoryStatus.Background = new SolidColorBrush(Colors.Orange);
                 tile_repositoryStatus.Content = "Desconocido";
                 tile_repositoryStatus.ToolTip = "No se ha podido comprobar el repositorio en el servidor. Click para volver a comprobar.";
+                label_repositoryRevision.ToolTip = null;
             } else
             {
                 label_repositoryRevision.Content += " (" + buildDate.Value.ToShortDateString() + ")";
+                label_repositoryRevision.ToolTip = "Compilado el " + buildDate.Value.ToShortDateString() + " a las " + buildDate.Value.ToShortTimeString();
                 if (updated)
                 {
                     tile_repositoryStatus.Background = new SolidColorBrush(Colors.Green);
@@ -1052,7 +1054,14 @@ namespace _11thLauncher
                 }
             } else
             {
-                await this.ShowMessageAsync("No hay actualizaciones disponibles", "Dispones de la última versión", MessageDialogStyle.Affirmative);
+                if (version == null)
+                {
+                    await this.ShowMessageAsync("Error de conexión", "Se ha producido un error de conexión al comprobar actualizaciones", MessageDialogStyle.Affirmative);
+                }
+                else
+                {
+                    await this.ShowMessageAsync("No hay actualizaciones disponibles", "Dispones de la última versión", MessageDialogStyle.Affirmative);
+                }
             }
         }
     }
