@@ -116,12 +116,16 @@ namespace _11thLauncher
             //Repository
             Settings.JavaPath = textBox_javaPath.Text;
             Settings.Arma3SyncPath = textBox_a3sPath.Text;
-            if (comboBox_repository.SelectedIndex != -1)
+            if (comboBox_repository.SelectedIndex == -1)
+            {
+                Settings.Arma3SyncRepository = "";
+            } else
             {
                 Settings.Arma3SyncRepository = comboBox_repository.SelectedItem.ToString();
             }
             if (!MainWindow.Form.tile_repositoryStatus.IsEnabled)
             {
+                //Check if repository is correctly configured to allow checking
                 if ((Repository.JavaVersion != "" || Settings.JavaPath != "") && Settings.Arma3SyncPath != "" && Settings.Arma3SyncRepository != "")
                 {
                     MainWindow.Form.image_arma3Sync.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/a3sEnabled.png"));
@@ -129,6 +133,17 @@ namespace _11thLauncher
                     MainWindow.Form.tile_repositoryStatus.IsEnabled = true;
                     MainWindow.Form.tile_repositoryStatus.Background = new SolidColorBrush(Colors.Orange);
                     MainWindow.Form.tile_repositoryStatus.ToolTip = "Click para comprobar estado";
+                }
+            } else
+            {
+                //Check if configuration is incorrect to disable repository checking
+                if ((Repository.JavaVersion == "" && Settings.JavaPath == "") || Settings.Arma3SyncPath != "" || Settings.Arma3SyncRepository == "")
+                {
+                    MainWindow.Form.image_arma3Sync.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/a3sDisabled.png"));
+                    MainWindow.Form.image_arma3Sync.ToolTip = "Arma3Sync no está configurado, configuralo en la ventana de opciones";
+                    MainWindow.Form.tile_repositoryStatus.IsEnabled = false;
+                    MainWindow.Form.tile_repositoryStatus.Background = new SolidColorBrush(Colors.Gray);
+                    MainWindow.Form.tile_repositoryStatus.ToolTip = null;
                 }
             }
 
