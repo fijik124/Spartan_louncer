@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace _11thLauncher.Net
 {
-    class Updater
+    static class Updater
     {
         public static bool Updated = false;
         public static bool UpdateFailed = false;
@@ -16,8 +16,8 @@ namespace _11thLauncher.Net
         private static readonly string _downloadBaseURL = "https://raw.githubusercontent.com/11thmeu/launcher/master/bin/";
         private static readonly string _updaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
 
-        private static readonly string _currentBuildType = "dev";
-        private static readonly string _currentVersion = "200_dev28062015";
+        private static readonly string _currentBuildType = "stable";
+        private static readonly string _currentVersion = "200";
         private static string _latestVersion = "";
 
         /// <summary>

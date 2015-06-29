@@ -6,10 +6,9 @@
         xmlns:local="clr-namespace:_11thLauncherUpdater"
         mc:Ignorable="d"
         Title="11th MEU Launcher Updater" Height="136" Width="525"
-        Icon="icon.ico" ResizeMode="CanMinimize">
+        Icon="icon.ico" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid>
         <Label x:Name="label_status" Content="Descargando actualización ..." HorizontalAlignment="Left" Margin="136,25,0,0" VerticalAlignment="Top"/>
         <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="24" Margin="33,64,0,0" VerticalAlignment="Top" Width="449"/>
-
     </Grid>
 </Window>
