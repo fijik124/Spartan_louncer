@@ -137,7 +137,7 @@ namespace _11thLauncher
             } else
             {
                 //Check if configuration is incorrect to disable repository checking
-                if ((Repository.JavaVersion == "" && Settings.JavaPath == "") || Settings.Arma3SyncPath != "" || Settings.Arma3SyncRepository == "")
+                if ((Repository.JavaVersion == "" && Settings.JavaPath == "") || Settings.Arma3SyncPath == "" || Settings.Arma3SyncRepository == "")
                 {
                     MainWindow.Form.image_arma3Sync.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/a3sDisabled.png"));
                     MainWindow.Form.image_arma3Sync.ToolTip = "Arma3Sync no está configurado, configuralo en la ventana de opciones";
