@@ -43,8 +43,8 @@ This is the 11th Marine Expeditionary Unit launcher
 
 
 ## Download
-1.2.0 Stable Version - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher120_stable.zip) 
-<p><b>MD5</b>: 9875e70c238fa92842789bd4ed6ddad8</p>
+2.0.0 Stable Version - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher200_stable.zip) 
+<p><b>MD5</b>: e548d9ba190047a920cc7ab3df9b2977</p>
 
 
 2.0.0 DEV Version (build 27062015) - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher200_dev27062015.zip) 
@@ -62,6 +62,7 @@ This is the 11th Marine Expeditionary Unit launcher
  * New: Menu bar
  * New: Status bar
  * New: Java library to check repository using Arma3Sync code (requires manual configuration)
+ * New: Added new method of game path detection using Steam registry entry
  * Changed: Application rewritten with WPF+XAML (without using MVVM)
  * Changed: Changed GUI library from MetroFramework(WinForms) to MahApps.Metro(WPF)
  * Changed: Moved application configuration settings to a separate window
