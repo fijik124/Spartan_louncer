@@ -46,25 +46,48 @@ namespace _11thLauncher.Configuration
         /// <returns>bool value to indicate if the path was read correctly</returns>
         public static bool ReadPath()
         {
-            string arma3regPath = "";
+            string arma3regPath;
             bool valid = false;
 
+            //First try to get the path using ArmA 3 registry entry
             if (Environment.Is64BitOperatingSystem)
             {
-                arma3regPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bohemia Interactive\\ArmA 3", "MAIN", "null");
+                arma3regPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bohemia Interactive\\ArmA 3", "MAIN", null);
             }
             else
             {
-                arma3regPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Bohemia Interactive\\ArmA 3", "MAIN", "null");
+                arma3regPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Bohemia Interactive\\ArmA 3", "MAIN", null);
+            }
+            if (!Directory.Exists(arma3regPath))
+            {
+                arma3regPath = null;
             }
 
-            if (arma3regPath != null)
+            //If ArmA 3 registry entry is not found, use Steam entry
+            if (string.IsNullOrEmpty(arma3regPath))
             {
-                if (!arma3regPath.Equals("null"))
+                string steamPath;
+                if (Environment.Is64BitOperatingSystem)
                 {
-                    Arma3Path = arma3regPath;
-                    valid = true;
+                    steamPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam", "InstallPath", "");
+                    arma3regPath = Path.Combine(steamPath, "SteamApps\\common\\ArmA 3");
                 }
+                else
+                {
+                    steamPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Valve\\Steam", "InstallPath", "");
+                    arma3regPath = Path.Combine(steamPath, "SteamApps\\common\\ArmA 3");
+                }
+            }
+            if (!Directory.Exists(arma3regPath))
+            {
+                arma3regPath = null;
+            }
+
+            //If the path is found and exists, set to config and return that a valid path was found
+            if (!string.IsNullOrEmpty(arma3regPath))
+            {
+                Arma3Path = arma3regPath;
+                valid = true;
             }
 
             return valid;
