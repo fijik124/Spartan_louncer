@@ -7,7 +7,7 @@ using System.Text;
 
 namespace _11thLauncher.LogViewer
 {
-    class Logger
+    static class Logger
     {
         //Text patterns
         public static List<TextPattern> patterns;

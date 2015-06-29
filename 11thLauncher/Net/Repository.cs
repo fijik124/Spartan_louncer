@@ -7,11 +7,11 @@ using _11thLauncher.Configuration;
 
 namespace _11thLauncher.Net
 {
-    class Repository
+    static class Repository
     {
         public static string JavaVersion = "";
 
-        private static string _a3sdsPath = Path.Combine(Path.GetTempPath(), "A3SDS.jar");
+        private static readonly string _a3sdsPath = Path.Combine(Path.GetTempPath(), "A3SDS.jar");
 
         private static string _localRevision;
 
@@ -63,6 +63,7 @@ namespace _11thLauncher.Net
             //Delete A3SDS
             File.Delete(_a3sdsPath);
 
+            string revision = _localRevision;
             bool updated = false;
 
             if (_localRevision != null && MainWindow.Form != null)
@@ -75,12 +76,13 @@ namespace _11thLauncher.Net
                     }
                     else
                     {
+                        revision = _remoteRevision;
                         updated = false;
                     }
                 }
             }
 
-            MainWindow.UpdateForm("UpdateRepositoryStatus", new object[] { _localRevision, _remoteBuildDate, updated });
+            MainWindow.UpdateForm("UpdateRepositoryStatus", new object[] { revision, _remoteBuildDate, updated });
         }
 
         private static void deserializeLocalRepository()

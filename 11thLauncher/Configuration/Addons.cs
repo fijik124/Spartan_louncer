@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace _11thLauncher.Configuration
 {
-    class Addons
+    static class Addons
     {
         public static List<string> LocalAddons = new List<string>();
 

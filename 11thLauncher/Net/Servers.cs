@@ -7,7 +7,7 @@ using QueryMaster;
 
 namespace _11thLauncher.Net
 {
-    class Servers
+    static class Servers
     {
         public static List<string> ServerInfo;
         public static List<string> ServerPlayers;

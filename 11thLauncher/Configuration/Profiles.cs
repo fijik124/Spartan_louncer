@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace _11thLauncher.Configuration
 {
-    class Profiles
+    static class Profiles
     {
         private static readonly string ProfilesPath = Settings.ConfigPath + "\\profiles";
 
@@ -90,6 +90,11 @@ namespace _11thLauncher.Configuration
         {
             UserProfiles.Add("Predeterminado");
             DefaultProfile = "Predeterminado";
+
+            ProfileServerInfo["server"] = "";
+            ProfileServerInfo["port"] = "";
+            ProfileServerInfo["pass"] = "";
+
             WriteProfile("Predeterminado");
         }
 

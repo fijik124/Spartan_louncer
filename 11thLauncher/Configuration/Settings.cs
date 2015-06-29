@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace _11thLauncher.Configuration
 {
-    class Settings
+    static class Settings
     {
         //Constants
         public static readonly string ConfigPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\11th Launcher";
