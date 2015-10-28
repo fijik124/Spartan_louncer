@@ -51,6 +51,16 @@ This is the 11th Marine Expeditionary Unit launcher
 <p><b>MD5</b>: 2dba32606ed8509053910afc5d7b6710</p>
 
 ## Changelog
+#####Version 2.1.0 (FUTURE)
+ * New: Label to show the ArmA 3 executable version
+ * New: Startup check to compare the ArmA 3 version for the client and the 11th MEU servers
+ * New: Changed -noFilePatching command to -filePatching
+ * New: Added malloc parameter with automatic detection of current allocators
+ * New: Added MD5 hash verification to auto updater
+ * Changed: Translated to spanish the game parameter names
+ * Changed: Reorganized application code
+ * Fixed: Added check to disable game launch if path is not enabled
+
 #####Version 2.0.0
  * New: Now the launcher detects all the addon folders at any subfolder depth inside the game directory
  * New: Program update notifications for both branches (stable and dev)

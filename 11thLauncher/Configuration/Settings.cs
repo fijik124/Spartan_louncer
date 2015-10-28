@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using Microsoft.Win32;
@@ -30,6 +31,10 @@ namespace _11thLauncher.Configuration
         public static bool CheckRepository = false;
         public static bool ServersGroupBox = true;
         public static bool RepositoryGroupBox = true;
+
+        //Local info
+        public static string GameVersion = "";
+        public static List<string> Allocators = new List<string>();
 
         /// <summary>
         /// Check if the application settings file exists
@@ -253,6 +258,41 @@ namespace _11thLauncher.Configuration
             if (Directory.Exists(ConfigPath))
             {
                 Directory.Delete(ConfigPath, true);
+            }
+        }
+
+        /// <summary>
+        /// Get the version number of the game executable
+        /// </summary>
+        /// <returns>Game version</returns>
+        public static string GetGameVersion()
+        {
+            string version = "";
+
+            if (!string.IsNullOrEmpty(Arma3Path))
+            {
+                FileVersionInfo info = FileVersionInfo.GetVersionInfo(Arma3Path + "\\arma3.exe");
+                version = info.FileVersion + "." + info.FileBuildPart + info.FilePrivatePart;
+            }
+
+            GameVersion = version;
+            return version;
+        }
+
+        /// <summary>
+        /// Read the memory allocators available in the ArmA 3 Dll folder
+        /// </summary>
+        public static void ReadAllocators()
+        {
+            Allocators.Add("system");
+
+            if (Arma3Path != "")
+            {
+                string[] files = Directory.GetFiles(Arma3Path + "\\Dll", "*.dll");
+                foreach (string file in files)
+                {
+                    Allocators.Add(Path.GetFileNameWithoutExtension(file));
+                }
             }
         }
     }

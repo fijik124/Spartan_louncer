@@ -1,0 +1,66 @@
+﻿<Controls:MetroWindow x:Class="_11thLauncher.AddonSyncWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:self="clr-namespace:_11thLauncher.AddonSync"
+                      Title="Sincronizador de addons"
+                      Height="550"
+                      Width="700" TitleCaps="False" ShowInTaskbar="True" EnableDWMDropShadow="True" WindowStartupLocation="CenterOwner" Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed" MinHeight="550" MinWidth="700">
+
+    <Grid>
+        <GroupBox x:Name="groupBox" Header="Contenido del repositorio" Margin="261,10,5,5">
+            <Grid Margin="0,0,-2,-5">
+                <TreeView x:Name="treeView" Margin="0,58,0,0" BorderThickness="1" BorderBrush="#FF959595">
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type self:SyncTreeNode}" ItemsSource="{Binding List}">
+                            <TextBlock Text="{Binding Name}" />
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                    <!--
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem" BasedOn="{StaticResource MetroTreeViewItem}">
+                    <Setter Property="Height" Value="50" />
+                </Style>
+            </TreeView.ItemContainerStyle>-->
+                </TreeView>
+                <CheckBox x:Name="checkBox" Content="Seleccionar todos" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3,0,0"/>
+                <CheckBox x:Name="checkBox1" Content="Expandir todos" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,30,0,0"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox1" Header="Comprobar addons" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="238" Width="235">
+            <Grid>
+                <ProgressBar HorizontalAlignment="Left" VerticalAlignment="Top" Width="198" Height="21" Value="100" Margin="10,10,0,0"/>
+                <Button x:Name="button" Content="V" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="71,36,0,0" ToolTip="Comprobar addons"/>
+                <Button x:Name="button1" Content="X" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="114,36,0,0" ToolTip="Cancelar"/>
+                <Label x:Name="label" Content="Archivos actualizados:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.211,4.385" Margin="10,97,0,0"/>
+                <Label x:Name="label1" Content="Archivos borrados:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,128,0,0"/>
+                <Label x:Name="label_Copy" Content="Archivos nuevos:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.211,4.385" Margin="10,66,0,0"/>
+                <Button x:Name="button1_Copy" Content="Verificar integridad" HorizontalAlignment="Left" VerticalAlignment="Top" Width="174" Margin="9,169,0,0"/>
+                <Image x:Name="image_verifyWarning" HorizontalAlignment="Left" Height="24" Margin="192,169,0,0" VerticalAlignment="Top" Width="24" Source="Resources/warning.png" IsHitTestVisible="True" RenderTransformOrigin="0.792,1.833">
+                    <Image.ToolTip>
+                        <TextBlock>
+                            Esta acción vuelve a calcular los hashes de todos los archivos del repositorio.
+                            <LineBreak />
+                            Puede tardar una considerable cantidad de tiempo pero detecta archivos corruptos.
+                        </TextBlock>
+
+                    </Image.ToolTip>
+                </Image>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox2" Header="Descargar addons" HorizontalAlignment="Left" Margin="10,263,0,0" VerticalAlignment="Top" Height="251" Width="235">
+            <Grid>
+                <ProgressBar HorizontalAlignment="Left" VerticalAlignment="Top" Width="198" Height="21" Margin="10,10,0,0"/>
+                <ProgressBar HorizontalAlignment="Left" VerticalAlignment="Top" Width="198" Height="21" Margin="10,36,0,0"/>
+                <Button x:Name="button_Copy1" Content="V" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="46,62,0,0"/>
+                <Button x:Name="button_Copy2" Content="X" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="89,62,0,0"/>
+                <Button x:Name="button_Copy3" Content="X" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="132,62,0,0"/>
+                <Label x:Name="label2" Content="Tamaño total:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,93,0,0"/>
+                <Label x:Name="label2_Copy" Content="Descargado:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,121,0,0"/>
+                <Label x:Name="label2_Copy1" Content="Velocidad:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,151,0,0"/>
+                <Label x:Name="label2_Copy2" Content="Tiempo restante:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,181,0,0"/>
+
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Controls:MetroWindow>

@@ -58,6 +58,11 @@
                         <Image Source="/Resources/menu_logviewer.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem x:Name="menu_addonSync" Header="_Sincronizador de addons" Click="menu_addonSync_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/menu_logviewer.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator/>
                 <MenuItem x:Name="menu_settings" Header="_Opciones" Click="menu_settings_Click">
                     <MenuItem.Icon>
@@ -228,27 +233,27 @@
             </TabItem>
             <TabItem Header="Parámetros" HeaderTemplate="{StaticResource tabTitle}" >
                 <Grid HorizontalAlignment="Left" Height="303" VerticalAlignment="Top" Width="615">
-                    <CheckBox x:Name="checkBox_skipSplash" Content="Skip splash screen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" ToolTip="Desactiva las pantallas de inicio"/>
-                    <CheckBox x:Name="checkBox_noFilePatching" Content="No file patching" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" ToolTip="Cargar solo PBO's y no archivos sueltos"/>
-                    <CheckBox x:Name="checkBox_winXPmode" Content="Windows XP mode" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" ToolTip="Forzar al juego a utilizar Direct3D versión 9"/>
-                    <CheckBox x:Name="checkBox_noPause" Content="No pause" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" ToolTip="Continuar ejecutando el juego en segundo plano"/>
-                    <CheckBox x:Name="checkBox_showScriptErrors" Content="Show script errors" HorizontalAlignment="Left" Margin="10,204,0,0" VerticalAlignment="Top" ToolTip="Mostrar en pantalla errores de script"/>
-                    <CheckBox x:Name="checkBox_emptyWorld" Content="Empty world" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalAlignment="Top" ToolTip="No cargar ningún mapa por defecto"/>
-                    <CheckBox x:Name="checkBox_windowedMode" Content="Windowed mode" HorizontalAlignment="Left" Margin="203,55,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,2.556" ToolTip="Iniciar en modo ventana"/>
-                    <CheckBox x:Name="checkBox_skipIntro" Content="Skip intro" HorizontalAlignment="Left" Margin="203,103,0,0" VerticalAlignment="Top" ToolTip="Desactivar videos de introducción en el menú principal"/>
-                    <CheckBox x:Name="checkBox_noMulticore" Content="No multicore" HorizontalAlignment="Left" Margin="203,155,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.093,-0.333" ToolTip="Desactivar la utilización de varios núcleos"/>
-                    <CheckBox x:Name="checkBox_noLogs" Content="No logs" HorizontalAlignment="Left" Margin="203,204,0,0" VerticalAlignment="Top" ToolTip="Desactivar generación de logs del juego"/>
-                    <CheckBox x:Name="checkBox_hyperthreading" Content="Hyperthreading" HorizontalAlignment="Left" Margin="203,246,0,0" VerticalAlignment="Top" ToolTip="Activa el uso de todos los núcleos con tecnologia Hyperthreading"/>
-                    <CheckBox x:Name="checkBox_maxMemory" Content="Max memory" HorizontalAlignment="Left" Margin="367,10,0,0" VerticalAlignment="Top" ToolTip="Definir límite de memoria disponible" Checked="checkBox_maxMemory_Checked" Unchecked="checkBox_maxMemory_Unchecked"/>
-                    <ComboBox x:Name="comboBox_maxMemory" HorizontalAlignment="Left" Margin="479,6,0,0" VerticalAlignment="Top" Width="126" IsEnabled="False">
+                    <CheckBox x:Name="checkBox_skipSplash" Content="Saltar pantalla de inicio" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" ToolTip="Desactiva las pantallas de inicio"/>
+                    <CheckBox x:Name="checkBox_noFilePatching" Content="Cargar archivos sueltos" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" ToolTip="Cargar archivos sueltos además de PBO's"/>
+                    <CheckBox x:Name="checkBox_winXPmode" Content="Modo Windows XP" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" ToolTip="Forzar al juego a utilizar Direct3D versión 9"/>
+                    <CheckBox x:Name="checkBox_noPause" Content="No pausar" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" ToolTip="Continuar ejecutando el juego en segundo plano"/>
+                    <CheckBox x:Name="checkBox_showScriptErrors" Content="Mostrar errores de script" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top" ToolTip="Mostrar en pantalla errores de script"/>
+                    <CheckBox x:Name="checkBox_emptyWorld" Content="Mundo vacío" HorizontalAlignment="Left" Margin="195,10,0,0" VerticalAlignment="Top" ToolTip="No cargar ningún mapa por defecto"/>
+                    <CheckBox x:Name="checkBox_windowedMode" Content="Modo ventana" HorizontalAlignment="Left" Margin="195,55,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,2.556" ToolTip="Iniciar en modo ventana"/>
+                    <CheckBox x:Name="checkBox_skipIntro" Content="Saltar intro" HorizontalAlignment="Left" Margin="195,103,0,0" VerticalAlignment="Top" ToolTip="Desactivar videos de introducción en el menú principal"/>
+                    <CheckBox x:Name="checkBox_noMulticore" Content="Desactivar multinúcleo" HorizontalAlignment="Left" Margin="195,155,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.093,-0.333" ToolTip="Desactivar la utilización de varios núcleos"/>
+                    <CheckBox x:Name="checkBox_noLogs" Content="No logs" HorizontalAlignment="Left" Margin="195,201,0,0" VerticalAlignment="Top" ToolTip="Desactivar generación de logs del juego"/>
+                    <CheckBox x:Name="checkBox_hyperthreading" Content="Hyperthreading (Intel®)" HorizontalAlignment="Left" Margin="195,246,0,0" VerticalAlignment="Top" ToolTip="Activa el uso de todos los núcleos con tecnologia Hyperthreading"/>
+                    <CheckBox x:Name="checkBox_maxMemory" Content="Límite de RAM" HorizontalAlignment="Left" Margin="359,10,0,0" VerticalAlignment="Top" ToolTip="Definir límite de memoria disponible" Checked="checkBox_maxMemory_Checked" Unchecked="checkBox_maxMemory_Unchecked"/>
+                    <ComboBox x:Name="comboBox_maxMemory" HorizontalAlignment="Left" Margin="486,6,0,0" VerticalAlignment="Top" Width="127" IsEnabled="False">
                         <ComboBoxItem Content="768"/>
                         <ComboBoxItem Content="1024"/>
                         <ComboBoxItem Content="2048 (hard-limit)"/>
                         <ComboBoxItem Content="4096"/>
                         <ComboBoxItem Content="8192"/>
                     </ComboBox>
-                    <CheckBox x:Name="checkBox_maxVMemory" Content="Max VRAM" HorizontalAlignment="Left" Margin="367,55,0,0" VerticalAlignment="Top" ToolTip="Definir límite de memoria de video disponible" Checked="checkBox_maxVMemory_Checked" Unchecked="checkBox_maxVMemory_Unchecked"/>
-                    <ComboBox x:Name="comboBox_maxVMemory" HorizontalAlignment="Left" Margin="479,51,0,0" VerticalAlignment="Top" Width="126" IsEnabled="False">
+                    <CheckBox x:Name="checkBox_maxVMemory" Content="Límite de VRAM" HorizontalAlignment="Left" Margin="359,55,0,0" VerticalAlignment="Top" ToolTip="Definir límite de memoria de video disponible" Checked="checkBox_maxVMemory_Checked" Unchecked="checkBox_maxVMemory_Unchecked"/>
+                    <ComboBox x:Name="comboBox_maxVMemory" HorizontalAlignment="Left" Margin="486,51,0,0" VerticalAlignment="Top" Width="127" IsEnabled="False">
                         <ComboBoxItem Content="128"/>
                         <ComboBoxItem Content="256"/>
                         <ComboBoxItem Content="512"/>
@@ -257,8 +262,8 @@
                         <ComboBoxItem Content="4096"/>
                         <ComboBoxItem Content="8192"/>
                     </ComboBox>
-                    <CheckBox x:Name="checkBox_cpuCount" Content="CPU count" HorizontalAlignment="Left" Margin="367,103,0,0" VerticalAlignment="Top" ToolTip="Número de núcleos a utilizar (menor o igual al número de núcleos del procesador)" Checked="checkBox_cpuCount_Checked" Unchecked="checkBox_cpuCount_Unchecked"/>
-                    <ComboBox x:Name="comboBox_cpuCount" HorizontalAlignment="Left" Margin="479,101,0,0" VerticalAlignment="Top" Width="126" IsEnabled="False">
+                    <CheckBox x:Name="checkBox_cpuCount" Content="Número de nucleos" HorizontalAlignment="Left" Margin="359,103,0,0" VerticalAlignment="Top" ToolTip="Número de núcleos a utilizar (menor o igual al número de núcleos del procesador)" Checked="checkBox_cpuCount_Checked" Unchecked="checkBox_cpuCount_Unchecked"/>
+                    <ComboBox x:Name="comboBox_cpuCount" HorizontalAlignment="Left" Margin="506,101,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False">
                         <ComboBoxItem Content="1"/>
                         <ComboBoxItem Content="2"/>
                         <ComboBoxItem Content="3"/>
@@ -268,22 +273,24 @@
                         <ComboBoxItem Content="7"/>
                         <ComboBoxItem Content="8"/>
                     </ComboBox>
-                    <CheckBox x:Name="checkBox_extraThreads" Content="Extra threads" HorizontalAlignment="Left" Margin="367,155,0,0" VerticalAlignment="Top" ToolTip="Número de hilos adicionales" Checked="checkBox_extraThreads_Checked" Unchecked="checkBox_extraThreads_Unchecked"/>
-                    <ComboBox x:Name="comboBox_extraThreads" HorizontalAlignment="Left" Margin="479,155,0,0" VerticalAlignment="Top" Width="126" IsEnabled="False">
+                    <CheckBox x:Name="checkBox_extraThreads" Content="Hilos adicionales" HorizontalAlignment="Left" Margin="359,155,0,0" VerticalAlignment="Top" ToolTip="Número de hilos adicionales" Checked="checkBox_extraThreads_Checked" Unchecked="checkBox_extraThreads_Unchecked"/>
+                    <ComboBox x:Name="comboBox_extraThreads" HorizontalAlignment="Left" Margin="506,155,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False">
                         <ComboBoxItem Content="0"/>
                         <ComboBoxItem Content="1"/>
                         <ComboBoxItem Content="3"/>
                         <ComboBoxItem Content="5"/>
                         <ComboBoxItem Content="7"/>
                     </ComboBox>
-                    <CheckBox x:Name="checkBox_priority" Content="Process priority" HorizontalAlignment="Left" Margin="367,204,0,0" VerticalAlignment="Top" ToolTip="Prioridad del proceso de ArmA 3 en Windows" Checked="checkBox_priority_Checked" Unchecked="checkBox_priority_Unchecked"/>
-                    <ComboBox x:Name="comboBox_priority" HorizontalAlignment="Left" Margin="479,204,0,0" VerticalAlignment="Top" Width="126" IsEnabled="False">
+                    <CheckBox x:Name="checkBox_priority" Content="Prioridad de proceso" HorizontalAlignment="Left" Margin="359,201,0,0" VerticalAlignment="Top" ToolTip="Prioridad del proceso de ArmA 3 en Windows" Checked="checkBox_priority_Checked" Unchecked="checkBox_priority_Unchecked"/>
+                    <ComboBox x:Name="comboBox_priority" HorizontalAlignment="Left" Margin="506,201,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False">
                         <ComboBoxItem Content="Normal"/>
-                        <ComboBoxItem Content="Above normal"/>
-                        <ComboBoxItem Content="High"/>
+                        <ComboBoxItem Content="Encima de lo normal"/>
+                        <ComboBoxItem Content="Alta"/>
                     </ComboBox>
-                    <Label Content="Parámetros adicionales:" HorizontalAlignment="Left" Margin="10,243,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox_additionalParameters" HorizontalAlignment="Left" Height="23" Margin="10,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="595" RenderTransformOrigin="0.233,0.5"/>
+                    <Label Content="Parámetros adicionales" HorizontalAlignment="Left" Margin="10,243,0,0" VerticalAlignment="Top" FontWeight="SemiBold"/>
+                    <CheckBox x:Name="checkBox_malloc" Content="Asignador de memoria" HorizontalAlignment="Left" Margin="359,246,0,0" VerticalAlignment="Top" ToolTip="Prioridad del proceso de ArmA 3 en Windows" Unchecked="checkBox_malloc_Unchecked" Checked="checkBox_malloc_Checked"/>
+                    <TextBox x:Name="textBox_additionalParameters" HorizontalAlignment="Left" Height="23" Margin="10,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="605" RenderTransformOrigin="0.233,0.5"/>
+                    <ComboBox x:Name="comboBox_malloc" HorizontalAlignment="Left" Margin="506,246,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Perfiles" HeaderTemplate="{StaticResource tabTitle}" >
@@ -299,5 +306,7 @@
                 </Grid>
             </TabItem>
         </Controls:MetroAnimatedSingleRowTabControl>
+        <Label x:Name="label_gameVersion" Content="1.00.000000" HorizontalAlignment="Left" Margin="529,118,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Image x:Name="image_versionWarning" HorizontalAlignment="Left" Height="24" Margin="611,118,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/warning.png" IsHitTestVisible="True" ToolTip="Tu versión no concuerda con la de los servidores de la 11th MEU" Visibility="Hidden"/>
     </Grid>
 </Controls:MetroWindow>

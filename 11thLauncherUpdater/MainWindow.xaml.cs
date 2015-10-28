@@ -83,6 +83,16 @@ namespace _11thLauncherUpdater
                 ZipFile.ExtractToDirectory(_zipFile, Path.GetTempPath());
                 File.Delete(_zipFile);
 
+                //TODO VERIFY
+                /*
+                using (var md5 = MD5.Create())
+                {
+                    using (var stream = File.OpenRead(filename))
+                    {
+                        return md5.ComputeHash(stream);
+                    }
+                }*/
+
                 //Delete original launcher and move new one
                 File.Delete(_executionPath);
                 File.Move(_exeFile, _executionPath);

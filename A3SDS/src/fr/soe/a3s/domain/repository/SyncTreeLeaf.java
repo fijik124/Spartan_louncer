@@ -2,6 +2,10 @@ package fr.soe.a3s.domain.repository;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+@XmlRootElement
 public class SyncTreeLeaf implements SyncTreeNode, Serializable {
 
 	/**
@@ -17,6 +21,8 @@ public class SyncTreeLeaf implements SyncTreeNode, Serializable {
 	private transient String localSHA1;
 	private boolean updated = false;
 	private boolean deleted = false;
+	
+	public SyncTreeLeaf() {}
 
 	public SyncTreeLeaf(String name, SyncTreeDirectory parent) {
 		super();
@@ -35,6 +41,7 @@ public class SyncTreeLeaf implements SyncTreeNode, Serializable {
 	}
 
 	@Override
+	@XmlTransient
 	public SyncTreeDirectory getParent() {
 		return this.parent;
 	}

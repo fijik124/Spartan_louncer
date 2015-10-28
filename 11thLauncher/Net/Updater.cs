@@ -16,8 +16,8 @@ namespace _11thLauncher.Net
         private static readonly string _downloadBaseURL = "https://raw.githubusercontent.com/11thmeu/launcher/master/bin/";
         private static readonly string _updaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
 
-        private static readonly string _currentBuildType = "stable";
-        private static readonly string _currentVersion = "200";
+        private static readonly string _currentBuildType = "dev";
+        private static readonly string _currentVersion = "201_dev13092015";
         private static string _latestVersion = "";
 
         /// <summary>

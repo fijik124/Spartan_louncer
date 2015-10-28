@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using QueryMaster;
+
+using _11thLauncher.Configuration;
 
 namespace _11thLauncher.Net
 {
@@ -143,6 +144,35 @@ namespace _11thLauncher.Net
             }
 
             MainWindow.UpdateForm("UpdateServerInfo", new object[] { index, exception });
+        }
+        
+        /// <summary>
+        /// Compare the local game version with the server version and callback the form to show if it doesn't match
+        /// </summary>
+        public static void CompareServerVersion()
+        {
+            foreach (ushort serverPort in _servers)
+            {
+                try
+                {
+                    Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIP().ToString(), serverPort);
+
+                    ServerInfo info = server.GetInfo();
+                    server.Dispose();
+
+                    string localVersion = Settings.GameVersion;
+                    string remoteVersion = info.GameVersion;
+
+                    //Version mismatch, show in form
+                    if (!localVersion.Equals(remoteVersion))
+                    {
+                        MainWindow.UpdateForm("ShowVersionMismatch", new object[] { remoteVersion });
+                    }
+
+                    break;
+                }
+                catch (SocketException){}
+            }
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ namespace _11thLauncher.Configuration
 {
     static class Profiles
     {
-        private static readonly string ProfilesPath = Settings.ConfigPath + "\\profiles";
+        private static readonly string _profilesPath = Settings.ConfigPath + "\\profiles";
 
         //User profiles
         public static List<string> UserProfiles = new List<string>();
@@ -104,16 +104,16 @@ namespace _11thLauncher.Configuration
         /// <param name="profile">Name of the profile to write</param>
         public static void WriteProfile(string profile)
         {
-            if (!Directory.Exists(ProfilesPath))
+            if (!Directory.Exists(_profilesPath))
             {
-                Directory.CreateDirectory(ProfilesPath);
+                Directory.CreateDirectory(_profilesPath);
             }
 
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.IndentChars = "\t";
 
-            using (XmlWriter writer = XmlWriter.Create(ProfilesPath + "\\" + profile + ".xml", settings))
+            using (XmlWriter writer = XmlWriter.Create(_profilesPath + "\\" + profile + ".xml", settings))
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("Profile");
@@ -174,7 +174,7 @@ namespace _11thLauncher.Configuration
             ProfileAddons.Clear();
 
             //Read profile
-            using (XmlReader reader = XmlReader.Create(ProfilesPath + "\\" + profile + ".xml"))
+            using (XmlReader reader = XmlReader.Create(_profilesPath + "\\" + profile + ".xml"))
             {
                 while (reader.Read())
                 {
@@ -224,7 +224,7 @@ namespace _11thLauncher.Configuration
         public static void DeleteProfile(string profile)
         {
             UserProfiles.Remove(profile);
-            File.Delete(ProfilesPath + "\\" + profile + ".xml");
+            File.Delete(_profilesPath + "\\" + profile + ".xml");
             Settings.Write();
         }
     }

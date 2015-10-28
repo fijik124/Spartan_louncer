@@ -17,6 +17,11 @@ import es._11thmeu.a3spipe.domain.LocalRepository;
 import es._11thmeu.a3spipe.domain.RemoteServer;
 import fr.soe.a3s.domain.repository.Repository;
 import fr.soe.a3s.domain.repository.ServerInfo;
+import fr.soe.a3s.domain.repository.SyncTreeDirectory;
+import fr.soe.a3s.domain.repository.SyncTreeLeaf;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 public class A3SPipe {
 	
@@ -31,9 +36,17 @@ public class A3SPipe {
 			} else if (op.equals("-deserializeServerInfo")) {
 				RemoteServer remoteRepository = deserializeServerInfo(path);
 				System.out.println(remoteRepository);
+			} else {
+				SyncTreeDirectory trr = deserializeSync(path);
+				
+				JAXBContext context = JAXBContext.newInstance(SyncTreeDirectory.class, SyncTreeLeaf.class);
+				Marshaller m = context.createMarshaller();
+				m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
+				m.marshal(trr, System.out);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());
+			e.printStackTrace();
 		}
 	}
 	
@@ -102,5 +115,22 @@ public class A3SPipe {
 		} catch (Exception e) {}
 		
 		return remoteRepository;
+	}
+	
+	public static SyncTreeDirectory deserializeSync(String path) {
+		
+		SyncTreeDirectory serverInfo = null;
+
+		try {
+			File file = new File(path);
+			ObjectInputStream fRo = new ObjectInputStream(
+					new GZIPInputStream(new FileInputStream(file)));
+			serverInfo = (SyncTreeDirectory) fRo.readObject();
+			fRo.close();
+
+			
+		} catch (Exception e) {}
+		
+		return serverInfo;
 	}
 }

@@ -70,6 +70,13 @@ namespace _11thLauncher
             }
             listBox_addons.ItemsSource = addons;
 
+            //Add available memory allocators
+            Settings.ReadAllocators();
+            foreach (string allocator in Settings.Allocators)
+            {
+                comboBox_malloc.Items.Add(allocator);
+            }
+
             //Add profiles
             UpdateProfiles();
             comboBox_profiles.SelectedIndex = comboBox_profiles.Items.IndexOf(Profiles.DefaultProfile); //Select default profile
@@ -126,6 +133,10 @@ namespace _11thLauncher
             {
                 new Thread(() => Updater.CheckVersion(false)).Start();
             }
+
+            //Check local game version against server version
+            label_gameVersion.Content = Settings.GetGameVersion();
+            new Thread(() => Servers.CompareServerVersion()).Start();
         }
 
         private void MetroWindow_Closed(object sender, EventArgs e)
@@ -210,6 +221,13 @@ namespace _11thLauncher
             LogWindow logWindow = new LogWindow();
             logWindow.Owner = this;
             logWindow.Show();
+        }
+
+        private void menu_addonSync_Click(object sender, RoutedEventArgs e)
+        {
+            AddonSyncWindow addonSyncWindow = new AddonSyncWindow();
+            addonSyncWindow.Owner = this;
+            addonSyncWindow.ShowDialog();
         }
 
         private void menu_settings_Click(object sender, RoutedEventArgs e)
@@ -525,6 +543,18 @@ namespace _11thLauncher
             comboBox_priority.SelectedIndex = -1;
         }
 
+        private void checkBox_malloc_Checked(object sender, RoutedEventArgs e)
+        {
+            comboBox_malloc.IsEnabled = true;
+            comboBox_malloc.SelectedIndex = 0;
+        }
+
+        private void checkBox_malloc_Unchecked(object sender, RoutedEventArgs e)
+        {
+            comboBox_malloc.IsEnabled = false;
+            comboBox_malloc.SelectedIndex = -1;
+        }
+
         private void button_defaultProfile_Click(object sender, RoutedEventArgs e)
         {
             if (listBox_profiles.SelectedIndex == -1)
@@ -606,7 +636,9 @@ namespace _11thLauncher
 
             //Parameters
             if (Profiles.GetParameter("noFilePatching", false))
-                launchParams += " -noFilePatching";
+            {
+                launchParams += " -filePatching";
+            }
             if (Profiles.GetParameter("skipSplashScreen", false))
                 launchParams += " -noSplash";
             if (Profiles.GetParameter("windowsXPMode", false))
@@ -764,26 +796,33 @@ namespace _11thLauncher
             //Start process
             if (startProcess)
             {
-                process.Start();
-            }
-
-            //Set priority
-            if (Profiles.GetParameter("priority", false) && startProcess)
-            {
-                switch (Profiles.GetParameter("priorityValue", 0))
+                if (!(string.IsNullOrEmpty(Settings.Arma3Path)))
                 {
-                    case 0:
-                        process.PriorityClass = ProcessPriorityClass.Normal;
-                        break;
-                    case 1:
-                        process.PriorityClass = ProcessPriorityClass.AboveNormal;
-                        break;
-                    case 2:
-                        process.PriorityClass = ProcessPriorityClass.High;
-                        break;
-                    default:
-                        process.PriorityClass = ProcessPriorityClass.Normal;
-                        break;
+                    process.Start();
+
+                    //Set priority
+                    if (Profiles.GetParameter("priority", false))
+                    {
+                        switch (Profiles.GetParameter("priorityValue", 0))
+                        {
+                            case 0:
+                                process.PriorityClass = ProcessPriorityClass.Normal;
+                                break;
+                            case 1:
+                                process.PriorityClass = ProcessPriorityClass.AboveNormal;
+                                break;
+                            case 2:
+                                process.PriorityClass = ProcessPriorityClass.High;
+                                break;
+                            default:
+                                process.PriorityClass = ProcessPriorityClass.Normal;
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    this.ShowMessageAsync("Error de lanzamiento", "La ruta del ejecutable de ArmA 3 no está configurada", MessageDialogStyle.Affirmative);
                 }
             }
 
@@ -1067,6 +1106,15 @@ namespace _11thLauncher
                     await this.ShowMessageAsync("No hay actualizaciones disponibles", "Dispones de la última versión", MessageDialogStyle.Affirmative);
                 }
             }
+        }
+
+        /// <summary>
+        /// Show server version mismatch alert icon
+        /// </summary>
+        private void ShowVersionMismatch(string serverVersion)
+        {
+            image_versionWarning.Visibility = Visibility.Visible;
+            image_versionWarning.ToolTip = "Tu versión de ArmA 3 no concuerda con la de los servidores de la 11th MEU (" + serverVersion + ")";
         }
     }
 }

@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+@XmlRootElement
 public class SyncTreeDirectory implements SyncTreeNode, Serializable {
 
 	/**
@@ -13,12 +19,15 @@ public class SyncTreeDirectory implements SyncTreeNode, Serializable {
 	private static final long serialVersionUID = -2855304993780573704L;
 	private String name;
 	private SyncTreeDirectory parent;
+	@XmlAnyElement
 	private final List<SyncTreeNode> list = new ArrayList<SyncTreeNode>();
 	private boolean markAsAddon = false;
 	private transient String destinationPath;
 	private boolean updated = false;
 	private boolean deleted = false;
 	private boolean hidden = false;
+	
+	public SyncTreeDirectory() {}
 
 	public SyncTreeDirectory(String name, SyncTreeDirectory parent) {
 		super();
@@ -57,6 +66,7 @@ public class SyncTreeDirectory implements SyncTreeNode, Serializable {
 	}
 
 	@Override
+	@XmlTransient
 	public SyncTreeDirectory getParent() {
 		return this.parent;
 	}
