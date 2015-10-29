@@ -14,11 +14,17 @@ namespace _11thLauncher.AddonSync
         public bool Updated { get; set; }
         [XmlElement("deleted")]
         public bool Deleted { get; set; }
+        [XmlElement(ElementName = "syncTreeDirectory", Type = typeof(SyncTreeDirectory))]
+        [XmlElement(ElementName = "syncTreeLeaf", Type = typeof(SyncTreeLeaf))]
+        public SyncTreeNodeList List { get; set; }
+        [XmlIgnore]
+        public bool IsLeaf { get; set; }
 
         public SyncTreeNode()
         {
             Updated = false;
             Deleted = false;
+            IsLeaf = false;
         }
 
         public SyncTreeNode(string name, SyncTreeDirectory parent)
@@ -42,11 +48,6 @@ namespace _11thLauncher.AddonSync
                 result = 0;
             }
             return result;
-        }
-
-        bool IsLeaf()
-        {
-            return false;
         }
     }
 }

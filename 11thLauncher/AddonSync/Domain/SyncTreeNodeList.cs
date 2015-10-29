@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace _11thLauncher.AddonSync
 {
-    public class SyncTreeNodeList : List<SyncTreeNode>
+    public class SyncTreeNodeList : ObservableCollection<SyncTreeNode>
     {
         private SyncTreeDirectory _parent;
+
+        public SyncTreeNodeList() : base() { }
 
         public SyncTreeNodeList(SyncTreeDirectory parent) : base()
         {
@@ -58,13 +61,13 @@ namespace _11thLauncher.AddonSync
 
         public new void Clear()
         {
-            ForEach(delegate (SyncTreeNode item)
+            foreach (SyncTreeNode item in Items)
             {
                 if (item != null)
                 {
                     item.Parent = null;
                 }
-            });
+            }
             base.Clear();
         }
 

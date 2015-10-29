@@ -15,11 +15,10 @@ namespace _11thLauncher.AddonSync
         [XmlElement("complete")]
         public long Complete { get; set; }// file completion in %
 
-        public SyncTreeLeaf() { }
-
-        public bool IsLeaf()
+        public SyncTreeLeaf()
         {
-            return true;
+            List = new SyncTreeNodeList(); //Dummy children list
+            IsLeaf = true;
         }
 
         public void ComputeLocalHash()

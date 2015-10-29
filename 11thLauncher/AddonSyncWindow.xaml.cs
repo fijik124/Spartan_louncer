@@ -33,12 +33,8 @@ namespace _11thLauncher
             FileStream fs = new FileStream(@"C:\Users\Javier\Downloads\syncEXP.xml", FileMode.Open);
             syncTreeObject = (SyncTreeDirectory)serializer.Deserialize(fs);
 
-            
+            treeView.ItemsSource = syncTreeObject.List;
 
-            foreach (SyncTreeNode node in syncTreeObject.List)
-            {
-                treeView.Items.Add(node);
-            }
             SyncTreeDirectory ace = (SyncTreeDirectory)syncTreeObject.List[0];
             SyncTreeDirectory addons = (SyncTreeDirectory)ace.List[0];
             SyncTreeLeaf ballistics = (SyncTreeLeaf)addons.List[0];

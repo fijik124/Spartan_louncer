@@ -18,9 +18,21 @@
                                     <HierarchicalDataTemplate DataType="{x:Type self:SyncTreeNode}" ItemsSource="{Binding List}">
                                         <StackPanel Orientation="Horizontal">
                                             <CheckBox Name="checkbox" Width="20" Height="20"/>
-                                            <Image Name="image" Width="20" Height="20" Stretch="Fill" Source="/Resources/menu_game.png" /> <!-- TODO proper icons -->
-                                            <TextBlock Text="{Binding Name}" Margin="5,0" />
+                                            <Image Name="image" Width="20" Height="20" Stretch="Fill" Source="/Resources/folder.png"/>
+                                            <TextBlock Name="text" Text="{Binding Name}" Margin="5,0" />
                                         </StackPanel>
+                                        <HierarchicalDataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding IsLeaf}" Value="True">
+                                                <DataTrigger.Setters>
+                                                    <Setter TargetName="image" Property="Source" Value="/Resources/file.png"/>
+                                                </DataTrigger.Setters>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Updated}" Value="True">
+                                                <DataTrigger.Setters>
+                                                    <Setter TargetName="text" Property="Foreground" Value="Blue"/>
+                                                </DataTrigger.Setters>
+                                            </DataTrigger>
+                                        </HierarchicalDataTemplate.Triggers>
                                     </HierarchicalDataTemplate>
                                 </Setter.Value>
                             </Setter>

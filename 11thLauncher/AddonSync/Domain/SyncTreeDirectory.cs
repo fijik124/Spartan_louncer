@@ -7,9 +7,6 @@ namespace _11thLauncher.AddonSync
     [XmlRoot(ElementName = "syncTreeDirectory")]
     public class SyncTreeDirectory : SyncTreeNode
     {
-        [XmlElement(ElementName = "syncTreeDirectory", Type = typeof(SyncTreeDirectory))]
-        [XmlElement(ElementName = "syncTreeLeaf", Type = typeof(SyncTreeLeaf))]
-        public SyncTreeNodeList List { get; set; }
         [XmlElement("markAsAddon")]
         public bool MarkAsAddon { get; set; }
         [XmlElement("hidden")]
@@ -43,8 +40,8 @@ namespace _11thLauncher.AddonSync
             directories.Sort();
             leafs.Sort();
             List.Clear();
-            List.AddRange(directories);
-            List.AddRange(leafs);
+            //List.AddRange(directories);
+            //List.AddRange(leafs);
         }
     }
 }
