@@ -1,9 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace _11thLauncher.AddonSync
 {
-    public class SyncTreeNode : IComparable
+    public class SyncTreeNode : IComparable, INotifyPropertyChanged
     {
         [XmlElement("name")]
         public string Name { get; set; }
@@ -20,19 +21,49 @@ namespace _11thLauncher.AddonSync
         [XmlIgnore]
         public bool IsLeaf { get; set; }
 
+        //View model attributes
+        [XmlIgnore]
+        private bool isSelected;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public SyncTreeNode()
         {
             Updated = false;
             Deleted = false;
+            List = new SyncTreeNodeList();
             IsLeaf = false;
+            isSelected = false;
         }
 
-        public SyncTreeNode(string name, SyncTreeDirectory parent)
+        public SyncTreeNode(string name, SyncTreeDirectory parent) : this()
         {
-            Updated = false;
-            Deleted = false;
             Name = name;
             Parent = parent;
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return isSelected;
+            }
+
+            set
+            {
+                isSelected = value;
+                if (List.Count != 0)
+                {
+                    foreach (SyncTreeNode node in List)
+                    {
+                        node.IsSelected = value;
+                    }
+                }
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsSelected"));
+                }
+            }
         }
 
         public int CompareTo(object other)

@@ -17,7 +17,6 @@ namespace _11thLauncher.AddonSync
 
         public SyncTreeLeaf()
         {
-            List = new SyncTreeNodeList(); //Dummy children list
             IsLeaf = true;
         }
 

@@ -5,6 +5,8 @@ using _11thLauncher.AddonSync;
 using System.Xml.Serialization;
 using System.IO;
 using System.Windows.Media;
+using System.Windows.Controls;
+using System.Threading;
 
 namespace _11thLauncher
 {
@@ -47,6 +49,27 @@ namespace _11thLauncher
         private void MetroWindow_Closed(object sender, EventArgs e)
         {
             Form = null;
+        }
+
+        private void button_checkAddons_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(syncTreeObject);
+        }
+
+        private void checkBox_selectAll_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (SyncTreeNode node in syncTreeObject.List)
+            {
+                node.IsSelected = true;
+            }
+        }
+
+        private void checkBox_selectAll_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach (SyncTreeNode node in syncTreeObject.List)
+            {
+                node.IsSelected = false;
+            }
         }
     }
 }
