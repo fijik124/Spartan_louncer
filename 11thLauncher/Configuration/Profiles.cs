@@ -6,7 +6,7 @@ namespace _11thLauncher.Configuration
 {
     static class Profiles
     {
-        private static readonly string _profilesPath = Settings.ConfigPath + "\\profiles";
+        private static readonly string ProfilesPath = Settings.ConfigPath + "\\profiles";
 
         //User profiles
         public static List<string> UserProfiles = new List<string>();
@@ -25,18 +25,7 @@ namespace _11thLauncher.Configuration
         /// <returns>Value of the parameter</returns>
         public static bool GetParameter(string parameter, bool defaultValue)
         {
-            bool result;
-
-            if (ProfileParameters.ContainsKey(parameter))
-            {
-                result = bool.Parse(ProfileParameters[parameter]);
-            }
-            else
-            {
-                result = defaultValue;
-            }
-
-            return result;
+            return ProfileParameters.ContainsKey(parameter) ? bool.Parse(ProfileParameters[parameter]) : defaultValue;
         }
 
         /// <summary>
@@ -47,18 +36,7 @@ namespace _11thLauncher.Configuration
         /// <returns>Value of the parameter</returns>
         public static int GetParameter(string parameter, int defaultValue)
         {
-            int result;
-
-            if (ProfileParameters.ContainsKey(parameter))
-            {
-                result = int.Parse(ProfileParameters[parameter]);
-            }
-            else
-            {
-                result = defaultValue;
-            }
-
-            return result;
+            return ProfileParameters.ContainsKey(parameter) ? int.Parse(ProfileParameters[parameter]) : defaultValue;
         }
 
         /// <summary>
@@ -69,18 +47,7 @@ namespace _11thLauncher.Configuration
         /// <returns>Value of the parameter</returns>
         public static string GetParameter(string parameter, string defaultValue)
         {
-            string result;
-
-            if (ProfileParameters.ContainsKey(parameter))
-            {
-                result = ProfileParameters[parameter];
-            }
-            else
-            {
-                result = defaultValue;
-            }
-
-            return result;
+            return ProfileParameters.ContainsKey(parameter) ? ProfileParameters[parameter] : defaultValue;
         }
 
         /// <summary>
@@ -104,23 +71,25 @@ namespace _11thLauncher.Configuration
         /// <param name="profile">Name of the profile to write</param>
         public static void WriteProfile(string profile)
         {
-            if (!Directory.Exists(_profilesPath))
+            if (!Directory.Exists(ProfilesPath))
             {
-                Directory.CreateDirectory(_profilesPath);
+                Directory.CreateDirectory(ProfilesPath);
             }
 
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.IndentChars = "\t";
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                Indent = true,
+                IndentChars = "\t"
+            };
 
-            using (XmlWriter writer = XmlWriter.Create(_profilesPath + "\\" + profile + ".xml", settings))
+            using (XmlWriter writer = XmlWriter.Create(ProfilesPath + "\\" + profile + ".xml", settings))
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("Profile");
 
                 // Parameters
                 writer.WriteStartElement("Parameters");
-                if (!(ProfileParameters == null))
+                if (ProfileParameters != null)
                 {
                     foreach (KeyValuePair<string, string> entry in ProfileParameters)
                     {
@@ -134,7 +103,7 @@ namespace _11thLauncher.Configuration
 
                 // Addons
                 writer.WriteStartElement("ArmA3Addons");
-                if (!(ProfileAddons == null))
+                if (ProfileAddons != null)
                 {
                     foreach (KeyValuePair<string, string> addon in ProfileAddons)
                     {
@@ -148,7 +117,7 @@ namespace _11thLauncher.Configuration
 
                 // ServerInfo
                 writer.WriteStartElement("ArmA3Server");
-                if (!(ProfileServerInfo == null))
+                if (ProfileServerInfo != null)
                 {
                     foreach (KeyValuePair<string, string> entry in ProfileServerInfo)
                     {
@@ -174,7 +143,7 @@ namespace _11thLauncher.Configuration
             ProfileAddons.Clear();
 
             //Read profile
-            using (XmlReader reader = XmlReader.Create(_profilesPath + "\\" + profile + ".xml"))
+            using (XmlReader reader = XmlReader.Create(ProfilesPath + "\\" + profile + ".xml"))
             {
                 while (reader.Read())
                 {
@@ -193,7 +162,7 @@ namespace _11thLauncher.Configuration
                                 parameter = reader["name"];
                                 reader.Read();
                                 value = reader.Value.Trim();
-                                ProfileParameters[parameter] = value;
+                                if (parameter != null) ProfileParameters[parameter] = value;
                                 break;
                             case "A3Addon":
                                 parameter = reader["name"];
@@ -202,14 +171,14 @@ namespace _11thLauncher.Configuration
                                 //If addon no longer exists, discard it 
                                 if (Addons.LocalAddons.Contains(parameter))
                                 {
-                                    ProfileAddons[parameter] = value;
+                                    if (parameter != null) ProfileAddons[parameter] = value;
                                 }
                                 break;
                             case "A3ServerInfo":
                                 parameter = reader["name"];
                                 reader.Read();
                                 value = reader.Value.Trim();
-                                ProfileServerInfo[parameter] = value;
+                                if (parameter != null) ProfileServerInfo[parameter] = value;
                                 break;
                         }
                     }
@@ -224,7 +193,7 @@ namespace _11thLauncher.Configuration
         public static void DeleteProfile(string profile)
         {
             UserProfiles.Remove(profile);
-            File.Delete(_profilesPath + "\\" + profile + ".xml");
+            File.Delete(ProfilesPath + "\\" + profile + ".xml");
             Settings.Write();
         }
     }

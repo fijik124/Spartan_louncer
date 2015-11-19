@@ -46,28 +46,6 @@ namespace _11thLauncher
                 comboBox_startAction.SelectedIndex = 2;
             }
 
-            //Repository
-            if (Repository.JavaVersion != "")
-            {
-                label_javaPath.Content = "Detectado";
-                label_javaPath.ToolTip = Repository.JavaVersion;
-                label_javaPath.Foreground = new SolidColorBrush(Colors.Green);
-            }
-            textBox_javaPath.Text = Settings.JavaPath;
-            textBox_a3sPath.Text = Settings.Arma3SyncPath;
-            List<string> repositories = Repository.ListRepositories();
-            comboBox_repository.ItemsSource = repositories;
-            if (repositories.Contains(Settings.Arma3SyncRepository))
-            {
-                comboBox_repository.SelectedItem = Settings.Arma3SyncRepository;
-            } else
-            {
-                if (repositories.Count != 0)
-                {
-                    comboBox_repository.SelectedIndex = 0;
-                }
-            }
-
             //Interface
             comboBox_accent.SelectedIndex = Settings.Accent;
             if (Settings.MinimizeNotification)
@@ -95,11 +73,11 @@ namespace _11thLauncher
             if (Settings.Arma3Path != textBox_gamePath.Text && textBox_gamePath.Text != "")
             {
                 Settings.Arma3Path = textBox_gamePath.Text;
-                MainWindow.Form.addons.Clear();
+                MainWindow.Form.Addons.Clear();
                 Addons.ReadAddons();
                 foreach (string addon in Addons.LocalAddons)
                 {
-                    MainWindow.Form.addons.Add(new Addon() { Enabled = false, Name = addon });
+                    MainWindow.Form.Addons.Add(new Addon() { Enabled = false, Name = addon });
                 }
             }
             Settings.StartClose = false;
@@ -123,6 +101,7 @@ namespace _11thLauncher
             {
                 Settings.Arma3SyncRepository = comboBox_repository.SelectedItem.ToString();
             }
+            /* TODO
             if (!MainWindow.Form.tile_repositoryStatus.IsEnabled)
             {
                 //Check if repository is correctly configured to allow checking
@@ -145,7 +124,7 @@ namespace _11thLauncher
                     MainWindow.Form.tile_repositoryStatus.Background = new SolidColorBrush(Colors.Gray);
                     MainWindow.Form.tile_repositoryStatus.ToolTip = null;
                 }
-            }
+            }*/
 
             //Interface
             Settings.Accent = comboBox_accent.SelectedIndex;
@@ -222,8 +201,8 @@ namespace _11thLauncher
             {
                 Settings.Arma3SyncPath = path;
                 textBox_a3sPath.Text = path;
-                List<string> repositories = Repository.ListRepositories();
-                comboBox_repository.ItemsSource = repositories;
+                //List<string> repositories = Repository.ListRepositories(); TODO
+                //comboBox_repository.ItemsSource = repositories;
             }
         }
 
