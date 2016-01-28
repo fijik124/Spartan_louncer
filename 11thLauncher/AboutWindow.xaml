@@ -7,7 +7,7 @@
                       Width="375" TitleCaps="False" ShowInTaskbar="False" ShowMaxRestoreButton="False" ShowMinButton="False" ResizeMode="NoResize" EnableDWMDropShadow="True" WindowStartupLocation="CenterOwner">
     <Grid>
         <Label x:Name="label" Content="11th MEU Launcher" HorizontalAlignment="Left" Margin="91,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-        <Label x:Name="label1" Content="Versión 2.1.0 DEV - Build 15102015 (15 de Octubre de 2015)" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" FontWeight="Medium" Width="354" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label1" Content="Versión 2.1.0 - Build 280115 (28 de Enero de 2016)" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" FontWeight="Medium" Width="354" HorizontalContentAlignment="Center"/>
         <Label x:Name="label2" Content="Creado por Javier &quot;Thrax&quot; Rico" HorizontalAlignment="Left" Margin="97,47,0,0" VerticalAlignment="Top" FontWeight="Medium"/>
         <RichTextBox x:Name="richTextBox" HorizontalAlignment="Left" Height="143" Margin="10,104,0,0" VerticalAlignment="Top" Width="354" IsDocumentEnabled="True" IsReadOnly="True" IsEnabled="True" Background="#FFEEEEEE">
             <FlowDocument>

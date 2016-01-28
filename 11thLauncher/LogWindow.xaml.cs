@@ -15,6 +15,7 @@ namespace _11thLauncher
     public partial class LogWindow : MetroWindow
     {
         internal static LogWindow Form;
+        private delegate void PrintLineCallBack(string text);
 
         public LogWindow()
         {
@@ -24,17 +25,16 @@ namespace _11thLauncher
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //AppendText(richTextBox, "Texto \n", "Red");
-            //AppendText(richTextBox, "Texto", "Green");
+            new Thread(PrintFile).Start();
 
-            new Thread(new ThreadStart(PrintFile)).Start();
-
-            FileSystemWatcher watcher = new FileSystemWatcher();
-            watcher.Path = Logger.getLatestFile().DirectoryName;
-            watcher.NotifyFilter = NotifyFilters.LastWrite;
-            watcher.IncludeSubdirectories = false;
-            watcher.Filter = Path.GetFileName(Logger.getLatestFile().FullName);
-            watcher.Changed += new FileSystemEventHandler(OnFileChange);
+            FileSystemWatcher watcher = new FileSystemWatcher
+            {
+                Path = Logger.GetLatestFile().DirectoryName,
+                NotifyFilter = NotifyFilters.LastWrite,
+                IncludeSubdirectories = false,
+                Filter = Path.GetFileName(Logger.GetLatestFile().FullName)
+            };
+            watcher.Changed += OnFileChange;
             watcher.EnableRaisingEvents = true;
         }
 
@@ -45,7 +45,7 @@ namespace _11thLauncher
 
         private void OnFileChange(object source, FileSystemEventArgs e)
         {
-            string[] lines = Logger.readNewLines();
+            string[] lines = Logger.ReadNewLines();
             foreach (string line in lines)
             {
                 PrintLine(line);
@@ -54,25 +54,27 @@ namespace _11thLauncher
 
         private void PrintFile()
         {
-            string[] lines = Logger.readfile();
+            string[] lines = Logger.Readfile();
             foreach (string line in lines)
             {
                 PrintLine(line);
-                //Form.Dispatcher.Invoke(PrintLine);
             }
         }
 
         private void PrintLine(string text)
         {
-            BrushConverter bc = new BrushConverter();
-            TextRange tr = new TextRange(richTextBox.Document.ContentEnd, richTextBox.Document.ContentEnd);
-            tr.Text = text;
-            try
+            if (Form != null)
             {
-                tr.ApplyPropertyValue(TextElement.ForegroundProperty, bc.ConvertFromString("Black"));
+                if (Form.Dispatcher.CheckAccess())
+                {
+                    richTextBox.AppendText(text);
+                    richTextBox.AppendText("\n");
+                }
+                else
+                {
+                    Dispatcher.Invoke(() => PrintLine(text));
+                }
             }
-            catch (FormatException) { }
-            richTextBox.AppendText("\n");
         }
     }
 }

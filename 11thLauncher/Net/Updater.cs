@@ -12,12 +12,11 @@ namespace _11thLauncher.Net
         public static bool Updated = false;
         public static bool UpdateFailed = false;
 
-        private static readonly string _versionURL = "http://raw.githubusercontent.com/11thmeu/launcher/master/bin/version";
-        private static readonly string _downloadBaseURL = "https://raw.githubusercontent.com/11thmeu/launcher/master/bin/";
-        private static readonly string _updaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
+        private const string VersionUrl = "http://raw.githubusercontent.com/11thmeu/launcher/master/bin/version";
+        private const string DownloadBaseUrl = "https://raw.githubusercontent.com/11thmeu/launcher/master/bin/";
+        private static readonly string UpdaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
 
-        private static readonly string _currentBuildType = "dev";
-        private static readonly string _currentVersion = "201_dev13092015";
+        private static readonly string _currentVersion = "210";
         private static string _latestVersion = "";
 
         /// <summary>
@@ -31,20 +30,16 @@ namespace _11thLauncher.Net
             try
             {
                 WebClient client = new WebClient();
-                using (Stream stream = client.OpenRead(_versionURL))
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    string versionRaw = reader.ReadToEnd();
-                    string[] versionData = versionRaw.Split('\n');
-                    if (_currentBuildType.Equals("stable"))
+                using (Stream stream = client.OpenRead(VersionUrl))
+                    if (stream != null)
                     {
-                        _latestVersion = versionData[1];
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            string versionRaw = reader.ReadToEnd();
+                            string[] versionData = versionRaw.Split('\n');
+                            _latestVersion = versionData[1];
+                        }
                     }
-                    else
-                    {
-                        _latestVersion = versionData[3];
-                    }
-                }
 
                 if (_latestVersion != _currentVersion)
                 {
@@ -66,12 +61,19 @@ namespace _11thLauncher.Net
         public static void ExecuteUpdater()
         {
             //Extract updater
-            File.WriteAllBytes(_updaterPath, Properties.Resources._11thLauncherUpdater);
+            File.WriteAllBytes(UpdaterPath, Properties.Resources._11thLauncherUpdater);
 
             //Execute updater
-            Process p = new Process();
-            p.StartInfo.FileName = _updaterPath;
-            p.StartInfo.Arguments = string.Format("\"{0}\"", Path.GetFullPath(Assembly.GetExecutingAssembly().Location)) + " " + (_downloadBaseURL + "11thLauncher" + _latestVersion + ".zip");
+            Process p = new Process
+            {
+                StartInfo =
+                {
+                    FileName = UpdaterPath,
+                    Arguments =
+                        $"\"{Path.GetFullPath(Assembly.GetExecutingAssembly().Location)}\"" + " " +
+                        (DownloadBaseUrl + "11thLauncher" + _latestVersion + ".zip")
+                }
+            };
             p.Start();
 
             Application.Current.Shutdown();
@@ -82,7 +84,7 @@ namespace _11thLauncher.Net
         /// </summary>
         public static void RemoveUpdater()
         {
-            File.Delete(_updaterPath);
+            File.Delete(UpdaterPath);
         }
     }
 }

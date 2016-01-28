@@ -3,8 +3,8 @@
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/logo-transparent.png" width="250px" />
 </p>
 
-#####Current version: 2.0.0
-This is the 11th Marine Expeditionary Unit launcher
+#####Current version: 2.1.0
+This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the game [Arma 3] (http://store.steampowered.com/app/107410) made for private use in the 11th MEU spanish simulation community.
 
 
 ## Screenshots
@@ -46,19 +46,17 @@ This is the 11th Marine Expeditionary Unit launcher
 2.0.0 Stable Version - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher200_stable.zip) 
 <p><b>MD5</b>: 57ab6a95438493e54a364de1f2abe541</p>
 
-
-2.0.0 DEV Version (build 27062015) - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher200_dev27062015.zip) 
-<p><b>MD5</b>: 2dba32606ed8509053910afc5d7b6710</p>
-
 ## Changelog
-#####Version 2.1.0 (FUTURE)
+#####Version 2.1.0
  * New: Label to show the ArmA 3 executable version
  * New: Startup check to compare the ArmA 3 version for the client and the 11th MEU servers
  * New: Changed -noFilePatching command to -filePatching
  * New: Added malloc parameter with automatic detection of current allocators
- * New: Added MD5 hash verification to auto updater
+ * New: Added MD5 hash verification to auto updater (Updated launcher to version 1.0.1)
+ * New: Added starting profile indicator to profile list
  * Changed: Translated to spanish the game parameter names
  * Changed: Reorganized application code
+ * Changed: Removed dev build and build types
  * Fixed: Added check to disable game launch if path is not enabled
 
 #####Version 2.0.0

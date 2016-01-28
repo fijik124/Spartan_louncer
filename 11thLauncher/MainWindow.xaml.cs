@@ -11,7 +11,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Input;
 using MahApps.Metro;
-using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Configuration;
 using _11thLauncher.Net;
@@ -21,13 +20,13 @@ namespace _11thLauncher
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow
     {
         internal static MainWindow Form;
 
-        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private readonly System.Windows.Forms.NotifyIcon _notifyIcon;
         private delegate void UpdateFormCallBack(string method, object[] parameters);
-        internal ObservableCollection<Addon> addons = new ObservableCollection<Addon>();
+        internal ObservableCollection<Addon> Addons = new ObservableCollection<Addon>();
 
         public MainWindow()
         {
@@ -35,12 +34,14 @@ namespace _11thLauncher
             Form = this;
 
             //Initialize system tray icon
-            notifyIcon = new System.Windows.Forms.NotifyIcon();
-            notifyIcon.BalloonTipTitle = "11th Launcher";
-            notifyIcon.Icon = Properties.Resources.icon;
-            notifyIcon.Text = "11th Launcher";
-            notifyIcon.Visible = false;
-            notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(notifyIcon_Click);
+            _notifyIcon = new System.Windows.Forms.NotifyIcon
+            {
+                BalloonTipTitle = @"11th Launcher",
+                Icon = Properties.Resources.icon,
+                Text = @"11th Launcher",
+                Visible = false
+            };
+            _notifyIcon.MouseClick += notifyIcon_Click;
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
@@ -52,7 +53,7 @@ namespace _11thLauncher
             {
                 if (!Settings.ReadPath())
                 {
-                    this.ShowMessageAsync("Ruta de ejecución", "La ruta de ejecución no ha sido autodetectada, indicala manualmente en la ventana de opciones antes de empezar a utilizar la aplicación", MessageDialogStyle.Affirmative);
+                    this.ShowMessageAsync("Ruta de ejecución", "La ruta de ejecución no ha sido autodetectada, indicala manualmente en la ventana de opciones antes de empezar a utilizar la aplicación");
                 }
 
                 //Create default profile
@@ -63,12 +64,12 @@ namespace _11thLauncher
             }
 
             //Add local addons
-            Addons.ReadAddons();
-            foreach (string addon in Addons.LocalAddons)
+            Configuration.Addons.ReadAddons();
+            foreach (string addon in Configuration.Addons.LocalAddons)
             {
-                addons.Add(new Addon() { Enabled = false, Name = addon });
+                Addons.Add(new Addon() { Enabled = false, Name = addon });
             }
-            listBox_addons.ItemsSource = addons;
+            listBox_addons.ItemsSource = Addons;
 
             //Add available memory allocators
             Settings.ReadAllocators();
@@ -92,14 +93,14 @@ namespace _11thLauncher
             if (Updater.Updated)
             {
                 Updater.RemoveUpdater();
-                this.ShowMessageAsync("Aplicación actualizada", "La aplicación ha sido actualizada con éxito", MessageDialogStyle.Affirmative);
+                this.ShowMessageAsync("Aplicación actualizada", "La aplicación ha sido actualizada con éxito");
             }
 
             //Notify if update failed
             if (Updater.UpdateFailed)
             {
                 Updater.RemoveUpdater();
-                this.ShowMessageAsync("Error al actualizar", "Se ha producido un error al actualizar la aplicación, vuelve a intentarlo más tarde", MessageDialogStyle.Affirmative);
+                this.ShowMessageAsync("Error al actualizar", "Se ha producido un error al actualizar la aplicación, vuelve a intentarlo más tarde");
             }
 
             //Check Java presence
@@ -119,13 +120,13 @@ namespace _11thLauncher
             if (Settings.CheckRepository)
             {
                 tile_repositoryStatus.IsEnabled = false;
-                new Thread(new ThreadStart(Repository.CheckRepository)).Start();
+                new Thread(Repository.CheckRepository).Start();
             }
 
             //Check servers status
             if (Settings.CheckServers)
             {
-                new Thread(new ThreadStart(Servers.CheckServers)).Start();
+                new Thread(Servers.CheckServers).Start();
             }
 
             //Check for updates
@@ -136,7 +137,7 @@ namespace _11thLauncher
 
             //Check local game version against server version
             label_gameVersion.Content = Settings.GetGameVersion();
-            new Thread(() => Servers.CompareServerVersion()).Start();
+            new Thread(Servers.CompareServerVersion).Start();
         }
 
         private void MetroWindow_Closed(object sender, EventArgs e)
@@ -151,12 +152,12 @@ namespace _11thLauncher
                 if (WindowState == WindowState.Minimized)
                 {
                     ShowInTaskbar = false;
-                    notifyIcon.Visible = true;
+                    _notifyIcon.Visible = true;
                 }
                 else
                 {
                     ShowInTaskbar = true;
-                    notifyIcon.Visible = false;
+                    _notifyIcon.Visible = false;
                 }
             }
         }
@@ -218,22 +219,13 @@ namespace _11thLauncher
 
         private void menu_logViewer_Click(object sender, RoutedEventArgs e)
         {
-            LogWindow logWindow = new LogWindow();
-            logWindow.Owner = this;
+            LogWindow logWindow = new LogWindow {Owner = this};
             logWindow.Show();
-        }
-
-        private void menu_addonSync_Click(object sender, RoutedEventArgs e)
-        {
-            AddonSyncWindow addonSyncWindow = new AddonSyncWindow();
-            addonSyncWindow.Owner = this;
-            addonSyncWindow.ShowDialog();
         }
 
         private void menu_settings_Click(object sender, RoutedEventArgs e)
         {
-            SettingsWindow settingsWindow = new SettingsWindow();
-            settingsWindow.Owner = this;
+            SettingsWindow settingsWindow = new SettingsWindow {Owner = this};
             settingsWindow.ShowDialog();
         }
 
@@ -244,8 +236,7 @@ namespace _11thLauncher
 
         private void menu_about_Click(object sender, RoutedEventArgs e)
         {
-            AboutWindow aboutWindow = new AboutWindow();
-            aboutWindow.Owner = this;
+            AboutWindow aboutWindow = new AboutWindow {Owner = this};
             aboutWindow.ShowDialog();
         }
 
@@ -276,39 +267,39 @@ namespace _11thLauncher
             List<string> presetAddons;
 
             //Clear addons list
-            addons.Clear();
+            Addons.Clear();
 
             switch (comboBox_addons.SelectedIndex)
             {
                 //Guerra moderna
                 case 0:
-                    presetAddons = new List<string>(new string[] { "@cba", "@ace", "@tfar", "@meu", "@meu_maps", "@fx", "@jsrs" });
+                    presetAddons = new List<string>(new[] { "@cba", "@ace", "@tfar", "@meu", "@meu_maps", "@fx", "@jsrs" });
                     break;
                 //ALiVE
                 case 1:
-                    presetAddons = new List<string>(new string[] { "@cba", "@ace", "@tfar", "@meu", "@meu_maps", "@fx", "@jsrs", "@alive" });
+                    presetAddons = new List<string>(new[] { "@cba", "@ace", "@tfar", "@meu", "@meu_maps", "@fx", "@jsrs", "@alive" });
                     break;
                 //default
                 default:
-                    presetAddons = new List<string>(new string[] { "@cba", "@ace", "@tfar", "@meu", "@meu_maps", "@fx", "@jsrs" });
+                    presetAddons = new List<string>(new[] { "@cba", "@ace", "@tfar", "@meu", "@meu_maps", "@fx", "@jsrs" });
                     break;
             }
 
             //Add the active addons
             foreach (string addon in presetAddons)
             {
-                if (Addons.LocalAddons.Contains(addon))
+                if (Configuration.Addons.LocalAddons.Contains(addon))
                 {
-                    addons.Add(new Addon() { Name = addon, Enabled = true });
+                    Addons.Add(new Addon { Name = addon, Enabled = true });
                 }
             }
 
             //Add inactive addons
-            foreach (string addon in Addons.LocalAddons)
+            foreach (string addon in Configuration.Addons.LocalAddons)
             {
                 if (!presetAddons.Contains(addon))
                 {
-                    addons.Add(new Addon() { Name = addon, Enabled = false });
+                    Addons.Add(new Addon { Name = addon, Enabled = false });
                 }
             }
         }
@@ -318,7 +309,7 @@ namespace _11thLauncher
             int index = listBox_addons.SelectedIndex;
             if (index != -1 && index != 0)
             {
-                addons.Move(index, index - 1);
+                Addons.Move(index, index - 1);
             }
         }
 
@@ -327,7 +318,7 @@ namespace _11thLauncher
             int index = listBox_addons.SelectedIndex;
             if (index != -1 && index != listBox_addons.Items.Count - 1)
             {
-                addons.Move(index, index + 1);
+                Addons.Move(index, index + 1);
             }
         }
 
@@ -335,7 +326,7 @@ namespace _11thLauncher
         {
             for (int i = 0; i < listBox_addons.Items.Count; i++)
             {
-                ((Addon)listBox_addons.Items[i] as Addon).Enabled = true;
+                ((Addon)listBox_addons.Items[i]).Enabled = true;
                 listBox_addons.Items.Refresh();
             }
         }
@@ -344,7 +335,7 @@ namespace _11thLauncher
         {
             for (int i = 0; i < listBox_addons.Items.Count; i++)
             {
-                ((Addon)listBox_addons.Items[i] as Addon).Enabled = false;
+                ((Addon)listBox_addons.Items[i]).Enabled = false;
                 listBox_addons.Items.Refresh();
             }
         }
@@ -413,21 +404,24 @@ namespace _11thLauncher
         {
             image_coopStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
             image_coopStatus.ToolTip = "Comprobando estado";
-            new Thread(new ParameterizedThreadStart(Servers.CheckServer)).Start(0);
+            label_coopPlayers.Content = "-/-";
+            new Thread(Servers.CheckServer).Start(0);
         }
 
         private void image_academyStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             image_academyStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
             image_academyStatus.ToolTip = "Comprobando estado";
-            new Thread(new ParameterizedThreadStart(Servers.CheckServer)).Start(1);
+            label_academyPlayers.Content = "-/-";
+            new Thread(Servers.CheckServer).Start(1);
         }
 
         private void image_aliveStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             image_aliveStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
             image_aliveStatus.ToolTip = "Comprobando estado";
-            new Thread(new ParameterizedThreadStart(Servers.CheckServer)).Start(2);
+            label_alivePlayers.Content = "-/-";
+            new Thread(Servers.CheckServer).Start(2);
         }
 
         private void button_serverCoop_Click(object sender, RoutedEventArgs e)
@@ -461,7 +455,7 @@ namespace _11thLauncher
             label_repositoryRevision.Content = "";
             tile_repositoryStatus.IsEnabled = false;
             tile_repositoryStatus.ToolTip = "Comprobando estado";
-            new Thread(new ThreadStart(Repository.CheckRepository)).Start();
+            new Thread(Repository.CheckRepository).Start();
         }
 
         private void button_checkStatus_Click(object sender, RoutedEventArgs e)
@@ -480,7 +474,7 @@ namespace _11thLauncher
 
             button_checkStatus.IsEnabled = false;
 
-            new Thread(new ParameterizedThreadStart(Servers.QueryServerInfo)).Start(selectedIndex);
+            new Thread(Servers.QueryServerInfo).Start(selectedIndex);
         }
 
         private void checkBox_maxMemory_Checked(object sender, RoutedEventArgs e)
@@ -559,11 +553,29 @@ namespace _11thLauncher
         {
             if (listBox_profiles.SelectedIndex == -1)
             {
-                this.ShowMessageAsync("Error de selección", "No has seleccionado ningún perfil", MessageDialogStyle.Affirmative);
+                this.ShowMessageAsync("Error de selección", "No has seleccionado ningún perfil");
             } else
             {
-                Profiles.DefaultProfile = listBox_profiles.SelectedItem.ToString();
+                string selectedProfile = listBox_profiles.SelectedItem.ToString();
+                if (selectedProfile.StartsWith("♥")) selectedProfile = selectedProfile.Remove(0, 2);
+
+                Profiles.DefaultProfile = selectedProfile;
                 Settings.Write();
+
+                //Refill profile list
+                listBox_profiles.Items.Clear();
+                foreach (string profile in Profiles.UserProfiles)
+                {
+                    if (profile.Equals(Profiles.DefaultProfile))
+                    {
+                        int index = listBox_profiles.Items.Add("♥ " + profile);
+                        listBox_profiles.SelectedItem = index;
+                    }
+                    else
+                    {
+                        listBox_profiles.Items.Add(profile);
+                    }
+                }
             }
         }
 
@@ -580,22 +592,26 @@ namespace _11thLauncher
         {
             if (listBox_profiles.SelectedIndex == -1)
             {
-                this.ShowMessageAsync("Error de borrado", "No has seleccionado ningún perfil", MessageDialogStyle.Affirmative);
+                this.ShowMessageAsync("Error de borrado", "No has seleccionado ningún perfil");
             }
             else
             {
-                if (listBox_profiles.SelectedItem.ToString().Equals("Predeterminado"))
+                //Check profile name to remove default profile marker
+                string selectedProfile = listBox_profiles.SelectedItem.ToString();
+                if (selectedProfile.StartsWith("♥")) selectedProfile = selectedProfile.Remove(0, 2);
+
+                if (selectedProfile.Equals("Predeterminado"))
                 {
-                    this.ShowMessageAsync("Error de borrado", "No puedes borrar el perfil predeterminado", MessageDialogStyle.Affirmative);
+                    this.ShowMessageAsync("Error de borrado", "No puedes borrar el perfil predeterminado");
                 }
                 else
                 {
                     //Check if deleted profile is default
-                    if (listBox_profiles.SelectedItem.ToString().Equals(Profiles.DefaultProfile))
+                    if (selectedProfile.Equals(Profiles.DefaultProfile))
                     {
                         Profiles.DefaultProfile = "Predeterminado";
                     }
-                    Profiles.DeleteProfile(listBox_profiles.SelectedItem.ToString());
+                    Profiles.DeleteProfile(selectedProfile);
                     UpdateProfiles();
                     comboBox_profiles.SelectedIndex = 0;
                 }
@@ -604,16 +620,19 @@ namespace _11thLauncher
 
         private void button_saveNewProfile_Click(object sender, RoutedEventArgs e)
         {
+            //Clean profile name string
+            string profileName = textBox_newProfile.Text.Replace("♥", "").Trim();
+
             //Check that name is not repeated
-            if (Profiles.UserProfiles.Contains(textBox_newProfile.Text.Trim()))
+            if (Profiles.UserProfiles.Contains(profileName))
             {
-                this.ShowMessageAsync("Error de creación de perfil", "Ya existe un perfil con el nombre indicado", MessageDialogStyle.Affirmative);
+                this.ShowMessageAsync("Error de creación de perfil", "Ya existe un perfil con el nombre indicado");
             }
             else
             {
-                Profiles.UserProfiles.Add(textBox_newProfile.Text.Trim());
+                Profiles.UserProfiles.Add(profileName);
                 Settings.Write();
-                Profiles.WriteProfile(textBox_newProfile.Text.Trim());
+                Profiles.WriteProfile(profileName);
                 UpdateProfiles();
                 textBox_newProfile.Text = "";
                 textBox_newProfile.IsEnabled = false;
@@ -716,7 +735,7 @@ namespace _11thLauncher
             if (Profiles.GetParameter("cpuCount", false))
             {
                 int value = Profiles.GetParameter("cpuCountValue", 0) + 1;
-                launchParams += " -cpuCount=" + value.ToString();
+                launchParams += " -cpuCount=" + value;
             }
             if (Profiles.GetParameter("extraThreads", false))
             {
@@ -745,6 +764,16 @@ namespace _11thLauncher
             if (Profiles.GetParameter("extraParameters", "").Length > 0)
             {
                 launchParams += " " + Profiles.GetParameter("extraParameters", "");
+            }
+
+            if (Profiles.GetParameter("memoryAllocator", false))
+            {
+                int allocatorIndex = Profiles.GetParameter("memoryAllocatorValue", -1);
+                if (allocatorIndex > Settings.Allocators.Count)
+                {
+                    allocatorIndex = 0;
+                }
+                launchParams += " -malloc=" + comboBox_malloc.Items[allocatorIndex];
             }
 
             //Addons
@@ -781,8 +810,7 @@ namespace _11thLauncher
                     launchParams += " -password=" + Profiles.ProfileServerInfo["pass"].Trim();
             }
 
-            Process process = new Process();
-            process.StartInfo.FileName = Settings.Arma3Path + "\\arma3.exe";
+            Process process = new Process {StartInfo = {FileName = Settings.Arma3Path + "\\arma3.exe"}};
             if ((new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator))
             {
                 process.StartInfo.Verb = "runas";
@@ -822,7 +850,7 @@ namespace _11thLauncher
                 }
                 else
                 {
-                    this.ShowMessageAsync("Error de lanzamiento", "La ruta del ejecutable de ArmA 3 no está configurada", MessageDialogStyle.Affirmative);
+                    this.ShowMessageAsync("Error de lanzamiento", "La ruta del ejecutable de ArmA 3 no está configurada");
                 }
             }
 
@@ -839,7 +867,14 @@ namespace _11thLauncher
             foreach (string profile in Profiles.UserProfiles)
             {
                 comboBox_profiles.Items.Add(profile);
-                listBox_profiles.Items.Add(profile);
+                if (profile.Equals(Profiles.DefaultProfile))
+                {
+                    listBox_profiles.Items.Add("♥ " + profile);
+                }
+                else
+                {
+                    listBox_profiles.Items.Add(profile);
+                }
             }
             comboBox_profiles.SelectedIndex = 0;
         }
@@ -872,25 +907,35 @@ namespace _11thLauncher
             comboBox_priority.SelectedIndex = Profiles.GetParameter("priorityValue", -1);
             checkBox_extraThreads.IsChecked = Profiles.GetParameter("extraThreads", false);
             comboBox_extraThreads.SelectedIndex = Profiles.GetParameter("extraThreadsValue", -1);
+
+            //Check number of allocators when loading in case they were changed
+            checkBox_malloc.IsChecked = Profiles.GetParameter("memoryAllocator", false);
+            int allocatorIndex = Profiles.GetParameter("memoryAllocatorValue", -1);
+            if (allocatorIndex > Settings.Allocators.Count)
+            {
+                allocatorIndex = 0;
+            }
+            comboBox_malloc.SelectedIndex = allocatorIndex;
+
             textBox_additionalParameters.Text = Profiles.GetParameter("extraParameters", "");
 
             //Clear addons list
-            addons.Clear();
+            Addons.Clear();
 
             //Add the addons and their status from the profile
             foreach (string addon in Profiles.ProfileAddons.Keys)
             {
-                if (Addons.LocalAddons.Contains(addon)){
-                    addons.Add(new Addon() { Name = addon, Enabled = bool.Parse(Profiles.ProfileAddons[addon]) });
+                if (Configuration.Addons.LocalAddons.Contains(addon)){
+                    Addons.Add(new Addon() { Name = addon, Enabled = bool.Parse(Profiles.ProfileAddons[addon]) });
                 }
             }
 
             //Add missing addons not present in the profile
-            foreach (string addon in Addons.LocalAddons)
+            foreach (string addon in Configuration.Addons.LocalAddons)
             {
                 if (!Profiles.ProfileAddons.ContainsKey(addon))
                 {
-                    addons.Add(new Addon() { Name = addon, Enabled = false });
+                    Addons.Add(new Addon { Name = addon, Enabled = false });
                 }
             }
 
@@ -928,12 +973,14 @@ namespace _11thLauncher
             Profiles.ProfileParameters["priorityValue"] = comboBox_priority.SelectedIndex.ToString();
             Profiles.ProfileParameters["extraThreads"] = checkBox_extraThreads.IsChecked.ToString();
             Profiles.ProfileParameters["extraThreadsValue"] = comboBox_extraThreads.SelectedIndex.ToString();
+            Profiles.ProfileParameters["memoryAllocator"] = checkBox_malloc.IsChecked.ToString();
+            Profiles.ProfileParameters["memoryAllocatorValue"] = comboBox_malloc.SelectedIndex.ToString();
 
             Profiles.ProfileParameters["extraParameters"] = textBox_additionalParameters.Text;
 
             //Save addons state
             Profiles.ProfileAddons.Clear();
-            foreach (Addon addon in addons)
+            foreach (Addon addon in Addons)
             {
                 Profiles.ProfileAddons.Add(addon.Name, addon.Enabled.ToString());
             }
@@ -1005,8 +1052,11 @@ namespace _11thLauncher
                 label_repositoryRevision.ToolTip = null;
             } else
             {
-                label_repositoryRevision.Content += " (" + buildDate.Value.ToShortDateString() + ")";
-                label_repositoryRevision.ToolTip = "Compilado el " + buildDate.Value.ToShortDateString() + " a las " + buildDate.Value.ToShortTimeString();
+                if (buildDate != null)
+                {
+                    label_repositoryRevision.Content += " (" + buildDate.Value.ToShortDateString() + ")";
+                    label_repositoryRevision.ToolTip = "Compilado el " + buildDate.Value.ToShortDateString() + " a las " + buildDate.Value.ToShortTimeString();
+                }
                 if (updated)
                 {
                     tile_repositoryStatus.Background = new SolidColorBrush(Colors.Green);
@@ -1027,9 +1077,11 @@ namespace _11thLauncher
         /// </summary>
         /// <param name="index">Index of the server</param>
         /// <param name="status">Is the server online or offline</param>
-        private void UpdateServerStatus(int index, bool status)
+        /// <param name="players">Number of players in the servers and max players</param>
+        private void UpdateServerStatus(int index, bool status, string players)
         {
-            Image[] serverStatusImages = new Image[3] { image_coopStatus, image_academyStatus, image_aliveStatus };
+            Image[] serverStatusImages = { image_coopStatus, image_academyStatus, image_aliveStatus };
+            Label[] serverStatusPlayerLabels = {label_coopPlayers, label_academyPlayers, label_alivePlayers};
 
             if (status)
             {
@@ -1040,6 +1092,10 @@ namespace _11thLauncher
                 serverStatusImages[index].Source = new BitmapImage(new Uri("pack://application:,,,/Resources/off.png"));
                 serverStatusImages[index].ToolTip = "Desconocido / Offline. Click para volver a comprobar";
             }
+
+            //Update number of players on the server
+            serverStatusPlayerLabels[index].Content = players;
+
             UpdateStatusBar();
         }
 
@@ -1077,7 +1133,7 @@ namespace _11thLauncher
 
             if (exception)
             {
-                this.ShowMessageAsync("Error", "Error de comunicación con el servidor", MessageDialogStyle.Affirmative);
+                this.ShowMessageAsync("Error", "Error de comunicación con el servidor");
             }
         }
 
@@ -1085,6 +1141,7 @@ namespace _11thLauncher
         /// Show a new update notification
         /// </summary>
         /// <param name="version">Latest version available</param>
+        /// <param name="newVersion">Is there a new version?</param>
         private async void ShowUpdateNotification(string version, bool newVersion)
         {
             UpdateStatusBar();
@@ -1099,11 +1156,11 @@ namespace _11thLauncher
             {
                 if (version == null)
                 {
-                    await this.ShowMessageAsync("Error de conexión", "Se ha producido un error de conexión al comprobar actualizaciones", MessageDialogStyle.Affirmative);
+                    await this.ShowMessageAsync("Error de conexión", "Se ha producido un error de conexión al comprobar actualizaciones");
                 }
                 else
                 {
-                    await this.ShowMessageAsync("No hay actualizaciones disponibles", "Dispones de la última versión", MessageDialogStyle.Affirmative);
+                    await this.ShowMessageAsync("No hay actualizaciones disponibles", "Dispones de la última versión");
                 }
             }
         }

@@ -3,6 +3,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Windows;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Diagnostics;
 
@@ -13,17 +15,18 @@ namespace _11thLauncherUpdater
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string _executionPath;
+        private readonly string _executionPath;
         private readonly string _zipFile = Path.GetTempPath() + "11thLauncher.zip";
         private readonly string _exeFile = Path.GetTempPath() + "11thLauncher.exe";
-        private Uri _downloadURI;
+        private readonly Uri _downloadUri;
+        private const string VersionUri = "http://raw.githubusercontent.com/11thmeu/launcher/master/bin/version";
 
-        public MainWindow(string executionPath, string downloadURI)
+        public MainWindow(string executionPath, string downloadUri)
         {
             InitializeComponent();
 
             _executionPath = executionPath;
-            _downloadURI = new Uri(downloadURI);
+            _downloadUri = new Uri(downloadUri);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -53,7 +56,7 @@ namespace _11thLauncherUpdater
                 File.Delete(_exeFile);
 
                 //Download file
-                client.DownloadFileAsync(_downloadURI, _zipFile);
+                client.DownloadFileAsync(_downloadUri, _zipFile);
             }
             catch (Exception)
             {
@@ -62,9 +65,14 @@ namespace _11thLauncherUpdater
                 File.Delete(_exeFile);
 
                 //Start old launcher
-                Process p = new Process();
-                p.StartInfo.FileName = _executionPath;
-                p.StartInfo.Arguments = "-updateFailed";
+                Process p = new Process
+                {
+                    StartInfo =
+                    {
+                        FileName = _executionPath,
+                        Arguments = "-updateFailed"
+                    }
+                };
                 p.Start();
 
                 //Close updater
@@ -83,15 +91,40 @@ namespace _11thLauncherUpdater
                 ZipFile.ExtractToDirectory(_zipFile, Path.GetTempPath());
                 File.Delete(_zipFile);
 
-                //TODO VERIFY
-                /*
+                //Download version file to check hash
+                string expectedHash = "";
+                WebClient client = new WebClient();
+                using (Stream stream = client.OpenRead(VersionUri))
+                    if (stream != null)
+                    {
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            string versionRaw = reader.ReadToEnd();
+                            string[] versionData = versionRaw.Split('\n');
+                            expectedHash = versionData[5];
+                        }
+                    }
+
+                //Verify hash
+                string hexHash;
                 using (var md5 = MD5.Create())
                 {
-                    using (var stream = File.OpenRead(filename))
+                    using (var stream = File.OpenRead(_exeFile))
                     {
-                        return md5.ComputeHash(stream);
+                        byte[] rawHash = md5.ComputeHash(stream);
+
+                        //Convert hash to string
+                        StringBuilder stringbuilder = new StringBuilder();
+                        foreach (byte t in rawHash)
+                        {
+                            stringbuilder.Append(t.ToString("x2"));
+                        }
+                        hexHash = stringbuilder.ToString();
                     }
-                }*/
+                }
+
+                //If hash doesn't match throw exception
+                if (hexHash != expectedHash) throw new InvalidDataException();
 
                 //Delete original launcher and move new one
                 File.Delete(_executionPath);
@@ -101,9 +134,14 @@ namespace _11thLauncherUpdater
                 Thread.Sleep(3000);
 
                 //Start new launcher
-                Process p = new Process();
-                p.StartInfo.FileName = _executionPath;
-                p.StartInfo.Arguments = "-updated";
+                Process p = new Process
+                {
+                    StartInfo =
+                    {
+                        FileName = _executionPath,
+                        Arguments = "-updated"
+                    }
+                };
                 p.Start();
 
                 //Close updater
@@ -118,9 +156,14 @@ namespace _11thLauncherUpdater
                 //Try to start launcher
                 if (File.Exists(_executionPath))
                 {
-                    Process p = new Process();
-                    p.StartInfo.FileName = _executionPath;
-                    p.StartInfo.Arguments = "-updateFailed";
+                    Process p = new Process
+                    {
+                        StartInfo =
+                        {
+                            FileName = _executionPath,
+                            Arguments = "-updateFailed"
+                        }
+                    };
                     p.Start();
                 }
 

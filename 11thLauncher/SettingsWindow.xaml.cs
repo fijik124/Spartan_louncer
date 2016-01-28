@@ -7,7 +7,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using MahApps.Metro;
-using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Configuration;
 using _11thLauncher.Net;
@@ -17,9 +16,9 @@ namespace _11thLauncher
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml
     /// </summary>
-    public partial class SettingsWindow : MetroWindow
+    public partial class SettingsWindow
     {
-        private bool _restarting = false;
+        private bool _restarting;
 
         public SettingsWindow()
         {
@@ -88,18 +87,18 @@ namespace _11thLauncher
             //
 
             //General
-            Settings.CheckUpdates = (bool)checkBox_checkUpdates.IsChecked;
-            Settings.CheckServers = (bool)checkBox_checkServers.IsChecked;
-            Settings.CheckRepository = (bool)checkBox_checkRepository.IsChecked;
+            Settings.CheckUpdates = checkBox_checkUpdates.IsChecked.GetValueOrDefault();
+            Settings.CheckServers = checkBox_checkServers.IsChecked.GetValueOrDefault();
+            Settings.CheckRepository = checkBox_checkRepository.IsChecked.GetValueOrDefault();
             //If game path has changed, read addons
             if (Settings.Arma3Path != textBox_gamePath.Text && textBox_gamePath.Text != "")
             {
                 Settings.Arma3Path = textBox_gamePath.Text;
-                MainWindow.Form.addons.Clear();
+                MainWindow.Form.Addons.Clear();
                 Addons.ReadAddons();
                 foreach (string addon in Addons.LocalAddons)
                 {
-                    MainWindow.Form.addons.Add(new Addon() { Enabled = false, Name = addon });
+                    MainWindow.Form.Addons.Add(new Addon { Enabled = false, Name = addon });
                 }
             }
             Settings.StartClose = false;
@@ -116,13 +115,7 @@ namespace _11thLauncher
             //Repository
             Settings.JavaPath = textBox_javaPath.Text;
             Settings.Arma3SyncPath = textBox_a3sPath.Text;
-            if (comboBox_repository.SelectedIndex == -1)
-            {
-                Settings.Arma3SyncRepository = "";
-            } else
-            {
-                Settings.Arma3SyncRepository = comboBox_repository.SelectedItem.ToString();
-            }
+            Settings.Arma3SyncRepository = comboBox_repository.SelectedIndex == -1 ? "" : comboBox_repository.SelectedItem.ToString();
             if (!MainWindow.Form.tile_repositoryStatus.IsEnabled)
             {
                 //Check if repository is correctly configured to allow checking
@@ -149,13 +142,9 @@ namespace _11thLauncher
 
             //Interface
             Settings.Accent = comboBox_accent.SelectedIndex;
-            Settings.MinimizeNotification = false;
-            if (comboBox_minimize.SelectedIndex == 1)
-            {
-                Settings.MinimizeNotification = true;
-            }
-            Settings.ServersGroupBox = (bool)checkBox_serversGroupBox.IsChecked;
-            Settings.RepositoryGroupBox = (bool)checkBox_repositoryGroupBox.IsChecked;
+            Settings.MinimizeNotification = (comboBox_minimize.SelectedIndex == 1);
+            Settings.ServersGroupBox = checkBox_serversGroupBox.IsChecked.GetValueOrDefault();
+            Settings.RepositoryGroupBox = checkBox_repositoryGroupBox.IsChecked.GetValueOrDefault();
 
             Settings.Write();
         }
@@ -179,7 +168,7 @@ namespace _11thLauncher
                 path = Path.GetDirectoryName(dialog.FileName);
             }
 
-            if (!path.Equals(""))
+            if (!string.IsNullOrEmpty(path))
             {
                 textBox_gamePath.Text = path;
             }
@@ -198,7 +187,7 @@ namespace _11thLauncher
                 path = dialog.FileName;
             }
 
-            if (!path.Equals(""))
+            if (!string.IsNullOrEmpty(path))
             {
                 Settings.JavaPath = path;
                 textBox_javaPath.Text = path;
@@ -218,7 +207,7 @@ namespace _11thLauncher
                 path = Path.GetDirectoryName(dialog.FileName);
             }
 
-            if (!path.Equals(""))
+            if (!string.IsNullOrEmpty(path))
             {
                 Settings.Arma3SyncPath = path;
                 textBox_a3sPath.Text = path;
