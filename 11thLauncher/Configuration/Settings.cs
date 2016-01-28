@@ -22,13 +22,13 @@ namespace _11thLauncher.Configuration
         public static string Arma3Path = "";
         public static string Arma3SyncPath = "";
         public static string Arma3SyncRepository = "";
-        public static bool MinimizeNotification;
-        public static bool StartClose;
-        public static bool StartMinimize;
-        public static int Accent;
+        public static bool MinimizeNotification = false;
+        public static bool StartClose = false;
+        public static bool StartMinimize = false;
+        public static int Accent = 0;
         public static bool CheckUpdates = true;
         public static bool CheckServers = true;
-        public static bool CheckRepository;
+        public static bool CheckRepository = false;
         public static bool ServersGroupBox = true;
         public static bool RepositoryGroupBox = true;
 
@@ -51,47 +51,47 @@ namespace _11thLauncher.Configuration
         /// <returns>bool value to indicate if the path was read correctly</returns>
         public static bool ReadPath()
         {
-            string arma3RegPath;
+            string arma3regPath;
             bool valid = false;
 
             //First try to get the path using ArmA 3 registry entry
             if (Environment.Is64BitOperatingSystem)
             {
-                arma3RegPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bohemia Interactive\\ArmA 3", "MAIN", null);
+                arma3regPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bohemia Interactive\\ArmA 3", "MAIN", null);
             }
             else
             {
-                arma3RegPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Bohemia Interactive\\ArmA 3", "MAIN", null);
+                arma3regPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Bohemia Interactive\\ArmA 3", "MAIN", null);
             }
-            if (!Directory.Exists(arma3RegPath))
+            if (!Directory.Exists(arma3regPath))
             {
-                arma3RegPath = null;
+                arma3regPath = null;
             }
 
             //If ArmA 3 registry entry is not found, use Steam entry
-            if (string.IsNullOrEmpty(arma3RegPath))
+            if (string.IsNullOrEmpty(arma3regPath))
             {
                 string steamPath;
                 if (Environment.Is64BitOperatingSystem)
                 {
                     steamPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam", "InstallPath", "");
-                    arma3RegPath = Path.Combine(steamPath, "SteamApps\\common\\ArmA 3");
+                    arma3regPath = Path.Combine(steamPath, "SteamApps\\common\\ArmA 3");
                 }
                 else
                 {
                     steamPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Valve\\Steam", "InstallPath", "");
-                    arma3RegPath = Path.Combine(steamPath, "SteamApps\\common\\ArmA 3");
+                    arma3regPath = Path.Combine(steamPath, "SteamApps\\common\\ArmA 3");
                 }
             }
-            if (!Directory.Exists(arma3RegPath))
+            if (!Directory.Exists(arma3regPath))
             {
-                arma3RegPath = null;
+                arma3regPath = null;
             }
 
             //If the path is found and exists, set to config and return that a valid path was found
-            if (!string.IsNullOrEmpty(arma3RegPath))
+            if (!string.IsNullOrEmpty(arma3regPath))
             {
-                Arma3Path = arma3RegPath;
+                Arma3Path = arma3regPath;
                 valid = true;
             }
 
@@ -108,11 +108,9 @@ namespace _11thLauncher.Configuration
                 Directory.CreateDirectory(ConfigPath);
             }
 
-            XmlWriterSettings settings = new XmlWriterSettings
-            {
-                Indent = true,
-                IndentChars = "\t"
-            };
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.IndentChars = "\t";
 
             using (XmlWriter writer = XmlWriter.Create(ConfigPath + "\\config.xml", settings))
             {
@@ -168,6 +166,7 @@ namespace _11thLauncher.Configuration
                     if (reader.IsStartElement())
                     {
                         string value;
+                        string parameter;
                         switch (reader.Name)
                         {
                             case "JavaPath":
@@ -191,7 +190,7 @@ namespace _11thLauncher.Configuration
                                 Arma3SyncRepository = value;
                                 break;
                             case "Profiles":
-                                string parameter = reader["default"];
+                                parameter = reader["default"];
                                 reader.Read();
                                 Profiles.DefaultProfile = parameter;
                                 break;

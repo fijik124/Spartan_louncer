@@ -48,10 +48,6 @@
       <HintPath>lib\MahApps.Metro.Resources.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="QueryMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\QueryMaster.dll</HintPath>
@@ -88,12 +84,11 @@
       <DependentUpon>AddonSyncWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="AddonSync\Cryptography.cs" />
-    <Compile Include="AddonSync\Domain\Compression.cs" />
-    <Compile Include="AddonSync\Domain\File.cs" />
-    <Compile Include="AddonSync\Domain\FileStatus.cs" />
-    <Compile Include="AddonSync\Domain\HashMethod.cs" />
-    <Compile Include="AddonSync\Domain\Repository.cs" />
     <Compile Include="AddonSync\Serializer.cs" />
+    <Compile Include="AddonSync\Domain\SyncTreeDirectory.cs" />
+    <Compile Include="AddonSync\Domain\SyncTreeLeaf.cs" />
+    <Compile Include="AddonSync\Domain\SyncTreeNode.cs" />
+    <Compile Include="AddonSync\Domain\SyncTreeNodeList.cs" />
     <Compile Include="LogViewer\Logger.cs" />
     <Compile Include="LogViewer\TextPattern.cs" />
     <Compile Include="LogWindow.xaml.cs">
@@ -139,6 +134,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Net\Repository.cs" />
     <Compile Include="Net\Servers.cs" />
     <Compile Include="Net\Updater.cs" />
     <Compile Include="Program.cs" />
@@ -158,9 +154,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -172,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\A3SDS.jar" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\a3logo.png" />
@@ -230,7 +227,6 @@
   <ItemGroup>
     <Resource Include="Resources\help.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

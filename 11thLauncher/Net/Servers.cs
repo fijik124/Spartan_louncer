@@ -14,24 +14,24 @@ namespace _11thLauncher.Net
         public static List<string> ServerPlayers;
         public static string ServerMods;
 
-        private static readonly IPAddress Address = null;
-        private static readonly ushort[] ServerPorts = { 2303, 2323, 2333 }; //Query port = server port + 1
+        private static IPAddress _address = null;
+        private static ushort[] _servers = new ushort[3] { 2303, 2323, 2333 }; //Query port = server port + 1
 
         /// <summary>
         /// Check if the servers are online and call the form to update stattus
         /// </summary>
         public static void CheckServers()
         {
-            for (int i = 0; i < ServerPorts.Length; i++)
+            for (int i = 0; i < _servers.Length; i++)
             {
-                bool status;
+                bool status = false;
 
                 MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando servidor " + (i + 1) });
 
                 try
                 {
-                    Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), ServerPorts[i]);
-                    server.GetInfo();
+                    Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIP().ToString(), _servers[i]);
+                    ServerInfo info = server.GetInfo();
                     status = true;
                     server.Dispose();
                 }
@@ -54,12 +54,12 @@ namespace _11thLauncher.Net
 
             MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando servidor " + (index + 1) });
 
-            bool status;
+            bool status = false;
 
             try
             {
-                Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), ServerPorts[index]);
-                server.GetInfo();
+                Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIP().ToString(), _servers[index]);
+                ServerInfo info = server.GetInfo();
                 status = true;
                 server.Dispose();
             }
@@ -89,7 +89,7 @@ namespace _11thLauncher.Net
 
             try
             {
-                Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), ServerPorts[index]);
+                Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIP().ToString(), _servers[index]);
 
                 ServerInfo info = server.GetInfo();
                 IReadOnlyCollection<Player> players = server.GetPlayers();
@@ -124,6 +124,7 @@ namespace _11thLauncher.Net
                     if (skip)
                     {
                         skip = false;
+                        continue;
                     }
                     else
                     {
@@ -150,11 +151,11 @@ namespace _11thLauncher.Net
         /// </summary>
         public static void CompareServerVersion()
         {
-            foreach (ushort serverPort in ServerPorts)
+            foreach (ushort serverPort in _servers)
             {
                 try
                 {
-                    Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), serverPort);
+                    Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIP().ToString(), serverPort);
 
                     ServerInfo info = server.GetInfo();
                     server.Dispose();
@@ -178,10 +179,10 @@ namespace _11thLauncher.Net
         /// Resolve and return the IPv4 address of 11thmeu.es
         /// </summary>
         /// <returns>IPv4 address of the server</returns>
-        private static IPAddress GetServerIp()
+        private static IPAddress GetServerIP()
         {
             IPAddress address = null;
-            if (Address == null)
+            if (_address == null)
             {
                 IPHostEntry ipHostInfo = Dns.GetHostEntry("www.11thmeu.es");
 
@@ -196,7 +197,7 @@ namespace _11thLauncher.Net
             } else
             {
                 //Address was resolved previously, return it directly
-                address = Address;
+                address = _address;
             }
 
             return address;

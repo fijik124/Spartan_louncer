@@ -8,24 +8,13 @@
                       Width="700" TitleCaps="False" ShowInTaskbar="False" EnableDWMDropShadow="True" WindowStartupLocation="CenterOwner" Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed" MinHeight="600" MinWidth="700">
 
     <Grid>
-        <DockPanel Margin="0,545,0,0" VerticalAlignment="Bottom">
-            <StatusBar DockPanel.Dock="Bottom">
-                <StatusBarItem>
-                    <TextBlock Name="statusBar" Text="Listo"/>
-                </StatusBarItem>
-                <StatusBarItem HorizontalAlignment="Right">
-                    <Controls:MetroProgressBar x:Name="progressBar_statusBar" Height="20" Width="113" Foreground="White" IsHitTestVisible="True" IsTabStop="False" Background="{x:Null}" />
-                </StatusBarItem>
-            </StatusBar>
-        </DockPanel>
-        <GroupBox x:Name="groupBox" Header="Contenido del repositorio" Margin="261,10,5,29">
+        <GroupBox x:Name="groupBox" Header="Contenido del repositorio" Margin="261,10,5,5">
             <Grid Margin="0,0,-2,-5">
                 <TreeView x:Name="treeView" Margin="0,26,1,4" BorderThickness="1" BorderBrush="#FF959595" Style="{x:Null}">
-                    <!--<TreeView.Resources>
+                    <TreeView.Resources>
                         <Style TargetType="{x:Type TreeViewItem}">
                             <Setter Property="HeaderTemplate">
                                 <Setter.Value>
-                                    
                                     <HierarchicalDataTemplate DataType="{x:Type self:SyncTreeNode}" ItemsSource="{Binding List}">
                                         <StackPanel Orientation="Horizontal">
                                             <CheckBox Name="checkbox" IsChecked="{Binding IsSelected}" Width="20" Height="20"/>
@@ -48,21 +37,21 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </TreeView.Resources>-->
+                    </TreeView.Resources>
                 </TreeView>
                 <CheckBox x:Name="checkBox_selectAll" Content="Seleccionar todos" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3,0,0" Checked="checkBox_selectAll_Checked" Unchecked="checkBox_selectAll_Unchecked"/>
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="groupBox1" Header="Comprobar addons" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="260" Width="235">
+        <GroupBox x:Name="groupBox1" Header="Comprobar addons" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="284" Width="235">
             <Grid>
-                <ProgressBar x:Name="progressBar_checkAddons" HorizontalAlignment="Left" VerticalAlignment="Top" Width="198" Height="21" Margin="10,10,0,0"/>
-                <Button x:Name="button_checkAddons" Content="V" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="127,36,0,0" ToolTip="Comprobar addons" Click="button_checkAddons_Click" RenderTransformOrigin="-0.053,0.36"/>
-                <Button x:Name="button_cancelCheck" Content="X" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="170,36,0,0" ToolTip="Cancelar" Click="button_cancelCheck_Click" IsEnabled="False"/>
-                <Label x:Name="label_updatedFiles" Content="Archivos actualizados:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.211,4.385" Margin="9,97,0,0" Foreground="Blue"/>
-                <Label x:Name="label_deletedFiles" Content="Archivos extra:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,128,0,0" Foreground="Green"/>
-                <Label x:Name="label_newFiles" Content="Archivos nuevos:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.211,4.385" Margin="10,66,0,0" Foreground="Red" Width="125" HorizontalContentAlignment="Stretch"/>
-                <Button x:Name="button_verifyAddons" Content="Verificar integridad" HorizontalAlignment="Left" VerticalAlignment="Top" Width="174" Margin="6,188,0,0" IsEnabled="False"/>
-                <Image x:Name="image_verifyWarning" HorizontalAlignment="Left" Height="24" Margin="189,188,0,0" VerticalAlignment="Top" Width="24" Source="Resources/warning.png" IsHitTestVisible="True" RenderTransformOrigin="0.792,1.833">
+                <ProgressBar HorizontalAlignment="Left" VerticalAlignment="Top" Width="198" Height="21" Value="100" Margin="10,10,0,0"/>
+                <Button x:Name="button_checkAddons" Content="V" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="71,36,0,0" ToolTip="Comprobar addons" Click="button_checkAddons_Click"/>
+                <Button x:Name="button_cancelCheck" Content="X" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="114,36,0,0" ToolTip="Cancelar"/>
+                <Label x:Name="label_updatedFiles" Content="Archivos actualizados:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.211,4.385" Margin="9,119,0,0" Foreground="Blue"/>
+                <Label x:Name="label_deletedFiles" Content="Archivos borrados:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,150,0,0" Foreground="Green"/>
+                <Label x:Name="label_newFiles" Content="Archivos nuevos:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.211,4.385" Margin="10,88,0,0" Foreground="Red" Width="125" HorizontalContentAlignment="Stretch"/>
+                <Button x:Name="button_verifyAddons" Content="Verificar integridad" HorizontalAlignment="Left" VerticalAlignment="Top" Width="174" Margin="6,211,0,0"/>
+                <Image x:Name="image_verifyWarning" HorizontalAlignment="Left" Height="24" Margin="189,211,0,0" VerticalAlignment="Top" Width="24" Source="Resources/warning.png" IsHitTestVisible="True" RenderTransformOrigin="0.792,1.833">
                     <Image.ToolTip>
                         <TextBlock>
                             Esta acción vuelve a calcular los hashes de todos los archivos del repositorio.
@@ -71,16 +60,17 @@
                         </TextBlock>
                     </Image.ToolTip>
                 </Image>
-                <Button x:Name="button_deleteExtraFiles" Content="Borrar archivos extra" HorizontalAlignment="Left" VerticalAlignment="Top" Width="174" Margin="6,158,0,0" IsEnabled="False"/>
-                <Image x:Name="image_deleteHelp" HorizontalAlignment="Left" Height="24" Margin="189,158,0,0" VerticalAlignment="Top" Width="24" Source="Resources/help.png" IsHitTestVisible="True" RenderTransformOrigin="0.792,1.833" ToolTip="Borrar archivos locales que ya no existen en el repositorio"/>
+                <Button x:Name="button" Content="Borrar archivos extra" HorizontalAlignment="Left" VerticalAlignment="Top" Width="174" Margin="6,181,0,0"/>
+                <Image x:Name="image_deleteHelp" HorizontalAlignment="Left" Height="24" Margin="189,181,0,0" VerticalAlignment="Top" Width="24" Source="Resources/help.png" IsHitTestVisible="True" RenderTransformOrigin="0.792,1.833" ToolTip="Borrar archivos locales que ya no existen en el repositorio"/>
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="groupBox2" Header="Descargar addons" HorizontalAlignment="Left" Margin="10,285,0,0" VerticalAlignment="Top" Height="255" Width="235">
+        <GroupBox x:Name="groupBox2" Header="Descargar addons" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top" Height="255" Width="235">
             <Grid>
                 <ProgressBar HorizontalAlignment="Left" VerticalAlignment="Top" Width="198" Height="21" Margin="10,10,0,0"/>
                 <ProgressBar HorizontalAlignment="Left" VerticalAlignment="Top" Width="198" Height="21" Margin="10,36,0,0"/>
-                <Button x:Name="button_startDownload" Content="V" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="127,62,0,0" IsEnabled="False"/>
-                <Button x:Name="button_cancelDownload" Content="X" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="170,62,0,0" IsEnabled="False"/>
+                <Button x:Name="button_startDownload" Content="V" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="46,62,0,0"/>
+                <Button x:Name="button_pauseDownload" Content="X" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="89,62,0,0"/>
+                <Button x:Name="button_cancelDownload" Content="X" HorizontalAlignment="Left" VerticalAlignment="Top" Width="38" Margin="132,62,0,0"/>
                 <Label x:Name="label2" Content="Tamaño total:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,93,0,0"/>
                 <Label x:Name="label2_Copy" Content="Descargado:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,121,0,0"/>
                 <Label x:Name="label2_Copy1" Content="Velocidad:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,151,0,0"/>
