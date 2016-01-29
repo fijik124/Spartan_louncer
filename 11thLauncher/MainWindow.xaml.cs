@@ -217,12 +217,6 @@ namespace _11thLauncher
             Application.Current.Shutdown();
         }
 
-        private void menu_logViewer_Click(object sender, RoutedEventArgs e)
-        {
-            LogWindow logWindow = new LogWindow {Owner = this};
-            logWindow.Show();
-        }
-
         private void menu_settings_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow settingsWindow = new SettingsWindow {Owner = this};

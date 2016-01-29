@@ -60,23 +60,7 @@ namespace _11thLauncherUpdater
             }
             catch (Exception)
             {
-                //Cleanup, delete downloaded file if it exists
-                File.Delete(_zipFile);
-                File.Delete(_exeFile);
-
-                //Start old launcher
-                Process p = new Process
-                {
-                    StartInfo =
-                    {
-                        FileName = _executionPath,
-                        Arguments = "-updateFailed"
-                    }
-                };
-                p.Start();
-
-                //Close updater
-                Application.Current.Shutdown();
+                CleanUp();
             }
         }
 
@@ -149,27 +133,32 @@ namespace _11thLauncherUpdater
             }
             catch (Exception)
             {
-                //Cleanup, delete temp files
-                File.Delete(_zipFile);
-                File.Delete(_exeFile);
+                CleanUp();
+            }
+        }
 
-                //Try to start launcher
-                if (File.Exists(_executionPath))
+        private void CleanUp()
+        {
+            //Cleanup, delete temp files
+            File.Delete(_zipFile);
+            File.Delete(_exeFile);
+
+            //Try to start launcher
+            if (File.Exists(_executionPath))
+            {
+                Process p = new Process
                 {
-                    Process p = new Process
-                    {
-                        StartInfo =
+                    StartInfo =
                         {
                             FileName = _executionPath,
                             Arguments = "-updateFailed"
                         }
-                    };
-                    p.Start();
-                }
-
-                //Close updater
-                Application.Current.Shutdown();
+                };
+                p.Start();
             }
+
+            //Close updater
+            Application.Current.Shutdown();
         }
     }
 }

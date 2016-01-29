@@ -53,12 +53,6 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Herramientas" Background="{x:Null}">
-                <MenuItem x:Name="menu_logViewer" Header="_Visor de Logs" Click="menu_logViewer_Click" IsEnabled="True">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/menu_logviewer.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <Separator/>
                 <MenuItem x:Name="menu_settings" Header="_Opciones" Click="menu_settings_Click">
                     <MenuItem.Icon>
                         <Image Source="/Resources/menu_settings.png"/>

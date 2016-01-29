@@ -43,8 +43,9 @@ This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the g
 
 
 ## Download
-2.0.0 Stable Version - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher200_stable.zip) 
-<p><b>MD5</b>: 57ab6a95438493e54a364de1f2abe541</p>
+2.1.0 Stable Version - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher210.zip) 
+<p><b>Container MD5</b>: 57ab6a95438493e54a364de1f2abe541</p>
+<p><b>Executable MD5</b>: 9b105fcee9c5d58483c120e55915b442</p>
 
 ## Changelog
 #####Version 2.1.0
@@ -57,6 +58,7 @@ This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the g
  * Changed: Translated to spanish the game parameter names
  * Changed: Reorganized application code
  * Changed: Removed dev build and build types
+ * Changed: Modified some font sizes and styles to be clearer
  * Fixed: Added check to disable game launch if path is not enabled
 
 #####Version 2.0.0
