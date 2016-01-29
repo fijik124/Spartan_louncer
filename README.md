@@ -53,7 +53,7 @@ This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the g
  * New: Startup check to compare the ArmA 3 version for the client and the 11th MEU servers
  * New: Changed -noFilePatching command to -filePatching
  * New: Added malloc parameter with automatic detection of current allocators
- * New: Added MD5 hash verification to auto updater (Updated launcher to version 1.0.1)
+ * New: Added MD5 hash verification to auto updater (Updated auto-updater to version 1.0.1)
  * New: Added starting profile indicator to profile list
  * Changed: Translated to spanish the game parameter names
  * Changed: Reorganized application code
