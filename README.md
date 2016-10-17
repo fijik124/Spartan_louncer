@@ -44,7 +44,7 @@ This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the g
 
 ## Download
 2.1.0 Stable Version - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher210.zip) 
-<p><b>Container MD5</b>: 57ab6a95438493e54a364de1f2abe541</p>
+<p><b>Zip MD5</b>: 57ab6a95438493e54a364de1f2abe541</p>
 <p><b>Executable MD5</b>: 9b105fcee9c5d58483c120e55915b442</p>
 
 ## Changelog
