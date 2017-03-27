@@ -22,7 +22,7 @@ namespace _11thLauncher.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace _11thLauncher.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("_11thLauncher.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace _11thLauncher.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] _11thLauncherUpdater {
+        public static byte[] _11thLauncherUpdater {
             get {
                 object obj = ResourceManager.GetObject("_11thLauncherUpdater", resourceCulture);
                 return ((byte[])(obj));
@@ -73,7 +73,7 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap a3logo {
+        public static System.Drawing.Bitmap a3logo {
             get {
                 object obj = ResourceManager.GetObject("a3logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +83,7 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap a3sDisabled {
+        public static System.Drawing.Bitmap a3sDisabled {
             get {
                 object obj = ResourceManager.GetObject("a3sDisabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +93,7 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] A3SDS {
+        public static byte[] A3SDS {
             get {
                 object obj = ResourceManager.GetObject("A3SDS", resourceCulture);
                 return ((byte[])(obj));
@@ -103,7 +103,7 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap a3sEnabled {
+        public static System.Drawing.Bitmap a3sEnabled {
             get {
                 object obj = ResourceManager.GetObject("a3sEnabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +113,7 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon icon {
+        public static System.Drawing.Icon icon {
             get {
                 object obj = ResourceManager.GetObject("icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -123,37 +123,7 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap menu_about {
-            get {
-                object obj = ResourceManager.GetObject("menu_about", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap menu_close {
-            get {
-                object obj = ResourceManager.GetObject("menu_close", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap menu_game {
-            get {
-                object obj = ResourceManager.GetObject("menu_game", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap menu_settings {
+        public static System.Drawing.Bitmap menu_settings {
             get {
                 object obj = ResourceManager.GetObject("menu_settings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -163,17 +133,7 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap menu_updates {
-            get {
-                object obj = ResourceManager.GetObject("menu_updates", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap off {
+        public static System.Drawing.Bitmap off {
             get {
                 object obj = ResourceManager.GetObject("off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -183,7 +143,7 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap on {
+        public static System.Drawing.Bitmap on {
             get {
                 object obj = ResourceManager.GetObject("on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -191,9 +151,81 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Presets de addons.
+        /// </summary>
+        public static string S_ADDON_PRESETS {
+            get {
+                return ResourceManager.GetString("S_ADDON_PRESETS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 11th MEU Launcher.
+        /// </summary>
+        public static string S_APP_NAME {
+            get {
+                return ResourceManager.GetString("S_APP_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mover abajo seleccionado.
+        /// </summary>
+        public static string S_BTN_ADDONS_DOWN_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_ADDONS_DOWN_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mover arriba seleccionado.
+        /// </summary>
+        public static string S_BTN_ADDONS_UP_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_ADDONS_UP_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La ruta de ejecución no ha sido autodetectada, indicala manualmente en la ventana de opciones antes de empezar a utilizar la aplicación.
+        /// </summary>
+        public static string S_MSG_PATH_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_PATH_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ruta de ejecución.
+        /// </summary>
+        public static string S_MSG_PATH_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_PATH_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Listo.
+        /// </summary>
+        public static string S_STATUS_READY {
+            get {
+                return ResourceManager.GetString("S_STATUS_READY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tu versión de ArmA 3 no concuerda con la de los servidores de la 11th MEU ({0}).
+        /// </summary>
+        public static string S_VERSION_MISMATCH {
+            get {
+                return ResourceManager.GetString("S_VERSION_MISMATCH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap unknown {
+        public static System.Drawing.Bitmap unknown {
             get {
                 object obj = ResourceManager.GetObject("unknown", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -203,7 +235,7 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap warning {
+        public static System.Drawing.Bitmap warning {
             get {
                 object obj = ResourceManager.GetObject("warning", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

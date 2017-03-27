@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="_11thLauncher.Views.Controls.AddonsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
+             xmlns:resx="clr-namespace:_11thLauncher.Properties"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=vm:AddonsViewModel}" d:DesignWidth="353.815" d:DesignHeight="406.244">
+
+    <Grid>
+        <Label Content="{x:Static resx:Resources.S_ADDON_PRESETS}" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top"
+               Margin="45,10,0,0" />
+
+        <ComboBox x:Name="Presets" d:DataContext="{Binding Presets}"
+                  DisplayMemberPath="Name"
+                  Width="210"
+                  Margin="6,38,0,0"
+                  HorizontalAlignment="Left" VerticalAlignment="Top" 
+                  cal:Message.Attach="[Event SelectionChanged] = [Action Presets_SelectionChanged];" />
+
+        <ListBox x:Name="Addons" d:DataContext="{Binding Addons}"
+             BorderBrush="#FFCCCCCC"
+             Margin="6,69,0,0"
+             Width="210" Height="228"
+             HorizontalAlignment="Left" VerticalAlignment="Top"
+             BorderThickness="1">
+            <ListBox.ItemTemplate>
+                <HierarchicalDataTemplate>
+                    <CheckBox Content="{Binding DisplayName}" IsChecked="{Binding IsEnabled}"/>
+                </HierarchicalDataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button x:Name="ButtonMoveUp" ToolTip="{x:Static resx:Resources.S_BTN_ADDONS_UP_TIP}" 
+                Style="{DynamicResource MetroCircleButtonStyle}" 
+                Margin="15,302,0,0"
+                Width="30" Height="30"
+                HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle Width="10" Height="10">
+                <Rectangle.Fill>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_up}" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
+
+        <Button x:Name="ButtonMoveDown" ToolTip="{x:Static resx:Resources.S_BTN_ADDONS_DOWN_TIP}" 
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Margin="60,302,0,0"
+                Width="30" Height="30"
+                HorizontalAlignment="Left"  VerticalAlignment="Top" >
+            <Rectangle Width="10" Height="10">
+                <Rectangle.Fill>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_down}" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
+
+        <Separator RenderTransformOrigin="0.5,0.5"
+                   Margin="95,312,0,0"
+                   Width="30" Height="10"
+                   HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Separator.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Separator.RenderTransform>
+        </Separator>
+
+        <Button x:Name="ButtonSelectAll" ToolTip="Seleccionar todos"
+                Style="{DynamicResource MetroCircleButtonStyle}" 
+                Width="30" Height="30"
+                Margin="130,302,0,0"
+                HorizontalAlignment="Left"  VerticalAlignment="Top" >
+            <Rectangle Width="10" Height="10">
+                <Rectangle.Fill>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_check}" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
+
+        <Button x:Name="ButtonSelectNone" ToolTip="Seleccionar ninguno"
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Margin="175,302,0,0"
+                Width="30" Height="30"
+                 HorizontalAlignment="Left"  VerticalAlignment="Top">
+            <Rectangle Width="10" Height="10">
+                <Rectangle.Fill>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_close}" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
+    </Grid>
+
+</UserControl>

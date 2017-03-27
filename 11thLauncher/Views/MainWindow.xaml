@@ -1,0 +1,233 @@
+﻿<controls:MetroWindow x:Class="_11thLauncher.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:Configuration="clr-namespace:_11thLauncher.Configuration"
+                      Title="11th MEU Launcher"
+                      TitleCharacterCasing="Normal" 
+                      Icon="/11thLauncher;component/Resources/icon.ico" 
+                      WindowStartupLocation="CenterScreen" 
+                      Height="517"
+                      Width="644"
+                      ResizeMode="CanMinimize" 
+                      BorderThickness="0" 
+                      GlowBrush="Black"
+                      LeftWindowCommandsOverlayBehavior="HiddenTitleBar" 
+                      Loaded="MetroWindow_Loaded" 
+                      Closed="MetroWindow_Closed">
+
+    <controls:MetroWindow.Resources>
+        <DataTemplate x:Key="tabTitle">
+            <TextBlock Text="{Binding}" 
+             FontSize="20" />
+        </DataTemplate>
+    </controls:MetroWindow.Resources>
+
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands ShowLastSeparator="False">
+            <Button  Click="menu_settings_Click"
+                    ToolTip="Abrir ventana de opciones" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/menu_settings.png" Stretch="None" Margin="0,0,5,0"/>
+                    <TextBlock Margin="0,1,0,0"><Run Text="Opciones"/></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Click="menu_updates_Click"
+                    Content="Actualizar"
+                    ToolTip="Comprobar actualizaciones" />
+            <Button Click="menu_about_Click"
+                    Content="Ayuda"
+                    ToolTip="Acerca del launcher" />
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
+    <Grid>
+        <DockPanel Margin="0,464,0,0">
+            <StatusBar DockPanel.Dock="Bottom">
+                <StatusBarItem>
+                    <TextBlock x:Name="statusBar" Text="Listo"/>
+                </StatusBarItem>
+                <StatusBarItem HorizontalAlignment="Right">
+                    <controls:MetroProgressBar x:Name="progressBar_statusBar" Height="20" Width="113" Foreground="White" IsHitTestVisible="True" IsTabStop="False" Background="{x:Null}" />
+                </StatusBarItem>
+            </StatusBar>
+        </DockPanel>
+
+        <Label Content="Perfil de usuario" HorizontalAlignment="Left" Margin="53,20,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="comboBox_profiles" HorizontalAlignment="Left" Margin="25,51,0,0" VerticalAlignment="Top" Width="147" SelectionChanged="comboBox_profiles_SelectionChanged"/>
+        <Image x:Name="image_logo" HorizontalAlignment="Left" Height="140" Margin="281,-7,-8,0" VerticalAlignment="Top" Width="365" Source="/Resources/a3logo.png" IsHitTestVisible="False"/>
+        <controls:MetroAnimatedSingleRowTabControl x:Name="metroAnimatedSingleRowTabControl" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Height="372" Width="623" controls:TabControlHelper.IsUnderlined="False">
+            <TabItem Header="ArmA 3" HeaderTemplate="{StaticResource tabTitle}" >
+                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
+
+                    
+                    <controls:SplitButton x:Name="button_launch" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Margin="227,38,0,0" VerticalAlignment="Top" Width="188" Height="50" FontSize="12" FontWeight="Normal" ToolTip="Iniciar ArmA 3 con los addons y parámetros indicados" Click="button_launch_Click" DisplayMemberPath="Label" SelectedIndex="0">
+                        <controls:SplitButton.IconTemplate>
+                            <DataTemplate>
+                                <Image HorizontalAlignment="Left" Source="/Resources/game.png" Width="32" Height="32" Margin="5"/>
+                            </DataTemplate>
+                        </controls:SplitButton.IconTemplate>
+                        <controls:SplitButton.Items>
+                            <Configuration:LaunchOption Label="Iniciar Arma 3" />
+                            <Configuration:LaunchOption Label="Unirse a Multijugador"/>
+                            <Configuration:LaunchOption Label="Iniciar Headless Client"/>
+                        </controls:SplitButton.Items>
+                    </controls:SplitButton>
+                    <Button x:Name="button_clip" Style="{DynamicResource MetroCircleButtonStyle}" HorizontalAlignment="Left" Margin="375,93,0,0" VerticalAlignment="Top" Width="40" Height="40" ToolTip="Copiar linea de inicio al portapapeles" Click="button_clip_Click">
+                        <Rectangle Width="20" Height="20">
+                            <Rectangle.Fill>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_clipboard_file}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Button>
+
+                    <Expander x:Name="groupBox_servers" Header="Servidores" HorizontalAlignment="Left" Margin="430,38,0,0" VerticalAlignment="Top" Height="119" Width="185" IsExpanded="True">
+                        <Grid Height="90" VerticalAlignment="Top" Margin="-4,-4,-2,-6" HorizontalAlignment="Left" Width="179">
+                            <Label Content="Coop" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,0,0,0"/>
+                            <Label Content="Academia" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,31,0,0"/>
+                            <Label Content="ALiVE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,62,0,0"/>
+                            <Button x:Name="button_serverCoop" Content="Rellenar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="112,2,0,0" FontSize="10" FontWeight="Medium" ToolTip="Rellenar los campos dirección y puerto para este servidor"/>
+                            <Button x:Name="button_serverAcademy" Content="Rellenar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="112,32,0,0"  FontSize="10" FontWeight="Medium" ToolTip="Rellenar los campos dirección y puerto para este servidor"/>
+                            <Button x:Name="button_serverAlive" Content="Rellenar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="112,61,0,0" FontSize="10" FontWeight="Medium" ToolTip="Rellenar los campos dirección y puerto para este servidor"/>
+                            <Image x:Name="image_coopStatus" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Margin="58,6,0,0" Source="/Resources/unknown.png" Stretch="Fill" MouseLeftButtonDown="image_coopStatus_MouseLeftButtonDown" ToolTip="Click para comprobar el estado del servidor"/>
+                            <Image x:Name="image_academyStatus" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Margin="58,38,0,0" Source="/Resources/unknown.png" Stretch="Fill" MouseLeftButtonDown="image_academyStatus_MouseLeftButtonDown" ToolTip="Click para comprobar el estado del servidor" RenderTransformOrigin="-0.156,0.467"/>
+                            <Image x:Name="image_aliveStatus" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Margin="58,68,0,0" Source="/Resources/unknown.png" Stretch="Fill" MouseLeftButtonDown="image_aliveStatus_MouseLeftButtonDown" ToolTip="Click para comprobar el estado del servidor"/>
+                            <Label x:Name="label_coopPlayers" Content="-/-" HorizontalAlignment="Left" Margin="72,2,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="41"/>
+                            <Label x:Name="label_academyPlayers" Content="-/-" HorizontalAlignment="Left" Margin="72,33,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="41"/>
+                            <Label x:Name="label_alivePlayers" Content="-/-" HorizontalAlignment="Left" Margin="72,61,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="41"/>
+                        </Grid>
+                    </Expander>
+                    <Expander x:Name="groupBox_repository" Header="Repositorio" HorizontalAlignment="Left" Margin="430,180,0,0" VerticalAlignment="Top" Height="80" Width="185" IsExpanded="True">
+                        <Grid HorizontalAlignment="Left" Height="49" Margin="-4,-4,-2,-4" VerticalAlignment="Top" Width="179">
+                            <Label Content="Versión actual:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <Label Content="Estado:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,23,0,0"/>
+                            <controls:Tile x:Name="tile_repositoryStatus" Content="Desconocido" HorizontalAlignment="Left" Margin="92,28,0,0" VerticalAlignment="Top" Height="18" Width="87" ToolTip="" Click="tile_repositoryStatus_Click" RenderTransformOrigin="0.655,0.611" IsEnabled="False">
+                                <controls:Tile.Background>
+                                    <SolidColorBrush Color="{x:Static Colors.Gray}"/>
+                                </controls:Tile.Background>
+                            </controls:Tile>
+                            <Label x:Name="label_repositoryRevision" Content="?" HorizontalAlignment="Left" Margin="81,0,-4,0" VerticalAlignment="Top" Width="102" HorizontalContentAlignment="Center"/>
+                            <Image x:Name="image_arma3Sync" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" Margin="62,26,0,0" Source="/Resources/a3sDisabled.png" RenderTransformOrigin="0.95,1" ToolTip="Arma3Sync no está configurado, configuralo en la ventana de opciones" MouseLeftButtonDown="image_arma3Sync_MouseLeftButtonDown" IsHitTestVisible="True"/>
+                        </Grid>
+                    </Expander>
+                    <Label x:Name="label" Content="Info de lanzamiento" HorizontalAlignment="Left" Margin="227,104,0,0" VerticalAlignment="Top"/>
+                    <Border BorderBrush="#FFCCCCCC" BorderThickness="1" HorizontalAlignment="Left" Height="122" Margin="230,138,0,0" VerticalAlignment="Top" Width="185">
+                        <Grid Margin="0,0,0,-1">
+                            <Label Content="Juego" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                            <Label Content="Steam" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top"/>
+                            <Label Content="TS3" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="label_gameProcess" Content="" HorizontalAlignment="Left" Margin="56,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.683,0.382" Width="96"/>
+                            <Label x:Name="label_steamProcess" Content="" HorizontalAlignment="Left" Margin="56,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.683,0.382" Width="96"/>
+                            <Label x:Name="label_teamspeakProcess" Content="" HorizontalAlignment="Left" Margin="56,91,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.683,0.382" Width="96"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Servidores" HeaderTemplate="{StaticResource tabTitle}" >
+                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
+                    <Label Content="Servidor:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <ComboBox x:Name="comboBox_server" HorizontalAlignment="Left" Margin="71,10,0,0" VerticalAlignment="Top" Width="250">
+                        <ComboBoxItem Content="Cooperativo"/>
+                        <ComboBoxItem Content="Academia"/>
+                        <ComboBoxItem Content="ALiVE"/>
+                    </ComboBox>
+                    <Button x:Name="button_checkStatus" Content="Mostrar/Actualizar estado" HorizontalAlignment="Left" Margin="350,10,0,0" VerticalAlignment="Top" Width="255" Height="26" Click="button_checkStatus_Click"/>
+                    <Label Content="Nombre:" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBox_serverName" HorizontalAlignment="Left" Height="23" Margin="71,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="534" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE"/>
+                    <Label Content="Misión:" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBox_serverMission" HorizontalAlignment="Left" Height="23" Margin="71,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE"/>
+                    <Label Content="Mapa:" HorizontalAlignment="Left" Margin="10,183,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBox_serverMap" HorizontalAlignment="Left" Height="23" Margin="71,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE"/>
+                    <Label Content="Ping:" HorizontalAlignment="Left" Margin="10,240,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBox_serverPing" HorizontalAlignment="Left" Height="23" Margin="71,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE"/>
+                    <Label Content="Versión:" HorizontalAlignment="Left" Margin="10,296,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBox_serverVersion" HorizontalAlignment="Left" Height="23" Margin="71,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE"/>
+                    <Label Content="Jugadores:" HorizontalAlignment="Left" Margin="326,84,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBox_serverPlayers" HorizontalAlignment="Left" Height="23" Margin="397,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE" TextAlignment="Center"/>
+                    <ListBox x:Name="listBox_serverPlayers" HorizontalAlignment="Left" Height="211" Margin="397,116,0,0" VerticalAlignment="Top" Width="208" Background="#FFEEEEEE" BorderBrush="#FFCCCCCC" BorderThickness="1"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Parámetros" HeaderTemplate="{StaticResource tabTitle}" >
+                <ScrollViewer Height="337" Width="615">
+                    <Grid Height="1000" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <CheckBox x:Name="checkBox_skipSplash" Content="Saltar pantalla de inicio" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" ToolTip="Desactiva las pantallas de inicio"/>
+                        <CheckBox x:Name="checkBox_noFilePatching" Content="Cargar archivos sueltos" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" ToolTip="Cargar archivos sueltos además de PBO's"/>
+                        <CheckBox x:Name="checkBox_winXPmode" Content="Modo Windows XP" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" ToolTip="Forzar al juego a utilizar Direct3D versión 9"/>
+                        <CheckBox x:Name="checkBox_noPause" Content="No pausar" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" ToolTip="Continuar ejecutando el juego en segundo plano"/>
+                        <CheckBox x:Name="checkBox_showScriptErrors" Content="Mostrar errores de script" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top" ToolTip="Mostrar en pantalla errores de script"/>
+                        <CheckBox x:Name="checkBox_emptyWorld" Content="Mundo vacío" HorizontalAlignment="Left" Margin="195,10,0,0" VerticalAlignment="Top" ToolTip="No cargar ningún mapa por defecto"/>
+                        <CheckBox x:Name="checkBox_windowedMode" Content="Modo ventana" HorizontalAlignment="Left" Margin="195,55,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,2.556" ToolTip="Iniciar en modo ventana"/>
+                        <CheckBox x:Name="checkBox_skipIntro" Content="Saltar intro" HorizontalAlignment="Left" Margin="195,103,0,0" VerticalAlignment="Top" ToolTip="Desactivar videos de introducción en el menú principal"/>
+                        <CheckBox x:Name="checkBox_noMulticore" Content="Desactivar multinúcleo" HorizontalAlignment="Left" Margin="195,155,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.093,-0.333" ToolTip="Desactivar la utilización de varios núcleos"/>
+                        <CheckBox x:Name="checkBox_noLogs" Content="No logs" HorizontalAlignment="Left" Margin="195,201,0,0" VerticalAlignment="Top" ToolTip="Desactivar generación de logs del juego"/>
+                        <CheckBox x:Name="checkBox_hyperthreading" Content="Hyperthreading (Intel®)" HorizontalAlignment="Left" Margin="195,246,0,0" VerticalAlignment="Top" ToolTip="Activa el uso de todos los núcleos con tecnologia Hyperthreading"/>
+                        <CheckBox x:Name="checkBox_maxMemory" Content="Límite de RAM" HorizontalAlignment="Left" Margin="359,10,0,0" VerticalAlignment="Top" ToolTip="Definir límite de memoria disponible" Checked="checkBox_maxMemory_Checked" Unchecked="checkBox_maxMemory_Unchecked"/>
+                        <ComboBox x:Name="comboBox_maxMemory" HorizontalAlignment="Left" Margin="486,6,0,0" VerticalAlignment="Top" Width="127" IsEnabled="False">
+                            <ComboBoxItem Content="768"/>
+                            <ComboBoxItem Content="1024"/>
+                            <ComboBoxItem Content="2048 (hard-limit)"/>
+                            <ComboBoxItem Content="4096"/>
+                            <ComboBoxItem Content="8192"/>
+                        </ComboBox>
+                        <CheckBox x:Name="checkBox_maxVMemory" Content="Límite de VRAM" HorizontalAlignment="Left" Margin="359,55,0,0" VerticalAlignment="Top" ToolTip="Definir límite de memoria de video disponible" Checked="checkBox_maxVMemory_Checked" Unchecked="checkBox_maxVMemory_Unchecked"/>
+                        <ComboBox x:Name="comboBox_maxVMemory" HorizontalAlignment="Left" Margin="486,51,0,0" VerticalAlignment="Top" Width="127" IsEnabled="False">
+                            <ComboBoxItem Content="128"/>
+                            <ComboBoxItem Content="256"/>
+                            <ComboBoxItem Content="512"/>
+                            <ComboBoxItem Content="1024"/>
+                            <ComboBoxItem Content="2048 (soft-limit)"/>
+                            <ComboBoxItem Content="4096"/>
+                            <ComboBoxItem Content="8192"/>
+                        </ComboBox>
+                        <CheckBox x:Name="checkBox_cpuCount" Content="Número de núcleos" HorizontalAlignment="Left" Margin="359,103,0,0" VerticalAlignment="Top" ToolTip="Número de núcleos a utilizar (menor o igual al número de núcleos del procesador)" Checked="checkBox_cpuCount_Checked" Unchecked="checkBox_cpuCount_Unchecked"/>
+                        <ComboBox x:Name="comboBox_cpuCount" HorizontalAlignment="Left" Margin="506,101,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False">
+                            <ComboBoxItem Content="1"/>
+                            <ComboBoxItem Content="2"/>
+                            <ComboBoxItem Content="3"/>
+                            <ComboBoxItem Content="4"/>
+                            <ComboBoxItem Content="5"/>
+                            <ComboBoxItem Content="6"/>
+                            <ComboBoxItem Content="7"/>
+                            <ComboBoxItem Content="8"/>
+                        </ComboBox>
+                        <CheckBox x:Name="checkBox_extraThreads" Content="Hilos adicionales" HorizontalAlignment="Left" Margin="359,155,0,0" VerticalAlignment="Top" ToolTip="Número de hilos adicionales" Checked="checkBox_extraThreads_Checked" Unchecked="checkBox_extraThreads_Unchecked"/>
+                        <ComboBox x:Name="comboBox_extraThreads" HorizontalAlignment="Left" Margin="506,155,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False">
+                            <ComboBoxItem Content="0"/>
+                            <ComboBoxItem Content="1"/>
+                            <ComboBoxItem Content="3"/>
+                            <ComboBoxItem Content="5"/>
+                            <ComboBoxItem Content="7"/>
+                        </ComboBox>
+                        <CheckBox x:Name="checkBox_priority" Content="Prioridad de proceso" HorizontalAlignment="Left" Margin="359,201,0,0" VerticalAlignment="Top" ToolTip="Prioridad del proceso de ArmA 3 en Windows" Checked="checkBox_priority_Checked" Unchecked="checkBox_priority_Unchecked"/>
+                        <ComboBox x:Name="comboBox_priority" HorizontalAlignment="Left" Margin="506,201,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False">
+                            <ComboBoxItem Content="Normal"/>
+                            <ComboBoxItem Content="Encima de lo normal"/>
+                            <ComboBoxItem Content="Alta"/>
+                        </ComboBox>
+                        <Label Content="Parámetros adicionales" HorizontalAlignment="Left" Margin="10,243,0,0" VerticalAlignment="Top" FontWeight="SemiBold"/>
+                        <CheckBox x:Name="checkBox_malloc" Content="Asignador de memoria" HorizontalAlignment="Left" Margin="359,246,0,0" VerticalAlignment="Top" ToolTip="Prioridad del proceso de ArmA 3 en Windows" Unchecked="checkBox_malloc_Unchecked" Checked="checkBox_malloc_Checked"/>
+                        <TextBox x:Name="textBox_additionalParameters" HorizontalAlignment="Left" Height="23" Margin="10,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="605" RenderTransformOrigin="0.233,0.5"/>
+                        <ComboBox x:Name="comboBox_malloc" HorizontalAlignment="Left" Margin="506,246,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Perfiles" HeaderTemplate="{StaticResource tabTitle}" >
+                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
+                    <Label Content="Lista de perfiles" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="button_defaultProfile" Content="Marcar como inicial" HorizontalAlignment="Left" Margin="440,75,0,0" VerticalAlignment="Top" Width="166" Height="31" Click="button_defaultProfile_Click"/>
+                    <Button x:Name="button_createProfile" Content="Nuevo Perfil" HorizontalAlignment="Left" Margin="440,111,0,0" VerticalAlignment="Top" Width="166" Height="31" Click="button_createProfile_Click"/>
+                    <Button x:Name="button_deleteProfile" Content="Borrar Perfil" HorizontalAlignment="Left" Margin="440,147,0,0" VerticalAlignment="Top" Width="166" Height="31" Click="button_deleteProfile_Click"/>
+                    <Label Content="Creación de perfil" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBox_newProfile" HorizontalAlignment="Left" Height="23" Margin="10,303,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" IsEnabled="False"/>
+                    <Button x:Name="button_saveNewProfile" Content="Guardar perfil" HorizontalAlignment="Left" Margin="439,303,0,0" VerticalAlignment="Top" Width="166" Height="26" IsEnabled="False" Click="button_saveNewProfile_Click"/>
+                    <ListBox x:Name="listBox_profiles" HorizontalAlignment="Left" Height="226" Margin="13,41,0,0" VerticalAlignment="Top" Width="412" BorderThickness="1" BorderBrush="#FFCCCCCC"/>
+                </Grid>
+            </TabItem>
+        </controls:MetroAnimatedSingleRowTabControl>
+        <Label x:Name="label_gameVersion" Content="1.00.000000" HorizontalAlignment="Left" Margin="540,96,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Image x:Name="image_versionWarning" HorizontalAlignment="Left" Height="24" Margin="611,118,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/warning.png" IsHitTestVisible="True" ToolTip="Tu versión no concuerda con la de los servidores de la 11th MEU" Visibility="Hidden"/>
+    </Grid>
+</controls:MetroWindow>
+
+
+

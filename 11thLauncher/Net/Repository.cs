@@ -4,21 +4,19 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using _11thLauncher.Configuration;
+using _11thLauncher.Model;
 
 namespace _11thLauncher.Net
 {
-    static class Repository
+    public static class Repository
     {
         public static string JavaVersion = "";
-
-        private static readonly string _a3sdsPath = Path.Combine(Path.GetTempPath(), "A3SDS.jar");
 
         private static string _localRevision;
 
         private static string _remoteLogin;
         private static string _remotePassword;
-        private static string _remoteURL;
-        private static string _remotePort;
+        private static string _remoteUrl;
         private static string _remoteRevision;
         private static DateTime _remoteBuildDate;
 
@@ -38,7 +36,7 @@ namespace _11thLauncher.Net
                     foreach (string file in files)
                     {
                         string fileName = Path.GetFileName(file);
-                        repositories.Add(fileName.Substring(0, fileName.IndexOf('.')));
+                        if (fileName != null) repositories.Add(fileName.Substring(0, fileName.IndexOf('.')));
                     }
                 }
                 catch (Exception) {}
@@ -55,13 +53,13 @@ namespace _11thLauncher.Net
             MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando repositorio" });
 
             //Extract A3SDS
-            File.WriteAllBytes(_a3sdsPath, Properties.Resources.A3SDS);
+            File.WriteAllBytes(Constants.A3SdsPath, Properties.Resources.A3SDS);
 
             deserializeLocalRepository();
             deserializeRemoteRepository();
 
             //Delete A3SDS
-            File.Delete(_a3sdsPath);
+            File.Delete(Constants.A3SdsPath);
 
             string revision = _localRevision;
             bool updated = false;
@@ -77,7 +75,6 @@ namespace _11thLauncher.Net
                     else
                     {
                         revision = _remoteRevision;
-                        updated = false;
                     }
                 }
             }
@@ -89,24 +86,28 @@ namespace _11thLauncher.Net
         {
             string repositoryPath = "\"" + Settings.Arma3SyncPath + "\\resources\\ftp\\" + Settings.Arma3SyncRepository + ".a3s.repository" + "\"";
 
-            Process p = new Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.FileName = GetJavaPath();
-            p.StartInfo.Arguments = " -jar " + _a3sdsPath + " -deserializeRepository " + repositoryPath;
+            Process p = new Process
+            {
+                StartInfo =
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    FileName = GetJavaPath(),
+                    Arguments = " -jar " + Constants.A3SdsPath + " -deserializeRepository " + repositoryPath
+                }
+            };
             p.Start();
             string localRepository = p.StandardOutput.ReadToEnd();
-            string[] localRepositoryInfo = localRepository.TrimEnd(new char[] { '\r', '\n' }).Split(',');
+            string[] localRepositoryInfo = localRepository.TrimEnd('\r', '\n').Split(',');
             p.WaitForExit();
 
-            if (localRepositoryInfo != null && localRepositoryInfo.Length == 6)
+            if (localRepositoryInfo.Length == 6)
             {
                 _localRevision = localRepositoryInfo[1];
                 _remoteLogin = localRepositoryInfo[2];
                 _remotePassword = localRepositoryInfo[3];
-                _remotePort = localRepositoryInfo[4];
-                _remoteURL = localRepositoryInfo[5];
+                _remoteUrl = localRepositoryInfo[5];
             }
         }
 
@@ -115,7 +116,7 @@ namespace _11thLauncher.Net
             try
             {
                 string tempPath = Path.GetTempPath() + "repoInfo";
-                FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://" + _remoteURL + "/.a3s/serverinfo");
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://" + _remoteUrl + "/.a3s/serverinfo");
                 request.Method = WebRequestMethods.Ftp.DownloadFile;
                 request.Credentials = new NetworkCredential(_remoteLogin, _remotePassword);
 
@@ -131,10 +132,10 @@ namespace _11thLauncher.Net
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.CreateNoWindow = true;
                 p.StartInfo.FileName = @GetJavaPath();
-                p.StartInfo.Arguments = " -jar " + _a3sdsPath + " -deserializeServerInfo \"" + tempPath + "\"";
+                p.StartInfo.Arguments = " -jar " + Constants.A3SdsPath + " -deserializeServerInfo \"" + tempPath + "\"";
                 p.Start();
                 string remoteRepository = p.StandardOutput.ReadToEnd();
-                string[] remoteRepositoryInfo = remoteRepository.TrimEnd(new char[] { '\r', '\n' }).Split(',');
+                string[] remoteRepositoryInfo = remoteRepository.TrimEnd('\r', '\n').Split(',');
                 p.WaitForExit();
 
                 //Delete temp file
@@ -146,7 +147,7 @@ namespace _11thLauncher.Net
                     _remoteBuildDate = JavaDateToDatetime(remoteRepositoryInfo[1]);
                 }
             }
-            catch (WebException){}
+            catch (WebException) {}
         }
 
         /// <summary>
@@ -156,13 +157,18 @@ namespace _11thLauncher.Net
         {
             try
             {
-                Process p = new Process();
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.RedirectStandardError = true;
-                p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.FileName = "java";
-                p.StartInfo.Arguments = "-version";
+                var p = new Process
+                {
+                    StartInfo =
+                    {
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        FileName = "java",
+                        Arguments = "-version"
+                    }
+                };
                 p.Start();
                 JavaVersion = p.StandardError.ReadLine();
                 p.StandardError.ReadToEnd();
@@ -176,9 +182,14 @@ namespace _11thLauncher.Net
         /// </summary>
         public static void StartArmA3Sync()
         {
-            Process p = new Process();
-            p.StartInfo.WorkingDirectory = Settings.Arma3SyncPath;
-            p.StartInfo.FileName = Settings.Arma3SyncPath + "\\ArmA3Sync.exe";
+            var p = new Process
+            {
+                StartInfo =
+                {
+                    WorkingDirectory = Settings.Arma3SyncPath,
+                    FileName = Settings.Arma3SyncPath + "\\ArmA3Sync.exe"
+                }
+            };
             p.Start();
         }
 
@@ -188,15 +199,7 @@ namespace _11thLauncher.Net
         /// <returns>Java execution path</returns>
         private static string GetJavaPath()
         {
-            string path = "";
-
-            if (Settings.JavaPath != "")
-            {
-                path = Settings.JavaPath;
-            } else
-            {
-                path = "java";
-            }
+            var path = Settings.JavaPath != "" ? Settings.JavaPath : "java";
 
             return path;
         }
@@ -208,11 +211,11 @@ namespace _11thLauncher.Net
         /// <returns>Converted DateTime</returns>
         private static DateTime JavaDateToDatetime(string date)
         {
-            long dateLong = long.Parse(date);
-            TimeSpan ss = TimeSpan.FromMilliseconds(dateLong);
-            DateTime Jan1st1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            DateTime ddd = Jan1st1970.Add(ss);
-            DateTime final = ddd.ToUniversalTime();
+            var dateLong = long.Parse(date);
+            var ss = TimeSpan.FromMilliseconds(dateLong);
+            var jan1St1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var ddd = jan1St1970.Add(ss);
+            var final = ddd.ToUniversalTime();
 
             return final;
         }

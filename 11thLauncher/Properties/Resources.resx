@@ -124,12 +124,6 @@
   <data name="A3SDS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\lib\A3SDS.jar;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="menu_about" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\menu_about.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="menu_close" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\menu_close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="menu_settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu_settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,14 +136,11 @@
   <data name="unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="menu_updates" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\menu_updates.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="_11thLauncherUpdater" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\lib\11thLauncherUpdater.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="a3sDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\a3sDisabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -157,10 +148,31 @@
   <data name="a3sEnabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\a3sEnabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="menu_game" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\menu_game.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S_VERSION_MISMATCH" xml:space="preserve">
+    <value>Tu versión de ArmA 3 no concuerda con la de los servidores de la 11th MEU ({0})</value>
+  </data>
+  <data name="S_APP_NAME" xml:space="preserve">
+    <value>11th MEU Launcher</value>
+  </data>
+  <data name="S_MSG_PATH_CONTENT" xml:space="preserve">
+    <value>La ruta de ejecución no ha sido autodetectada, indicala manualmente en la ventana de opciones antes de empezar a utilizar la aplicación</value>
+  </data>
+  <data name="S_MSG_PATH_TITLE" xml:space="preserve">
+    <value>Ruta de ejecución</value>
+  </data>
+  <data name="S_STATUS_READY" xml:space="preserve">
+    <value>Listo</value>
+  </data>
+  <data name="S_BTN_ADDONS_DOWN_TIP" xml:space="preserve">
+    <value>Mover abajo seleccionado</value>
+  </data>
+  <data name="S_BTN_ADDONS_UP_TIP" xml:space="preserve">
+    <value>Mover arriba seleccionado</value>
+  </data>
+  <data name="S_ADDON_PRESETS" xml:space="preserve">
+    <value>Presets de addons</value>
   </data>
 </root>

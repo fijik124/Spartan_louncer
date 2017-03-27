@@ -1,0 +1,99 @@
+﻿<controls:MetroWindow x:Class="_11thLauncher.Views.ShellView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:cal="http://www.caliburnproject.org"
+                      xmlns:resx="clr-namespace:_11thLauncher.Properties"
+                      xmlns:vm="clr-namespace:_11thLauncher.ViewModels"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      dialog:DialogParticipation.Register="{Binding}"
+                      xmlns:ni="http://www.hardcodet.net/taskbar"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      mc:Ignorable="d"
+                      d:DataContext="{d:DesignInstance Type=vm:ShellViewModel}"
+                      Title="{x:Static resx:Resources.S_APP_NAME}"
+                      TitleCharacterCasing="Normal" 
+                      Icon="/11thLauncher;component/Resources/icon.ico" 
+                      WindowStartupLocation="CenterScreen" 
+                      Height="517"
+                      Width="644"
+                      ResizeMode="CanMinimize" 
+                      BorderThickness="0" 
+                      GlowBrush="Black"
+                      LeftWindowCommandsOverlayBehavior="HiddenTitleBar"
+                      WindowState="{Binding WindowState, Mode=TwoWay}"
+                      ShowInTaskbar="{Binding ShowInTaskbar}">
+    <controls:MetroWindow.Resources>
+        <DataTemplate x:Key="TabTitle">
+            <TextBlock Text="{Binding}" 
+             FontSize="20" />
+        </DataTemplate>
+    </controls:MetroWindow.Resources>
+
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands ShowLastSeparator="False">
+            <Button ToolTip="Abrir ventana de opciones" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/menu_settings.png" Stretch="None" Margin="0,0,5,0"/>
+                    <TextBlock Margin="0,1,0,0"><Run Text="Opciones"/></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Content="Actualizar"
+                    ToolTip="Comprobar actualizaciones" />
+            <Button Content="Ayuda"
+                    ToolTip="Acerca del launcher" />
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
+    <Grid>
+        <!-- Logo & version -->
+        <Image Source="/Resources/a3logo.png" 
+               Height="140" 
+               Width="365" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" 
+               Margin="273,0,0,0" 
+               IsHitTestVisible="False" />
+        <Label Content="{Binding GameVersion}" 
+               FontWeight="Bold"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top"
+               Margin="527,100,0,0" />
+        <Image Source="/Resources/warning.png" 
+               ToolTip="{Binding VersionMismatchTooltip}"
+               Visibility="{Binding ShowVersionMismatch}"
+               Height="24"
+               Width="24"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top" 
+               Margin="611,102,0,0" 
+               IsHitTestVisible="True" />
+
+        <!-- Profile selector -->
+        <ContentControl x:Name="ProfileSelector"/>
+
+        <!-- Tabs -->
+        <controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Height="372" Width="623" controls:TabControlHelper.IsUnderlined="False">
+            <TabItem Header="ArmA 3" HeaderTemplate="{StaticResource TabTitle}">
+                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
+                    <!-- Addons -->
+                    <ContentControl x:Name="Addons"/>
+                    <!-- Server config -->
+                    <ContentControl x:Name="ServerConfig" />
+                </Grid>
+            </TabItem>
+        </controls:MetroAnimatedSingleRowTabControl>
+
+        <!-- Statusbar -->
+        <DockPanel Margin="0,464,0,0">
+            <ContentControl x:Name="Statusbar"/>
+        </DockPanel>
+        <!-- Notification icon -->
+        <ni:TaskbarIcon Visibility="{Binding ShowTrayIcon}"
+                        ToolTipText="{x:Static resx:Resources.S_APP_NAME}"
+                        IconSource="../Resources/icon.ico"
+                        cal:Message.Attach="[Event TrayRightMouseDown] = [Action TrayIcon_Click]; [Event TrayLeftMouseDown] = [Action TrayIcon_Click];">
+        </ni:TaskbarIcon>
+    </Grid>
+</controls:MetroWindow>

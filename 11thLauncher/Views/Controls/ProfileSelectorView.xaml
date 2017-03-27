@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="_11thLauncher.Views.Controls.ProfileSelectorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=vm:ProfileSelectorViewModel}" d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <ComboBox x:Name="Profiles" d:DataContext="{Binding Profiles}"
+                  DisplayMemberPath="DisplayName"
+                  Width="147" 
+                  HorizontalAlignment="Left" 
+                  VerticalAlignment="Top" 
+                  Margin="25,51,0,0" 
+                  cal:Message.Attach="[Event SelectionChanged] = [Action Profiles_SelectionChanged];"/>
+    </Grid>
+
+</UserControl>

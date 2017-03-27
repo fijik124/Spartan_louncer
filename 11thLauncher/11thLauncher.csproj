@@ -34,18 +34,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>_11thLauncher.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Micro, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.Core.3.0.3\lib\net45\Caliburn.Micro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net45\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MahApps.Metro">
       <HintPath>lib\MahApps.Metro.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MahApps.Metro.Resources">
-      <HintPath>lib\MahApps.Metro.Resources.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="QueryMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -59,9 +67,8 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\System.Windows.Interactivity.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -74,39 +81,109 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SettingsWindow.xaml.cs">
+    <Compile Include="Configuration\LaunchOption.cs" />
+    <Compile Include="Configuration\Settings.cs" />
+    <Compile Include="Messages\AddonsMessage.cs" />
+    <Compile Include="Messages\ProfileMessage.cs" />
+    <Compile Include="Messages\ProfilesMessage.cs" />
+    <Compile Include="Messages\ShowDialogMessage.cs" />
+    <Compile Include="Messages\StatusbarMessage.cs" />
+    <Compile Include="Model\Addon\Addon.cs" />
+    <Compile Include="Model\Addon\AddonManager.cs" />
+    <Compile Include="Model\Addon\Preset.cs" />
+    <Compile Include="Model\Constants.cs" />
+    <Compile Include="LauncherBootstraper.cs" />
+    <Compile Include="Model\ExceptionMessage.cs" />
+    <Compile Include="Model\Parameter\Parameter.cs" />
+    <Compile Include="Model\Parameter\ParameterValueItem.cs" />
+    <Compile Include="Model\Process\ProcessManager.cs" />
+    <Compile Include="Model\Process\ProcessInfo.cs" />
+    <Compile Include="Model\Process\UacHelper.cs" />
+    <Compile Include="Model\Profile\UserProfile.cs" />
+    <Compile Include="Model\Profile\ProfileManager.cs" />
+    <Compile Include="Model\Server\ServerConfig.cs" />
+    <Compile Include="Model\Server\ServerManager.cs" />
+    <Compile Include="Messages\ServerVersionMessage.cs" />
+    <Compile Include="Model\Settings\Allocator.cs" />
+    <Compile Include="Model\Settings\SettingsManager.cs" />
+    <Compile Include="Processes\Util.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Controls\AddonsViewModel.cs" />
+    <Compile Include="ViewModels\Controls\ProfileSelectorViewModel.cs" />
+    <Compile Include="ViewModels\Controls\ProfilesViewModel.cs" />
+    <Compile Include="ViewModels\Controls\StatusbarViewModel.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\Controls\AddonsView.xaml.cs">
+      <DependentUpon>AddonsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ProfileSelectorView.xaml.cs">
+      <DependentUpon>ProfileSelectorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ServerConfigView.xaml.cs">
+      <DependentUpon>ServerConfigView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\StatusbarView.xaml.cs">
+      <DependentUpon>StatusbarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="AboutWindow.xaml">
+    <Compile Include="Views\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\Controls\AddonsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ProfileSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ServerConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\StatusbarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AboutWindow.xaml.cs">
+    <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Configuration\Addon.cs" />
     <Compile Include="Configuration\Addons.cs" />
     <Compile Include="Configuration\Profiles.cs" />
-    <Compile Include="Configuration\Settings.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SettingsWindow.xaml">
+    <Page Include="Resources\MahApps.Metro.Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -119,20 +196,17 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -143,7 +217,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icon.ico" />
+    <Resource Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\A3SDS.jar" />
@@ -152,16 +226,7 @@
     <Resource Include="Resources\a3logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\menu_close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\menu_about.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\menu_settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\menu_logviewer.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\off.png" />
@@ -176,10 +241,6 @@
     <EmbeddedResource Include="lib\MahApps.Metro.dll" />
     <EmbeddedResource Include="lib\QueryMaster.dll" />
     <EmbeddedResource Include="lib\System.Windows.Interactivity.dll" />
-    <Resource Include="Resources\menu_updates.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="lib\MahApps.Metro.Resources.dll" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\11thLauncherUpdater.exe" />
@@ -191,20 +252,15 @@
     <Resource Include="Resources\a3sEnabled.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\menu_game.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\warning.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\file.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\folder.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\help.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\game.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

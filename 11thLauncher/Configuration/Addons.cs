@@ -5,12 +5,16 @@ using System.Linq;
 
 namespace _11thLauncher.Configuration
 {
-    static class Addons
+    public class Addon
+    {
+        public bool Enabled { get; set; }
+        public string Name { get; set; }
+        public string DisplayName => Name.Replace("_", "__");
+    }
+
+    public static class Addons
     {
         public static List<string> LocalAddons = new List<string>();
-
-        //Blacklisted addon folders (not manually activable)
-        private static readonly string[] VanillaAddons = { "arma 3", "curator", "kart", "heli", "mark", "dlcbundle" };
 
         /// <summary>
         /// Read the addons from the configuration path
@@ -24,7 +28,7 @@ namespace _11thLauncher.Configuration
             string[] directories = Directory.GetDirectories(Settings.Arma3Path, "addons", SearchOption.AllDirectories);
             foreach (string directory in directories)
             {
-                if (VanillaAddons.Contains(Directory.GetParent(directory).Name.ToLower())) continue;
+                if (Model.Constants.VanillaAddons.Contains(Directory.GetParent(directory).Name.ToLower())) continue;
                 int pathindex = directory.IndexOf(Settings.Arma3Path, StringComparison.Ordinal) + Settings.Arma3Path.Length + 1;
                 string addon = directory.Substring(pathindex, (directory.Length - pathindex) - ("Addons".Length + 1));
 
@@ -32,4 +36,6 @@ namespace _11thLauncher.Configuration
             }
         }
     }
+
+
 }

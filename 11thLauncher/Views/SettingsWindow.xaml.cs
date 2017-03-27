@@ -9,6 +9,7 @@ using Microsoft.Win32;
 using MahApps.Metro;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Configuration;
+using _11thLauncher.Model;
 using _11thLauncher.Net;
 
 namespace _11thLauncher
@@ -151,7 +152,7 @@ namespace _11thLauncher
 
         private void comboBox_accent_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Settings.Accents[comboBox_accent.SelectedIndex]), ThemeManager.GetAppTheme("BaseLight"));
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Constants.Accents[comboBox_accent.SelectedIndex]), ThemeManager.GetAppTheme("BaseLight"));
             Settings.Accent = comboBox_accent.SelectedIndex;
         }
 

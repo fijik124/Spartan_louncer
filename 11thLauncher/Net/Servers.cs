@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using QueryMaster;
-
+using QueryMaster.GameServer;
 using _11thLauncher.Configuration;
+using _11thLauncher.Model;
 
 namespace _11thLauncher.Net
 {
@@ -12,29 +12,33 @@ namespace _11thLauncher.Net
     {
         public static List<string> ServerInfo;
         public static List<string> ServerPlayers;
-        public static string ServerMods;
 
-        private static readonly IPAddress Address = null;
-        private static readonly ushort[] ServerPorts = { 2303, 2323, 2333 }; //Query port = server port + 1
+        public static object Address { get; private set; }
+
+
+
 
         /// <summary>
         /// Check if the servers are online and call the form to update stattus
         /// </summary>
         public static void CheckServers()
         {
-            for (int i = 0; i < ServerPorts.Length; i++)
+            for (int i = 0; i < Constants.ServerPorts.Length; i++)
             {
-                bool status;
+                bool status = false;
                 string players = "-/-";
 
                 MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando servidor " + (i + 1) });
 
                 try
                 {
-                    Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), ServerPorts[i]);
+                    Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), Constants.ServerPorts[i]);
                     ServerInfo info = server.GetInfo();
-                    players = info.Players + "/" + info.MaxPlayers;
-                    status = true;
+                    if (info != null)
+                    {
+                        players = info.Players + "/" + info.MaxPlayers;
+                        status = true;
+                    }
                     server.Dispose();
                 }
                 catch (SocketException)
@@ -56,15 +60,18 @@ namespace _11thLauncher.Net
 
             MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando servidor " + (index + 1) });
 
-            bool status;
+            bool status = false;
             string players = "-/-";
 
             try
             {
-                Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), ServerPorts[index]);
+                Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), Constants.ServerPorts[index]);
                 ServerInfo info = server.GetInfo();
-                players = info.Players + "/" + info.MaxPlayers;
-                status = true;
+                if (info != null)
+                {
+                    players = info.Players + "/" + info.MaxPlayers;
+                    status = true;
+                }
                 server.Dispose();
             }
             catch (SocketException)
@@ -85,7 +92,6 @@ namespace _11thLauncher.Net
 
             ServerInfo = new List<string>();
             ServerPlayers = new List<string>();
-            ServerMods = "";
 
             MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Solicitando información del servidor " + (index + 1) });
 
@@ -93,11 +99,11 @@ namespace _11thLauncher.Net
 
             try
             {
-                Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), ServerPorts[index]);
+                Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), Constants.ServerPorts[index]);
+
 
                 ServerInfo info = server.GetInfo();
-                IReadOnlyCollection<Player> players = server.GetPlayers();
-                IReadOnlyCollection<Rule> rules = server.GetRules();
+                IReadOnlyCollection<PlayerInfo> players = server.GetPlayers();
                 server.Dispose();
 
                 ServerInfo.Add(info.Name);
@@ -108,75 +114,22 @@ namespace _11thLauncher.Net
                 ServerInfo.Add(info.MaxPlayers.ToString());
                 ServerInfo.Add(info.GameVersion);
 
-                foreach (Player p in players)
+                foreach (PlayerInfo p in players)
                 {
                     ServerPlayers.Add(p.Name);
                 }
-
-                string mods = "";
-                foreach (Rule r in rules)
-                {
-                    mods += r.Value;
-                }
-
-                List<string> split = mods.Split(';').ToList();
-                split.RemoveAt(split.Count - 1);
-                bool skip = false;
-                mods = "";
-                foreach (string s in split)
-                {
-                    if (skip)
-                    {
-                        skip = false;
-                    }
-                    else
-                    {
-                        mods += s + "; ";
-                        skip = true;
-                    }
-                }
-                ServerMods = mods;
-
             }
             catch (SocketException)
             {
                 ServerInfo = new List<string> { "-", "-", "-", "-", "-", "-", "-" };
                 ServerPlayers = new List<string>();
-                ServerMods = "-";
                 exception = true;
             }
 
             MainWindow.UpdateForm("UpdateServerInfo", new object[] { index, exception });
         }
         
-        /// <summary>
-        /// Compare the local game version with the server version and callback the form to show if it doesn't match
-        /// </summary>
-        public static void CompareServerVersion()
-        {
-            foreach (ushort serverPort in ServerPorts)
-            {
-                try
-                {
-                    Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), serverPort);
 
-                    ServerInfo info = server.GetInfo();
-                    server.Dispose();
-
-                    string localVersion = Settings.GameVersion;
-                    string remoteVersion = info.GameVersion;
-
-                    //Version mismatch, show in form
-                    if (!string.IsNullOrEmpty(localVersion) && !localVersion.Equals(remoteVersion))
-                    {
-                        MainWindow.UpdateForm("ShowVersionMismatch", new object[] { remoteVersion });
-                    }
-
-                    break;
-                }
-                catch (SocketException){}
-            }
-        }
 
         /// <summary>
         /// Resolve and return the IPv4 address of 11thmeu.es
@@ -185,23 +138,23 @@ namespace _11thLauncher.Net
         private static IPAddress GetServerIp()
         {
             IPAddress address = null;
-            if (Address == null)
-            {
-                IPHostEntry ipHostInfo = Dns.GetHostEntry("www.11thmeu.es");
+            //if (Address == null)
+            //{
+                //IPHostEntry ipHostInfo = Dns.GetHostEntry("www.11thmeu.es");
 
-                //Find IPv4 address
-                foreach (IPAddress addr in ipHostInfo.AddressList)
-                {
-                    if (addr.AddressFamily == AddressFamily.InterNetwork)
-                    {
-                        address = addr;
-                    }
-                }
-            } else
-            {
-                //Address was resolved previously, return it directly
-                address = Address;
-            }
+                ////Find IPv4 address
+                //foreach (IPAddress addr in ipHostInfo.AddressList)
+                //{
+                    //if (addr.AddressFamily == AddressFamily.InterNetwork)
+                    //{
+                        //address = addr;
+                    //}
+                //}
+            //} else
+            //{
+                ////Address was resolved previously, return it directly
+                //address = Address;
+            //}
 
             return address;
         }

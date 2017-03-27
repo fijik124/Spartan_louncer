@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
 using System.Threading;
@@ -14,6 +15,7 @@ using MahApps.Metro;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Configuration;
 using _11thLauncher.Net;
+using _11thLauncher.Processes;
 
 namespace _11thLauncher
 {
@@ -24,66 +26,22 @@ namespace _11thLauncher
     {
         internal static MainWindow Form;
 
-        private readonly System.Windows.Forms.NotifyIcon _notifyIcon;
         private delegate void UpdateFormCallBack(string method, object[] parameters);
         internal ObservableCollection<Addon> Addons = new ObservableCollection<Addon>();
 
         public MainWindow()
         {
-            InitializeComponent();
-            Form = this;
 
-            //Initialize system tray icon
-            _notifyIcon = new System.Windows.Forms.NotifyIcon
-            {
-                BalloonTipTitle = @"11th Launcher",
-                Icon = Properties.Resources.icon,
-                Text = @"11th Launcher",
-                Visible = false
-            };
-            _notifyIcon.MouseClick += notifyIcon_Click;
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Settings.ConfigExists())
-            {
-                Settings.Read();
-            } else
-            {
-                if (!Settings.ReadPath())
-                {
-                    this.ShowMessageAsync("Ruta de ejecución", "La ruta de ejecución no ha sido autodetectada, indicala manualmente en la ventana de opciones antes de empezar a utilizar la aplicación");
-                }
-
-                //Create default profile
-                Profiles.CreateDefault();
-
-                //Save settings
-                Settings.Write();
-            }
-
-            //Add local addons
-            Configuration.Addons.ReadAddons();
-            foreach (string addon in Configuration.Addons.LocalAddons)
-            {
-                Addons.Add(new Addon() { Enabled = false, Name = addon });
-            }
-            listBox_addons.ItemsSource = Addons;
-
-            //Add available memory allocators
-            Settings.ReadAllocators();
-            foreach (string allocator in Settings.Allocators)
-            {
-                comboBox_malloc.Items.Add(allocator);
-            }
-
             //Add profiles
             UpdateProfiles();
             comboBox_profiles.SelectedIndex = comboBox_profiles.Items.IndexOf(Profiles.DefaultProfile); //Select default profile
 
             //Set accent
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Settings.Accents[Settings.Accent]), ThemeManager.GetAppTheme("BaseLight"));
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Model.Constants.Accents[Settings.Accent]), ThemeManager.GetAppTheme("BaseLight"));
 
             //Set groupboxes preferences
             groupBox_servers.IsExpanded = Settings.ServersGroupBox;
@@ -135,86 +93,24 @@ namespace _11thLauncher
                 new Thread(() => Updater.CheckVersion(false)).Start();
             }
 
+            //Check processes
+            //var steamProcess = Util.GetSteamProcess();
+            //if (steamProcess.Running)
+            //{
+                //label_steamProcess.Content = steamProcess.Name;
+                ////TODO...
+            //}
+            //var ts3Process = Util.GetTeamspeakProcess();
+
+
             //Check local game version against server version
-            label_gameVersion.Content = Settings.GetGameVersion();
-            new Thread(Servers.CompareServerVersion).Start();
+            //label_gameVersion.Content = Settings.GetGameVersion();
+            //new Thread(Servers.CompareServerVersion).Start();
         }
 
         private void MetroWindow_Closed(object sender, EventArgs e)
         {
             Form = null;
-        }
-
-        private void MetroWindow_StateChanged(object sender, EventArgs e)
-        {
-            if (Settings.MinimizeNotification)
-            {
-                if (WindowState == WindowState.Minimized)
-                {
-                    ShowInTaskbar = false;
-                    _notifyIcon.Visible = true;
-                }
-                else
-                {
-                    ShowInTaskbar = true;
-                    _notifyIcon.Visible = false;
-                }
-            }
-        }
-
-        private void notifyIcon_Click(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            WindowState = WindowState.Normal;
-        }
-
-        private void menu_start_sp_Click(object sender, RoutedEventArgs e)
-        {
-            StartArmA3(false, true, false);
-
-            if (Settings.StartClose)
-            {
-                Application.Current.Shutdown();
-            }
-
-            if (Settings.StartMinimize)
-            {
-                WindowState = WindowState.Minimized;
-            }
-        }
-
-        private void menu_start_mp_Click(object sender, RoutedEventArgs e)
-        {
-            StartArmA3(true, true, false);
-
-            if (Settings.StartClose)
-            {
-                Application.Current.Shutdown();
-            }
-
-            if (Settings.StartMinimize)
-            {
-                WindowState = WindowState.Minimized;
-            }
-        }
-
-        private void menu_start_hc_Click(object sender, RoutedEventArgs e)
-        {
-            StartArmA3(true, true, true);
-
-            if (Settings.StartClose)
-            {
-                Application.Current.Shutdown();
-            }
-
-            if (Settings.StartMinimize)
-            {
-                WindowState = WindowState.Minimized;
-            }
-        }
-
-        private void menu_exit_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
 
         private void menu_settings_Click(object sender, RoutedEventArgs e)
@@ -239,7 +135,7 @@ namespace _11thLauncher
             if (comboBox_profiles.SelectedIndex == -1) return;
 
             //Clear addon presets comboBox selection
-            comboBox_addons.SelectedIndex = -1;
+            //comboBox_addons.SelectedIndex = -1;
 
             //Read selected profile
             Profiles.ReadProfile(comboBox_profiles.SelectedItem.ToString());
@@ -248,95 +144,24 @@ namespace _11thLauncher
             UpdateForProfile();
         }
 
-        private void button_saveProfile_Click(object sender, RoutedEventArgs e)
+        private void button_launch_Click(object sender, RoutedEventArgs e)
         {
-            UpdateProfileValues();
-            Profiles.WriteProfile(comboBox_profiles.SelectedItem.ToString());
-        }
-
-        private void comboBox_addons_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (comboBox_addons.SelectedIndex == -1) return;
-
-            List<string> presetAddons;
-
-            //Clear addons list
-            Addons.Clear();
-
-            switch (comboBox_addons.SelectedIndex)
+            var multiplayer = false;
+            var headless = false;
+            switch (button_launch.SelectedIndex)
             {
-                //Guerra moderna
                 case 0:
-                    presetAddons = new List<string>(new[] { "@cba", "@ace", "@tfar", "@meu", "@meu_maps", "@fx", "@jsrs" });
-                    break;
-                //ALiVE
-                case 1:
-                    presetAddons = new List<string>(new[] { "@cba", "@ace", "@tfar", "@meu", "@meu_maps", "@fx", "@jsrs", "@alive" });
-                    break;
-                //default
                 default:
-                    presetAddons = new List<string>(new[] { "@cba", "@ace", "@tfar", "@meu", "@meu_maps", "@fx", "@jsrs" });
+                    break;
+                case 1:
+                    multiplayer = true;
+                    break;
+                case 2:
+                    headless = true;
                     break;
             }
 
-            //Add the active addons
-            foreach (string addon in presetAddons)
-            {
-                if (Configuration.Addons.LocalAddons.Contains(addon))
-                {
-                    Addons.Add(new Addon { Name = addon, Enabled = true });
-                }
-            }
-
-            //Add inactive addons
-            foreach (string addon in Configuration.Addons.LocalAddons)
-            {
-                if (!presetAddons.Contains(addon))
-                {
-                    Addons.Add(new Addon { Name = addon, Enabled = false });
-                }
-            }
-        }
-
-        private void button_moveUp_Click(object sender, RoutedEventArgs e)
-        {
-            int index = listBox_addons.SelectedIndex;
-            if (index != -1 && index != 0)
-            {
-                Addons.Move(index, index - 1);
-            }
-        }
-
-        private void button_moveDown_Click(object sender, RoutedEventArgs e)
-        {
-            int index = listBox_addons.SelectedIndex;
-            if (index != -1 && index != listBox_addons.Items.Count - 1)
-            {
-                Addons.Move(index, index + 1);
-            }
-        }
-
-        private void button_selectAll_Click(object sender, RoutedEventArgs e)
-        {
-            for (int i = 0; i < listBox_addons.Items.Count; i++)
-            {
-                ((Addon)listBox_addons.Items[i]).Enabled = true;
-                listBox_addons.Items.Refresh();
-            }
-        }
-
-        private void button_selectNone_Click(object sender, RoutedEventArgs e)
-        {
-            for (int i = 0; i < listBox_addons.Items.Count; i++)
-            {
-                ((Addon)listBox_addons.Items[i]).Enabled = false;
-                listBox_addons.Items.Refresh();
-            }
-        }
-
-        private void button_startSP_Click(object sender, RoutedEventArgs e)
-        {
-            StartArmA3(false, true, false);
+            StartArmA3(multiplayer, true, headless);
 
             if (Settings.StartClose)
             {
@@ -349,49 +174,24 @@ namespace _11thLauncher
             }
         }
 
-        private void button_startMP_Click(object sender, RoutedEventArgs e)
+        private void button_clip_Click(object sender, RoutedEventArgs e)
         {
-            StartArmA3(true, true, false);
-
-            if (Settings.StartClose)
+            var multiplayer = false;
+            var headless = false;
+            switch (button_launch.SelectedIndex)
             {
-                Application.Current.Shutdown();
+                case 0:
+                default:
+                    break;
+                case 1:
+                    multiplayer = true;
+                    break;
+                case 2:
+                    headless = true;
+                    break;
             }
-
-            if (Settings.StartMinimize)
-            {
-                WindowState = WindowState.Minimized;
-            }
-        }
-
-        private void button_startHC_Click(object sender, RoutedEventArgs e)
-        {
-            StartArmA3(true, true, true);
-
-            if (Settings.StartClose)
-            {
-                Application.Current.Shutdown();
-            }
-
-            if (Settings.StartMinimize)
-            {
-                WindowState = WindowState.Minimized;
-            }
-        }
-
-        private void button_clipSP_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(StartArmA3(false, false, false));
-        }
-
-        private void button_clipMP_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(StartArmA3(true, false, false));
-        }
-
-        private void button_clipHC_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(StartArmA3(true, false, true));
+    
+            Clipboard.SetText(StartArmA3(multiplayer, false, headless));
         }
 
         private void image_coopStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -418,23 +218,9 @@ namespace _11thLauncher
             new Thread(Servers.CheckServer).Start(2);
         }
 
-        private void button_serverCoop_Click(object sender, RoutedEventArgs e)
-        {
-            textBox_serverAddress.Text = "11thmeu.es";
-            textBox_serverPort.Text = "2302";
-        }
 
-        private void button_serverAcademy_Click(object sender, RoutedEventArgs e)
-        {
-            textBox_serverAddress.Text = "11thmeu.es";
-            textBox_serverPort.Text = "2322";
-        }
 
-        private void button_serverAlive_Click(object sender, RoutedEventArgs e)
-        {
-            textBox_serverAddress.Text = "11thmeu.es";
-            textBox_serverPort.Text = "2332";
-        }
+
 
         private void image_arma3Sync_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -464,7 +250,6 @@ namespace _11thLauncher
             textBox_serverPlayers.Text = "";
             textBox_serverVersion.Text = "";
             listBox_serverPlayers.Items.Clear();
-            textBox_serverMods.Text = "";
 
             button_checkStatus.IsEnabled = false;
 
@@ -475,72 +260,84 @@ namespace _11thLauncher
         {
             comboBox_maxMemory.IsEnabled = true;
             comboBox_maxMemory.SelectedIndex = 0;
+            SaveProfile();
         }
 
         private void checkBox_maxMemory_Unchecked(object sender, RoutedEventArgs e)
         {
             comboBox_maxMemory.IsEnabled = false;
             comboBox_maxMemory.SelectedIndex = -1;
+            SaveProfile();
         }
 
         private void checkBox_maxVMemory_Checked(object sender, RoutedEventArgs e)
         {
             comboBox_maxVMemory.IsEnabled = true;
             comboBox_maxVMemory.SelectedIndex = 0;
+            SaveProfile();
         }
 
         private void checkBox_maxVMemory_Unchecked(object sender, RoutedEventArgs e)
         {
             comboBox_maxVMemory.IsEnabled = false;
             comboBox_maxVMemory.SelectedIndex = -1;
+            SaveProfile();
         }
 
         private void checkBox_cpuCount_Checked(object sender, RoutedEventArgs e)
         {
             comboBox_cpuCount.IsEnabled = true;
             comboBox_cpuCount.SelectedIndex = 0;
+            SaveProfile();
         }
 
         private void checkBox_cpuCount_Unchecked(object sender, RoutedEventArgs e)
         {
             comboBox_cpuCount.IsEnabled = false;
             comboBox_cpuCount.SelectedIndex = -1;
+            SaveProfile();
         }
 
         private void checkBox_extraThreads_Checked(object sender, RoutedEventArgs e)
         {
             comboBox_extraThreads.IsEnabled = true;
             comboBox_extraThreads.SelectedIndex = 0;
+            SaveProfile();
         }
 
         private void checkBox_extraThreads_Unchecked(object sender, RoutedEventArgs e)
         {
             comboBox_extraThreads.IsEnabled = false;
             comboBox_extraThreads.SelectedIndex = -1;
+            SaveProfile();
         }
 
         private void checkBox_priority_Checked(object sender, RoutedEventArgs e)
         {
             comboBox_priority.IsEnabled = true;
             comboBox_priority.SelectedIndex = 0;
+            SaveProfile();
         }
 
         private void checkBox_priority_Unchecked(object sender, RoutedEventArgs e)
         {
             comboBox_priority.IsEnabled = false;
             comboBox_priority.SelectedIndex = -1;
+            SaveProfile();
         }
 
         private void checkBox_malloc_Checked(object sender, RoutedEventArgs e)
         {
             comboBox_malloc.IsEnabled = true;
             comboBox_malloc.SelectedIndex = 0;
+            SaveProfile();
         }
 
         private void checkBox_malloc_Unchecked(object sender, RoutedEventArgs e)
         {
             comboBox_malloc.IsEnabled = false;
             comboBox_malloc.SelectedIndex = -1;
+            SaveProfile();
         }
 
         private void button_defaultProfile_Click(object sender, RoutedEventArgs e)
@@ -643,7 +440,7 @@ namespace _11thLauncher
         private string StartArmA3(bool multiplayer, bool startProcess, bool headless)
         {
             //Save the current parameters to profile
-            UpdateProfileValues();
+            SaveProfile();
 
             string launchParams = "";
 
@@ -863,7 +660,7 @@ namespace _11thLauncher
                 comboBox_profiles.Items.Add(profile);
                 if (profile.Equals(Profiles.DefaultProfile))
                 {
-                    listBox_profiles.Items.Add("♥ " + profile);
+                    listBox_profiles.Items.Add("★ " + profile);
                 }
                 else
                 {
@@ -879,6 +676,8 @@ namespace _11thLauncher
         private void UpdateForProfile()
         {
             //Set parameters values
+            button_launch.SelectedIndex = Profiles.GetParameter("launchOption", 0);
+
             checkBox_noFilePatching.IsChecked = Profiles.GetParameter("noFilePatching", false);
             checkBox_skipSplash.IsChecked = Profiles.GetParameter("skipSplashScreen", false);
             checkBox_windowedMode.IsChecked = Profiles.GetParameter("windowsXPMode", false);
@@ -934,17 +733,19 @@ namespace _11thLauncher
             }
 
             //Load server state
-            textBox_serverAddress.Text = Profiles.ProfileServerInfo["server"];
-            textBox_serverPort.Text = Profiles.ProfileServerInfo["port"];
-            passwordBox_serverPassword.Password = Profiles.ProfileServerInfo["pass"];
+            //textBox_serverAddress.Text = Profiles.ProfileServerInfo["server"];
+            //textBox_serverPort.Text = Profiles.ProfileServerInfo["port"];
+            //passwordBox_serverPassword.Password = Profiles.ProfileServerInfo["pass"];
         }
 
         /// <summary>
         /// Update the current profile values with the current parameters
         /// </summary>
-        private void UpdateProfileValues()
+        private void SaveProfile()
         {
             //Save parameters
+            Profiles.ProfileParameters["launchOption"] = button_launch.SelectedIndex.ToString();
+
             Profiles.ProfileParameters["noFilePatching"] = checkBox_noFilePatching.IsChecked.ToString();
             Profiles.ProfileParameters["skipSplashScreen"] = checkBox_skipSplash.IsChecked.ToString();
             Profiles.ProfileParameters["windowsXPMode"] = checkBox_winXPmode.IsChecked.ToString();
@@ -980,9 +781,11 @@ namespace _11thLauncher
             }
 
             //Save server state
-            Profiles.ProfileServerInfo["server"] = textBox_serverAddress.Text;
-            Profiles.ProfileServerInfo["port"] = textBox_serverPort.Text;
-            Profiles.ProfileServerInfo["pass"] = passwordBox_serverPassword.Password;
+            //Profiles.ProfileServerInfo["server"] = textBox_serverAddress.Text;
+            //Profiles.ProfileServerInfo["port"] = textBox_serverPort.Text;
+            //Profiles.ProfileServerInfo["pass"] = passwordBox_serverPassword.Password;
+
+            Profiles.WriteProfile(comboBox_profiles.SelectedItem.ToString());
         }
 
         /// <summary>
@@ -1024,7 +827,7 @@ namespace _11thLauncher
         }
 
         /// <summary>
-        /// Update the repository status with the given info
+        /// Update the repository status with the given config
         /// </summary>
         /// <param name="revision">Repository revision</param>
         /// <param name="buildDate">Repository build date</param>
@@ -1108,7 +911,6 @@ namespace _11thLauncher
             textBox_serverPlayers.Text = "";
             textBox_serverVersion.Text = "";
             listBox_serverPlayers.Items.Clear();
-            textBox_serverMods.Text = "";
 
             textBox_serverName.Text = Servers.ServerInfo[0];
             textBox_serverMission.Text = Servers.ServerInfo[1];
@@ -1120,7 +922,6 @@ namespace _11thLauncher
             {
                 listBox_serverPlayers.Items.Add(player);
             }
-            textBox_serverMods.Text = Servers.ServerMods;
 
             button_checkStatus.IsEnabled = true;
             UpdateStatusBar();
@@ -1162,10 +963,5 @@ namespace _11thLauncher
         /// <summary>
         /// Show server version mismatch alert icon
         /// </summary>
-        private void ShowVersionMismatch(string serverVersion)
-        {
-            image_versionWarning.Visibility = Visibility.Visible;
-            image_versionWarning.ToolTip = "Tu versión de ArmA 3 no concuerda con la de los servidores de la 11th MEU (" + serverVersion + ")";
-        }
     }
 }

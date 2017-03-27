@@ -4,19 +4,15 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Windows;
+using _11thLauncher.Model;
 
 namespace _11thLauncher.Net
 {
-    static class Updater
+    public static class Updater
     {
         public static bool Updated = false;
         public static bool UpdateFailed = false;
 
-        private const string VersionUrl = "http://raw.githubusercontent.com/11thmeu/launcher/master/bin/version";
-        private const string DownloadBaseUrl = "https://raw.githubusercontent.com/11thmeu/launcher/master/bin/";
-        private static readonly string UpdaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
-
-        private static readonly string _currentVersion = "210";
         private static string _latestVersion = "";
 
         /// <summary>
@@ -30,7 +26,7 @@ namespace _11thLauncher.Net
             try
             {
                 WebClient client = new WebClient();
-                using (Stream stream = client.OpenRead(VersionUrl))
+                using (Stream stream = client.OpenRead(Constants.VersionUrl))
                     if (stream != null)
                     {
                         using (StreamReader reader = new StreamReader(stream))
@@ -41,7 +37,7 @@ namespace _11thLauncher.Net
                         }
                     }
 
-                if (_latestVersion != _currentVersion)
+                if (_latestVersion != Constants.CurrentVersion)
                 {
                     MainWindow.UpdateForm("ShowUpdateNotification", new object[] { _latestVersion, true });
                 } else if (manualCheck)
@@ -61,17 +57,25 @@ namespace _11thLauncher.Net
         public static void ExecuteUpdater()
         {
             //Extract updater
-            File.WriteAllBytes(UpdaterPath, Properties.Resources._11thLauncherUpdater);
+            File.WriteAllBytes(Constants.UpdaterPath, Properties.Resources._11thLauncherUpdater);
+
+            var appPath = Assembly.GetExecutingAssembly().Location;
+            var fullPath = "";
+            if (appPath != null)
+            {
+                fullPath = Path.GetFullPath(appPath);
+            }
 
             //Execute updater
-            Process p = new Process
+            var p = new Process
             {
                 StartInfo =
                 {
-                    FileName = UpdaterPath,
+                    FileName = Constants.UpdaterPath,
                     Arguments =
-                        $"\"{Path.GetFullPath(Assembly.GetExecutingAssembly().Location)}\"" + " " +
-                        (DownloadBaseUrl + "11thLauncher" + _latestVersion + ".zip")
+                        $"\"{fullPath}\"" + " " +
+                        (Constants.DownloadBaseUrl + "11thLauncher" + _latestVersion + ".zip")
+
                 }
             };
             p.Start();
@@ -84,7 +88,7 @@ namespace _11thLauncher.Net
         /// </summary>
         public static void RemoveUpdater()
         {
-            File.Delete(UpdaterPath);
+            File.Delete(Constants.UpdaterPath);
         }
     }
 }

@@ -4,7 +4,7 @@ using _11thLauncher.Net;
 
 namespace _11thLauncher
 {
-    class Program
+    public class Program
     {
         [STAThread]
         public static void Main(string[] appArgs)
