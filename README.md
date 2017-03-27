@@ -3,26 +3,20 @@
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/logo-transparent.png" width="250px" />
 </p>
 
-#####Current version: 2.1.0
-This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the game [Arma 3] (http://store.steampowered.com/app/107410) made for private use in the 11th MEU spanish simulation community.
+##### Current version: 2.1.0
+This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the game [Arma 3](http://store.steampowered.com/app/107410) made for private use in the 11th MEU spanish simulation community.
+	
 
 
 ## Screenshots
 <p align="center">
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/capture1.png" width="250px" />
-
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/capture2.png" width="250px" />
-
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/capture3.png" width="250px" />
-	
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/capture4.png" width="250px" />
-
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/capture5.png" width="250px" />
-
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/capture6.png" width="250px" />
-	
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/capture7.png" width="250px" />
-	
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/capture8.png" width="250px" />
 </p>
 
@@ -31,24 +25,24 @@ This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the g
 
 
 ## Libraries
- * [MahApps.Metro] (http://github.com/MahApps/MahApps.Metro) 
- * [QueryMaster] (http://querymaster.codeplex.com/) 
- * [ArmA3Sync] (http://www.sonsofexiled.fr)
+ * [MahApps.Metro](http://github.com/MahApps/MahApps.Metro) 
+ * [QueryMaster](http://querymaster.codeplex.com/) 
+ * [ArmA3Sync](http://www.sonsofexiled.fr)
 
 
 ## Requirements
- * [Microsoft .NET Framework 4.5] (http://www.microsoft.com/en-us/download/details.aspx?id=30653)
- * (optional) [Oracle Java 7 or 8] (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
- * (optional) [ArmA3Sync] (http://www.sonsofexiled.fr/wiki/index.php/ArmA3Sync_Wiki_English)
+ * [Microsoft .NET Framework 4.5](http://www.microsoft.com/en-us/download/details.aspx?id=30653)
+ * (optional) [Oracle Java 7 or 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+ * (optional) [ArmA3Sync](http://www.sonsofexiled.fr/wiki/index.php/ArmA3Sync_Wiki_English)
 
 
 ## Download
-2.1.0 Stable Version - [Download] (https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher210.zip) 
+2.1.0 Stable Version - [Download](https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher210.zip) 
 <p><b>Zip MD5</b>: 57ab6a95438493e54a364de1f2abe541</p>
 <p><b>Executable MD5</b>: 9b105fcee9c5d58483c120e55915b442</p>
 
 ## Changelog
-#####Version 2.1.0
+##### Version 2.1.0
  * New: Label to show the ArmA 3 executable version
  * New: Startup check to compare the ArmA 3 version for the client and the 11th MEU servers
  * New: Changed -noFilePatching command to -filePatching
@@ -61,7 +55,7 @@ This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the g
  * Changed: Modified some font sizes and styles to be clearer
  * Fixed: Added check to disable game launch if path is not enabled
 
-#####Version 2.0.0
+##### Version 2.0.0
  * New: Now the launcher detects all the addon folders at any subfolder depth inside the game directory
  * New: Program update notifications for both branches (stable and dev)
  * New: Auto-updater, automatically download, unzip, replace and launch the latest version
@@ -84,5 +78,5 @@ This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the g
  * Fixed: Errors when checking servers without having internet connection
  * Removed: Unhandled exception handlers
 
-#####Version 1.2.0
+##### Version 1.2.0
  * Initial public release
