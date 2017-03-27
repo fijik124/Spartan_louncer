@@ -1,8 +1,14 @@
-﻿namespace _11thLauncher.Model
+﻿namespace _11thLauncher.Model.Parameter
 {
-    public class ParameterValueItem<TValue>
+    public class ParameterValueItem
     {
-        public string DisplayValue { get; set; }
-        public TValue Value { get; set; }
+        public string DisplayName { get; set; }
+        public string Value { get; set; }
+
+        public ParameterValueItem(string displayValue, string value)
+        {
+            DisplayName = displayValue;
+            Value = value;
+        }
     }
 }

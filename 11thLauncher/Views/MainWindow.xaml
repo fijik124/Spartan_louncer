@@ -53,8 +53,6 @@
             </StatusBar>
         </DockPanel>
 
-        <Label Content="Perfil de usuario" HorizontalAlignment="Left" Margin="53,20,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox_profiles" HorizontalAlignment="Left" Margin="25,51,0,0" VerticalAlignment="Top" Width="147" SelectionChanged="comboBox_profiles_SelectionChanged"/>
         <Image x:Name="image_logo" HorizontalAlignment="Left" Height="140" Margin="281,-7,-8,0" VerticalAlignment="Top" Width="365" Source="/Resources/a3logo.png" IsHitTestVisible="False"/>
         <controls:MetroAnimatedSingleRowTabControl x:Name="metroAnimatedSingleRowTabControl" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Height="372" Width="623" controls:TabControlHelper.IsUnderlined="False">
             <TabItem Header="ArmA 3" HeaderTemplate="{StaticResource tabTitle}" >

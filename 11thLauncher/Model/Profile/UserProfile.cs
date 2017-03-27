@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using Caliburn.Micro;
+using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Server;
 
 namespace _11thLauncher.Model.Profile
@@ -25,7 +26,7 @@ namespace _11thLauncher.Model.Profile
         }
 
         public BindableCollection<Addon.Addon> ProfileAddons;
-        public BindableCollection<Parameter<object>> ProfileParameters;
+        public BindableCollection<LaunchParameter> ProfileParameters;
         public ServerConfig ProfileServerConfig;
 
         public UserProfile(string name, bool isDefault = false)
@@ -112,7 +113,7 @@ namespace _11thLauncher.Model.Profile
         }
 
 
-        public void Read(BindableCollection<Addon.Addon> addons, BindableCollection<Parameter<object>> parameters, ServerConfig serverConfig)
+        public void Read(BindableCollection<Addon.Addon> addons, BindableCollection<LaunchParameter> parameters, ServerConfig serverConfig)
         {
             ProfileAddons = addons;
             var addonIndex = 0;

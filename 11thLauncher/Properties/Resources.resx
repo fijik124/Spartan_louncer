@@ -175,4 +175,25 @@
   <data name="S_ADDON_PRESETS" xml:space="preserve">
     <value>Presets de addons</value>
   </data>
+  <data name="S_GAME_NAME" xml:space="preserve">
+    <value>ArmA 3</value>
+  </data>
+  <data name="S_PARAMETERS" xml:space="preserve">
+    <value>Parámetros</value>
+  </data>
+  <data name="S_PARAMETER_COMMAND" xml:space="preserve">
+    <value>Parametro de linea de comandos</value>
+  </data>
+  <data name="S_PARAMETER_SKIP_SPLASH" xml:space="preserve">
+    <value>Saltar pantalla de inicio</value>
+  </data>
+  <data name="S_PRESET1" xml:space="preserve">
+    <value>Guerra Moderna</value>
+  </data>
+  <data name="S_PRESET2" xml:space="preserve">
+    <value>Guerra Moderna [ALiVE]</value>
+  </data>
+  <data name="S_PRESET3" xml:space="preserve">
+    <value>Vietnam [Unsung]</value>
+  </data>
 </root>

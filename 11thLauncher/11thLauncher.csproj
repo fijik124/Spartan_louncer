@@ -101,7 +101,9 @@
     <Compile Include="Model\Constants.cs" />
     <Compile Include="LauncherBootstraper.cs" />
     <Compile Include="Model\ExceptionMessage.cs" />
-    <Compile Include="Model\Parameter\Parameter.cs" />
+    <Compile Include="Model\Parameter\LaunchParameter.cs" />
+    <Compile Include="Model\Parameter\ParameterTemplateSelector.cs" />
+    <Compile Include="Model\Parameter\ParameterType.cs" />
     <Compile Include="Model\Parameter\ParameterValueItem.cs" />
     <Compile Include="Model\Process\ProcessManager.cs" />
     <Compile Include="Model\Process\ProcessInfo.cs" />
@@ -120,12 +122,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Controls\AddonsViewModel.cs" />
+    <Compile Include="ViewModels\Controls\ParametersViewModel.cs" />
     <Compile Include="ViewModels\Controls\ProfileSelectorViewModel.cs" />
     <Compile Include="ViewModels\Controls\ProfilesViewModel.cs" />
     <Compile Include="ViewModels\Controls\StatusbarViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\Controls\AddonsView.xaml.cs">
       <DependentUpon>AddonsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ParametersView.xaml.cs">
+      <DependentUpon>ParametersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\ProfileSelectorView.xaml.cs">
       <DependentUpon>ProfileSelectorView.xaml</DependentUpon>
@@ -147,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\AddonsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ParametersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

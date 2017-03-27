@@ -38,7 +38,7 @@ namespace _11thLauncher
         {
             //Add profiles
             UpdateProfiles();
-            comboBox_profiles.SelectedIndex = comboBox_profiles.Items.IndexOf(Profiles.DefaultProfile); //Select default profile
+            //comboBox_profiles.SelectedIndex = comboBox_profiles.Items.IndexOf(Profiles.DefaultProfile); //Select default profile
 
             //Set accent
             ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Model.Constants.Accents[Settings.Accent]), ThemeManager.GetAppTheme("BaseLight"));
@@ -132,16 +132,16 @@ namespace _11thLauncher
 
         private void comboBox_profiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (comboBox_profiles.SelectedIndex == -1) return;
+            //if (comboBox_profiles.SelectedIndex == -1) return;
 
             //Clear addon presets comboBox selection
             //comboBox_addons.SelectedIndex = -1;
 
             //Read selected profile
-            Profiles.ReadProfile(comboBox_profiles.SelectedItem.ToString());
+            //Profiles.ReadProfile(comboBox_profiles.SelectedItem.ToString());
 
             //Update the display with the profile
-            UpdateForProfile();
+            //UpdateForProfile();
         }
 
         private void button_launch_Click(object sender, RoutedEventArgs e)
@@ -404,7 +404,7 @@ namespace _11thLauncher
                     }
                     Profiles.DeleteProfile(selectedProfile);
                     UpdateProfiles();
-                    comboBox_profiles.SelectedIndex = 0;
+                    //comboBox_profiles.SelectedIndex = 0;
                 }
             }
         }
@@ -653,21 +653,21 @@ namespace _11thLauncher
         /// </summary>
         private void UpdateProfiles()
         {
-            comboBox_profiles.Items.Clear();
-            listBox_profiles.Items.Clear();
-            foreach (string profile in Profiles.UserProfiles)
-            {
-                comboBox_profiles.Items.Add(profile);
-                if (profile.Equals(Profiles.DefaultProfile))
-                {
-                    listBox_profiles.Items.Add("★ " + profile);
-                }
-                else
-                {
-                    listBox_profiles.Items.Add(profile);
-                }
-            }
-            comboBox_profiles.SelectedIndex = 0;
+            //comboBox_profiles.Items.Clear();
+            //listBox_profiles.Items.Clear();
+            //foreach (string profile in Profiles.UserProfiles)
+            //{
+            //    comboBox_profiles.Items.Add(profile);
+            //    if (profile.Equals(Profiles.DefaultProfile))
+            //    {
+            //        listBox_profiles.Items.Add("★ " + profile);
+            //    }
+            //    else
+            //    {
+            //        listBox_profiles.Items.Add(profile);
+            //    }
+            //}
+            //comboBox_profiles.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -785,7 +785,7 @@ namespace _11thLauncher
             //Profiles.ProfileServerInfo["port"] = textBox_serverPort.Text;
             //Profiles.ProfileServerInfo["pass"] = passwordBox_serverPassword.Password;
 
-            Profiles.WriteProfile(comboBox_profiles.SelectedItem.ToString());
+            //Profiles.WriteProfile(comboBox_profiles.SelectedItem.ToString());
         }
 
         /// <summary>

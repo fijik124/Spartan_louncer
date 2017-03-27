@@ -23,6 +23,7 @@ namespace _11thLauncher.ViewModels
         public StatusbarViewModel Statusbar { get; set; }
         public AddonsViewModel Addons { get; set; }
         public ProfileSelectorViewModel ProfileSelector { get; set; }
+        public ParametersViewModel Parameters { get; set; }
 
         #region Properties
 
@@ -122,6 +123,7 @@ namespace _11thLauncher.ViewModels
             Statusbar = new StatusbarViewModel(eventAggregator);
             Addons = new AddonsViewModel(eventAggregator);
             ProfileSelector = new ProfileSelectorViewModel(eventAggregator, addonManager);
+            Parameters = new ParametersViewModel(eventAggregator);
 
             Init();
         }

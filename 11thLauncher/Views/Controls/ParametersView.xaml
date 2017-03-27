@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="_11thLauncher.Views.Controls.ParametersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:p="clr-namespace:_11thLauncher.Model.Parameter"
+             xmlns:resx="clr-namespace:_11thLauncher.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+       <p:ParameterTemplateSelector x:Key="ParameterTemplateSelector" />
+        <DataTemplate x:Key="ParameterBooleanTemplate" DataType="p:LaunchParameter">
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                <CheckBox IsChecked="{Binding IsEnabled}" Margin="310,0,0,0"/>
+                <Label Content="{Binding Path=DisplayName}" ContentStringFormat=":{0}" Width="260" >
+                    <Label.ToolTip>
+                        <ToolTip FlowDirection="LeftToRight" >
+                            <StackPanel>
+                                <TextBlock FontWeight="SemiBold">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}: {1}">
+                                            <Binding Mode="OneWay" Source="{x:Static resx:Resources.S_PARAMETER_COMMAND}" />
+                                            <Binding Path="Name"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Tooltip}" />
+                            </StackPanel>
+                        </ToolTip>
+                    </Label.ToolTip>
+                </Label>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ParameterSelectionTemplate" DataType="p:LaunchParameter">
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                <ComboBox ItemsSource="{Binding Values}" DisplayMemberPath="DisplayName" IsEnabled="{Binding IsEnabled}" Width="300" FlowDirection="LeftToRight"/>
+                <CheckBox IsChecked="{Binding IsEnabled}" Margin="10,0,0,0" />
+                <Label Content="{Binding Path=DisplayName}" ContentStringFormat=":{0}" Width="260">
+                    <Label.ToolTip>
+                        <ToolTip FlowDirection="LeftToRight">
+                            <StackPanel>
+                                <TextBlock FontWeight="SemiBold">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}: {1}">
+                                            <Binding Mode="OneWay" Source="{x:Static resx:Resources.S_PARAMETER_COMMAND}" />
+                                            <Binding Path="Name"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Tooltip}" />
+                            </StackPanel>
+                        </ToolTip>
+                    </Label.ToolTip>
+                </Label>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <ScrollViewer Margin="0,10,0,0">
+            <ListBox x:Name="Parameters" ItemTemplateSelector="{StaticResource ParameterTemplateSelector}"/>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

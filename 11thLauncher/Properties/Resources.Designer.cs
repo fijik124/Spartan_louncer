@@ -187,6 +187,15 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ArmA 3.
+        /// </summary>
+        public static string S_GAME_NAME {
+            get {
+                return ResourceManager.GetString("S_GAME_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La ruta de ejecución no ha sido autodetectada, indicala manualmente en la ventana de opciones antes de empezar a utilizar la aplicación.
         /// </summary>
         public static string S_MSG_PATH_CONTENT {
@@ -201,6 +210,60 @@ namespace _11thLauncher.Properties {
         public static string S_MSG_PATH_TITLE {
             get {
                 return ResourceManager.GetString("S_MSG_PATH_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parametro de linea de comandos.
+        /// </summary>
+        public static string S_PARAMETER_COMMAND {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_COMMAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saltar pantalla de inicio.
+        /// </summary>
+        public static string S_PARAMETER_SKIP_SPLASH {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_SKIP_SPLASH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parámetros.
+        /// </summary>
+        public static string S_PARAMETERS {
+            get {
+                return ResourceManager.GetString("S_PARAMETERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guerra Moderna.
+        /// </summary>
+        public static string S_PRESET1 {
+            get {
+                return ResourceManager.GetString("S_PRESET1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guerra Moderna [ALiVE].
+        /// </summary>
+        public static string S_PRESET2 {
+            get {
+                return ResourceManager.GetString("S_PRESET2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vietnam [Unsung].
+        /// </summary>
+        public static string S_PRESET3 {
+            get {
+                return ResourceManager.GetString("S_PRESET3", resourceCulture);
             }
         }
         

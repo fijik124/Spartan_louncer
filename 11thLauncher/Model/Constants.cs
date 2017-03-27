@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using Caliburn.Micro;
 using _11thLauncher.Model.Addon;
+using _11thLauncher.Model.Parameter;
+using _11thLauncher.Properties;
 
 namespace _11thLauncher.Model
 {
@@ -20,7 +22,7 @@ namespace _11thLauncher.Model
         };
 
         //
-        // ArmA 3 settings
+        // Game settings
         //
         public static readonly string Arma3Filename32 = "arma3.exe";
         public static readonly string Arma3Filename64 = "arma3_x64.exe";
@@ -32,6 +34,19 @@ namespace _11thLauncher.Model
         public static readonly string[] VanillaAddons = { "arma 3", "expansion", "curator", "kart", "heli", "mark", "dlcbundle" };
         public static readonly string AddonSubfolderName = "addons";
 
+        //
+        // Game parameters
+        //
+        public static readonly BindableCollection<LaunchParameter> Parameters = new BindableCollection<LaunchParameter>
+        {
+            new LaunchParameter("Name1", "DisplayName1", "tooltip1", ParameterType.Boolean),
+            new LaunchParameter("Name2", "DisplayName2aaaaaaaaaaaaaaaa", "tooltip2", ParameterType.Selection, new BindableCollection<ParameterValueItem>
+            {
+                new ParameterValueItem("DisplayValue1", "Value1"),
+                new ParameterValueItem("DisplayValue2", "Value2")
+            })
+        };
+
         // 
         // 11th MEU addon presets
         //
@@ -39,17 +54,17 @@ namespace _11thLauncher.Model
         {
             new Preset
             {
-                Name = "Guerra Moderna",
+                Name = Resources.S_PRESET1,
                 Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@rhsafrf", "@rhsgref", "@rhsusaf" }
             },
             new Preset
             {
-                Name = "Guerra Moderna [ALiVE]",
+                Name = Resources.S_PRESET2,
                 Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@rhsafrf", "@rhsgref", "@rhsusaf", "@alive" }
             },
             new Preset
             {
-                Name = "Vietnam [Unsung]",
+                Name = Resources.S_PRESET3,
                 Addons = new[] { "@cba_a3", "@ace", "@acre2", "@meu", "@unsung" }
             }
         };

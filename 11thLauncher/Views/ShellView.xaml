@@ -24,6 +24,7 @@
                       LeftWindowCommandsOverlayBehavior="HiddenTitleBar"
                       WindowState="{Binding WindowState, Mode=TwoWay}"
                       ShowInTaskbar="{Binding ShowInTaskbar}">
+
     <controls:MetroWindow.Resources>
         <DataTemplate x:Key="TabTitle">
             <TextBlock Text="{Binding}" 
@@ -53,7 +54,7 @@
                Width="365" 
                HorizontalAlignment="Left" 
                VerticalAlignment="Top" 
-               Margin="273,0,0,0" 
+               Margin="273,-10,0,0" 
                IsHitTestVisible="False" />
         <Label Content="{Binding GameVersion}" 
                FontWeight="Bold"
@@ -75,12 +76,18 @@
 
         <!-- Tabs -->
         <controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Height="372" Width="623" controls:TabControlHelper.IsUnderlined="False">
-            <TabItem Header="ArmA 3" HeaderTemplate="{StaticResource TabTitle}">
+            <TabItem Header="{x:Static resx:Resources.S_GAME_NAME}" HeaderTemplate="{StaticResource TabTitle}">
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
                     <!-- Addons -->
-                    <ContentControl x:Name="Addons"/>
+                    <ContentControl x:Name="Addons" />
                     <!-- Server config -->
                     <ContentControl x:Name="ServerConfig" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static resx:Resources.S_PARAMETERS}" HeaderTemplate="{StaticResource TabTitle}" >
+                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
+                    <!-- Parameters -->
+                    <ContentControl x:Name="Parameters" />
                 </Grid>
             </TabItem>
         </controls:MetroAnimatedSingleRowTabControl>
