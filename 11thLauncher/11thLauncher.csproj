@@ -102,6 +102,7 @@
     <Compile Include="LauncherBootstraper.cs" />
     <Compile Include="Model\ExceptionMessage.cs" />
     <Compile Include="Model\Parameter\LaunchParameter.cs" />
+    <Compile Include="Model\Parameter\ParameterPlatform.cs" />
     <Compile Include="Model\Parameter\ParameterTemplateSelector.cs" />
     <Compile Include="Model\Parameter\ParameterType.cs" />
     <Compile Include="Model\Parameter\ParameterValueItem.cs" />

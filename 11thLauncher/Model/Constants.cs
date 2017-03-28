@@ -39,12 +39,23 @@ namespace _11thLauncher.Model
         //
         public static readonly BindableCollection<LaunchParameter> Parameters = new BindableCollection<LaunchParameter>
         {
-            new LaunchParameter("Name1", "DisplayName1", "tooltip1", ParameterType.Boolean),
-            new LaunchParameter("Name2", "DisplayName2aaaaaaaaaaaaaaaa", "tooltip2", ParameterType.Selection, new BindableCollection<ParameterValueItem>
-            {
-                new ParameterValueItem("DisplayValue1", "Value1"),
-                new ParameterValueItem("DisplayValue2", "Value2")
-            })
+            new LaunchParameter("-skipIntro", Resources.S_PARAMETER_SKIP_INTRO, Resources.S_PARAMETER_SKIP_INTRO_DESC, ParameterType.Boolean),
+            new LaunchParameter("-noSplash", Resources.S_PARAMETER_NO_SPLASH, Resources.S_PARAMETER_NO_SPLASH_DESC, ParameterType.Boolean),
+            new LaunchParameter("-window", Resources.S_PARAMETER_WINDOW, Resources.S_PARAMETER_WINDOW_DESC, ParameterType.Boolean),
+            new LaunchParameter("-filePatching", Resources.S_PARAMETER_FILE_PATCHING, Resources.S_PARAMETER_FILE_PATCHING_DESC, ParameterType.Boolean),
+            new LaunchParameter("-noPause", Resources.S_PARAMETER_NO_PAUSE, Resources.S_PARAMETER_NO_PAUSE_DESC, ParameterType.Boolean),
+            new LaunchParameter("-noCB", Resources.S_PARAMETER_NO_MULTICORE, Resources.S_PARAMETER_NO_MULTICORE_DESC, ParameterType.Boolean),
+            new LaunchParameter("-showScriptErrors", Resources.S_PARAMETER_SHOW_ERRORS, Resources.S_PARAMETER_SHOW_ERRORS_DESC, ParameterType.Boolean),
+            new LaunchParameter("-noLogs", Resources.S_PARAMETER_NO_LOGS, Resources.S_PARAMETER_NO_LOGS_DESC, ParameterType.Boolean),
+            new LaunchParameter("-enableHT", Resources.S_PARAMETER_HYPERTHREADING, Resources.S_PARAMETER_HYPERTHREADING_DESC, ParameterType.Boolean),
+            new LaunchParameter("-malloc=", Resources.S_PARAMETER_MALLOC_32, Resources.S_PARAMETER_MALLOC_32_DESC, ParameterType.Selection, ParameterPlatform.X86),
+            new LaunchParameter("-malloc=", Resources.S_PARAMETER_MALLOC_64, Resources.S_PARAMETER_MALLOC_64_DESC, ParameterType.Selection, ParameterPlatform.X64),
+            new LaunchParameter("-hugePages=", Resources.S_PARAMETER_HUGE_PAGES, Resources.S_PARAMETER_HUGE_PAGES_DESC, ParameterType.Boolean)
+            //new LaunchParameter("Name2", "DisplayName2aaaaaaaaaaaaaaaa", "tooltip2", ParameterType.Selection, new BindableCollection<ParameterValueItem>
+            //{
+                //new ParameterValueItem("DisplayValue1", "Value1"),
+                //new ParameterValueItem("DisplayValue2", "Value2")
+            //})
         };
 
         // 

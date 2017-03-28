@@ -184,8 +184,8 @@
   <data name="S_PARAMETER_COMMAND" xml:space="preserve">
     <value>Parametro de linea de comandos</value>
   </data>
-  <data name="S_PARAMETER_SKIP_SPLASH" xml:space="preserve">
-    <value>Saltar pantalla de inicio</value>
+  <data name="S_PARAMETER_SKIP_INTRO" xml:space="preserve">
+    <value>Fondo estático en menú</value>
   </data>
   <data name="S_PRESET1" xml:space="preserve">
     <value>Guerra Moderna</value>
@@ -195,5 +195,74 @@
   </data>
   <data name="S_PRESET3" xml:space="preserve">
     <value>Vietnam [Unsung]</value>
+  </data>
+  <data name="S_PARAMETER_FILE_PATCHING" xml:space="preserve">
+    <value>Activar parcheo de archivos</value>
+  </data>
+  <data name="S_PARAMETER_FILE_PATCHING_DESC" xml:space="preserve">
+    <value>Permite cargar datos no empaquetados</value>
+  </data>
+  <data name="S_PARAMETER_HUGE_PAGES" xml:space="preserve">
+    <value>Soporte para páginas grandes</value>
+  </data>
+  <data name="S_PARAMETER_HUGE_PAGES_DESC" xml:space="preserve">
+    <value>El soporte para páginas grandes permite a las aplicaciones establecer regiones de la memoria en páginas grandes, lo cual es especialmente útil en Windows de 64-bit. Cada página grande utiliza un único buffer de traducción en la CPU</value>
+  </data>
+  <data name="S_PARAMETER_HYPERTHREADING" xml:space="preserve">
+    <value>Activar Hyper-Threading</value>
+  </data>
+  <data name="S_PARAMETER_HYPERTHREADING_DESC" xml:space="preserve">
+    <value>Activa la utilización de núcleos de CPU con Hyper-Threading. Puede mejorar el rendimiento en ciertos escenarios</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_32" xml:space="preserve">
+    <value>Asignador de memoria - 32-bit</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_32_DESC" xml:space="preserve">
+    <value>Selecciona el asignador de memoria a utilizar.</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_64" xml:space="preserve">
+    <value>Asignador de memoria - 64-bit</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_64_DESC" xml:space="preserve">
+    <value>Selecciona el asignador de memoria a utilizar</value>
+  </data>
+  <data name="S_PARAMETER_NO_LOGS" xml:space="preserve">
+    <value>No logs</value>
+  </data>
+  <data name="S_PARAMETER_NO_LOGS_DESC" xml:space="preserve">
+    <value>No guardar errores al log .RPT</value>
+  </data>
+  <data name="S_PARAMETER_NO_MULTICORE" xml:space="preserve">
+    <value>Desactivar multinúcleo</value>
+  </data>
+  <data name="S_PARAMETER_NO_MULTICORE_DESC" xml:space="preserve">
+    <value>Desactiva el uso de múltiples núcleos. Realentiza el renderizado pero puede solucionar problemas visuales</value>
+  </data>
+  <data name="S_PARAMETER_NO_PAUSE" xml:space="preserve">
+    <value>No pausar</value>
+  </data>
+  <data name="S_PARAMETER_NO_PAUSE_DESC" xml:space="preserve">
+    <value>Permite seguir ejecutando el juego incluso cuando la ventana no está activa</value>
+  </data>
+  <data name="S_PARAMETER_NO_SPLASH" xml:space="preserve">
+    <value>Desactivar logos al iniciar</value>
+  </data>
+  <data name="S_PARAMETER_NO_SPLASH_DESC" xml:space="preserve">
+    <value>Desactiva las pantallas de inicio</value>
+  </data>
+  <data name="S_PARAMETER_SHOW_ERRORS" xml:space="preserve">
+    <value>Mostrar errores de script</value>
+  </data>
+  <data name="S_PARAMETER_SHOW_ERRORS_DESC" xml:space="preserve">
+    <value>Muestra los errores de scripts en pantalla</value>
+  </data>
+  <data name="S_PARAMETER_SKIP_INTRO_DESC" xml:space="preserve">
+    <value>Desactiva la escena en el menú principal</value>
+  </data>
+  <data name="S_PARAMETER_WINDOW" xml:space="preserve">
+    <value>Forzar modo ventana</value>
+  </data>
+  <data name="S_PARAMETER_WINDOW_DESC" xml:space="preserve">
+    <value>Ejecuta el juego en modo ventana</value>
   </data>
 </root>

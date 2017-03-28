@@ -15,7 +15,7 @@
                 <CheckBox IsChecked="{Binding IsEnabled}" Margin="310,0,0,0"/>
                 <Label Content="{Binding Path=DisplayName}" ContentStringFormat=":{0}" Width="260" >
                     <Label.ToolTip>
-                        <ToolTip FlowDirection="LeftToRight" >
+                        <ToolTip FlowDirection="LeftToRight">
                             <StackPanel>
                                 <TextBlock FontWeight="SemiBold">
                                     <TextBlock.Text>

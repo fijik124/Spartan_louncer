@@ -13,7 +13,7 @@ namespace _11thLauncher.Model.Parameter
 
             LaunchParameter parameter = (LaunchParameter) item;
 
-            switch (parameter.ParameterType)
+            switch (parameter.Type)
             {
                 case ParameterType.Boolean:
                     return element.FindResource("ParameterBooleanTemplate") as DataTemplate;

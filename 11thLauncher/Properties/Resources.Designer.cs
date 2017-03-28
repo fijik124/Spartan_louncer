@@ -223,11 +223,218 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saltar pantalla de inicio.
+        ///   Looks up a localized string similar to Activar parcheo de archivos.
         /// </summary>
-        public static string S_PARAMETER_SKIP_SPLASH {
+        public static string S_PARAMETER_FILE_PATCHING {
             get {
-                return ResourceManager.GetString("S_PARAMETER_SKIP_SPLASH", resourceCulture);
+                return ResourceManager.GetString("S_PARAMETER_FILE_PATCHING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permite cargar datos no empaquetados.
+        /// </summary>
+        public static string S_PARAMETER_FILE_PATCHING_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_FILE_PATCHING_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Soporte para páginas grandes.
+        /// </summary>
+        public static string S_PARAMETER_HUGE_PAGES {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_HUGE_PAGES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El soporte para páginas grandes permite a las aplicaciones establecer regiones de la memoria en páginas grandes, lo cual es especialmente útil en Windows de 64-bit. Cada página grande utiliza un único buffer de traducción en la CPU.
+        /// </summary>
+        public static string S_PARAMETER_HUGE_PAGES_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_HUGE_PAGES_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activar Hyper-Threading.
+        /// </summary>
+        public static string S_PARAMETER_HYPERTHREADING {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_HYPERTHREADING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activa la utilización de núcleos de CPU con Hyper-Threading. Puede mejorar el rendimiento en ciertos escenarios.
+        /// </summary>
+        public static string S_PARAMETER_HYPERTHREADING_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_HYPERTHREADING_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asignador de memoria - 32-bit.
+        /// </summary>
+        public static string S_PARAMETER_MALLOC_32 {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_MALLOC_32", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecciona el asignador de memoria a utilizar..
+        /// </summary>
+        public static string S_PARAMETER_MALLOC_32_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_MALLOC_32_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asignador de memoria - 64-bit.
+        /// </summary>
+        public static string S_PARAMETER_MALLOC_64 {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_MALLOC_64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecciona el asignador de memoria a utilizar.
+        /// </summary>
+        public static string S_PARAMETER_MALLOC_64_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_MALLOC_64_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No logs.
+        /// </summary>
+        public static string S_PARAMETER_NO_LOGS {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_NO_LOGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No guardar errores al log .RPT.
+        /// </summary>
+        public static string S_PARAMETER_NO_LOGS_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_NO_LOGS_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desactivar multinúcleo.
+        /// </summary>
+        public static string S_PARAMETER_NO_MULTICORE {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_NO_MULTICORE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desactiva el uso de múltiples núcleos. Realentiza el renderizado pero puede solucionar problemas visuales.
+        /// </summary>
+        public static string S_PARAMETER_NO_MULTICORE_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_NO_MULTICORE_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No pausar.
+        /// </summary>
+        public static string S_PARAMETER_NO_PAUSE {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_NO_PAUSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permite seguir ejecutando el juego incluso cuando la ventana no está activa.
+        /// </summary>
+        public static string S_PARAMETER_NO_PAUSE_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_NO_PAUSE_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desactivar logos al iniciar.
+        /// </summary>
+        public static string S_PARAMETER_NO_SPLASH {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_NO_SPLASH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desactiva las pantallas de inicio.
+        /// </summary>
+        public static string S_PARAMETER_NO_SPLASH_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_NO_SPLASH_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mostrar errores de script.
+        /// </summary>
+        public static string S_PARAMETER_SHOW_ERRORS {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_SHOW_ERRORS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Muestra los errores de scripts en pantalla.
+        /// </summary>
+        public static string S_PARAMETER_SHOW_ERRORS_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_SHOW_ERRORS_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fondo estático en menú.
+        /// </summary>
+        public static string S_PARAMETER_SKIP_INTRO {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_SKIP_INTRO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desactiva la escena en el menú principal.
+        /// </summary>
+        public static string S_PARAMETER_SKIP_INTRO_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_SKIP_INTRO_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forzar modo ventana.
+        /// </summary>
+        public static string S_PARAMETER_WINDOW {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_WINDOW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ejecuta el juego en modo ventana.
+        /// </summary>
+        public static string S_PARAMETER_WINDOW_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_WINDOW_DESC", resourceCulture);
             }
         }
         
