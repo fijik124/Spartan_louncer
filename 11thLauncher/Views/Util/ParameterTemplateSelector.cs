@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using _11thLauncher.Model.Parameter;
 
-namespace _11thLauncher.Model.Parameter
+namespace _11thLauncher.Views.Util
 {
     public class ParameterTemplateSelector : DataTemplateSelector
     {
@@ -20,7 +21,7 @@ namespace _11thLauncher.Model.Parameter
                 case ParameterType.Selection:
                     return element.FindResource("ParameterSelectionTemplate") as DataTemplate;
                 case ParameterType.Text:
-                    return element.FindResource("TEMP3") as DataTemplate;
+                    return element.FindResource("ParameterTextTemplate") as DataTemplate;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

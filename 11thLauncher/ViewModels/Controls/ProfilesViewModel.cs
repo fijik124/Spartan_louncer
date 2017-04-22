@@ -36,11 +36,14 @@ namespace _11thLauncher.ViewModels.Controls
                 case ProfilesAction.Added:
                     Profiles.AddRange(message.Profiles);
                     break;
+
                 case ProfilesAction.Deleted:
                     Profiles.RemoveRange(message.Profiles);
+
                     break;
+
                 default:
-                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException()));
+                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message.Action)), GetType().Name));
                     break;
             }
         }

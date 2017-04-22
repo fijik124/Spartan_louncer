@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="a3logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\a3logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="A3SDS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\lib\A3SDS.jar;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -152,7 +149,7 @@
     <value>..\Resources\warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="S_VERSION_MISMATCH" xml:space="preserve">
-    <value>Tu versión de ArmA 3 no concuerda con la de los servidores de la 11th MEU ({0})</value>
+    <value>Tu versión de ArmA 3 ({0}) no concuerda con la de los servidores de la 11th MEU ({1})</value>
   </data>
   <data name="S_APP_NAME" xml:space="preserve">
     <value>11th MEU Launcher</value>
@@ -206,19 +203,19 @@
     <value>Soporte para páginas grandes</value>
   </data>
   <data name="S_PARAMETER_HUGE_PAGES_DESC" xml:space="preserve">
-    <value>El soporte para páginas grandes permite a las aplicaciones establecer regiones de la memoria en páginas grandes, lo cual es especialmente útil en Windows de 64-bit. Cada página grande utiliza un único buffer de traducción en la CPU</value>
+    <value>Activa el soporte para páginas grandes en la memoria</value>
   </data>
   <data name="S_PARAMETER_HYPERTHREADING" xml:space="preserve">
     <value>Activar Hyper-Threading</value>
   </data>
   <data name="S_PARAMETER_HYPERTHREADING_DESC" xml:space="preserve">
-    <value>Activa la utilización de núcleos de CPU con Hyper-Threading. Puede mejorar el rendimiento en ciertos escenarios</value>
+    <value>Activa la utilización de núcleos de CPU con Hyper-Threading</value>
   </data>
   <data name="S_PARAMETER_MALLOC_32" xml:space="preserve">
     <value>Asignador de memoria - 32-bit</value>
   </data>
   <data name="S_PARAMETER_MALLOC_32_DESC" xml:space="preserve">
-    <value>Selecciona el asignador de memoria a utilizar.</value>
+    <value>Selecciona el asignador de memoria a utilizar</value>
   </data>
   <data name="S_PARAMETER_MALLOC_64" xml:space="preserve">
     <value>Asignador de memoria - 64-bit</value>
@@ -236,7 +233,7 @@
     <value>Desactivar multinúcleo</value>
   </data>
   <data name="S_PARAMETER_NO_MULTICORE_DESC" xml:space="preserve">
-    <value>Desactiva el uso de múltiples núcleos. Realentiza el renderizado pero puede solucionar problemas visuales</value>
+    <value>Desactiva el uso de múltiples núcleos</value>
   </data>
   <data name="S_PARAMETER_NO_PAUSE" xml:space="preserve">
     <value>No pausar</value>
@@ -264,5 +261,89 @@
   </data>
   <data name="S_PARAMETER_WINDOW_DESC" xml:space="preserve">
     <value>Ejecuta el juego en modo ventana</value>
+  </data>
+  <data name="S_PARAMETER_ADDITIONAL" xml:space="preserve">
+    <value>Parámetros adicionales</value>
+  </data>
+  <data name="S_PARAMETER_ADDITIONAL_DESC" xml:space="preserve">
+    <value>Otros parámetros a utilizar</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_SYSTEM" xml:space="preserve">
+    <value>Sistema (Windows)</value>
+  </data>
+  <data name="S_STEAM_OFF" xml:space="preserve">
+    <value>Steam no está en ejecución. Es necesario tener abierto Steam para lanzar ArmA 3</value>
+  </data>
+  <data name="S_PLATFORM" xml:space="preserve">
+    <value>Plataforma:</value>
+  </data>
+  <data name="S_PLATFORM_32" xml:space="preserve">
+    <value>32 bits</value>
+  </data>
+  <data name="S_PLATFORM_64" xml:space="preserve">
+    <value>64 bits</value>
+  </data>
+  <data name="S_PLATFORM_ANY" xml:space="preserve">
+    <value>Por defecto (32)</value>
+  </data>
+  <data name="S_PLATFORM_TIP" xml:space="preserve">
+    <value>Tipo de ejecutable de ArmA 3 a lanzar</value>
+  </data>
+  <data name="S_PRIORITY" xml:space="preserve">
+    <value>Prioridad:</value>
+  </data>
+  <data name="S_PRIORITY_ABOVENORMAL" xml:space="preserve">
+    <value>Encima de lo normal</value>
+  </data>
+  <data name="S_PRIORITY_HIGH" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="S_PRIORITY_NORMAL" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="S_PRIORITY_TIP" xml:space="preserve">
+    <value>Prioridad del proceso de ArmA 3 en Windows</value>
+  </data>
+  <data name="S_DEFAULT_PROFILE_NAME" xml:space="preserve">
+    <value>Predeterminado</value>
+  </data>
+  <data name="S_LAUNCH_JOIN_SERVER" xml:space="preserve">
+    <value>Conectar al servidor</value>
+  </data>
+  <data name="S_LAUNCH_NORMAL" xml:space="preserve">
+    <value>Iniciar ArmA 3</value>
+  </data>
+  <data name="S_MSG_ELEVATION_CONTENT" xml:space="preserve">
+    <value>Es necesario ejecutar el launcher con permisos de administrador para lanzar el juego</value>
+  </data>
+  <data name="S_MSG_ELEVATION_TITLE" xml:space="preserve">
+    <value>Permisos de administrador</value>
+  </data>
+  <data name="S_MSG_GENERIC_DOMAIN_EXCEPTION" xml:space="preserve">
+    <value>Excepción global no controlada</value>
+  </data>
+  <data name="S_MSG_GENERIC_EXCEPTION" xml:space="preserve">
+    <value>Excepción no controlada</value>
+  </data>
+  <data name="S_MSG_NO_STEAM_CONTENT" xml:space="preserve">
+    <value>Es necesario que Steam esté en ejecución para lanzar el juego</value>
+  </data>
+  <data name="S_MSG_NO_STEAM_TITLE" xml:space="preserve">
+    <value>Steam no detectado</value>
+  </data>
+  <data name="S_PARAMETER_EMPTY_WORLD" xml:space="preserve">
+    <value>Mundo vacío</value>
+  </data>
+  <data name="S_PARAMETER_EMPTY_WORLD_DESC" xml:space="preserve">
+    <value>No cargar ningún mapa por defecto</value>
+  </data>
+  <data name="S_PASSWORD" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="S_PORT" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="S_SERVER" xml:space="preserve">
+    <value>Servidor</value>
   </data>
 </root>

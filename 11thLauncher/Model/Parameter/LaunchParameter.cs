@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using _11thLauncher.Model.Game;
 
 namespace _11thLauncher.Model.Parameter
 {
@@ -8,13 +9,14 @@ namespace _11thLauncher.Model.Parameter
         public string DisplayName { get; set; }
         public string Tooltip { get; set; }
         public ParameterType Type { get; set; }
-        public ParameterPlatform Platform { get; set; }
+        public Platform Platform { get; set; }
         public bool IsEnabled { get; set; }
         public BindableCollection<ParameterValueItem> Values { get; set; }
+        public ParameterValueItem SelectedValue { get; set; } //TODO
 
         public LaunchParameter() { }
 
-        public LaunchParameter(string name, string displayName, string tooltip, ParameterType parameterType, ParameterPlatform platform = ParameterPlatform.Any)
+        public LaunchParameter(string name, string displayName, string tooltip, ParameterType parameterType, Platform platform = Platform.Any)
         {
             Name = name;
             DisplayName = displayName;
@@ -22,7 +24,7 @@ namespace _11thLauncher.Model.Parameter
             Type = parameterType;
             Platform = platform;
         }
-        public LaunchParameter(string name, string displayName, string tooltip, ParameterType parameterType, BindableCollection<ParameterValueItem> parameterValueItems, ParameterPlatform platform = ParameterPlatform.Any)
+        public LaunchParameter(string name, string displayName, string tooltip, ParameterType parameterType, BindableCollection<ParameterValueItem> parameterValueItems, Platform platform = Platform.Any)
         {
             Name = name;
             DisplayName = displayName;

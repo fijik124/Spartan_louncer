@@ -32,11 +32,11 @@ namespace _11thLauncher.Model.Server
                     server.Dispose();
 
                     var remoteVersion = config.GameVersion;
-                    _eventAggregator.PublishOnUIThread(new ServerVersionMessage {ServerVersion = remoteVersion});
+                    _eventAggregator.PublishOnUIThread(new ServerVersionMessage { ServerVersion = remoteVersion });
  
                     break;
                 }
-                catch (SocketException) { } //TODO handle
+                catch (SocketException) { }
             }
         }
 
@@ -49,7 +49,7 @@ namespace _11thLauncher.Model.Server
             IPAddress address = null;
             if (Address == null)
             {
-                IPHostEntry ipHostInfo = Dns.GetHostEntry("www.11thmeu.es");
+                IPHostEntry ipHostInfo = Dns.GetHostEntry(Constants.ServerUrl);
 
                 //Find IPv4 address
                 foreach (IPAddress addr in ipHostInfo.AddressList)

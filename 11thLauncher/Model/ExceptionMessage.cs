@@ -5,11 +5,12 @@ namespace _11thLauncher.Model
     public class ExceptionMessage
     {
         public Exception Exception;
-        public string Message;
+        public string ClassName;
 
-        public ExceptionMessage(Exception e)
+        public ExceptionMessage(Exception e, string className)
         {
             Exception = e;
+            ClassName = className;
         }
     }
 }

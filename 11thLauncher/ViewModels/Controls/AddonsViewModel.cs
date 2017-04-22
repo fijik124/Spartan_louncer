@@ -12,56 +12,10 @@ namespace _11thLauncher.ViewModels.Controls
     public class AddonsViewModel : PropertyChangedBase, IHandle<AddonsMessage>, IHandle<ProfileMessage>
     {
         private readonly IEventAggregator _eventAggregator;
-
         private BindableCollection<Preset> _presets;
-        public BindableCollection<Preset> Presets
-        {
-            get { return _presets; }
-            set
-            {
-                _presets = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
         private Preset _selectedPreset;
-        public Preset SelectedPreset
-        {
-            get { return _selectedPreset; }
-            set
-            {
-                if (!Equals(_selectedPreset, value))
-                {
-                    _selectedPreset = value;
-                    NotifyOfPropertyChange();
-                }
-            }
-        }
-
         private BindableCollection<Addon> _addons = new BindableCollection<Addon>();
-        public BindableCollection<Addon> Addons
-        {
-            get { return _addons; }
-            set
-            {
-                _addons = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
         private Addon _selectedAddon;
-        public Addon SelectedAddon
-        {
-            get { return _selectedAddon; }
-            set
-            {
-                if (!Equals(_selectedAddon, value))
-                {
-                    _selectedAddon = value;
-                    NotifyOfPropertyChange();
-                }
-            }
-        }
 
         public AddonsViewModel(IEventAggregator eventAggregator)
         {
@@ -84,8 +38,9 @@ namespace _11thLauncher.ViewModels.Controls
                         addon.PropertyChanged += Addon_StatusChanged;
                     }
                     break;
+
                 default:
-                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException()));
+                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message)), GetType().Name));
                     break;
             }
         }
@@ -174,5 +129,51 @@ namespace _11thLauncher.ViewModels.Controls
         }
 
         #endregion
+
+        public BindableCollection<Preset> Presets
+        {
+            get { return _presets; }
+            set
+            {
+                _presets = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public Preset SelectedPreset
+        {
+            get { return _selectedPreset; }
+            set
+            {
+                if (!Equals(_selectedPreset, value))
+                {
+                    _selectedPreset = value;
+                    NotifyOfPropertyChange();
+                }
+            }
+        }
+
+        public BindableCollection<Addon> Addons
+        {
+            get { return _addons; }
+            set
+            {
+                _addons = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public Addon SelectedAddon
+        {
+            get { return _selectedAddon; }
+            set
+            {
+                if (!Equals(_selectedAddon, value))
+                {
+                    _selectedAddon = value;
+                    NotifyOfPropertyChange();
+                }
+            }
+        }
     }
 }

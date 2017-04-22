@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="_11thLauncher.Views.Controls.GameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:configuration="clr-namespace:_11thLauncher.Configuration"
+             xmlns:m="clr-namespace:_11thLauncher.Model.Game"
+             xmlns:model="clr-namespace:_11thLauncher.Model"
+             xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
+             xmlns:resx="clr-namespace:_11thLauncher.Properties"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             d:DesignHeight="337" d:DesignWidth="615" d:DataContext="{d:DesignInstance Type=vm:GameViewModel}">
+    <Grid>
+        <controls:SplitButton ItemsSource="{Binding Source={model:Enumeration {x:Type m:LaunchOption}}}" DisplayMemberPath="Description"
+                              HorizontalAlignment="Left" VerticalAlignment="Top"
+                              HorizontalContentAlignment="Left" 
+                              Margin="227,38,0,0"  
+                              Width="188" Height="50" 
+                              FontSize="12" FontWeight="Normal"  SelectedIndex="0">
+            <controls:SplitButton.IconTemplate>
+                <DataTemplate>
+                    <Image Source="/Resources/game.png" HorizontalAlignment="Left" Width="32" Height="32" Margin="5"/>
+                </DataTemplate>
+            </controls:SplitButton.IconTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <cal:ActionMessage MethodName="ButtonLaunch">
+                        <cal:Parameter Value="{Binding ElementName=Password}"></cal:Parameter>
+                    </cal:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </controls:SplitButton>
+
+        <Label Content="{x:Static resx:Resources.S_PLATFORM}"
+               HorizontalAlignment="Left" VerticalAlignment="Top" 
+               Padding="0,5,5,5" Margin="227,102,0,0" />
+        <ComboBox ItemsSource="{Binding Source={model:Enumeration {x:Type m:Platform}}}" DisplayMemberPath="Description" 
+                  SelectedValue="{Binding Platform}" SelectedValuePath="Value"
+                  ToolTip="{x:Static resx:Resources.S_PLATFORM_TIP}"
+            HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Width="123" Margin="292,102,0,0" />
+
+        <Label Content="{x:Static resx:Resources.S_PRIORITY}"
+               HorizontalAlignment="Left" VerticalAlignment="Top" 
+               Padding="0,5,5,5" Margin="227,145,0,0" />
+        <ComboBox ItemsSource="{Binding Source={model:Enumeration {x:Type m:Priority}}}" DisplayMemberPath="Description" 
+                  SelectedValue="{Binding Priority}" SelectedValuePath="Value"
+                  ToolTip="{x:Static resx:Resources.S_PRIORITY_TIP}"
+            HorizontalAlignment="Left"  VerticalAlignment="Top" 
+            Width="123" Margin="292,145,0,0" />
+
+        <Label Content="{x:Static resx:Resources.S_SERVER}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="227,188,0,0" Padding="0,5,5,5"/>
+        <TextBox Text="{Binding Server}" HorizontalAlignment="Left" Height="23" Width="188" Margin="227,214,0,0" VerticalAlignment="Top" />
+
+        <Label Content="{x:Static resx:Resources.S_PORT}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="227,245,0,0"  Padding="0,5,5,5"/>
+        <TextBox Text="{Binding Port}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="80" Margin="227,271,0,0" />
+
+        <Label Content="{x:Static resx:Resources.S_PASSWORD}" HorizontalAlignment="Left" Margin="320,245,0,0" VerticalAlignment="Top" Padding="0,5,5,5"/>
+        <PasswordBox x:Name="Password" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Margin="320,271,0,0" />
+    </Grid>
+</UserControl>

@@ -4,6 +4,8 @@ using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Model.Addon;
+using _11thLauncher.Model.Game;
+using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Profile;
 using _11thLauncher.Model.Server;
 using _11thLauncher.Model.Settings;
@@ -30,6 +32,8 @@ namespace _11thLauncher
             _container.Singleton<SettingsManager>();
             _container.Singleton<ProfileManager>();
             _container.Singleton<AddonManager>();
+            _container.Singleton<ParameterManager>();
+            _container.Singleton<LaunchManager>();
 
             _container.Singleton<ServerManager>();
         }

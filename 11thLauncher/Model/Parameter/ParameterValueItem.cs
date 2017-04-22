@@ -2,13 +2,13 @@
 {
     public class ParameterValueItem
     {
-        public string DisplayName { get; set; }
         public string Value { get; set; }
+        public string DisplayName { get; set; }
 
-        public ParameterValueItem(string displayValue, string value)
+        public ParameterValueItem(string value, string displayValue)
         {
-            DisplayName = displayValue;
             Value = value;
+            DisplayName = displayValue;
         }
     }
 }

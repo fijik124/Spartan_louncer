@@ -94,13 +94,13 @@ namespace _11thLauncher
             //If game path has changed, read addons
             if (Settings.Arma3Path != textBox_gamePath.Text && textBox_gamePath.Text != "")
             {
-                Settings.Arma3Path = textBox_gamePath.Text;
-                MainWindow.Form.Addons.Clear();
-                Addons.ReadAddons();
-                foreach (string addon in Addons.LocalAddons)
-                {
-                    MainWindow.Form.Addons.Add(new Addon { Enabled = false, Name = addon });
-                }
+                //Settings.Arma3Path = textBox_gamePath.Text;
+                //MainWindow.Form.Addons.Clear();
+                //Addons.ReadAddons();
+                //foreach (string addon in Addons.LocalAddons)
+                //{
+                //    MainWindow.Form.Addons.Add(new Addon { Enabled = false, Name = addon });
+                //}
             }
             Settings.StartClose = false;
             Settings.StartMinimize = false;

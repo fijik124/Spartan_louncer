@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace _11thLauncher.Views.Controls
 {
     /// <summary>
-    /// Interaction logic for ServerConfigView.xaml
+    /// Interaction logic for GameView.xaml
     /// </summary>
-    public partial class ServerConfigView : UserControl
+    public partial class GameView : UserControl
     {
-        public ServerConfigView()
+        public GameView()
         {
             InitializeComponent();
         }

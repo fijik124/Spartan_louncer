@@ -1,11 +1,25 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace _11thLauncher.Model.Addon
+﻿namespace _11thLauncher.Model.Addon
 {
-    public class Addon : INotifyPropertyChanged
+    /// <summary>
+    /// An game addon managed by the launcher. 
+    /// </summary>
+    public class Addon : ObservableEntity
     {
         private bool _isEnabled;
+        private string _name;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="Addon"/> class, with the specified name and initial status.
+        /// </summary>
+        public Addon(string name, bool enabled = false)
+        {
+            Name = name;
+            IsEnabled = enabled;
+        }
+
+        /// <summary>
+        /// Current status of the addon.
+        /// </summary>
         public bool IsEnabled
         {
             get { return _isEnabled; }
@@ -16,7 +30,9 @@ namespace _11thLauncher.Model.Addon
             }
         }
 
-        private string _name;
+        /// <summary>
+        /// Name of the addon folder.
+        /// </summary>
         public string Name
         {
             get { return _name; }
@@ -27,27 +43,18 @@ namespace _11thLauncher.Model.Addon
             }
         }
 
+        /// <summary>
+        /// Display name of the addon.
+        /// </summary>
         public string DisplayName => Name.Replace("_", "__");
 
-        public Addon(string name, bool enabled = false)
-        {
-            Name = name;
-            IsEnabled = enabled;
-        }
-
         /// <summary>
-        /// Set the status of the addon without triggering an event
+        /// Set the status of the addon without triggering an event.
         /// </summary>
-        /// <param name="status">Status to set</param>
+        /// <param name="status">Status to set.</param>
         public void SetStatus(bool status)
         {
             _isEnabled = status;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public override bool Equals(object obj)

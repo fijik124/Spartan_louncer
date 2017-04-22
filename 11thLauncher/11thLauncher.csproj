@@ -88,7 +88,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Configuration\LaunchOption.cs" />
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Messages\AddonsMessage.cs" />
     <Compile Include="Messages\ProfileMessage.cs" />
@@ -100,21 +99,24 @@
     <Compile Include="Model\Addon\Preset.cs" />
     <Compile Include="Model\Constants.cs" />
     <Compile Include="LauncherBootstraper.cs" />
+    <Compile Include="Model\EnumerationExtension.cs" />
     <Compile Include="Model\ExceptionMessage.cs" />
+    <Compile Include="Model\Game\LaunchManager.cs" />
+    <Compile Include="Model\Game\LaunchOption.cs" />
+    <Compile Include="Model\Game\Priority.cs" />
+    <Compile Include="Model\ObservableModel.cs" />
+    <Compile Include="Model\Parameter\LaunchError.cs" />
     <Compile Include="Model\Parameter\LaunchParameter.cs" />
-    <Compile Include="Model\Parameter\ParameterPlatform.cs" />
-    <Compile Include="Model\Parameter\ParameterTemplateSelector.cs" />
+    <Compile Include="Model\Parameter\ParameterManager.cs" />
+    <Compile Include="Views\Util\ParameterTemplateSelector.cs" />
     <Compile Include="Model\Parameter\ParameterType.cs" />
     <Compile Include="Model\Parameter\ParameterValueItem.cs" />
-    <Compile Include="Model\Process\ProcessManager.cs" />
-    <Compile Include="Model\Process\ProcessInfo.cs" />
-    <Compile Include="Model\Process\UacHelper.cs" />
+    <Compile Include="Model\Game\Platform.cs" />
     <Compile Include="Model\Profile\UserProfile.cs" />
     <Compile Include="Model\Profile\ProfileManager.cs" />
     <Compile Include="Model\Server\ServerConfig.cs" />
     <Compile Include="Model\Server\ServerManager.cs" />
     <Compile Include="Messages\ServerVersionMessage.cs" />
-    <Compile Include="Model\Settings\Allocator.cs" />
     <Compile Include="Model\Settings\SettingsManager.cs" />
     <Compile Include="Processes\Util.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -123,6 +125,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Controls\AddonsViewModel.cs" />
+    <Compile Include="ViewModels\Controls\GameViewModel.cs" />
     <Compile Include="ViewModels\Controls\ParametersViewModel.cs" />
     <Compile Include="ViewModels\Controls\ProfileSelectorViewModel.cs" />
     <Compile Include="ViewModels\Controls\ProfilesViewModel.cs" />
@@ -131,14 +134,14 @@
     <Compile Include="Views\Controls\AddonsView.xaml.cs">
       <DependentUpon>AddonsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\GameView.xaml.cs">
+      <DependentUpon>GameView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\ParametersView.xaml.cs">
       <DependentUpon>ParametersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\ProfileSelectorView.xaml.cs">
       <DependentUpon>ProfileSelectorView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\ServerConfigView.xaml.cs">
-      <DependentUpon>ServerConfigView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\StatusbarView.xaml.cs">
       <DependentUpon>StatusbarView.xaml</DependentUpon>
@@ -157,15 +160,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\GameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\ParametersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\ProfileSelectorView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\ServerConfigView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -180,7 +183,6 @@
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\Addons.cs" />
     <Compile Include="Configuration\Profiles.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -266,12 +268,8 @@
     <Resource Include="Resources\warning.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\help.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\game.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

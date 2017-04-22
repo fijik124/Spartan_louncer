@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -9,6 +8,7 @@ using Microsoft.Win32;
 using _11thLauncher.Configuration;
 using _11thLauncher.Messages;
 using _11thLauncher.Model.Profile;
+using _11thLauncher.Properties;
 
 namespace _11thLauncher.Model.Settings
 {
@@ -26,10 +26,6 @@ namespace _11thLauncher.Model.Settings
         private string _defaultProfileName;
         public UserProfile DefaultProfile;
         public BindableCollection<UserProfile> UserProfiles;
-
-        //Memory allocators (TODO separately?)
-        public BindableCollection<Allocator> MemoryAllocators;
-        public BindableCollection<Allocator> MemoryAllocatorsX64;
 
         //TODO process and move up
         public string JavaPath = "";
@@ -57,13 +53,13 @@ namespace _11thLauncher.Model.Settings
                 {
                     _eventAggregator.PublishOnUIThread(new ShowDialogMessage
                     {
-                        Title = Properties.Resources.S_MSG_PATH_TITLE,
-                        Content = Properties.Resources.S_MSG_PATH_CONTENT
+                        Title = Resources.S_MSG_PATH_TITLE,
+                        Content = Resources.S_MSG_PATH_CONTENT
                     });
                 }
 
                 //Create default profile
-                UserProfile defaultProfile = new UserProfile(Constants.DefaultProfileName, true);
+                UserProfile defaultProfile = new UserProfile(Resources.S_DEFAULT_PROFILE_NAME, true);
                 defaultProfile.Write();
             }
 
@@ -314,32 +310,6 @@ namespace _11thLauncher.Model.Settings
             if (Directory.Exists(Constants.ConfigPath))
             {
                 Directory.Delete(Constants.ConfigPath, true);
-            }
-        }
-
-        /// <summary>
-        /// Read the memory allocators available in the ArmA 3 Dll folder
-        /// </summary>
-        public void ReadAllocators()
-        {
-            MemoryAllocators.Add(new Allocator("system", "system (Windows)", AllocatorType.X32));
-            MemoryAllocatorsX64.Add(new Allocator("system", "system (Windows)", AllocatorType.X64));
-
-            if (Arma3Path == "") return;
-
-            string[] files = Directory.GetFiles(Arma3Path + "\\Dll", "*.dll");
-            foreach (string file in files)
-            {
-                if (file.EndsWith("_x64.dll")) continue;
-                var name = Path.GetFileNameWithoutExtension(file);
-                MemoryAllocators.Add(new Allocator(name, name + " (x32)", AllocatorType.X32));
-            }
-
-            string[] filesX64 = Directory.GetFiles(Arma3Path + "\\Dll", "*_x64.dll");
-            foreach (string file in filesX64)
-            {
-                var name = Path.GetFileNameWithoutExtension(file);
-                MemoryAllocatorsX64.Add(new Allocator(name, name + " (x64)", AllocatorType.X64));
             }
         }
     }

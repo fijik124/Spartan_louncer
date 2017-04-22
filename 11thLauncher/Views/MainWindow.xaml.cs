@@ -27,7 +27,7 @@ namespace _11thLauncher
         internal static MainWindow Form;
 
         private delegate void UpdateFormCallBack(string method, object[] parameters);
-        internal ObservableCollection<Addon> Addons = new ObservableCollection<Addon>();
+        //internal ObservableCollection<Addon> Addons = new ObservableCollection<Addon>();
 
         public MainWindow()
         {
@@ -146,52 +146,52 @@ namespace _11thLauncher
 
         private void button_launch_Click(object sender, RoutedEventArgs e)
         {
-            var multiplayer = false;
-            var headless = false;
-            switch (button_launch.SelectedIndex)
-            {
-                case 0:
-                default:
-                    break;
-                case 1:
-                    multiplayer = true;
-                    break;
-                case 2:
-                    headless = true;
-                    break;
-            }
+            //var multiplayer = false;
+            //var headless = false;
+            //switch (button_launch.SelectedIndex)
+            //{
+            //    case 0:
+            //    default:
+            //        break;
+            //    case 1:
+            //        multiplayer = true;
+            //        break;
+            //    case 2:
+            //        headless = true;
+            //        break;
+            //}
 
-            StartArmA3(multiplayer, true, headless);
+            //StartArmA3(multiplayer, true, headless);
 
-            if (Settings.StartClose)
-            {
-                Application.Current.Shutdown();
-            }
+            //if (Settings.StartClose)
+            //{
+            //    Application.Current.Shutdown();
+            //}
 
-            if (Settings.StartMinimize)
-            {
-                WindowState = WindowState.Minimized;
-            }
+            //if (Settings.StartMinimize)
+            //{
+            //    WindowState = WindowState.Minimized;
+            //}
         }
 
         private void button_clip_Click(object sender, RoutedEventArgs e)
         {
-            var multiplayer = false;
-            var headless = false;
-            switch (button_launch.SelectedIndex)
-            {
-                case 0:
-                default:
-                    break;
-                case 1:
-                    multiplayer = true;
-                    break;
-                case 2:
-                    headless = true;
-                    break;
-            }
+            //var multiplayer = false;
+            //var headless = false;
+            //switch (button_launch.SelectedIndex)
+            //{
+            //    case 0:
+            //    default:
+            //        break;
+            //    case 1:
+            //        multiplayer = true;
+            //        break;
+            //    case 2:
+            //        headless = true;
+            //        break;
+            //}
     
-            Clipboard.SetText(StartArmA3(multiplayer, false, headless));
+            //Clipboard.SetText(StartArmA3(multiplayer, false, headless));
         }
 
         private void image_coopStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -676,7 +676,7 @@ namespace _11thLauncher
         private void UpdateForProfile()
         {
             //Set parameters values
-            button_launch.SelectedIndex = Profiles.GetParameter("launchOption", 0);
+            //button_launch.SelectedIndex = Profiles.GetParameter("launchOption", 0);
 
             checkBox_noFilePatching.IsChecked = Profiles.GetParameter("noFilePatching", false);
             checkBox_skipSplash.IsChecked = Profiles.GetParameter("skipSplashScreen", false);
@@ -713,24 +713,24 @@ namespace _11thLauncher
             textBox_additionalParameters.Text = Profiles.GetParameter("extraParameters", "");
 
             //Clear addons list
-            Addons.Clear();
+            //Addons.Clear();
 
             //Add the addons and their status from the profile
-            foreach (string addon in Profiles.ProfileAddons.Keys)
-            {
-                if (Configuration.Addons.LocalAddons.Contains(addon)){
-                    Addons.Add(new Addon() { Name = addon, Enabled = bool.Parse(Profiles.ProfileAddons[addon]) });
-                }
-            }
+            //foreach (string addon in Profiles.ProfileAddons.Keys)
+            //{
+            //    if (Configuration.Addons.LocalAddons.Contains(addon)){
+            //        Addons.Add(new Addon() { Name = addon, Enabled = bool.Parse(Profiles.ProfileAddons[addon]) });
+            //    }
+            //}
 
             //Add missing addons not present in the profile
-            foreach (string addon in Configuration.Addons.LocalAddons)
-            {
-                if (!Profiles.ProfileAddons.ContainsKey(addon))
-                {
-                    Addons.Add(new Addon { Name = addon, Enabled = false });
-                }
-            }
+            //foreach (string addon in Configuration.Addons.LocalAddons)
+            //{
+            //    if (!Profiles.ProfileAddons.ContainsKey(addon))
+            //    {
+            //        Addons.Add(new Addon { Name = addon, Enabled = false });
+            //    }
+            //}
 
             //Load server state
             //textBox_serverAddress.Text = Profiles.ProfileServerInfo["server"];
@@ -744,7 +744,7 @@ namespace _11thLauncher
         private void SaveProfile()
         {
             //Save parameters
-            Profiles.ProfileParameters["launchOption"] = button_launch.SelectedIndex.ToString();
+            //Profiles.ProfileParameters["launchOption"] = button_launch.SelectedIndex.ToString();
 
             Profiles.ProfileParameters["noFilePatching"] = checkBox_noFilePatching.IsChecked.ToString();
             Profiles.ProfileParameters["skipSplashScreen"] = checkBox_skipSplash.IsChecked.ToString();
@@ -775,10 +775,10 @@ namespace _11thLauncher
 
             //Save addons state
             Profiles.ProfileAddons.Clear();
-            foreach (Addon addon in Addons)
-            {
-                Profiles.ProfileAddons.Add(addon.Name, addon.Enabled.ToString());
-            }
+            //foreach (Addon addon in Addons)
+            //{
+            //    Profiles.ProfileAddons.Add(addon.Name, addon.Enabled.ToString());
+            //}
 
             //Save server state
             //Profiles.ProfileServerInfo["server"] = textBox_serverAddress.Text;

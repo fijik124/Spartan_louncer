@@ -61,11 +61,13 @@ namespace _11thLauncher.ViewModels.Controls
                         Profiles_SelectionChanged();
                     }
                     break;
+
                 case ProfilesAction.Deleted:
                     Profiles.RemoveRange(message.Profiles);
                     break;
+
                 default:
-                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException()));
+                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message.Action)), GetType().Name));
                     break;
             }
         }
@@ -80,7 +82,7 @@ namespace _11thLauncher.ViewModels.Controls
                     SelectedProfile.Write();
                     break;
                 default:
-                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException()));
+                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message.Action)), GetType().Name));
                     break;
             }
         }

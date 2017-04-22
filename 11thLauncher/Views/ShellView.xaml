@@ -48,6 +48,27 @@
     </controls:MetroWindow.RightWindowCommands>
 
     <Grid>
+        <!-- Tabs -->
+        <controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Height="372" Width="623" controls:TabControlHelper.IsUnderlined="False">
+            <TabItem Header="{x:Static resx:Resources.S_GAME_NAME}" HeaderTemplate="{StaticResource TabTitle}">
+                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
+                    <!-- Addons -->
+                    <ContentControl x:Name="Addons" />
+                    <!-- Server config -->
+                    <ContentControl x:Name="Game" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static resx:Resources.S_PARAMETERS}" HeaderTemplate="{StaticResource TabTitle}">
+                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
+                    <!-- Parameters -->
+                    <ContentControl x:Name="Parameters" />
+                </Grid>
+            </TabItem>
+        </controls:MetroAnimatedSingleRowTabControl>
+
+        <!-- Profile selector -->
+        <ContentControl x:Name="ProfileSelector"/>
+
         <!-- Logo & version -->
         <Image Source="/Resources/a3logo.png" 
                Height="140" 
@@ -60,7 +81,7 @@
                FontWeight="Bold"
                HorizontalAlignment="Left" 
                VerticalAlignment="Top"
-               Margin="527,100,0,0" />
+               Margin="527,93,0,0" />
         <Image Source="/Resources/warning.png" 
                ToolTip="{Binding VersionMismatchTooltip}"
                Visibility="{Binding ShowVersionMismatch}"
@@ -68,29 +89,8 @@
                Width="24"
                HorizontalAlignment="Left"
                VerticalAlignment="Top" 
-               Margin="611,102,0,0" 
+               Margin="611,95,0,0" 
                IsHitTestVisible="True" />
-
-        <!-- Profile selector -->
-        <ContentControl x:Name="ProfileSelector"/>
-
-        <!-- Tabs -->
-        <controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Height="372" Width="623" controls:TabControlHelper.IsUnderlined="False">
-            <TabItem Header="{x:Static resx:Resources.S_GAME_NAME}" HeaderTemplate="{StaticResource TabTitle}">
-                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
-                    <!-- Addons -->
-                    <ContentControl x:Name="Addons" />
-                    <!-- Server config -->
-                    <ContentControl x:Name="ServerConfig" />
-                </Grid>
-            </TabItem>
-            <TabItem Header="{x:Static resx:Resources.S_PARAMETERS}" HeaderTemplate="{StaticResource TabTitle}" >
-                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
-                    <!-- Parameters -->
-                    <ContentControl x:Name="Parameters" />
-                </Grid>
-            </TabItem>
-        </controls:MetroAnimatedSingleRowTabControl>
 
         <!-- Statusbar -->
         <DockPanel Margin="0,464,0,0">

@@ -73,16 +73,6 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap a3logo {
-            get {
-                object obj = ResourceManager.GetObject("a3logo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap a3sDisabled {
             get {
                 object obj = ResourceManager.GetObject("a3sDisabled", resourceCulture);
@@ -187,11 +177,92 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Predeterminado.
+        /// </summary>
+        public static string S_DEFAULT_PROFILE_NAME {
+            get {
+                return ResourceManager.GetString("S_DEFAULT_PROFILE_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ArmA 3.
         /// </summary>
         public static string S_GAME_NAME {
             get {
                 return ResourceManager.GetString("S_GAME_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conectar al servidor.
+        /// </summary>
+        public static string S_LAUNCH_JOIN_SERVER {
+            get {
+                return ResourceManager.GetString("S_LAUNCH_JOIN_SERVER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iniciar ArmA 3.
+        /// </summary>
+        public static string S_LAUNCH_NORMAL {
+            get {
+                return ResourceManager.GetString("S_LAUNCH_NORMAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Es necesario ejecutar el launcher con permisos de administrador para lanzar el juego.
+        /// </summary>
+        public static string S_MSG_ELEVATION_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_ELEVATION_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permisos de administrador.
+        /// </summary>
+        public static string S_MSG_ELEVATION_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_ELEVATION_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excepción global no controlada.
+        /// </summary>
+        public static string S_MSG_GENERIC_DOMAIN_EXCEPTION {
+            get {
+                return ResourceManager.GetString("S_MSG_GENERIC_DOMAIN_EXCEPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excepción no controlada.
+        /// </summary>
+        public static string S_MSG_GENERIC_EXCEPTION {
+            get {
+                return ResourceManager.GetString("S_MSG_GENERIC_EXCEPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Es necesario que Steam esté en ejecución para lanzar el juego.
+        /// </summary>
+        public static string S_MSG_NO_STEAM_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_NO_STEAM_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steam no detectado.
+        /// </summary>
+        public static string S_MSG_NO_STEAM_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_NO_STEAM_TITLE", resourceCulture);
             }
         }
         
@@ -214,11 +285,47 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parámetros adicionales.
+        /// </summary>
+        public static string S_PARAMETER_ADDITIONAL {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_ADDITIONAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Otros parámetros a utilizar.
+        /// </summary>
+        public static string S_PARAMETER_ADDITIONAL_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_ADDITIONAL_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parametro de linea de comandos.
         /// </summary>
         public static string S_PARAMETER_COMMAND {
             get {
                 return ResourceManager.GetString("S_PARAMETER_COMMAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mundo vacío.
+        /// </summary>
+        public static string S_PARAMETER_EMPTY_WORLD {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_EMPTY_WORLD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No cargar ningún mapa por defecto.
+        /// </summary>
+        public static string S_PARAMETER_EMPTY_WORLD_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_EMPTY_WORLD_DESC", resourceCulture);
             }
         }
         
@@ -250,7 +357,7 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El soporte para páginas grandes permite a las aplicaciones establecer regiones de la memoria en páginas grandes, lo cual es especialmente útil en Windows de 64-bit. Cada página grande utiliza un único buffer de traducción en la CPU.
+        ///   Looks up a localized string similar to Activa el soporte para páginas grandes en la memoria.
         /// </summary>
         public static string S_PARAMETER_HUGE_PAGES_DESC {
             get {
@@ -268,7 +375,7 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activa la utilización de núcleos de CPU con Hyper-Threading. Puede mejorar el rendimiento en ciertos escenarios.
+        ///   Looks up a localized string similar to Activa la utilización de núcleos de CPU con Hyper-Threading.
         /// </summary>
         public static string S_PARAMETER_HYPERTHREADING_DESC {
             get {
@@ -286,7 +393,7 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecciona el asignador de memoria a utilizar..
+        ///   Looks up a localized string similar to Selecciona el asignador de memoria a utilizar.
         /// </summary>
         public static string S_PARAMETER_MALLOC_32_DESC {
             get {
@@ -309,6 +416,15 @@ namespace _11thLauncher.Properties {
         public static string S_PARAMETER_MALLOC_64_DESC {
             get {
                 return ResourceManager.GetString("S_PARAMETER_MALLOC_64_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sistema (Windows).
+        /// </summary>
+        public static string S_PARAMETER_MALLOC_SYSTEM {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_MALLOC_SYSTEM", resourceCulture);
             }
         }
         
@@ -340,7 +456,7 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Desactiva el uso de múltiples núcleos. Realentiza el renderizado pero puede solucionar problemas visuales.
+        ///   Looks up a localized string similar to Desactiva el uso de múltiples núcleos.
         /// </summary>
         public static string S_PARAMETER_NO_MULTICORE_DESC {
             get {
@@ -448,6 +564,69 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contraseña.
+        /// </summary>
+        public static string S_PASSWORD {
+            get {
+                return ResourceManager.GetString("S_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plataforma:.
+        /// </summary>
+        public static string S_PLATFORM {
+            get {
+                return ResourceManager.GetString("S_PLATFORM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 32 bits.
+        /// </summary>
+        public static string S_PLATFORM_32 {
+            get {
+                return ResourceManager.GetString("S_PLATFORM_32", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 64 bits.
+        /// </summary>
+        public static string S_PLATFORM_64 {
+            get {
+                return ResourceManager.GetString("S_PLATFORM_64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Por defecto (32).
+        /// </summary>
+        public static string S_PLATFORM_ANY {
+            get {
+                return ResourceManager.GetString("S_PLATFORM_ANY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo de ejecutable de ArmA 3 a lanzar.
+        /// </summary>
+        public static string S_PLATFORM_TIP {
+            get {
+                return ResourceManager.GetString("S_PLATFORM_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Puerto.
+        /// </summary>
+        public static string S_PORT {
+            get {
+                return ResourceManager.GetString("S_PORT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Guerra Moderna.
         /// </summary>
         public static string S_PRESET1 {
@@ -475,6 +654,60 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prioridad:.
+        /// </summary>
+        public static string S_PRIORITY {
+            get {
+                return ResourceManager.GetString("S_PRIORITY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encima de lo normal.
+        /// </summary>
+        public static string S_PRIORITY_ABOVENORMAL {
+            get {
+                return ResourceManager.GetString("S_PRIORITY_ABOVENORMAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alta.
+        /// </summary>
+        public static string S_PRIORITY_HIGH {
+            get {
+                return ResourceManager.GetString("S_PRIORITY_HIGH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        public static string S_PRIORITY_NORMAL {
+            get {
+                return ResourceManager.GetString("S_PRIORITY_NORMAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prioridad del proceso de ArmA 3 en Windows.
+        /// </summary>
+        public static string S_PRIORITY_TIP {
+            get {
+                return ResourceManager.GetString("S_PRIORITY_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Servidor.
+        /// </summary>
+        public static string S_SERVER {
+            get {
+                return ResourceManager.GetString("S_SERVER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Listo.
         /// </summary>
         public static string S_STATUS_READY {
@@ -484,7 +717,16 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tu versión de ArmA 3 no concuerda con la de los servidores de la 11th MEU ({0}).
+        ///   Looks up a localized string similar to Steam no está en ejecución. Es necesario tener abierto Steam para lanzar ArmA 3.
+        /// </summary>
+        public static string S_STEAM_OFF {
+            get {
+                return ResourceManager.GetString("S_STEAM_OFF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tu versión de ArmA 3 ({0}) no concuerda con la de los servidores de la 11th MEU ({1}).
         /// </summary>
         public static string S_VERSION_MISMATCH {
             get {

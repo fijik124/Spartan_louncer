@@ -59,18 +59,7 @@
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
 
                     
-                    <controls:SplitButton x:Name="button_launch" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Margin="227,38,0,0" VerticalAlignment="Top" Width="188" Height="50" FontSize="12" FontWeight="Normal" ToolTip="Iniciar ArmA 3 con los addons y parámetros indicados" Click="button_launch_Click" DisplayMemberPath="Label" SelectedIndex="0">
-                        <controls:SplitButton.IconTemplate>
-                            <DataTemplate>
-                                <Image HorizontalAlignment="Left" Source="/Resources/game.png" Width="32" Height="32" Margin="5"/>
-                            </DataTemplate>
-                        </controls:SplitButton.IconTemplate>
-                        <controls:SplitButton.Items>
-                            <Configuration:LaunchOption Label="Iniciar Arma 3" />
-                            <Configuration:LaunchOption Label="Unirse a Multijugador"/>
-                            <Configuration:LaunchOption Label="Iniciar Headless Client"/>
-                        </controls:SplitButton.Items>
-                    </controls:SplitButton>
+
                     <Button x:Name="button_clip" Style="{DynamicResource MetroCircleButtonStyle}" HorizontalAlignment="Left" Margin="375,93,0,0" VerticalAlignment="Top" Width="40" Height="40" ToolTip="Copiar linea de inicio al portapapeles" Click="button_clip_Click">
                         <Rectangle Width="20" Height="20">
                             <Rectangle.Fill>
