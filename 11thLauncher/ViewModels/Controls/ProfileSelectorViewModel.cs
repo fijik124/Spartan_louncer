@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Linq;
 using Caliburn.Micro;
+using _11thLauncher.Game;
 using _11thLauncher.Messages;
 using _11thLauncher.Model;
-using _11thLauncher.Model.Addon;
+using _11thLauncher.Model.Addons;
+using _11thLauncher.Model.Game;
+using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Profile;
 
 namespace _11thLauncher.ViewModels.Controls
@@ -12,6 +15,9 @@ namespace _11thLauncher.ViewModels.Controls
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly AddonManager _addonManager;
+        private readonly ProfileManager _profileManager;
+        private readonly ParameterManager _parameterManager;
+        private readonly LaunchManager _launchManager;
 
         private BindableCollection<UserProfile> _profiles = new BindableCollection<UserProfile>();
         public BindableCollection<UserProfile> Profiles
@@ -38,12 +44,16 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public ProfileSelectorViewModel(IEventAggregator eventAggregator, AddonManager addonManager)
+        public ProfileSelectorViewModel(IEventAggregator eventAggregator, AddonManager addonManager, 
+            ProfileManager profileManager, ParameterManager parameterManager, LaunchManager launchManager)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
 
             _addonManager = addonManager;
+            _profileManager = profileManager;
+            _parameterManager = parameterManager;
+            _launchManager = launchManager;
         }
 
         #region Message handling
@@ -79,7 +89,7 @@ namespace _11thLauncher.ViewModels.Controls
                 case ProfileAction.Loaded:
                     break;
                 case ProfileAction.Updated:
-                    SelectedProfile.Write();
+                    _profileManager.WriteProfile(SelectedProfile, _addonManager.Addons, _parameterManager.Parameters, _launchManager.GameConfig);
                     break;
                 default:
                     _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message.Action)), GetType().Name));
@@ -96,9 +106,12 @@ namespace _11thLauncher.ViewModels.Controls
             //TODO
             if (SelectedProfile == null) return;
 
-            SelectedProfile.Read(_addonManager.Addons, null, null); //TODO params,servinfo
+            BindableCollection<Addon> addons;
+            BindableCollection<LaunchParameter> parameters;
+            GameConfig gameConfig;
+            _profileManager.ReadProfile(SelectedProfile, out addons, out parameters, out gameConfig);
 
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Loaded, SelectedProfile));
+            _eventAggregator.PublishOnCurrentThread(new LoadProfileMessage(SelectedProfile, addons, parameters, gameConfig));
 
             ////Update the display with the profile
             //UpdateForProfile(); TODO

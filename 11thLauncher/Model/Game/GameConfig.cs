@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _11thLauncher.Model.Server
+namespace _11thLauncher.Game
 {
-    public class ServerConfig
+    public class GameConfig
     {
     }
 }

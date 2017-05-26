@@ -2,83 +2,32 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Xml;
+using System.Windows;
 using Caliburn.Micro;
+using MahApps.Metro;
 using Microsoft.Win32;
-using _11thLauncher.Configuration;
-using _11thLauncher.Messages;
+using _11thLauncher.Config;
 using _11thLauncher.Model.Profile;
-using _11thLauncher.Properties;
 
 namespace _11thLauncher.Model.Settings
 {
     public class SettingsManager
     {
-        private readonly IEventAggregator _eventAggregator;
+        public ApplicationSettings ApplicationSettings;
 
-        //Program settings
-        public string Arma3Path = "";
-        public bool MinimizeNotification;
-        public int Accent;
-
-
-        //Profile settings
-        private string _defaultProfileName;
-        public UserProfile DefaultProfile;
+        public Guid DefaultProfileId;
         public BindableCollection<UserProfile> UserProfiles;
+        public BindableCollection<Server.Server> Servers;
 
-        //TODO process and move up
-        public string JavaPath = "";
-        public string Arma3SyncPath = "";
-        public string Arma3SyncRepository = "";
-        public bool StartClose;
-        public bool StartMinimize;
-        public bool CheckUpdates = true;
-        public bool CheckServers = true;
-        public bool CheckRepository;
-        public bool ServersGroupBox = true;
-        public bool RepositoryGroupBox = true;
-
-        public BindableCollection<UserProfile> Initialize()
+        public SettingsManager()
         {
+            ApplicationSettings = new ApplicationSettings();
             UserProfiles = new BindableCollection<UserProfile>();
+        }
 
-            if (Directory.Exists(Constants.ConfigPath))
-            {
-                Read();
-            }
-            else
-            {
-                if (!ReadPath())
-                {
-                    _eventAggregator.PublishOnUIThread(new ShowDialogMessage
-                    {
-                        Title = Resources.S_MSG_PATH_TITLE,
-                        Content = Resources.S_MSG_PATH_CONTENT
-                    });
-                }
-
-                //Create default profile
-                UserProfile defaultProfile = new UserProfile(Resources.S_DEFAULT_PROFILE_NAME, true);
-                defaultProfile.Write();
-            }
-
-            var found = false;
-            foreach (var profile in UserProfiles)
-            {
-                if (profile.Name != _defaultProfileName) continue;
-
-                profile.IsDefault = true;
-                DefaultProfile = profile;
-                found = true;
-                break;
-            }
-            if (!found)
-            {
-                UserProfiles.First().IsDefault = true;
-            }
-
-            return UserProfiles;
+        public bool SettingsExist()
+        {
+            return Directory.Exists(Constants.ConfigPath);
         }
 
         /// <summary>
@@ -89,9 +38,9 @@ namespace _11thLauncher.Model.Settings
         {
             string version = "";
 
-            if (!string.IsNullOrEmpty(Arma3Path))
+            if (!string.IsNullOrEmpty(ApplicationSettings.Arma3Path))
             {
-                FileVersionInfo info = FileVersionInfo.GetVersionInfo(Arma3Path + "\\arma3.exe");
+                FileVersionInfo info = FileVersionInfo.GetVersionInfo(ApplicationSettings.Arma3Path + "\\arma3.exe");
                 version = info.FileVersion + "." + info.FileBuildPart + info.FilePrivatePart;
             }
 
@@ -101,11 +50,9 @@ namespace _11thLauncher.Model.Settings
         /// <summary>
         /// Try to read the game path from the windows registry
         /// </summary>
-        /// <returns>bool value to indicate if the path was read correctly</returns>
-        public bool ReadPath()
+        public void ReadPath()
         {
             string arma3RegPath;
-            bool valid = false;
 
             //First try to get the path using ArmA 3 registry entry
             if (Environment.Is64BitOperatingSystem)
@@ -144,162 +91,198 @@ namespace _11thLauncher.Model.Settings
             //If the path is found and exists, set to config and return that a valid path was found
             if (!string.IsNullOrEmpty(arma3RegPath))
             {
-                Arma3Path = arma3RegPath;
-                valid = true;
+                ApplicationSettings.Arma3Path = arma3RegPath;
             }
+        }
 
-            return valid;
+        public void Write()
+        {
+            var profiles = UserProfiles.ToDictionary(profile => profile.Id, profile => profile.Name);
+            var configFile = new ConfigFile
+            {
+                ApplicationSettings = ApplicationSettings,
+                DefaultProfileId = DefaultProfileId,
+                Profiles = profiles,
+                Servers = Servers
+            };
+            configFile.Write();
         }
 
         /// <summary>
         /// Write the XML configuration of the application with the current values
         /// </summary>
-        public void Write()
+        [Obsolete]
+        public void Writse()
         {
-            if (!Directory.Exists(Constants.ConfigPath))
+            //if (!Directory.Exists(Constants.ConfigPath))
+            //{
+                //Directory.CreateDirectory(Constants.ConfigPath);
+            //}
+
+            //XmlWriterSettings settings = new XmlWriterSettings
+            //{
+                //Indent = true,
+                //IndentChars = "\t"
+            //};
+
+            //using (XmlWriter writer = XmlWriter.Create(Constants.ConfigPath + "\\config.xml", settings))
+            //{
+                //writer.WriteStartDocument();
+                //writer.WriteStartElement("Configuration");
+
+                ////Path
+                //writer.WriteElementString("JavaPath", JavaPath);
+                //writer.WriteElementString("ArmA3Path", Arma3Path);
+                //writer.WriteElementString("ArmA3SyncPath", Arma3SyncPath);
+                //writer.WriteElementString("ArmA3SyncRepository", Arma3SyncRepository);
+
+                ////Profiles
+                //writer.WriteStartElement("Profiles");
+                //writer.WriteAttributeString("default", Profiles.DefaultProfile);
+                //if (Profiles.UserProfiles != null)
+                //{
+                    //foreach (string profile in Profiles.UserProfiles)
+                    //{
+                        //writer.WriteStartElement("Profile");
+                        //writer.WriteString(profile);
+                        //writer.WriteEndElement();
+                    //}
+                //}
+                //writer.WriteEndElement();
+
+                ////Configuration parameters
+                //writer.WriteElementString("minimizeNotification", MinimizeNotification.ToString());
+                //writer.WriteElementString("startMinimize", StartMinimize.ToString());
+                //writer.WriteElementString("startClose", StartClose.ToString());
+                //writer.WriteElementString("accent", Accent.ToString());
+                //writer.WriteElementString("checkUpdates", CheckUpdates.ToString());
+                //writer.WriteElementString("checkServers", CheckServers.ToString());
+                //writer.WriteElementString("checkRepository", CheckRepository.ToString());
+                //writer.WriteElementString("serversGroupBox", ServersGroupBox.ToString());
+                //writer.WriteElementString("repositoryGroupBox", RepositoryGroupBox.ToString());
+
+                //writer.WriteEndElement();
+                //writer.WriteEndDocument();
+            //}
+        }
+
+        public void Read(bool settingsExist)
+        {
+            var configFile = new ConfigFile();
+            if (settingsExist)
             {
-                Directory.CreateDirectory(Constants.ConfigPath);
+                 configFile.Read();
             }
 
-            XmlWriterSettings settings = new XmlWriterSettings
+            DefaultProfileId = configFile.DefaultProfileId;
+
+            foreach (var profile in configFile.Profiles)
             {
-                Indent = true,
-                IndentChars = "\t"
-            };
-
-            using (XmlWriter writer = XmlWriter.Create(Constants.ConfigPath + "\\config.xml", settings))
-            {
-                writer.WriteStartDocument();
-                writer.WriteStartElement("Configuration");
-
-                //Path
-                writer.WriteElementString("JavaPath", JavaPath);
-                writer.WriteElementString("ArmA3Path", Arma3Path);
-                writer.WriteElementString("ArmA3SyncPath", Arma3SyncPath);
-                writer.WriteElementString("ArmA3SyncRepository", Arma3SyncRepository);
-
-                //Profiles
-                writer.WriteStartElement("Profiles");
-                writer.WriteAttributeString("default", Profiles.DefaultProfile);
-                if (Profiles.UserProfiles != null)
-                {
-                    foreach (string profile in Profiles.UserProfiles)
-                    {
-                        writer.WriteStartElement("Profile");
-                        writer.WriteString(profile);
-                        writer.WriteEndElement();
-                    }
-                }
-                writer.WriteEndElement();
-
-                //Configuration parameters
-                writer.WriteElementString("minimizeNotification", MinimizeNotification.ToString());
-                writer.WriteElementString("startMinimize", StartMinimize.ToString());
-                writer.WriteElementString("startClose", StartClose.ToString());
-                writer.WriteElementString("accent", Accent.ToString());
-                writer.WriteElementString("checkUpdates", CheckUpdates.ToString());
-                writer.WriteElementString("checkServers", CheckServers.ToString());
-                writer.WriteElementString("checkRepository", CheckRepository.ToString());
-                writer.WriteElementString("serversGroupBox", ServersGroupBox.ToString());
-                writer.WriteElementString("repositoryGroupBox", RepositoryGroupBox.ToString());
-
-                writer.WriteEndElement();
-                writer.WriteEndDocument();
+                UserProfiles.Add(new UserProfile(profile.Key, profile.Value, profile.Key == DefaultProfileId));
             }
+
+            ApplicationSettings = configFile.ApplicationSettings;
+            Servers = configFile.Servers;
+
+            //Set application theme -> this is weird here? move to applicationsettings somehow?
+            ThemeManager.ChangeAppStyle(Application.Current,
+                ThemeManager.GetAccent(Constants.Accents[ApplicationSettings.Accent]),
+                ThemeManager.GetAppTheme("BaseLight"));
         }
 
         /// <summary>
         /// Read the XML configuration file and set current values
         /// </summary>
-        private void Read()
+        [Obsolete]
+        private void Reads()
         {
-            using (XmlReader reader = XmlReader.Create(Constants.ConfigPath + "\\config.xml"))
-            {
-                while (reader.Read())
-                {
-                    if (!reader.IsStartElement()) continue;
+            //using (XmlReader reader = XmlReader.Create(Constants.ConfigPath + "\\config.xml"))
+            //{
+                //while (reader.Read())
+                //{
+                    //if (!reader.IsStartElement()) continue;
 
-                    string value;
-                    switch (reader.Name)
-                    {
-                        case "JavaPath":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            JavaPath = value;
-                            break;
-                        case "ArmA3Path":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            Arma3Path = value;
-                            break;
-                        case "ArmA3SyncPath":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            Arma3SyncPath = value;
-                            break;
-                        case "ArmA3SyncRepository":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            Arma3SyncRepository = value;
-                            break;
-                        case "Profiles":
-                            var parameter = reader["default"];
-                            reader.Read();
-                            _defaultProfileName = parameter;
-                            break;
-                        case "Profile":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            UserProfiles.Add(new UserProfile(value));
-                            break;
-                        case "minimizeNotification":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            MinimizeNotification = bool.Parse(value);
-                            break;
-                        case "startMinimize":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            StartMinimize = bool.Parse(value);
-                            break;
-                        case "startClose":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            StartClose = bool.Parse(value);
-                            break;
-                        case "accent":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            Accent = int.Parse(value);
-                            break;
-                        case "checkUpdates":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            CheckUpdates = bool.Parse(value);
-                            break;
-                        case "checkServers":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            CheckServers = bool.Parse(value);
-                            break;
-                        case "checkRepository":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            CheckRepository = bool.Parse(value);
-                            break;
-                        case "serversGroupBox":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            ServersGroupBox = bool.Parse(value);
-                            break;
-                        case "repositoryGroupBox":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            RepositoryGroupBox = bool.Parse(value);
-                            break;
-                    }
-                }
-            }
+                    //string value;
+                    //switch (reader.Name)
+                    //{
+                        //case "JavaPath":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //JavaPath = value;
+                            //break;
+                        //case "ArmA3Path":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //Arma3Path = value;
+                            //break;
+                        //case "ArmA3SyncPath":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //Arma3SyncPath = value;
+                            //break;
+                        //case "ArmA3SyncRepository":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //Arma3SyncRepository = value;
+                            //break;
+                        //case "Profiles":
+                            //var parameter = reader["default"];
+                            //reader.Read();
+                            //_defaultProfileName = parameter;
+                            //break;
+                        //case "Profile":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //UserProfiles.Add(new UserProfile(value));
+                            //break;
+                        //case "minimizeNotification":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //MinimizeNotification = bool.Parse(value);
+                            //break;
+                        //case "startMinimize":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //StartMinimize = bool.Parse(value);
+                            //break;
+                        //case "startClose":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //StartClose = bool.Parse(value);
+                            //break;
+                        //case "accent":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //Accent = int.Parse(value);
+                            //break;
+                        //case "checkUpdates":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //CheckUpdates = bool.Parse(value);
+                            //break;
+                        //case "checkServers":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //CheckServers = bool.Parse(value);
+                            //break;
+                        //case "checkRepository":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //CheckRepository = bool.Parse(value);
+                            //break;
+                        //case "serversGroupBox":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //ServersGroupBox = bool.Parse(value);
+                            //break;
+                        //case "repositoryGroupBox":
+                            //reader.Read();
+                            //value = reader.Value.Trim();
+                            //RepositoryGroupBox = bool.Parse(value);
+                            //break;
+                    //}
+                //}
+            //}
         }
 
         /// <summary>
@@ -311,6 +294,15 @@ namespace _11thLauncher.Model.Settings
             {
                 Directory.Delete(Constants.ConfigPath, true);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckLegacyConfig()
+        {
+            return false;//TODO
         }
     }
 }

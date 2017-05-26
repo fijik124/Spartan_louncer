@@ -11,6 +11,7 @@
              xmlns:resx="clr-namespace:_11thLauncher.Properties"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:game="clr-namespace:_11thLauncher.Game"
              mc:Ignorable="d" 
              d:DesignHeight="337" d:DesignWidth="615" d:DataContext="{d:DesignInstance Type=vm:GameViewModel}">
     <Grid>

@@ -346,4 +346,34 @@
   <data name="S_SERVER" xml:space="preserve">
     <value>Servidor</value>
   </data>
+  <data name="servers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Config\Default\servers.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="S_BTN_ABOUT" xml:space="preserve">
+    <value>Ayuda</value>
+  </data>
+  <data name="S_BTN_ABOUT_TIP" xml:space="preserve">
+    <value>Acerca del launcher</value>
+  </data>
+  <data name="S_APP_ABOUT" xml:space="preserve">
+    <value>Acerca de 11th MEU Launcher</value>
+  </data>
+  <data name="S_APP_SETTINGS" xml:space="preserve">
+    <value>Opciones 11th MEU Launcher</value>
+  </data>
+  <data name="S_BTN_SETTINGS" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="S_BTN_SETTINGS_TIP" xml:space="preserve">
+    <value>Abrir ventana de opciones</value>
+  </data>
+  <data name="S_LABEL_APP_AUTHOR" xml:space="preserve">
+    <value>Creado por {0}</value>
+  </data>
+  <data name="S_LABEL_BUILD" xml:space="preserve">
+    <value>Build {0} [{1}] - {2}</value>
+  </data>
+  <data name="S_LABEL_LICENSE" xml:space="preserve">
+    <value>Este programa está distribuido bajo licencia GNU GPL v2. El programa utiliza código de las siguientes librerias externas:</value>
+  </data>
 </root>

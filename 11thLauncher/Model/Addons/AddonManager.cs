@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Caliburn.Micro;
 
-namespace _11thLauncher.Model.Addon
+namespace _11thLauncher.Model.Addons
 {
     public class AddonManager
     {

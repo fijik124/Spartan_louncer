@@ -41,10 +41,10 @@ namespace _11thLauncher
             //comboBox_profiles.SelectedIndex = comboBox_profiles.Items.IndexOf(Profiles.DefaultProfile); //Select default profile
 
             //Set accent
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Model.Constants.Accents[Settings.Accent]), ThemeManager.GetAppTheme("BaseLight"));
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Constants.Accents[Settings.Accent]), ThemeManager.GetAppTheme("BaseLight"));
 
             //Set groupboxes preferences
-            groupBox_servers.IsExpanded = Settings.ServersGroupBox;
+            //groupBox_servers.IsExpanded = Settings.ServersGroupBox;
             groupBox_repository.IsExpanded = Settings.RepositoryGroupBox;
 
             //If just updated, remove updater and show notification
@@ -126,8 +126,8 @@ namespace _11thLauncher
 
         private void menu_about_Click(object sender, RoutedEventArgs e)
         {
-            AboutWindow aboutWindow = new AboutWindow {Owner = this};
-            aboutWindow.ShowDialog();
+            //AboutWindow aboutWindow = new AboutWindow {Owner = this};
+            //aboutWindow.ShowDialog();
         }
 
         private void comboBox_profiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -196,25 +196,25 @@ namespace _11thLauncher
 
         private void image_coopStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            image_coopStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
-            image_coopStatus.ToolTip = "Comprobando estado";
-            label_coopPlayers.Content = "-/-";
-            new Thread(Servers.CheckServer).Start(0);
+            //image_coopStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
+            //image_coopStatus.ToolTip = "Comprobando estado";
+            //label_coopPlayers.Content = "-/-";
+            //new Thread(Servers.CheckServer).Start(0);
         }
 
         private void image_academyStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            image_academyStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
-            image_academyStatus.ToolTip = "Comprobando estado";
-            label_academyPlayers.Content = "-/-";
+            //image_academyStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
+            //image_academyStatus.ToolTip = "Comprobando estado";
+            //label_academyPlayers.Content = "-/-";
             new Thread(Servers.CheckServer).Start(1);
         }
 
         private void image_aliveStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            image_aliveStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
-            image_aliveStatus.ToolTip = "Comprobando estado";
-            label_alivePlayers.Content = "-/-";
+            //image_aliveStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
+            //image_aliveStatus.ToolTip = "Comprobando estado";
+            //label_alivePlayers.Content = "-/-";
             new Thread(Servers.CheckServer).Start(2);
         }
 
@@ -877,23 +877,23 @@ namespace _11thLauncher
         /// <param name="players">Number of players in the servers and max players</param>
         private void UpdateServerStatus(int index, bool status, string players)
         {
-            Image[] serverStatusImages = { image_coopStatus, image_academyStatus, image_aliveStatus };
-            Label[] serverStatusPlayerLabels = {label_coopPlayers, label_academyPlayers, label_alivePlayers};
-
-            if (status)
-            {
-                serverStatusImages[index].Source = new BitmapImage(new Uri("pack://application:,,,/Resources/on.png"));
-                serverStatusImages[index].ToolTip = "Online. Click para volver a comprobar";
-            } else
-            {
-                serverStatusImages[index].Source = new BitmapImage(new Uri("pack://application:,,,/Resources/off.png"));
-                serverStatusImages[index].ToolTip = "Desconocido / Offline. Click para volver a comprobar";
-            }
-
-            //Update number of players on the server
-            serverStatusPlayerLabels[index].Content = players;
-
-            UpdateStatusBar();
+            //Image[] serverStatusImages = { image_coopStatus, image_academyStatus, image_aliveStatus };
+            //Label[] serverStatusPlayerLabels = {label_coopPlayers, label_academyPlayers, label_alivePlayers};
+            //
+            //if (status)
+            //{
+            //    serverStatusImages[index].Source = new BitmapImage(new Uri("pack://application:,,,/Resources/on.png"));
+            //    serverStatusImages[index].ToolTip = "Online. Click para volver a comprobar";
+            //} else
+            //{
+            //    serverStatusImages[index].Source = new BitmapImage(new Uri("pack://application:,,,/Resources/off.png"));
+            //    serverStatusImages[index].ToolTip = "Desconocido / Offline. Click para volver a comprobar";
+            //}
+            //
+            ////Update number of players on the server
+            //serverStatusPlayerLabels[index].Content = players;
+            //
+            //UpdateStatusBar();
         }
 
         /// <summary>

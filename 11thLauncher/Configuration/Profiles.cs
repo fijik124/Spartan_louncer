@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using _11thLauncher.Model;
+using _11thLauncher;
 
 namespace _11thLauncher.Configuration
 {

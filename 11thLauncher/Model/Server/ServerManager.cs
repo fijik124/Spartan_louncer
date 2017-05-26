@@ -22,7 +22,7 @@ namespace _11thLauncher.Model.Server
         /// </summary>
         public void GetServerVersion()
         {
-            foreach (ushort serverPort in Constants.ServerPorts)
+            foreach (ushort serverPort in Constants.ServerPorts) //servers not in constatns?
             {
                 try
                 {
@@ -31,10 +31,12 @@ namespace _11thLauncher.Model.Server
                     ServerInfo config = server.GetInfo();
                     server.Dispose();
 
-                    var remoteVersion = config.GameVersion;
-                    _eventAggregator.PublishOnUIThread(new ServerVersionMessage { ServerVersion = remoteVersion });
- 
-                    break;
+                    if (config != null)
+                    {
+                        var remoteVersion = config.GameVersion; //TODO handle null
+                        _eventAggregator.PublishOnUIThread(new ServerVersionMessage { ServerVersion = remoteVersion });
+                    }
+
                 }
                 catch (SocketException) { }
             }

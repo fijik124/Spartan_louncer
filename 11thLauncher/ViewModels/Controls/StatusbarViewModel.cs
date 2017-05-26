@@ -7,6 +7,13 @@ namespace _11thLauncher.ViewModels.Controls
     {
         private readonly IEventAggregator _eventAggregator;
 
+        public StatusbarViewModel(IEventAggregator eventAggregator) //TODO this functionality
+        {
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
+            StatusText = Properties.Resources.S_STATUS_READY;
+        }
+
         private string _statusText;
         public string StatusText
         {
@@ -35,17 +42,14 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public StatusbarViewModel(IEventAggregator eventAggregator)
-        {
-            _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
-            StatusText = Properties.Resources.S_STATUS_READY;
-        }
+        #region Message handling
 
         public void Handle(StatusbarMessage message)
         {
             StatusText = message.Text;
             TaskRunning = message.Running;
         }
+
+        #endregion
     }
 }

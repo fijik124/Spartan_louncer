@@ -2,13 +2,23 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Principal;
+using _11thLauncher.Game;
+using _11thLauncher.Model.Addons;
 using _11thLauncher.Model.Parameter;
+using _11thLauncher.Parameter;
 
 namespace _11thLauncher.Model.Game
 {
     public class LaunchManager
     {
-        public LaunchError StartGame(string gamePath, Collection<Addon.Addon> addons, Collection<LaunchParameter> parameters, 
+        public GameConfig GameConfig;
+
+        public LaunchManager()
+        {
+            GameConfig = new GameConfig();
+        }
+
+        public LaunchError StartGame(string gamePath, Collection<Addon> addons, Collection<LaunchParameter> parameters, 
             LaunchOption launchOption, Platform platform, Priority priority,
             string server, string port, string password)
         {
@@ -206,6 +216,9 @@ namespace _11thLauncher.Model.Game
             {
                 return LaunchError.NoGamePath;
             }
+
+            //TODO alternative launch method
+            //steam://rungameid/107410/-noLauncher -noSplash -noPause -showScriptErrors -world=empty -skipIntro -enableHT -mod=@ace;@acre2;@cba_a3;@cup_terrains;@meu;@meu_maps;@meu_rhs;@rhsafrf;@rhsgref;@rhsusaf;
 
             return LaunchError.None;
         }

@@ -150,11 +150,47 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Acerca de 11th MEU Launcher.
+        /// </summary>
+        public static string S_APP_ABOUT {
+            get {
+                return ResourceManager.GetString("S_APP_ABOUT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 11th MEU Launcher.
         /// </summary>
         public static string S_APP_NAME {
             get {
                 return ResourceManager.GetString("S_APP_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opciones 11th MEU Launcher.
+        /// </summary>
+        public static string S_APP_SETTINGS {
+            get {
+                return ResourceManager.GetString("S_APP_SETTINGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ayuda.
+        /// </summary>
+        public static string S_BTN_ABOUT {
+            get {
+                return ResourceManager.GetString("S_BTN_ABOUT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acerca del launcher.
+        /// </summary>
+        public static string S_BTN_ABOUT_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_ABOUT_TIP", resourceCulture);
             }
         }
         
@@ -177,6 +213,24 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opciones.
+        /// </summary>
+        public static string S_BTN_SETTINGS {
+            get {
+                return ResourceManager.GetString("S_BTN_SETTINGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Abrir ventana de opciones.
+        /// </summary>
+        public static string S_BTN_SETTINGS_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_SETTINGS_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Predeterminado.
         /// </summary>
         public static string S_DEFAULT_PROFILE_NAME {
@@ -191,6 +245,33 @@ namespace _11thLauncher.Properties {
         public static string S_GAME_NAME {
             get {
                 return ResourceManager.GetString("S_GAME_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creado por {0}.
+        /// </summary>
+        public static string S_LABEL_APP_AUTHOR {
+            get {
+                return ResourceManager.GetString("S_LABEL_APP_AUTHOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Build {0} [{1}] - {2}.
+        /// </summary>
+        public static string S_LABEL_BUILD {
+            get {
+                return ResourceManager.GetString("S_LABEL_BUILD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Este programa está distribuido bajo licencia GNU GPL v2. El programa utiliza código de las siguientes librerias externas:.
+        /// </summary>
+        public static string S_LABEL_LICENSE {
+            get {
+                return ResourceManager.GetString("S_LABEL_LICENSE", resourceCulture);
             }
         }
         
@@ -731,6 +812,16 @@ namespace _11thLauncher.Properties {
         public static string S_VERSION_MISMATCH {
             get {
                 return ResourceManager.GetString("S_VERSION_MISMATCH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] servers {
+            get {
+                object obj = ResourceManager.GetObject("servers", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

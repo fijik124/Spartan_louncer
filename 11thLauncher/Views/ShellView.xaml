@@ -12,15 +12,12 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance Type=vm:ShellViewModel}"
-                      Title="{x:Static resx:Resources.S_APP_NAME}"
-                      TitleCharacterCasing="Normal" 
+                      Title="{x:Static resx:Resources.S_APP_NAME}" TitleCharacterCasing="Normal" 
                       Icon="/11thLauncher;component/Resources/icon.ico" 
                       WindowStartupLocation="CenterScreen" 
-                      Height="517"
-                      Width="644"
+                      Height="517" Width="644"
                       ResizeMode="CanMinimize" 
-                      BorderThickness="0" 
-                      GlowBrush="Black"
+                      BorderThickness="0" GlowBrush="Black"
                       LeftWindowCommandsOverlayBehavior="HiddenTitleBar"
                       WindowState="{Binding WindowState, Mode=TwoWay}"
                       ShowInTaskbar="{Binding ShowInTaskbar}">
@@ -34,16 +31,16 @@
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands ShowLastSeparator="False">
-            <Button ToolTip="Abrir ventana de opciones" >
+            <Button x:Name="ButtonSettings" cal:Message.Attach="ButtonSettings" 
+                    ToolTip="{x:Static resx:Resources.S_BTN_SETTINGS_TIP}" >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/menu_settings.png" Stretch="None" Margin="0,0,5,0"/>
-                    <TextBlock Margin="0,1,0,0"><Run Text="Opciones"/></TextBlock>
+                    <TextBlock Margin="0,1,0,0"><Run Text="{x:Static resx:Resources.S_BTN_SETTINGS}"/></TextBlock>
                 </StackPanel>
             </Button>
-            <Button Content="Actualizar"
-                    ToolTip="Comprobar actualizaciones" />
-            <Button Content="Ayuda"
-                    ToolTip="Acerca del launcher" />
+            <Button x:Name="ButtonAbout" cal:Message.Attach="ButtonAbout" 
+                    Content="{x:Static resx:Resources.S_BTN_ABOUT}"
+                    ToolTip="{x:Static resx:Resources.S_BTN_ABOUT_TIP}" />
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
 
@@ -54,8 +51,10 @@
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
                     <!-- Addons -->
                     <ContentControl x:Name="Addons" />
-                    <!-- Server config -->
+                    <!-- Game launcher -->
                     <ContentControl x:Name="Game" />
+                    <!-- Server status -->
+                    <ContentControl x:Name="ServerStatus" />
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:Resources.S_PARAMETERS}" HeaderTemplate="{StaticResource TabTitle}">
@@ -63,6 +62,12 @@
                     <!-- Parameters -->
                     <ContentControl x:Name="Parameters" />
                 </Grid>
+            </TabItem>
+            <TabItem Header="Servidores" HeaderTemplate="{StaticResource TabTitle}">
+       
+            </TabItem>
+            <TabItem Header="Perfiles" HeaderTemplate="{StaticResource TabTitle}">
+                
             </TabItem>
         </controls:MetroAnimatedSingleRowTabControl>
 

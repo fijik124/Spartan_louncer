@@ -1,4 +1,6 @@
-﻿namespace _11thLauncher.Model.Addon
+﻿using Newtonsoft.Json;
+
+namespace _11thLauncher.Model.Addons
 {
     /// <summary>
     /// An game addon managed by the launcher. 
@@ -46,6 +48,7 @@
         /// <summary>
         /// Display name of the addon.
         /// </summary>
+        [JsonIgnore]
         public string DisplayName => Name.Replace("_", "__");
 
         /// <summary>

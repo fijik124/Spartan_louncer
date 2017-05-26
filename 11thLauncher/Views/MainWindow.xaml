@@ -68,22 +68,6 @@
                         </Rectangle>
                     </Button>
 
-                    <Expander x:Name="groupBox_servers" Header="Servidores" HorizontalAlignment="Left" Margin="430,38,0,0" VerticalAlignment="Top" Height="119" Width="185" IsExpanded="True">
-                        <Grid Height="90" VerticalAlignment="Top" Margin="-4,-4,-2,-6" HorizontalAlignment="Left" Width="179">
-                            <Label Content="Coop" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,0,0,0"/>
-                            <Label Content="Academia" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,31,0,0"/>
-                            <Label Content="ALiVE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,62,0,0"/>
-                            <Button x:Name="button_serverCoop" Content="Rellenar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="112,2,0,0" FontSize="10" FontWeight="Medium" ToolTip="Rellenar los campos dirección y puerto para este servidor"/>
-                            <Button x:Name="button_serverAcademy" Content="Rellenar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="112,32,0,0"  FontSize="10" FontWeight="Medium" ToolTip="Rellenar los campos dirección y puerto para este servidor"/>
-                            <Button x:Name="button_serverAlive" Content="Rellenar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="112,61,0,0" FontSize="10" FontWeight="Medium" ToolTip="Rellenar los campos dirección y puerto para este servidor"/>
-                            <Image x:Name="image_coopStatus" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Margin="58,6,0,0" Source="/Resources/unknown.png" Stretch="Fill" MouseLeftButtonDown="image_coopStatus_MouseLeftButtonDown" ToolTip="Click para comprobar el estado del servidor"/>
-                            <Image x:Name="image_academyStatus" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Margin="58,38,0,0" Source="/Resources/unknown.png" Stretch="Fill" MouseLeftButtonDown="image_academyStatus_MouseLeftButtonDown" ToolTip="Click para comprobar el estado del servidor" RenderTransformOrigin="-0.156,0.467"/>
-                            <Image x:Name="image_aliveStatus" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Margin="58,68,0,0" Source="/Resources/unknown.png" Stretch="Fill" MouseLeftButtonDown="image_aliveStatus_MouseLeftButtonDown" ToolTip="Click para comprobar el estado del servidor"/>
-                            <Label x:Name="label_coopPlayers" Content="-/-" HorizontalAlignment="Left" Margin="72,2,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="41"/>
-                            <Label x:Name="label_academyPlayers" Content="-/-" HorizontalAlignment="Left" Margin="72,33,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="41"/>
-                            <Label x:Name="label_alivePlayers" Content="-/-" HorizontalAlignment="Left" Margin="72,61,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="41"/>
-                        </Grid>
-                    </Expander>
                     <Expander x:Name="groupBox_repository" Header="Repositorio" HorizontalAlignment="Left" Margin="430,180,0,0" VerticalAlignment="Top" Height="80" Width="185" IsExpanded="True">
                         <Grid HorizontalAlignment="Left" Height="49" Margin="-4,-4,-2,-4" VerticalAlignment="Top" Width="179">
                             <Label Content="Versión actual:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -97,17 +81,6 @@
                             <Image x:Name="image_arma3Sync" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" Margin="62,26,0,0" Source="/Resources/a3sDisabled.png" RenderTransformOrigin="0.95,1" ToolTip="Arma3Sync no está configurado, configuralo en la ventana de opciones" MouseLeftButtonDown="image_arma3Sync_MouseLeftButtonDown" IsHitTestVisible="True"/>
                         </Grid>
                     </Expander>
-                    <Label x:Name="label" Content="Info de lanzamiento" HorizontalAlignment="Left" Margin="227,104,0,0" VerticalAlignment="Top"/>
-                    <Border BorderBrush="#FFCCCCCC" BorderThickness="1" HorizontalAlignment="Left" Height="122" Margin="230,138,0,0" VerticalAlignment="Top" Width="185">
-                        <Grid Margin="0,0,0,-1">
-                            <Label Content="Juego" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                            <Label Content="Steam" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top"/>
-                            <Label Content="TS3" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top"/>
-                            <Label x:Name="label_gameProcess" Content="" HorizontalAlignment="Left" Margin="56,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.683,0.382" Width="96"/>
-                            <Label x:Name="label_steamProcess" Content="" HorizontalAlignment="Left" Margin="56,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.683,0.382" Width="96"/>
-                            <Label x:Name="label_teamspeakProcess" Content="" HorizontalAlignment="Left" Margin="56,91,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.683,0.382" Width="96"/>
-                        </Grid>
-                    </Border>
                 </Grid>
             </TabItem>
             <TabItem Header="Servidores" HeaderTemplate="{StaticResource tabTitle}" >

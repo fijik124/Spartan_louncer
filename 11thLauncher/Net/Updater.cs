@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Windows;
-using _11thLauncher.Model;
+using _11thLauncher;
 
 namespace _11thLauncher.Net
 {

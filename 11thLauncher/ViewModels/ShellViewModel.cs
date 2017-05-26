@@ -2,13 +2,13 @@
 using System.Threading;
 using System.Windows;
 using Caliburn.Micro;
-using MahApps.Metro;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Messages;
 using _11thLauncher.Model;
-using _11thLauncher.Model.Addon;
+using _11thLauncher.Model.Addons;
 using _11thLauncher.Model.Game;
 using _11thLauncher.Model.Parameter;
+using _11thLauncher.Model.Profile;
 using _11thLauncher.Model.Server;
 using _11thLauncher.Model.Settings;
 using _11thLauncher.Properties;
@@ -16,15 +16,18 @@ using _11thLauncher.ViewModels.Controls;
 
 namespace _11thLauncher.ViewModels
 {
-    public class ShellViewModel : PropertyChangedBase, IHandle<ServerVersionMessage>, IHandle<ShowDialogMessage>, IHandle<ExceptionMessage>
+    public class ShellViewModel : PropertyChangedBase, IHandle<ServerVersionMessage>, IHandle<ShowDialogMessage>,
+        IHandle<ExceptionMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
+        private readonly IWindowManager _windowManager;
         private readonly SettingsManager _settingsManager;
         private readonly AddonManager _addonManager;
         private readonly ServerManager _serverManager;
         private readonly ParameterManager _parameterManager;
         private readonly LaunchManager _launchManager;
+        private readonly ProfileManager _profileManager;
 
         private WindowState _windowState;
         private Visibility _showTrayIcon = Visibility.Hidden;
@@ -33,26 +36,31 @@ namespace _11thLauncher.ViewModels
         private Visibility _showVersionMismatch = Visibility.Hidden;
         private string _versionMismatchTooltip;
 
-        public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, SettingsManager settingsManager, 
-            AddonManager addonManager, ServerManager serverManager, ParameterManager parameterManager, LaunchManager launchManager)
+        public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager,
+            SettingsManager settingsManager, AddonManager addonManager, ServerManager serverManager, ParameterManager parameterManager,
+            LaunchManager launchManager, ProfileManager profileManager)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
-            _dialogCoordinator = dialogCoordinator;
+            _dialogCoordinator = DialogCoordinator.Instance;
+            _windowManager = windowManager;
 
             _settingsManager = settingsManager;
             _addonManager = addonManager;
             _serverManager = serverManager;
             _parameterManager = parameterManager;
             _launchManager = launchManager;
+            _profileManager = profileManager;
 
-            Statusbar = new StatusbarViewModel(_eventAggregator);
+            ProfileSelector = new ProfileSelectorViewModel(_eventAggregator, _addonManager, _profileManager, _parameterManager, _launchManager);
             Addons = new AddonsViewModel(_eventAggregator);
-            ProfileSelector = new ProfileSelectorViewModel(_eventAggregator, _addonManager);
             Parameters = new ParametersViewModel(_eventAggregator, _parameterManager);
-            Game = new GameViewModel(_eventAggregator, _launchManager, _addonManager, _parameterManager, _settingsManager);
+            Game = new GameViewModel(_eventAggregator, _launchManager, _addonManager, _parameterManager,
+                _settingsManager);
+            ServerStatus = new ServerStatusViewModel(_eventAggregator, _settingsManager);
+            Statusbar = new StatusbarViewModel(_eventAggregator);
 
             Init();
         }
@@ -67,6 +75,8 @@ namespace _11thLauncher.ViewModels
 
         public GameViewModel Game { get; set; }
 
+        public ServerStatusViewModel ServerStatus { get; set; }
+
         public StatusbarViewModel Statusbar { get; set; }
 
         public WindowState WindowState
@@ -77,7 +87,7 @@ namespace _11thLauncher.ViewModels
                 _windowState = value;
                 NotifyOfPropertyChange(() => WindowState);
 
-                if (!_settingsManager.MinimizeNotification) return;
+                if (!_settingsManager.ApplicationSettings.MinimizeNotification) return;
 
                 if (value == WindowState.Minimized)
                 {
@@ -147,21 +157,45 @@ namespace _11thLauncher.ViewModels
 
         public void Init()
         {
-            //Read config
-            var userProfiles = _settingsManager.Initialize();
+            //TODO LEGACY CONVERT 
+            if (_settingsManager.SettingsExist())
+            {
+                _settingsManager.Read(true); //Read existing settings
+            }
+            else
+            {
+                _settingsManager.Read(false); //Load default settings in memory
 
-            //Set application theme
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Constants.Accents[_settingsManager.Accent]), ThemeManager.GetAppTheme("BaseLight"));
+                _settingsManager.ReadPath();
+                if (_settingsManager.ApplicationSettings.Arma3Path == null)
+                {
+                    _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                    {
+                        Title = Resources.S_MSG_PATH_TITLE,
+                        Content = Resources.S_MSG_PATH_CONTENT
+                    });
+                }
+
+                //Create default profile
+                UserProfile defaultProfile = new UserProfile(Resources.S_DEFAULT_PROFILE_NAME, true);
+                _profileManager.WriteProfile(defaultProfile, _addonManager.Addons, _parameterManager.Parameters, _launchManager.GameConfig);
+                _settingsManager.UserProfiles.Add(defaultProfile);
+                _settingsManager.DefaultProfileId = defaultProfile.Id;
+
+                //Update default settings
+                _settingsManager.Write();
+            }
+            _eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
 
             //Read addons //TODO -> no path detected?
-            var addons = _addonManager.ReadAddons(_settingsManager.Arma3Path);
-            _eventAggregator.PublishOnCurrentThread(new AddonsMessage(AddonsAction.Added, addons));
+            var addons = _addonManager.ReadAddons(_settingsManager.ApplicationSettings.Arma3Path);
+            _eventAggregator.PublishOnCurrentThread(new AddonsLoaded(addons));
 
             //Add profiles and load default
-            _eventAggregator.PublishOnCurrentThread(new ProfilesMessage(ProfilesAction.Added, userProfiles));
+            _eventAggregator.PublishOnCurrentThread(new ProfilesMessage(ProfilesAction.Added, _settingsManager.UserProfiles));
 
-            //Read memory allocators
-            _parameterManager.ReadAllocators(_settingsManager.Arma3Path);
+            //Read memory allocators TODO -> possible problems with parameters read before?
+            _parameterManager.ReadAllocators(_settingsManager.ApplicationSettings.Arma3Path);
 
             CompareServerVersion(); //last thing
         }
@@ -169,15 +203,16 @@ namespace _11thLauncher.ViewModels
         public void CompareServerVersion()
         {
             var gameVersion = _settingsManager.GetGameVersion();
-
             GameVersion = gameVersion;
 
             new Thread(_serverManager.GetServerVersion).Start();
         }
 
-        private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        private void CurrentDomainOnUnhandledException(object sender,
+            UnhandledExceptionEventArgs unhandledExceptionEventArgs)
         {
-            _dialogCoordinator.ShowMessageAsync(this, Resources.S_MSG_GENERIC_DOMAIN_EXCEPTION, unhandledExceptionEventArgs.ExceptionObject.ToString());
+            _dialogCoordinator.ShowMessageAsync(this, Resources.S_MSG_GENERIC_DOMAIN_EXCEPTION,
+                unhandledExceptionEventArgs.ExceptionObject.ToString());
         }
 
         #region Message handling
@@ -195,6 +230,8 @@ namespace _11thLauncher.ViewModels
             int serverBuild = Convert.ToInt32(serverVersionInfo[2]);
             if (gameBuild >= serverBuild) return;
 
+            //TODO check updates always
+
             ShowVersionMismatch = Visibility.Visible;
             VersionMismatchTooltip = string.Format(Resources.S_VERSION_MISMATCH, GameVersion, serverVersion);
         }
@@ -206,12 +243,23 @@ namespace _11thLauncher.ViewModels
 
         public void Handle(ExceptionMessage exceptionMessage)
         {
-            _dialogCoordinator.ShowMessageAsync(this, Resources.S_MSG_GENERIC_EXCEPTION, exceptionMessage.Exception.ToString());
+            _dialogCoordinator.ShowMessageAsync(this, Resources.S_MSG_GENERIC_EXCEPTION,
+                exceptionMessage.Exception.ToString());
         }
 
         #endregion
 
         #region UI Actions
+
+        public void ButtonSettings()
+        {
+            _windowManager.ShowDialog(new SettingsViewModel());
+        }
+
+        public void ButtonAbout()
+        {
+            _windowManager.ShowDialog(new AboutViewModel());
+        }
 
         public void TrayIcon_Click()
         {

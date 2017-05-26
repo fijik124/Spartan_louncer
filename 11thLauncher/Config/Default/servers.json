@@ -1,0 +1,13 @@
+[
+	{
+		"Name": "Coop",
+		"Address": "11thmeu.es",
+		"Port": 2303,
+		"IsDefault": true
+	}, {
+		"Name": "Academia",
+		"Address": "11thmeu.es",
+		"Port": 2323,
+		"IsDefault": true
+	}
+]

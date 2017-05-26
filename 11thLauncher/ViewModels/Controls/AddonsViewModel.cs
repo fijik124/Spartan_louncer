@@ -1,15 +1,13 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
-using _11thLauncher.Model;
-using _11thLauncher.Model.Addon;
+using _11thLauncher.Model.Addons;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class AddonsViewModel : PropertyChangedBase, IHandle<AddonsMessage>, IHandle<ProfileMessage>
+    public class AddonsViewModel : PropertyChangedBase, IHandle<AddonsLoaded>, IHandle<LoadProfileMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private BindableCollection<Preset> _presets;
@@ -27,35 +25,29 @@ namespace _11thLauncher.ViewModels.Controls
 
         #region Message handling
 
-        public void Handle(AddonsMessage message)
+        public void Handle(AddonsLoaded message)
         {
-            switch (message.Action)
+            _addons.AddRange(message.Addons);
+            foreach (Addon addon in Addons)
             {
-                case AddonsAction.Added:
-                    _addons.AddRange(message.Addons);
-                    foreach (Addon addon in Addons)
-                    {
-                        addon.PropertyChanged += Addon_StatusChanged;
-                    }
-                    break;
-
-                default:
-                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message)), GetType().Name));
-                    break;
+                addon.PropertyChanged += Addon_StatusChanged;
             }
         }
 
-        public void Handle(ProfileMessage message)
+        public void Handle(LoadProfileMessage message)
         {
-            if (message.Action != ProfileAction.Loaded) return;
-
             SelectedPreset = null;
 
-            var profile = message.Profile;
-            if (profile != null)
+            foreach (var addon in Addons)
             {
-                Addons = profile.ProfileAddons;
+                var profileAddon = message.Addons.FirstOrDefault(addon.Equals);
+                if (profileAddon != null)
+                {
+                    addon.SetStatus(profileAddon.IsEnabled);
+                }
             }
+
+            CollectionViewSource.GetDefaultView(Addons).Refresh();
         }
 
         #endregion

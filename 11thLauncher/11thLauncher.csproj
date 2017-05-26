@@ -42,18 +42,23 @@
   <ItemGroup>
     <Reference Include="Caliburn.Micro, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.Core.3.0.3\lib\net45\Caliburn.Micro.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Caliburn.Micro.Platform, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net45\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="MahApps.Metro">
       <HintPath>lib\MahApps.Metro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="QueryMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -68,7 +73,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -89,18 +94,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Configuration\Settings.cs" />
-    <Compile Include="Messages\AddonsMessage.cs" />
+    <Compile Include="Config\ConfigFile.cs" />
+    <Compile Include="Config\ProfileFile.cs" />
+    <Compile Include="Messages\AddonsLoaded.cs" />
+    <Compile Include="Messages\LoadProfileMessage.cs" />
     <Compile Include="Messages\ProfileMessage.cs" />
     <Compile Include="Messages\ProfilesMessage.cs" />
+    <Compile Include="Messages\SettingsLoadedMessage.cs" />
     <Compile Include="Messages\ShowDialogMessage.cs" />
     <Compile Include="Messages\StatusbarMessage.cs" />
-    <Compile Include="Model\Addon\Addon.cs" />
-    <Compile Include="Model\Addon\AddonManager.cs" />
-    <Compile Include="Model\Addon\Preset.cs" />
-    <Compile Include="Model\Constants.cs" />
+    <Compile Include="Model\Addons\Addon.cs" />
+    <Compile Include="Model\Addons\AddonManager.cs" />
+    <Compile Include="Model\Addons\Preset.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="LauncherBootstraper.cs" />
     <Compile Include="Model\EnumerationExtension.cs" />
     <Compile Include="Model\ExceptionMessage.cs" />
+    <Compile Include="Model\Game\GameConfig.cs" />
     <Compile Include="Model\Game\LaunchManager.cs" />
     <Compile Include="Model\Game\LaunchOption.cs" />
     <Compile Include="Model\Game\Priority.cs" />
@@ -108,13 +118,30 @@
     <Compile Include="Model\Parameter\LaunchError.cs" />
     <Compile Include="Model\Parameter\LaunchParameter.cs" />
     <Compile Include="Model\Parameter\ParameterManager.cs" />
+    <Compile Include="Model\Server\Server.cs" />
+    <Compile Include="Model\Server\ServerStatus.cs" />
+    <Compile Include="Model\Settings\ApplicationSettings.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\Controls\ServerStatusViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ServerQueryView.xaml.cs">
+      <DependentUpon>ServerQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ServerStatusView.xaml.cs">
+      <DependentUpon>ServerStatusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Util\ParameterTemplateSelector.cs" />
     <Compile Include="Model\Parameter\ParameterType.cs" />
     <Compile Include="Model\Parameter\ParameterValueItem.cs" />
     <Compile Include="Model\Game\Platform.cs" />
     <Compile Include="Model\Profile\UserProfile.cs" />
     <Compile Include="Model\Profile\ProfileManager.cs" />
-    <Compile Include="Model\Server\ServerConfig.cs" />
     <Compile Include="Model\Server\ServerManager.cs" />
     <Compile Include="Messages\ServerVersionMessage.cs" />
     <Compile Include="Model\Settings\SettingsManager.cs" />
@@ -152,7 +179,7 @@
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\AboutWindow.xaml">
+    <Page Include="Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,6 +199,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\ServerQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ServerStatusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\StatusbarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,9 +215,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Views\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Configuration\Profiles.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -191,6 +223,10 @@
     <Page Include="Resources\MahApps.Metro.Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
@@ -219,15 +255,13 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Config\Default\servers.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\icon.ico" />
@@ -270,6 +304,18 @@
   <ItemGroup>
     <Resource Include="Resources\game.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lib\Newtonsoft.Json.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lib\Hardcodet.Wpf.TaskbarNotification.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lib\Caliburn.Micro.dll" />
+    <EmbeddedResource Include="lib\Caliburn.Micro.Platform.Core.dll" />
+    <EmbeddedResource Include="lib\Caliburn.Micro.Platform.dll" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

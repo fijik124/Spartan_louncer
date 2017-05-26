@@ -16,7 +16,7 @@ namespace _11thLauncher
                 {
                     if (stream != null)
                     {
-                        var assemblyData = new Byte[stream.Length];
+                        var assemblyData = new byte[stream.Length];
                         stream.Read(assemblyData, 0, assemblyData.Length);
                         return Assembly.Load(assemblyData);
                     }

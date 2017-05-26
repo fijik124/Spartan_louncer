@@ -1,17 +1,22 @@
-﻿using Caliburn.Micro;
+﻿using System.Runtime.Serialization;
+using Caliburn.Micro;
 using _11thLauncher.Model.Game;
+using _11thLauncher.Parameter;
 
 namespace _11thLauncher.Model.Parameter
 {
-    public class LaunchParameter
+    [DataContract]
+    public class LaunchParameter : ObservableEntity //TODO complete class
     {
-        public string Name { get; set; }
+        private string _name;
         public string DisplayName { get; set; }
         public string Tooltip { get; set; }
         public ParameterType Type { get; set; }
-        public Platform Platform { get; set; }
+        private Platform _platform;
+        [DataMember]
         public bool IsEnabled { get; set; }
         public BindableCollection<ParameterValueItem> Values { get; set; }
+        [DataMember]
         public ParameterValueItem SelectedValue { get; set; } //TODO
 
         public LaunchParameter() { }
@@ -32,6 +37,47 @@ namespace _11thLauncher.Model.Parameter
             Type = parameterType;
             Values = parameterValueItems;
             Platform = platform;
+        }
+
+
+        /// <summary>
+        /// Name of the launch parameter.
+        /// </summary>
+        [DataMember]
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Platform of the launch parameter.
+        /// </summary>
+        [DataMember]
+        public Platform Platform
+        {
+            get { return _platform; }
+            set
+            {
+                _platform = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            var item = obj as LaunchParameter;
+
+            return item != null && Name.Equals(item.Name) && Platform.Equals(item.Platform);
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode() * Platform.GetHashCode();
         }
     }
 }

@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Windows.Controls;
 using Caliburn.Micro;
+using _11thLauncher.Game;
 using _11thLauncher.Messages;
 using _11thLauncher.Model;
-using _11thLauncher.Model.Addon;
+using _11thLauncher.Model.Addons;
 using _11thLauncher.Model.Game;
 using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Settings;
+using _11thLauncher.Parameter;
 using _11thLauncher.Properties;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class GameViewModel : PropertyChangedBase
+    public class GameViewModel : PropertyChangedBase, IHandle<LoadProfileMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly LaunchManager _launchManager;
@@ -35,6 +37,15 @@ namespace _11thLauncher.ViewModels.Controls
             _parameterManager = parameterManager;
             _settingsManager = settingsManager;
         }
+
+        #region Message handling
+
+        public void Handle(LoadProfileMessage message)
+        {
+            //TODO copy gameconfig
+        }
+
+        #endregion
 
         public LaunchOption LaunchOption
         {
@@ -90,7 +101,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void ButtonLaunch(PasswordBox passwordBox)
         {
-            var error = _launchManager.StartGame(_settingsManager.Arma3Path, _addonManager.Addons, _parameterManager.Parameters,
+            var error = _launchManager.StartGame(_settingsManager.ApplicationSettings.Arma3Path, _addonManager.Addons, _parameterManager.Parameters,
                 LaunchOption, Platform, Priority, 
                 Server, Port, passwordBox.Password);
 

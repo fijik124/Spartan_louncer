@@ -32,7 +32,7 @@ namespace _11thLauncher.Net
 
                 try
                 {
-                    Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), Constants.ServerPorts[i]);
+                    QueryMaster.GameServer.Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), Constants.ServerPorts[i]);
                     ServerInfo info = server.GetInfo();
                     if (info != null)
                     {
@@ -65,7 +65,7 @@ namespace _11thLauncher.Net
 
             try
             {
-                Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), Constants.ServerPorts[index]);
+                QueryMaster.GameServer.Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), Constants.ServerPorts[index]);
                 ServerInfo info = server.GetInfo();
                 if (info != null)
                 {
@@ -99,7 +99,7 @@ namespace _11thLauncher.Net
 
             try
             {
-                Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), Constants.ServerPorts[index]);
+                QueryMaster.GameServer.Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), Constants.ServerPorts[index]);
 
 
                 ServerInfo info = server.GetInfo();

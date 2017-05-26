@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using Caliburn.Micro;
-using _11thLauncher.Model.Addon;
+using _11thLauncher.Model.Addons;
 using _11thLauncher.Model.Game;
 using _11thLauncher.Properties;
 
-namespace _11thLauncher.Model
+namespace _11thLauncher
 {
     public static class Constants
     {
@@ -20,6 +20,7 @@ namespace _11thLauncher.Model
             "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt", "Indigo", "Violet",
             "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna"
         };
+        public static readonly string ConfigFileName = "config.json";
 
         //
         // Game settings
@@ -32,7 +33,7 @@ namespace _11thLauncher.Model
         public static readonly string[] SteamRegPath32 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Valve\\Steam", "InstallPath", "" };
         public static readonly string[] SteamRegPath64 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam", "InstallPath", ""};
         public static readonly string DefaultArma3SteamPath = "SteamApps\\common\\ArmA 3";
-        public static readonly string[] VanillaAddons = { "arma 3", "expansion", "curator", "kart", "heli", "mark", "dlcbundle" };
+        public static readonly string[] VanillaAddons = { "arma 3", "expansion", "curator", "kart", "heli", "mark", "jets", "orange", "argo", "tacops", "tanks", "dlcbundle" };
         public static readonly string AddonSubfolderName = "addons";
 
         // 
@@ -76,5 +77,12 @@ namespace _11thLauncher.Model
         public static readonly string UpdaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
 
         public static readonly string CurrentVersion = "210";
+
+        //
+        // About info
+        //
+        public static string Author = "Javier 'Thrax' Rico";
+        public static string BuildCodeName = "Echo";
+        public static DateTime BuildDate = new DateTime(2017, 06, 01);
     }
 }
