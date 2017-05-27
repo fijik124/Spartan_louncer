@@ -10,8 +10,11 @@ namespace _11thLauncher
         public static void Main(string[] appArgs)
         {
             //Load libraries with reflection
-            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
-                var resourceName = "_" + Assembly.GetExecutingAssembly().GetName().Name + ".lib." + new AssemblyName(args.Name).Name + ".dll";
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+            {
+                string assemblyName = new AssemblyName(args.Name).Name;
+                string rscPath = assemblyName.Equals("QueryMaster") ? ".lib." : ".";
+                var resourceName = $"_{Assembly.GetExecutingAssembly().GetName().Name}{rscPath}{assemblyName}.dll";
                 using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
                 {
                     if (stream != null)
