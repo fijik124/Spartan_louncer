@@ -3,7 +3,19 @@
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/logo-transparent.png" width="250px" />
 </p>
 
-##### Current version: 2.1.0
+##### Current release: 2.1.0  
+<p align="center">
+    <a href="https://github.com/11thmeu/launcher/releases/latest">
+        <img src="https://img.shields.io/badge/Release-2.1.0-blue.svg" alt="Latest Release">
+    </a>
+    <a href="https://raw.githubusercontent.com/11thmeu/launcher/master/LICENSE">
+        <img src="https://img.shields.io/badge/license-GPLv2-blue.svg" alt="GitHub License">
+    </a>
+    <a href="https://ci.appveyor.com/project/Thraxs/launcher">
+        <img src="https://ci.appveyor.com/api/projects/status/8t1t67dbn2weho9g?svg=true" alt="Build Status">
+    </a>
+</p>
+
 This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the game [Arma 3](http://store.steampowered.com/app/107410) made for private use in the 11th MEU spanish simulation community.
 	
 
