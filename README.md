@@ -3,10 +3,9 @@
 	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/logo-transparent.png" width="250px" />
 </p>
 
-##### Current release: 2.1.0  
 <p align="center">
     <a href="https://github.com/11thmeu/launcher/releases/latest">
-        <img src="https://img.shields.io/badge/Release-2.1.0-blue.svg" alt="Latest Release">
+        <img src="https://img.shields.io/badge/Release-Delta|2.1.0-blue.svg" alt="Latest Release">
     </a>
     <a href="https://raw.githubusercontent.com/11thmeu/launcher/master/LICENSE">
         <img src="https://img.shields.io/badge/license-GPLv2-blue.svg" alt="GitHub License">
@@ -40,6 +39,9 @@ This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the g
  * [MahApps.Metro](http://github.com/MahApps/MahApps.Metro) 
  * [QueryMaster](http://querymaster.codeplex.com/) 
  * [ArmA3Sync](http://www.sonsofexiled.fr)
+ * [Caliburn.Micro](www.caliburnmicro.com)
+ * [Json.NET](www.newtonsoft.com/json)
+ * [WPF NotifyIcon](www.hardcodet.net/wpf-notifyicon)
 
 
 ## Requirements
