@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
              xmlns:resx="clr-namespace:_11thLauncher.Properties"
-             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=vm:AddonsViewModel}" d:DesignWidth="353.815" d:DesignHeight="406.244">
 
