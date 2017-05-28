@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using Caliburn.Micro;
+using _11thLauncher.Model;
 using _11thLauncher.Model.Addons;
-using _11thLauncher.Model.Game;
 using _11thLauncher.Properties;
 
 namespace _11thLauncher
@@ -43,17 +43,17 @@ namespace _11thLauncher
         {
             new Preset
             {
-                Name = Resources.S_PRESET1,
+                Name = Resources.Strings.S_PRESET1,
                 Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@rhsafrf", "@rhsgref", "@rhsusaf" }
             },
             new Preset
             {
-                Name = Resources.S_PRESET2,
+                Name = Resources.Strings.S_PRESET2,
                 Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@rhsafrf", "@rhsgref", "@rhsusaf", "@alive" }
             },
             new Preset
             {
-                Name = Resources.S_PRESET3,
+                Name = Resources.Strings.S_PRESET3,
                 Addons = new[] { "@cba_a3", "@ace", "@acre2", "@meu", "@unsung" }
             }
         };

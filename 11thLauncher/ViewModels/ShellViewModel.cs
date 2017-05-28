@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Windows;
 using Caliburn.Micro;
@@ -11,7 +12,6 @@ using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Profile;
 using _11thLauncher.Model.Server;
 using _11thLauncher.Model.Settings;
-using _11thLauncher.Properties;
 using _11thLauncher.ViewModels.Controls;
 
 namespace _11thLauncher.ViewModels
@@ -61,7 +61,7 @@ namespace _11thLauncher.ViewModels
                 _settingsManager);
             ServerStatus = new ServerStatusViewModel(_eventAggregator, _settingsManager);
             Statusbar = new StatusbarViewModel(_eventAggregator);
-
+            //Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("es-ES"); TODO this
             Init();
         }
 
@@ -171,13 +171,13 @@ namespace _11thLauncher.ViewModels
                 {
                     _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
                     {
-                        Title = Resources.S_MSG_PATH_TITLE,
-                        Content = Resources.S_MSG_PATH_CONTENT
+                        Title = Resources.Strings.S_MSG_PATH_TITLE,
+                        Content = Resources.Strings.S_MSG_PATH_CONTENT
                     });
                 }
 
                 //Create default profile
-                UserProfile defaultProfile = new UserProfile(Resources.S_DEFAULT_PROFILE_NAME, true);
+                UserProfile defaultProfile = new UserProfile(Resources.Strings.S_DEFAULT_PROFILE_NAME, true);
                 _profileManager.WriteProfile(defaultProfile, _addonManager.Addons, _parameterManager.Parameters, _launchManager.GameConfig);
                 _settingsManager.UserProfiles.Add(defaultProfile);
                 _settingsManager.DefaultProfileId = defaultProfile.Id;
@@ -211,7 +211,7 @@ namespace _11thLauncher.ViewModels
         private void CurrentDomainOnUnhandledException(object sender,
             UnhandledExceptionEventArgs unhandledExceptionEventArgs)
         {
-            _dialogCoordinator.ShowMessageAsync(this, Resources.S_MSG_GENERIC_DOMAIN_EXCEPTION,
+            _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_GENERIC_DOMAIN_EXCEPTION,
                 unhandledExceptionEventArgs.ExceptionObject.ToString());
         }
 
@@ -233,7 +233,7 @@ namespace _11thLauncher.ViewModels
             //TODO check updates always
 
             ShowVersionMismatch = Visibility.Visible;
-            VersionMismatchTooltip = string.Format(Resources.S_VERSION_MISMATCH, GameVersion, serverVersion);
+            VersionMismatchTooltip = string.Format(Resources.Strings.S_VERSION_MISMATCH, GameVersion, serverVersion);
         }
 
         public void Handle(ShowDialogMessage message)
@@ -243,7 +243,7 @@ namespace _11thLauncher.ViewModels
 
         public void Handle(ExceptionMessage exceptionMessage)
         {
-            _dialogCoordinator.ShowMessageAsync(this, Resources.S_MSG_GENERIC_EXCEPTION,
+            _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_GENERIC_EXCEPTION,
                 exceptionMessage.Exception.ToString());
         }
 

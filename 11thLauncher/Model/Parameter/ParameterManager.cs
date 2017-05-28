@@ -1,29 +1,28 @@
 ﻿using System.IO;
 using Caliburn.Micro;
 using _11thLauncher.Model.Game;
-using _11thLauncher.Parameter;
 using _11thLauncher.Properties;
 
 namespace _11thLauncher.Model.Parameter
 {
     public class ParameterManager
     {
-        public LaunchParameter SkipIntro = new LaunchParameter("-skipIntro", Resources.S_PARAMETER_SKIP_INTRO, Resources.S_PARAMETER_SKIP_INTRO_DESC, ParameterType.Boolean);
-        public LaunchParameter NoSplash = new LaunchParameter("-noSplash", Resources.S_PARAMETER_NO_SPLASH, Resources.S_PARAMETER_NO_SPLASH_DESC, ParameterType.Boolean);
-        public LaunchParameter EmptyWorld = new LaunchParameter("-world=empty", Resources.S_PARAMETER_EMPTY_WORLD, Resources.S_PARAMETER_EMPTY_WORLD_DESC, ParameterType.Boolean);
-        public LaunchParameter Window = new LaunchParameter("-window", Resources.S_PARAMETER_WINDOW, Resources.S_PARAMETER_WINDOW_DESC, ParameterType.Boolean);
-        public LaunchParameter FilePatching = new LaunchParameter("-filePatching", Resources.S_PARAMETER_FILE_PATCHING, Resources.S_PARAMETER_FILE_PATCHING_DESC, ParameterType.Boolean);
-        public LaunchParameter NoPause = new LaunchParameter("-noPause", Resources.S_PARAMETER_NO_PAUSE, Resources.S_PARAMETER_NO_PAUSE_DESC, ParameterType.Boolean);
-        public LaunchParameter NoCb = new LaunchParameter("-noCB", Resources.S_PARAMETER_NO_MULTICORE, Resources.S_PARAMETER_NO_MULTICORE_DESC, ParameterType.Boolean);
-        public LaunchParameter ShowScriptErrors = new LaunchParameter("-showScriptErrors", Resources.S_PARAMETER_SHOW_ERRORS, Resources.S_PARAMETER_SHOW_ERRORS_DESC, ParameterType.Boolean);
-        public LaunchParameter NoLogs = new LaunchParameter("-noLogs", Resources.S_PARAMETER_NO_LOGS, Resources.S_PARAMETER_NO_LOGS_DESC, ParameterType.Boolean);
-        public LaunchParameter EnableHt = new LaunchParameter("-enableHT", Resources.S_PARAMETER_HYPERTHREADING, Resources.S_PARAMETER_HYPERTHREADING_DESC, ParameterType.Boolean);
-        public LaunchParameter HugePages = new LaunchParameter("-hugePages", Resources.S_PARAMETER_HUGE_PAGES, Resources.S_PARAMETER_HUGE_PAGES_DESC, ParameterType.Boolean);
-        public LaunchParameter Malloc32 = new LaunchParameter("-malloc=", Resources.S_PARAMETER_MALLOC_32, Resources.S_PARAMETER_MALLOC_32_DESC,
+        public LaunchParameter SkipIntro = new LaunchParameter("-skipIntro", Resources.Strings.S_PARAMETER_SKIP_INTRO, Resources.Strings.S_PARAMETER_SKIP_INTRO_DESC, ParameterType.Boolean);
+        public LaunchParameter NoSplash = new LaunchParameter("-noSplash", Resources.Strings.S_PARAMETER_NO_SPLASH, Resources.Strings.S_PARAMETER_NO_SPLASH_DESC, ParameterType.Boolean);
+        public LaunchParameter EmptyWorld = new LaunchParameter("-world=empty", Resources.Strings.S_PARAMETER_EMPTY_WORLD, Resources.Strings.S_PARAMETER_EMPTY_WORLD_DESC, ParameterType.Boolean);
+        public LaunchParameter Window = new LaunchParameter("-window", Resources.Strings.S_PARAMETER_WINDOW, Resources.Strings.S_PARAMETER_WINDOW_DESC, ParameterType.Boolean);
+        public LaunchParameter FilePatching = new LaunchParameter("-filePatching", Resources.Strings.S_PARAMETER_FILE_PATCHING, Resources.Strings.S_PARAMETER_FILE_PATCHING_DESC, ParameterType.Boolean);
+        public LaunchParameter NoPause = new LaunchParameter("-noPause", Resources.Strings.S_PARAMETER_NO_PAUSE, Resources.Strings.S_PARAMETER_NO_PAUSE_DESC, ParameterType.Boolean);
+        public LaunchParameter NoCb = new LaunchParameter("-noCB", Resources.Strings.S_PARAMETER_NO_MULTICORE, Resources.Strings.S_PARAMETER_NO_MULTICORE_DESC, ParameterType.Boolean);
+        public LaunchParameter ShowScriptErrors = new LaunchParameter("-showScriptErrors", Resources.Strings.S_PARAMETER_SHOW_ERRORS, Resources.Strings.S_PARAMETER_SHOW_ERRORS_DESC, ParameterType.Boolean);
+        public LaunchParameter NoLogs = new LaunchParameter("-noLogs", Resources.Strings.S_PARAMETER_NO_LOGS, Resources.Strings.S_PARAMETER_NO_LOGS_DESC, ParameterType.Boolean);
+        public LaunchParameter EnableHt = new LaunchParameter("-enableHT", Resources.Strings.S_PARAMETER_HYPERTHREADING, Resources.Strings.S_PARAMETER_HYPERTHREADING_DESC, ParameterType.Boolean);
+        public LaunchParameter HugePages = new LaunchParameter("-hugePages", Resources.Strings.S_PARAMETER_HUGE_PAGES, Resources.Strings.S_PARAMETER_HUGE_PAGES_DESC, ParameterType.Boolean);
+        public LaunchParameter Malloc32 = new LaunchParameter("-malloc=", Resources.Strings.S_PARAMETER_MALLOC_32, Resources.Strings.S_PARAMETER_MALLOC_32_DESC,
             ParameterType.Selection, Platform.X86);
-        public LaunchParameter Malloc64 = new LaunchParameter("-malloc=", Resources.S_PARAMETER_MALLOC_64, Resources.S_PARAMETER_MALLOC_64_DESC,
+        public LaunchParameter Malloc64 = new LaunchParameter("-malloc=", Resources.Strings.S_PARAMETER_MALLOC_64, Resources.Strings.S_PARAMETER_MALLOC_64_DESC,
             ParameterType.Selection, Platform.X64);
-        public LaunchParameter Additional = new LaunchParameter("", Resources.S_PARAMETER_ADDITIONAL, Resources.S_PARAMETER_ADDITIONAL_DESC, ParameterType.Text);
+        public LaunchParameter Additional = new LaunchParameter("", Resources.Strings.S_PARAMETER_ADDITIONAL, Resources.Strings.S_PARAMETER_ADDITIONAL_DESC, ParameterType.Text);
 
         public BindableCollection<LaunchParameter> Parameters;
 
@@ -55,8 +54,8 @@ namespace _11thLauncher.Model.Parameter
             BindableCollection<ParameterValueItem> allocators32 = new BindableCollection<ParameterValueItem>();
             BindableCollection<ParameterValueItem> allocators64 = new BindableCollection<ParameterValueItem>();
 
-            allocators32.Add(new ParameterValueItem("system", Resources.S_PARAMETER_MALLOC_SYSTEM));
-            allocators64.Add(new ParameterValueItem("system", Resources.S_PARAMETER_MALLOC_SYSTEM));
+            allocators32.Add(new ParameterValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
+            allocators64.Add(new ParameterValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
 
             if (arma3Path == "") return;
 

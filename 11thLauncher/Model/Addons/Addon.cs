@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Caliburn.Micro;
+using Newtonsoft.Json;
 
 namespace _11thLauncher.Model.Addons
 {
     /// <summary>
     /// An game addon managed by the launcher. 
     /// </summary>
-    public class Addon : ObservableEntity
+    public class Addon : PropertyChangedBase
     {
         private bool _isEnabled;
         private string _name;
@@ -28,7 +29,7 @@ namespace _11thLauncher.Model.Addons
             set
             {
                 _isEnabled = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange();
             }
         }
 
@@ -41,7 +42,7 @@ namespace _11thLauncher.Model.Addons
             set
             {
                 _name = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange();
             }
         }
 

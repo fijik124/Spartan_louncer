@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
-                      xmlns:resx="clr-namespace:_11thLauncher.Properties"
+                      xmlns:resx="clr-namespace:_11thLauncher.Resources"
                       xmlns:vm="clr-namespace:_11thLauncher.ViewModels"
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
@@ -12,7 +12,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance Type=vm:ShellViewModel}"
-                      Title="{x:Static resx:Resources.S_APP_NAME}" TitleCharacterCasing="Normal" 
+                      Title="{x:Static resx:Strings.S_APP_NAME}" TitleCharacterCasing="Normal" 
                       Icon="/11thLauncher;component/Resources/icon.ico" 
                       WindowStartupLocation="CenterScreen" 
                       Height="517" Width="644"
@@ -32,22 +32,22 @@
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands ShowLastSeparator="False">
             <Button x:Name="ButtonSettings" cal:Message.Attach="ButtonSettings" 
-                    ToolTip="{x:Static resx:Resources.S_BTN_SETTINGS_TIP}" >
+                    ToolTip="{x:Static resx:Strings.S_BTN_SETTINGS_TIP}" >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/menu_settings.png" Stretch="None" Margin="0,0,5,0"/>
-                    <TextBlock Margin="0,1,0,0"><Run Text="{x:Static resx:Resources.S_BTN_SETTINGS}"/></TextBlock>
+                    <TextBlock Margin="0,1,0,0"><Run Text="{x:Static resx:Strings.S_BTN_SETTINGS}"/></TextBlock>
                 </StackPanel>
             </Button>
             <Button x:Name="ButtonAbout" cal:Message.Attach="ButtonAbout" 
-                    Content="{x:Static resx:Resources.S_BTN_ABOUT}"
-                    ToolTip="{x:Static resx:Resources.S_BTN_ABOUT_TIP}" />
+                    Content="{x:Static resx:Strings.S_BTN_ABOUT}"
+                    ToolTip="{x:Static resx:Strings.S_BTN_ABOUT_TIP}" />
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
 
     <Grid>
         <!-- Tabs -->
         <controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Height="372" Width="623" controls:TabControlHelper.IsUnderlined="False">
-            <TabItem Header="{x:Static resx:Resources.S_GAME_NAME}" HeaderTemplate="{StaticResource TabTitle}">
+            <TabItem Header="{x:Static resx:Strings.S_GAME_NAME}" HeaderTemplate="{StaticResource TabTitle}">
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
                     <!-- Addons -->
                     <ContentControl x:Name="Addons" />
@@ -57,7 +57,7 @@
                     <ContentControl x:Name="ServerStatus" />
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:Resources.S_PARAMETERS}" HeaderTemplate="{StaticResource TabTitle}">
+            <TabItem Header="{x:Static resx:Strings.S_PARAMETERS}" HeaderTemplate="{StaticResource TabTitle}">
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
                     <!-- Parameters -->
                     <ContentControl x:Name="Parameters" />
@@ -103,7 +103,7 @@
         </DockPanel>
         <!-- Notification icon -->
         <ni:TaskbarIcon Visibility="{Binding ShowTrayIcon}"
-                        ToolTipText="{x:Static resx:Resources.S_APP_NAME}"
+                        ToolTipText="{x:Static resx:Strings.S_APP_NAME}"
                         IconSource="../Resources/icon.ico"
                         cal:Message.Attach="[Event TrayRightMouseDown] = [Action TrayIcon_Click]; [Event TrayLeftMouseDown] = [Action TrayIcon_Click];">
         </ni:TaskbarIcon>

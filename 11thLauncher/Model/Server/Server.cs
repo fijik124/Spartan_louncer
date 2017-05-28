@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using _11thLauncher.Server;
 
 namespace _11thLauncher.Model.Server
 {

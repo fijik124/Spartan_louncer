@@ -5,7 +5,6 @@ using System.Text;
 using Caliburn.Micro;
 using Newtonsoft.Json;
 using _11thLauncher.Model.Settings;
-using _11thLauncher.Properties;
 
 namespace _11thLauncher.Config
 {
@@ -26,7 +25,7 @@ namespace _11thLauncher.Config
 
         public void ReadDefault()
         {
-            JsonConvert.PopulateObject(Encoding.Default.GetString(Resources.servers), Servers);
+            JsonConvert.PopulateObject(Encoding.Default.GetString(Properties.Resources.servers), Servers);
         }
 
         public void Read()

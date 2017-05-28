@@ -1,12 +1,11 @@
 ﻿using System.Runtime.Serialization;
 using Caliburn.Micro;
 using _11thLauncher.Model.Game;
-using _11thLauncher.Parameter;
 
 namespace _11thLauncher.Model.Parameter
 {
     [DataContract]
-    public class LaunchParameter : ObservableEntity //TODO complete class
+    public class LaunchParameter : PropertyChangedBase //TODO complete class
     {
         private string _name;
         public string DisplayName { get; set; }
@@ -50,7 +49,7 @@ namespace _11thLauncher.Model.Parameter
             set
             {
                 _name = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange();
             }
         }
 
@@ -64,7 +63,7 @@ namespace _11thLauncher.Model.Parameter
             set
             {
                 _platform = value;
-                OnPropertyChanged();
+                NotifyOfPropertyChange();
             }
         }
 

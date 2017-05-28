@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="S_VERSION_MISMATCH" xml:space="preserve">
+    <value>Your ArmA 3 version ({0}) doesn't match with the one on the 11th MEU servers ({1})</value>
+  </data>
+  <data name="S_ADDON_PRESETS" xml:space="preserve">
+    <value>Addon presets</value>
+  </data>
+  <data name="S_APP_ABOUT" xml:space="preserve">
+    <value>About 11th MEU Launcher</value>
+  </data>
+  <data name="S_APP_NAME" xml:space="preserve">
+    <value>11th MEU Launcher</value>
+  </data>
+  <data name="S_APP_SETTINGS" xml:space="preserve">
+    <value>11th MEU Launcher Settings</value>
+  </data>
+  <data name="S_BTN_ABOUT" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="S_BTN_ABOUT_TIP" xml:space="preserve">
+    <value>About the launcher</value>
+  </data>
+  <data name="S_BTN_ADDONS_DOWN_TIP" xml:space="preserve">
+    <value>Move selected item down</value>
+  </data>
+  <data name="S_BTN_ADDONS_UP_TIP" xml:space="preserve">
+    <value>Move selected item up</value>
+  </data>
+  <data name="S_BTN_SETTINGS" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="S_BTN_SETTINGS_TIP" xml:space="preserve">
+    <value>Open settings window</value>
+  </data>
+  <data name="S_DEFAULT_PROFILE_NAME" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="S_GAME_NAME" xml:space="preserve">
+    <value>ArmA 3</value>
+  </data>
+  <data name="S_LABEL_APP_AUTHOR" xml:space="preserve">
+    <value>Created by {0}</value>
+  </data>
+  <data name="S_LABEL_BUILD" xml:space="preserve">
+    <value>Build {0} [{1}] - {2}</value>
+  </data>
+  <data name="S_LABEL_LICENSE" xml:space="preserve">
+    <value>This program is distributed under GNU GPL v2 license. The program uses code from the following external libraries:</value>
+  </data>
+  <data name="S_LAUNCH_JOIN_SERVER" xml:space="preserve">
+    <value>Join server</value>
+  </data>
+  <data name="S_LAUNCH_NORMAL" xml:space="preserve">
+    <value>Start ArmA 3</value>
+  </data>
+  <data name="S_MSG_GENERIC_DOMAIN_EXCEPTION" xml:space="preserve">
+    <value>Unhandled domain exception</value>
+  </data>
+  <data name="S_MSG_GENERIC_EXCEPTION" xml:space="preserve">
+    <value>Unhandled exception</value>
+  </data>
+  <data name="S_MSG_PATH_CONTENT" xml:space="preserve">
+    <value>The execution path has not been auto-detected, select it manually on the settings window before using the application</value>
+  </data>
+  <data name="S_MSG_PATH_TITLE" xml:space="preserve">
+    <value>Execution path</value>
+  </data>
+  <data name="S_PARAMETER_ADDITIONAL" xml:space="preserve">
+    <value>Additional parameters</value>
+  </data>
+  <data name="S_PARAMETER_ADDITIONAL_DESC" xml:space="preserve">
+    <value>Other parameters to use</value>
+  </data>
+  <data name="S_PARAMETER_COMMAND" xml:space="preserve">
+    <value>Command line parameter</value>
+  </data>
+  <data name="S_PARAMETER_EMPTY_WORLD" xml:space="preserve">
+    <value>Empty world</value>
+  </data>
+  <data name="S_PARAMETER_EMPTY_WORLD_DESC" xml:space="preserve">
+    <value>Don't load any world by default</value>
+  </data>
+  <data name="S_PARAMETER_FILE_PATCHING" xml:space="preserve">
+    <value>Enable file patching</value>
+  </data>
+  <data name="S_PARAMETER_FILE_PATCHING_DESC" xml:space="preserve">
+    <value>Allows loading of unpacked data</value>
+  </data>
+  <data name="S_PARAMETER_HUGE_PAGES" xml:space="preserve">
+    <value>Support for hugepages on memory</value>
+  </data>
+  <data name="S_PARAMETER_HUGE_PAGES_DESC" xml:space="preserve">
+    <value>Enables hugepages support on memory</value>
+  </data>
+  <data name="S_PARAMETER_HYPERTHREADING" xml:space="preserve">
+    <value>Enable Hyper-Threading</value>
+  </data>
+  <data name="S_PARAMETER_HYPERTHREADING_DESC" xml:space="preserve">
+    <value>Enables the use of CPU cores with Hyper-Threading</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_32" xml:space="preserve">
+    <value>Memory allocator - 32-bit</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_32_DESC" xml:space="preserve">
+    <value>Select memory allocator to use</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_64" xml:space="preserve">
+    <value>Memory allocator - 64-bit</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_64_DESC" xml:space="preserve">
+    <value>Select memory allocator to use</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_SYSTEM" xml:space="preserve">
+    <value>System (Windows)</value>
+  </data>
+  <data name="S_PARAMETER_NO_LOGS" xml:space="preserve">
+    <value>No logs</value>
+  </data>
+  <data name="S_PARAMETER_NO_LOGS_DESC" xml:space="preserve">
+    <value>Don't save errors to the RPT log</value>
+  </data>
+  <data name="S_PARAMETER_NO_MULTICORE" xml:space="preserve">
+    <value>Turn off multicore</value>
+  </data>
+  <data name="S_PARAMETER_NO_MULTICORE_DESC" xml:space="preserve">
+    <value>Disables the use of multiple cores</value>
+  </data>
+  <data name="S_PARAMETER_NO_PAUSE" xml:space="preserve">
+    <value>No pause</value>
+  </data>
+  <data name="S_PARAMETER_NO_PAUSE_DESC" xml:space="preserve">
+    <value>Allows to continue running the game when the window is not active</value>
+  </data>
+  <data name="S_PARAMETER_NO_SPLASH" xml:space="preserve">
+    <value>Disable splash screens</value>
+  </data>
+  <data name="S_PARAMETER_NO_SPLASH_DESC" xml:space="preserve">
+    <value>Disables the splash screens on load</value>
+  </data>
+  <data name="S_PARAMETER_SHOW_ERRORS" xml:space="preserve">
+    <value>Show script errors</value>
+  </data>
+  <data name="S_PARAMETER_SHOW_ERRORS_DESC" xml:space="preserve">
+    <value>Show script errors on screen</value>
+  </data>
+  <data name="S_PARAMETER_SKIP_INTRO" xml:space="preserve">
+    <value>Static screen on main menu</value>
+  </data>
+  <data name="S_PARAMETER_SKIP_INTRO_DESC" xml:space="preserve">
+    <value>Disables the scene on the main menu</value>
+  </data>
+  <data name="S_PARAMETER_WINDOW" xml:space="preserve">
+    <value>Force windowed mode</value>
+  </data>
+  <data name="S_PARAMETER_WINDOW_DESC" xml:space="preserve">
+    <value>Run on windowed mode</value>
+  </data>
+  <data name="S_PARAMETERS" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="S_PASSWORD" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="S_PLATFORM" xml:space="preserve">
+    <value>Platform</value>
+  </data>
+  <data name="S_PLATFORM_32" xml:space="preserve">
+    <value>32 bits</value>
+  </data>
+  <data name="S_PLATFORM_64" xml:space="preserve">
+    <value>64 bits</value>
+  </data>
+  <data name="S_PLATFORM_ANY" xml:space="preserve">
+    <value>Default (32)</value>
+  </data>
+  <data name="S_PLATFORM_TIP" xml:space="preserve">
+    <value>Type of ArmA 3 executable to launch</value>
+  </data>
+  <data name="S_PORT" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="S_PRESET1" xml:space="preserve">
+    <value>Modern Warfare</value>
+  </data>
+  <data name="S_PRESET2" xml:space="preserve">
+    <value>Modern Warfare [ALiVE]</value>
+  </data>
+  <data name="S_PRESET3" xml:space="preserve">
+    <value>Vietnam [Unsung]</value>
+  </data>
+  <data name="S_PRIORITY" xml:space="preserve">
+    <value>Priority:</value>
+  </data>
+  <data name="S_PRIORITY_ABOVENORMAL" xml:space="preserve">
+    <value>Above normal</value>
+  </data>
+  <data name="S_PRIORITY_HIGH" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="S_PRIORITY_NORMAL" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="S_PRIORITY_TIP" xml:space="preserve">
+    <value>ArmA 3 process priority on Windows</value>
+  </data>
+  <data name="S_SERVER" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="S_SETTINGS_GENERAL" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="S_START_ACTION_CLOSE" xml:space="preserve">
+    <value>Close the application</value>
+  </data>
+  <data name="S_START_ACTION_MINIMIZE" xml:space="preserve">
+    <value>Minimize the application</value>
+  </data>
+  <data name="S_START_ACTION_NONE" xml:space="preserve">
+    <value>Do nothing</value>
+  </data>
+  <data name="S_STATUS_READY" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+</root>

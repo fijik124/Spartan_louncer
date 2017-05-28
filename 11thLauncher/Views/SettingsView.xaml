@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:resx="clr-namespace:_11thLauncher.Properties"
+        xmlns:resx="clr-namespace:_11thLauncher.Resources"
+        xmlns:model="clr-namespace:_11thLauncher.Model"
         mc:Ignorable="d"
-        Title="{x:Static resx:Resources.S_APP_SETTINGS}" TitleCharacterCasing="Normal" 
+        Title="{x:Static resx:Strings.S_APP_SETTINGS}" TitleCharacterCasing="Normal" 
         Height="434" Width="691"
         ShowInTaskbar="False" 
         ShowMaxRestoreButton="False" ShowMinButton="False" 
@@ -14,8 +15,8 @@
         BorderThickness="0" GlowBrush="Black"
         WindowStartupLocation="CenterOwner">
     <Grid>
-        <controls:MetroTabControl x:Name="metroTabControl_settings" HorizontalAlignment="Left" Margin="2,10,0,0" VerticalAlignment="Top" TabStripPlacement="Left" Height="385">
-            <TabItem Header="General">
+        <controls:MetroTabControl HorizontalAlignment="Left" Margin="2,10,0,0" VerticalAlignment="Top" TabStripPlacement="Left" Height="385">
+            <TabItem Header="{x:Static resx:Strings.S_SETTINGS_GENERAL}">
                 <Grid Width="542" RenderTransformOrigin="0.496,0.504">
                     <StackPanel HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" VerticalAlignment="Top" Width="522">
                         <Label Content="Opciones de inicio" FontWeight="Bold"/>
@@ -64,30 +65,10 @@
                         <Label Content="Desplegables" FontWeight="Bold"/>
                     </StackPanel>
                     <Label Content="Estilo: " HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="comboBox_accent" HorizontalAlignment="Left" Margin="148,38,0,0" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.058,-0.808" >
-                        <ComboBoxItem Content="Rojo"/>
-                        <ComboBoxItem Content="Verde"/>
-                        <ComboBoxItem Content="Azul"/>
-                        <ComboBoxItem Content="Morado"/>
-                        <ComboBoxItem Content="Naranja"/>
-                        <ComboBoxItem Content="Lima"/>
-                        <ComboBoxItem Content="Esmeralda"/>
-                        <ComboBoxItem Content="Teja"/>
-                        <ComboBoxItem Content="Cian"/>
-                        <ComboBoxItem Content="Cobalto"/>
-                        <ComboBoxItem Content="Añil"/>
-                        <ComboBoxItem Content="Violeta"/>
-                        <ComboBoxItem Content="Rosa"/>
-                        <ComboBoxItem Content="Magenta"/>
-                        <ComboBoxItem Content="Carmesí"/>
-                        <ComboBoxItem Content="Ambar"/>
-                        <ComboBoxItem Content="Amarillo"/>
-                        <ComboBoxItem Content="Marrón"/>
-                        <ComboBoxItem Content="Oliva"/>
-                        <ComboBoxItem Content="Metal"/>
-                        <ComboBoxItem Content="Malva"/>
-                        <ComboBoxItem Content="Gris"/>
-                        <ComboBoxItem Content="Siena"/>
+                    <ComboBox x:Name="comboBox_accent" 
+                              ItemsSource="{Binding Source={model:Enumeration {x:Type model:Accent}}}" DisplayMemberPath="Description"
+                              HorizontalAlignment="Left" Margin="148,38,0,0" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.058,-0.808" >
+
                     </ComboBox>
                     <Label Content="Minimizar la aplicación:" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top"/>
                     <ComboBox x:Name="comboBox_minimize" HorizontalAlignment="Left" Margin="148,69,0,0" VerticalAlignment="Top" Width="174" SelectedIndex="0">

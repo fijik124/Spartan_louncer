@@ -59,7 +59,7 @@ namespace _11thLauncher.Model
 
 
             return descriptionAttribute != null
-              ? Properties.Resources.ResourceManager.GetString(descriptionAttribute.Description)
+              ? Resources.Strings.ResourceManager.GetString(descriptionAttribute.Description)
               : enumValue.ToString();
         }
 

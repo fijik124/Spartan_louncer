@@ -5,7 +5,6 @@ using System.Security.Principal;
 using _11thLauncher.Game;
 using _11thLauncher.Model.Addons;
 using _11thLauncher.Model.Parameter;
-using _11thLauncher.Parameter;
 
 namespace _11thLauncher.Model.Game
 {

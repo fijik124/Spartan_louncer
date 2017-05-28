@@ -11,7 +11,7 @@ namespace _11thLauncher.ViewModels.Controls
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
-            StatusText = Properties.Resources.S_STATUS_READY;
+            StatusText = Resources.Strings.S_STATUS_READY;
         }
 
         private string _statusText;

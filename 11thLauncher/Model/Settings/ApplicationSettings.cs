@@ -2,6 +2,8 @@
 {
     public class ApplicationSettings
     {
+
+
         public string Arma3Path = null;
         public bool MinimizeNotification = false;
         public int Accent = 0;

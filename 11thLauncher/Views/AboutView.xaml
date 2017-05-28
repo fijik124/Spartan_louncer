@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:resx="clr-namespace:_11thLauncher.Properties"
+        xmlns:resx="clr-namespace:_11thLauncher.Resources"
         mc:Ignorable="d"
-        Title="{x:Static resx:Resources.S_APP_ABOUT}" TitleCharacterCasing="Normal" 
+        Title="{x:Static resx:Strings.S_APP_ABOUT}" TitleCharacterCasing="Normal" 
         Height="282" Width="375"
         ShowInTaskbar="False" 
         ShowMaxRestoreButton="False" ShowMinButton="False" 
@@ -14,7 +14,7 @@
         BorderThickness="0" GlowBrush="Black" 
         WindowStartupLocation="CenterOwner">
     <Grid>
-        <Label Content="{x:Static resx:Resources.S_APP_NAME}" 
+        <Label Content="{x:Static resx:Strings.S_APP_NAME}" 
                HorizontalAlignment="Left" VerticalAlignment="Top"
                Margin="91,10,0,0"  
                FontWeight="Bold" FontSize="20" />
@@ -38,7 +38,7 @@
             VerticalScrollBarVisibility="Visible">
             <FlowDocument>
                 <Paragraph>
-                    <Run Text="{x:Static resx:Resources.S_LABEL_LICENSE}"/>
+                    <Run Text="{x:Static resx:Strings.S_LABEL_LICENSE}"/>
                 </Paragraph>
                 <Paragraph>
                     <Run FontWeight="Bold" Text="Caliburn.Micro"/>

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using _11thLauncher.Model;
 using _11thLauncher.Model.Parameter;
-using _11thLauncher.Parameter;
 
 namespace _11thLauncher.Views.Util
 {

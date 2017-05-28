@@ -8,7 +8,6 @@ using _11thLauncher.Model.Addons;
 using _11thLauncher.Model.Game;
 using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Settings;
-using _11thLauncher.Parameter;
 using _11thLauncher.Properties;
 
 namespace _11thLauncher.ViewModels.Controls
@@ -107,27 +106,11 @@ namespace _11thLauncher.ViewModels.Controls
 
             switch (error)
             {
-                case LaunchError.NoSteam:
-                    _eventAggregator.PublishOnUIThread(new ShowDialogMessage
-                    {
-                        Title = Resources.S_MSG_NO_STEAM_TITLE,
-                        Content = Resources.S_MSG_NO_STEAM_CONTENT
-                    });
-                    break;
-
                 case LaunchError.NoGamePath:
                     _eventAggregator.PublishOnUIThread(new ShowDialogMessage
                     {
-                        Title = Resources.S_MSG_PATH_TITLE,
-                        Content = Resources.S_MSG_PATH_CONTENT
-                    });
-                    break;
-
-                case LaunchError.NoElevation:
-                    _eventAggregator.PublishOnUIThread(new ShowDialogMessage
-                    {
-                        Title = Resources.S_MSG_ELEVATION_TITLE,
-                        Content = Resources.S_MSG_ELEVATION_CONTENT
+                        Title = Resources.Strings.S_MSG_PATH_TITLE,
+                        Content = Resources.Strings.S_MSG_PATH_CONTENT
                     });
                     break;
 

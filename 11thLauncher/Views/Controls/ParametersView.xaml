@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:model="clr-namespace:_11thLauncher.Model.Parameter"
              xmlns:util="clr-namespace:_11thLauncher.Views.Util"
-             xmlns:resx="clr-namespace:_11thLauncher.Properties"
+             xmlns:resx="clr-namespace:_11thLauncher.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -22,7 +22,7 @@
                                 <TextBlock FontWeight="SemiBold">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0}: {1}">
-                                            <Binding Mode="OneWay" Source="{x:Static resx:Resources.S_PARAMETER_COMMAND}" />
+                                            <Binding Mode="OneWay" Source="{x:Static resx:Strings.S_PARAMETER_COMMAND}" />
                                             <Binding Path="Name"/>
                                         </MultiBinding>
                                     </TextBlock.Text>
@@ -46,7 +46,7 @@
                                 <TextBlock FontWeight="SemiBold">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0}: {1}">
-                                            <Binding Mode="OneWay" Source="{x:Static resx:Resources.S_PARAMETER_COMMAND}" />
+                                            <Binding Mode="OneWay" Source="{x:Static resx:Strings.S_PARAMETER_COMMAND}" />
                                             <Binding Path="Name"/>
                                         </MultiBinding>
                                     </TextBlock.Text>
@@ -70,7 +70,7 @@
                                 <TextBlock FontWeight="SemiBold">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0}: {1}">
-                                            <Binding Mode="OneWay" Source="{x:Static resx:Resources.S_PARAMETER_COMMAND}" />
+                                            <Binding Mode="OneWay" Source="{x:Static resx:Strings.S_PARAMETER_COMMAND}" />
                                             <Binding Path="Name"/>
                                         </MultiBinding>
                                     </TextBlock.Text>
