@@ -39,9 +39,9 @@ This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the g
  * [MahApps.Metro](http://github.com/MahApps/MahApps.Metro) 
  * [QueryMaster](http://querymaster.codeplex.com/) 
  * [ArmA3Sync](http://www.sonsofexiled.fr)
- * [Caliburn.Micro](www.caliburnmicro.com)
- * [Json.NET](www.newtonsoft.com/json)
- * [WPF NotifyIcon](www.hardcodet.net/wpf-notifyicon)
+ * [Caliburn.Micro](http://www.caliburnmicro.com)
+ * [Json.NET](http://www.newtonsoft.com/json)
+ * [WPF NotifyIcon](http://www.hardcodet.net/wpf-notifyicon)
 
 
 ## Requirements
