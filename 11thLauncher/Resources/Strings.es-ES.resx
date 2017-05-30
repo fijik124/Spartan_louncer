@@ -339,4 +339,103 @@
   <data name="S_PARAMETER_HYPERTHREADING_DESC" xml:space="preserve">
     <value>Activa la utilización de núcleos de CPU con Hyper-Threading</value>
   </data>
+  <data name="S_LABEL_STARTUP_OPTIONS" xml:space="preserve">
+    <value>Opciones de inicio</value>
+  </data>
+  <data name="S_CHECKBOX_CHECK_UPDATES" xml:space="preserve">
+    <value>Comprobar actualizaciones al iniciar la aplicación</value>
+  </data>
+  <data name="S_CHECKBOX_CHECK_REPOSITORY" xml:space="preserve">
+    <value>Comprobar repositorio al iniciar la aplicación (requiere Java y Arma3Sync configurados)</value>
+  </data>
+  <data name="S_CHECKBOX_CHECK_SERVERS" xml:space="preserve">
+    <value>Comprobar estado de los servidores al iniciar la aplicación</value>
+  </data>
+  <data name="S_ACCENT_RED" xml:space="preserve">
+    <value>Rojo</value>
+  </data>
+  <data name="S_ACCENT_GREEN" xml:space="preserve">
+    <value>Verde</value>
+  </data>
+  <data name="S_ACCENT_BLUE" xml:space="preserve">
+    <value>Azul</value>
+  </data>
+  <data name="S_ACCENT_PURPLE" xml:space="preserve">
+    <value>Morado</value>
+  </data>
+  <data name="S_ACCENT_ORANGE" xml:space="preserve">
+    <value>Naranja</value>
+  </data>
+  <data name="S_ACCENT_LIME" xml:space="preserve">
+    <value>Lima</value>
+  </data>
+  <data name="S_ACCENT_EMERALD" xml:space="preserve">
+    <value>Esmeralda</value>
+  </data>
+  <data name="S_ACCENT_TEAL" xml:space="preserve">
+    <value>Teja</value>
+  </data>
+  <data name="S_ACCENT_CYAN" xml:space="preserve">
+    <value>Cian</value>
+  </data>
+  <data name="S_ACCENT_COBALT" xml:space="preserve">
+    <value>Cobalto</value>
+  </data>
+  <data name="S_ACCENT_INDIGO" xml:space="preserve">
+    <value>Añil</value>
+  </data>
+  <data name="S_ACCENT_VIOLET" xml:space="preserve">
+    <value>Violeta</value>
+  </data>
+  <data name="S_ACCENT_PINK" xml:space="preserve">
+    <value>Rosa</value>
+  </data>
+  <data name="S_ACCENT_MAGENTA" xml:space="preserve">
+    <value>Magenta</value>
+  </data>
+  <data name="S_ACCENT_CRIMSON" xml:space="preserve">
+    <value>Carmesí</value>
+  </data>
+  <data name="S_ACCENT_AMBER" xml:space="preserve">
+    <value>Ambar</value>
+  </data>
+  <data name="S_ACCENT_YELLOW" xml:space="preserve">
+    <value>Amarillo</value>
+  </data>
+  <data name="S_ACCENT_BROWN" xml:space="preserve">
+    <value>Marrón</value>
+  </data>
+  <data name="S_ACCENT_OLIVE" xml:space="preserve">
+    <value>Oliva</value>
+  </data>
+  <data name="S_ACCENT_STEEL" xml:space="preserve">
+    <value>Metal</value>
+  </data>
+  <data name="S_ACCENT_MAUVE" xml:space="preserve">
+    <value>Malva</value>
+  </data>
+  <data name="S_ACCENT_TAUPE" xml:space="preserve">
+    <value>Gris</value>
+  </data>
+  <data name="S_ACCENT_SIENNA" xml:space="preserve">
+    <value>Siena</value>
+  </data>
+  <data name="S_LABEL_GAME_PATH" xml:space="preserve">
+    <value>Ruta de ArmA 3:</value>
+  </data>
+  <data name="S_LABEL_GAME_OPTIONS" xml:space="preserve">
+    <value>Opciones de juego</value>
+  </data>
+  <data name="S_BUTTON_GAME_PATH" xml:space="preserve">
+    <value>Seleccionar</value>
+  </data>
+  <data name="S_LABEL_START_ACTION" xml:space="preserve">
+    <value>Al iniciar el juego:</value>
+  </data>
+  <data name="S_THEME_LIGHT" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="S_THEME_DARK" xml:space="preserve">
+    <value>Oscuro</value>
+  </data>
 </root>

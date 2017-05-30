@@ -152,8 +152,8 @@ namespace _11thLauncher
 
         private void comboBox_accent_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Constants.Accents[comboBox_accent.SelectedIndex]), ThemeManager.GetAppTheme("BaseLight"));
-            Settings.Accent = comboBox_accent.SelectedIndex;
+            //ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Constants.Accents[comboBox_accent.SelectedIndex]), ThemeManager.GetAppTheme("BaseLight"));
+            //Settings.Accent = comboBox_accent.SelectedIndex;
         }
 
         private void button_selectGamePath_Click(object sender, RoutedEventArgs e)

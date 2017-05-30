@@ -14,6 +14,7 @@ using System.Windows.Input;
 using MahApps.Metro;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Configuration;
+using _11thLauncher.Model;
 using _11thLauncher.Net;
 using _11thLauncher.Processes;
 
@@ -41,7 +42,8 @@ namespace _11thLauncher
             //comboBox_profiles.SelectedIndex = comboBox_profiles.Items.IndexOf(Profiles.DefaultProfile); //Select default profile
 
             //Set accent
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Constants.Accents[Settings.Accent]), ThemeManager.GetAppTheme("BaseLight"));
+            AccentColor a = ((AccentColor) Settings.Accent);
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(((AccentColor)Settings.Accent).ToString()), ThemeManager.GetAppTheme("BaseLight"));
 
             //Set groupboxes preferences
             //groupBox_servers.IsExpanded = Settings.ServersGroupBox;

@@ -75,7 +75,7 @@
         <ContentControl x:Name="ProfileSelector"/>
 
         <!-- Logo & version -->
-        <Image Source="/Resources/a3logo.png" 
+        <Image Source="{Binding LogoImage}" 
                Height="140" 
                Width="365" 
                HorizontalAlignment="Left" 

@@ -15,12 +15,9 @@ namespace _11thLauncher
         //
         public static readonly string ConfigPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\11th Launcher";
         public static readonly string ProfilesPath = ConfigPath + "\\profiles";
-        public static readonly List<string> Accents = new List<string>
-        {
-            "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt", "Indigo", "Violet",
-            "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna"
-        };
         public static readonly string ConfigFileName = "config.json";
+        public static readonly string LogoLight = "pack://application:,,,/Resources/a3logo.png";
+        public static readonly string LogoDark = "pack://application:,,,/Resources/a3logo_inverted.png";
 
         //
         // Game settings

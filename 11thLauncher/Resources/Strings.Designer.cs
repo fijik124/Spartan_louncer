@@ -61,6 +61,213 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amber.
+        /// </summary>
+        public static string S_ACCENT_AMBER {
+            get {
+                return ResourceManager.GetString("S_ACCENT_AMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blue.
+        /// </summary>
+        public static string S_ACCENT_BLUE {
+            get {
+                return ResourceManager.GetString("S_ACCENT_BLUE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brown.
+        /// </summary>
+        public static string S_ACCENT_BROWN {
+            get {
+                return ResourceManager.GetString("S_ACCENT_BROWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cobalt.
+        /// </summary>
+        public static string S_ACCENT_COBALT {
+            get {
+                return ResourceManager.GetString("S_ACCENT_COBALT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crimson.
+        /// </summary>
+        public static string S_ACCENT_CRIMSON {
+            get {
+                return ResourceManager.GetString("S_ACCENT_CRIMSON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cyan.
+        /// </summary>
+        public static string S_ACCENT_CYAN {
+            get {
+                return ResourceManager.GetString("S_ACCENT_CYAN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emerald.
+        /// </summary>
+        public static string S_ACCENT_EMERALD {
+            get {
+                return ResourceManager.GetString("S_ACCENT_EMERALD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Green.
+        /// </summary>
+        public static string S_ACCENT_GREEN {
+            get {
+                return ResourceManager.GetString("S_ACCENT_GREEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indigo.
+        /// </summary>
+        public static string S_ACCENT_INDIGO {
+            get {
+                return ResourceManager.GetString("S_ACCENT_INDIGO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lime.
+        /// </summary>
+        public static string S_ACCENT_LIME {
+            get {
+                return ResourceManager.GetString("S_ACCENT_LIME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Magenta.
+        /// </summary>
+        public static string S_ACCENT_MAGENTA {
+            get {
+                return ResourceManager.GetString("S_ACCENT_MAGENTA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mauve.
+        /// </summary>
+        public static string S_ACCENT_MAUVE {
+            get {
+                return ResourceManager.GetString("S_ACCENT_MAUVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Olive.
+        /// </summary>
+        public static string S_ACCENT_OLIVE {
+            get {
+                return ResourceManager.GetString("S_ACCENT_OLIVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orange.
+        /// </summary>
+        public static string S_ACCENT_ORANGE {
+            get {
+                return ResourceManager.GetString("S_ACCENT_ORANGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pink.
+        /// </summary>
+        public static string S_ACCENT_PINK {
+            get {
+                return ResourceManager.GetString("S_ACCENT_PINK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purple.
+        /// </summary>
+        public static string S_ACCENT_PURPLE {
+            get {
+                return ResourceManager.GetString("S_ACCENT_PURPLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Red.
+        /// </summary>
+        public static string S_ACCENT_RED {
+            get {
+                return ResourceManager.GetString("S_ACCENT_RED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sienna.
+        /// </summary>
+        public static string S_ACCENT_SIENNA {
+            get {
+                return ResourceManager.GetString("S_ACCENT_SIENNA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steel.
+        /// </summary>
+        public static string S_ACCENT_STEEL {
+            get {
+                return ResourceManager.GetString("S_ACCENT_STEEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taupe.
+        /// </summary>
+        public static string S_ACCENT_TAUPE {
+            get {
+                return ResourceManager.GetString("S_ACCENT_TAUPE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teal.
+        /// </summary>
+        public static string S_ACCENT_TEAL {
+            get {
+                return ResourceManager.GetString("S_ACCENT_TEAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Violet.
+        /// </summary>
+        public static string S_ACCENT_VIOLET {
+            get {
+                return ResourceManager.GetString("S_ACCENT_VIOLET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yellow.
+        /// </summary>
+        public static string S_ACCENT_YELLOW {
+            get {
+                return ResourceManager.GetString("S_ACCENT_YELLOW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Addon presets.
         /// </summary>
         public static string S_ADDON_PRESETS {
@@ -151,6 +358,42 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string S_BUTTON_GAME_PATH {
+            get {
+                return ResourceManager.GetString("S_BUTTON_GAME_PATH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check repository when the application starts (requires Java and Arma3Sync configured).
+        /// </summary>
+        public static string S_CHECKBOX_CHECK_REPOSITORY {
+            get {
+                return ResourceManager.GetString("S_CHECKBOX_CHECK_REPOSITORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check servers status when the application sstarts.
+        /// </summary>
+        public static string S_CHECKBOX_CHECK_SERVERS {
+            get {
+                return ResourceManager.GetString("S_CHECKBOX_CHECK_SERVERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for updates when the application starts.
+        /// </summary>
+        public static string S_CHECKBOX_CHECK_UPDATES {
+            get {
+                return ResourceManager.GetString("S_CHECKBOX_CHECK_UPDATES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default.
         /// </summary>
         public static string S_DEFAULT_PROFILE_NAME {
@@ -187,11 +430,47 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game options.
+        /// </summary>
+        public static string S_LABEL_GAME_OPTIONS {
+            get {
+                return ResourceManager.GetString("S_LABEL_GAME_OPTIONS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ArmA 3 Path:.
+        /// </summary>
+        public static string S_LABEL_GAME_PATH {
+            get {
+                return ResourceManager.GetString("S_LABEL_GAME_PATH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This program is distributed under GNU GPL v2 license. The program uses code from the following external libraries:.
         /// </summary>
         public static string S_LABEL_LICENSE {
             get {
                 return ResourceManager.GetString("S_LABEL_LICENSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After launching:.
+        /// </summary>
+        public static string S_LABEL_START_ACTION {
+            get {
+                return ResourceManager.GetString("S_LABEL_START_ACTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Startup options.
+        /// </summary>
+        public static string S_LABEL_STARTUP_OPTIONS {
+            get {
+                return ResourceManager.GetString("S_LABEL_STARTUP_OPTIONS", resourceCulture);
             }
         }
         
@@ -714,6 +993,24 @@ namespace _11thLauncher.Resources {
         public static string S_STATUS_READY {
             get {
                 return ResourceManager.GetString("S_STATUS_READY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark.
+        /// </summary>
+        public static string S_THEME_DARK {
+            get {
+                return ResourceManager.GetString("S_THEME_DARK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light.
+        /// </summary>
+        public static string S_THEME_LIGHT {
+            get {
+                return ResourceManager.GetString("S_THEME_LIGHT", resourceCulture);
             }
         }
         

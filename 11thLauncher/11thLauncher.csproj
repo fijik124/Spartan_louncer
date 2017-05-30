@@ -125,6 +125,7 @@
     <Compile Include="Messages\SettingsLoadedMessage.cs" />
     <Compile Include="Messages\ShowDialogMessage.cs" />
     <Compile Include="Messages\StatusbarMessage.cs" />
+    <Compile Include="Messages\ThemeChangedMessage.cs" />
     <Compile Include="Model\Addons\Addon.cs" />
     <Compile Include="Model\Addons\AddonManager.cs" />
     <Compile Include="Model\Addons\Preset.cs" />
@@ -323,7 +324,9 @@
   <ItemGroup>
     <Resource Include="Resources\game.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\a3logo_inverted.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

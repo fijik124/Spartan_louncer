@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Globalization;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Messages;
@@ -17,7 +17,7 @@ using _11thLauncher.ViewModels.Controls;
 namespace _11thLauncher.ViewModels
 {
     public class ShellViewModel : PropertyChangedBase, IHandle<ServerVersionMessage>, IHandle<ShowDialogMessage>,
-        IHandle<ExceptionMessage>
+        IHandle<ExceptionMessage>, IHandle<ThemeChangedMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
@@ -35,6 +35,7 @@ namespace _11thLauncher.ViewModels
         private string _gameVersion;
         private Visibility _showVersionMismatch = Visibility.Hidden;
         private string _versionMismatchTooltip;
+        private string _logoImage = Constants.LogoLight;
 
         public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager,
             SettingsManager settingsManager, AddonManager addonManager, ServerManager serverManager, ParameterManager parameterManager,
@@ -153,6 +154,16 @@ namespace _11thLauncher.ViewModels
             }
         }
 
+        public string LogoImage
+        {
+            get => _logoImage;
+            set
+            {
+                _logoImage = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         public void Init()
@@ -247,13 +258,18 @@ namespace _11thLauncher.ViewModels
                 exceptionMessage.Exception.ToString());
         }
 
+        public void Handle(ThemeChangedMessage message)
+        {
+            LogoImage = message.ThemeStyle == ThemeStyle.BaseLight ? Constants.LogoLight : Constants.LogoDark;
+        }
+
         #endregion
 
         #region UI Actions
 
         public void ButtonSettings()
         {
-            _windowManager.ShowDialog(new SettingsViewModel());
+            _windowManager.ShowDialog(new SettingsViewModel(_eventAggregator));
         }
 
         public void ButtonAbout()

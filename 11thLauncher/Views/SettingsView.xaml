@@ -6,6 +6,8 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:resx="clr-namespace:_11thLauncher.Resources"
         xmlns:model="clr-namespace:_11thLauncher.Model"
+        xmlns:vm="clr-namespace:_11thLauncher.ViewModels"
+        xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
         mc:Ignorable="d"
         Title="{x:Static resx:Strings.S_APP_SETTINGS}" TitleCharacterCasing="Normal" 
         Height="434" Width="691"
@@ -13,29 +15,58 @@
         ShowMaxRestoreButton="False" ShowMinButton="False" 
         ResizeMode="NoResize"
         BorderThickness="0" GlowBrush="Black"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner" 
+        d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel}">
     <Grid>
-        <controls:MetroTabControl HorizontalAlignment="Left" Margin="2,10,0,0" VerticalAlignment="Top" TabStripPlacement="Left" Height="385">
+        <controls:MetroTabControl 
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="2,10,0,0"  
+            TabStripPlacement="Left" 
+            Height="385">
             <TabItem Header="{x:Static resx:Strings.S_SETTINGS_GENERAL}">
-                <Grid Width="542" RenderTransformOrigin="0.496,0.504">
-                    <StackPanel HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" VerticalAlignment="Top" Width="522">
-                        <Label Content="Opciones de inicio" FontWeight="Bold"/>
-                    </StackPanel>
-                    <CheckBox x:Name="checkBox_checkUpdates" Content="Comprobar actualizaciones al iniciar la aplicación" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <CheckBox x:Name="checkBox_checkServers" Content="Comprobar estado de los servidores al iniciar la aplicación" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <CheckBox x:Name="checkBox_checkRepository" Content="Comprobar repositorio al iniciar la aplicación (requiere Java y Arma3Sync configurados)" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top"/>
-                    <StackPanel HorizontalAlignment="Left" Height="23" Margin="10,127,0,0" VerticalAlignment="Top" Width="522">
-                        <Label Content="Opciones de juego" FontWeight="Bold"/>
-                    </StackPanel>
-                    <Label Content="Ruta de ArmA 3:" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox_gamePath" HorizontalAlignment="Left" Height="23" Margin="119,155,0,0" VerticalAlignment="Top" Width="308" IsReadOnly="True"/>
-                    <Button x:Name="button_selectGamePath" Content="Seleccionar" HorizontalAlignment="Left" Margin="432,155,0,0" VerticalAlignment="Top" Width="100"/>
-                    <Label Content="Al iniciar el juego:" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="comboBox_startAction" HorizontalAlignment="Left" Margin="119,191,0,0" VerticalAlignment="Top" Width="174" SelectedIndex="0">
-                        <ComboBoxItem Content="No hacer nada"/>
-                        <ComboBoxItem Content="Cerrar la aplicación"/>
-                        <ComboBoxItem Content="Minimizar la aplicación"/>
-                    </ComboBox>
+                <Grid Width="542">
+                    <Label Content="{x:Static resx:Strings.S_LABEL_STARTUP_OPTIONS}" 
+                           FontWeight="Bold" 
+                           HorizontalAlignment="Left" VerticalAlignment="Top"
+                           Margin="10,10,0,0" Width="522" />
+                    <CheckBox x:Name="CheckUpdates"
+                             Content="{x:Static resx:Strings.S_CHECKBOX_CHECK_UPDATES}" 
+                              HorizontalAlignment="Left" VerticalAlignment="Top"
+                              Margin="10,40,0,0" />
+                    <CheckBox x:Name="CheckServers"
+                              Content="{x:Static resx:Strings.S_CHECKBOX_CHECK_SERVERS}"
+                              HorizontalAlignment="Left" VerticalAlignment="Top" 
+                              Margin="10,63,0,0" />
+                    <CheckBox x:Name="CheckRepository"
+                              Content="{x:Static resx:Strings.S_CHECKBOX_CHECK_REPOSITORY}" 
+                              HorizontalAlignment="Left" VerticalAlignment="Top" 
+                              Margin="10,86,0,0" />
+                    <Label Content="{x:Static resx:Strings.S_LABEL_GAME_OPTIONS}"
+                           HorizontalAlignment="Left" VerticalAlignment="Top"
+                           Height="23" Width="522" 
+                           Margin="10,127,0,0"
+                           FontWeight="Bold" />
+                    <Label Content="{x:Static resx:Strings.S_LABEL_GAME_PATH}" 
+                           HorizontalAlignment="Left" VerticalAlignment="Top" 
+                           Margin="10,154,0,0" />
+                    <TextBox x:Name="GamePath" 
+                             IsReadOnly="True"
+                             HorizontalAlignment="Left" VerticalAlignment="Top"
+                             Height="23" Width="308" 
+                             Margin="119,155,0,0" />
+                    <Button x:Name="SelectGamePath" 
+                            Content="{x:Static resx:Strings.S_BUTTON_GAME_PATH}"
+                            HorizontalAlignment="Left" VerticalAlignment="Top" 
+                            Width="100" 
+                            Margin="432,155,0,0"  />
+                    <Label Content="{x:Static resx:Strings.S_LABEL_START_ACTION}" 
+                           HorizontalAlignment="Left" VerticalAlignment="Top" 
+                           Margin="10,190,0,0" />
+                    <ComboBox x:Name="comboBox_startAction" 
+                        ItemsSource="{Binding Source={model:Enumeration {x:Type model:StartAction}}}"
+                        HorizontalAlignment="Left" VerticalAlignment="Top" 
+                        Width="174"
+                        Margin="119,191,0,0" SelectedIndex="0" />
                 </Grid>
             </TabItem>
             <TabItem Header="Repositorio">
@@ -61,25 +92,26 @@
             </TabItem>
             <TabItem Header="Interfaz">
                 <Grid Width="542">
-                    <StackPanel HorizontalAlignment="Left" Height="23" Margin="10,101,0,0" VerticalAlignment="Top" Width="522">
-                        <Label Content="Desplegables" FontWeight="Bold"/>
-                    </StackPanel>
-                    <Label Content="Estilo: " HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="comboBox_accent" 
-                              ItemsSource="{Binding Source={model:Enumeration {x:Type model:Accent}}}" DisplayMemberPath="Description"
-                              HorizontalAlignment="Left" Margin="148,38,0,0" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.058,-0.808" >
+                    <Label Content="Opciones de interfaz" FontWeight="Bold" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" VerticalAlignment="Top" Width="522"/>
+                    <Label Content="Tema: " HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
+                    <ComboBox ItemsSource="{Binding Source={model:Enumeration {x:Type model:ThemeStyle}}}" DisplayMemberPath="Description"
+                              SelectedValue="{Binding SelectedTheme}" SelectedValuePath="Value"
+                              HorizontalAlignment="Left" Margin="148,38,0,0" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.058,-0.808"
+                              cal:Message.Attach="[Event SelectionChanged] = [Action Theme_SelectionChanged];" />
 
-                    </ComboBox>
-                    <Label Content="Minimizar la aplicación:" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="comboBox_minimize" HorizontalAlignment="Left" Margin="148,69,0,0" VerticalAlignment="Top" Width="174" SelectedIndex="0">
+                    <Label Content="Estilo: " HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top"/>
+                    <ComboBox ItemsSource="{Binding Source={model:Enumeration {x:Type model:AccentColor}}}" DisplayMemberPath="Description"
+                              SelectedValue="{Binding SelectedAccent}" SelectedValuePath="Value"
+                              HorizontalAlignment="Left" Margin="148,68,0,0" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.058,-0.808"
+                              cal:Message.Attach="[Event SelectionChanged] = [Action Accent_SelectionChanged];" />
+                    <Label Content="Minimizar la aplicación:" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="comboBox_minimize" HorizontalAlignment="Left" Margin="148,99,0,0" VerticalAlignment="Top" Width="174" SelectedIndex="0">
                         <ComboBoxItem Content="A la barra de tareas"/>
                         <ComboBoxItem Content="Al área de notificación"/>
                     </ComboBox>
-                    <CheckBox x:Name="checkBox_serversGroupBox" Content="Mostrar el desplegable del estado de los servidores abierto al iniciar" HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <CheckBox x:Name="checkBox_repositoryGroupBox" Content="Mostrar el desplegable del estado del repositorio abierto al iniciar" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <StackPanel HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" VerticalAlignment="Top" Width="522">
-                        <Label Content="Opciones de interfaz" FontWeight="Bold"/>
-                    </StackPanel>
+                    <Label Content="Desplegables" FontWeight="Bold" HorizontalAlignment="Left" Height="23" Margin="10,130,0,0" VerticalAlignment="Top" Width="522" />
+                    <CheckBox x:Name="checkBox_serversGroupBox" Content="Mostrar el desplegable del estado de los servidores abierto al iniciar" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="checkBox_repositoryGroupBox" Content="Mostrar el desplegable del estado del repositorio abierto al iniciar" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top" IsChecked="True"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Avanzado">

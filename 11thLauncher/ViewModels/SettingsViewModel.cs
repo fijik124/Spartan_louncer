@@ -1,12 +1,17 @@
-﻿using Caliburn.Micro;
+﻿using System.Windows;
+using Caliburn.Micro;
+using MahApps.Metro;
+using _11thLauncher.Messages;
 using _11thLauncher.Model;
 
 namespace _11thLauncher.ViewModels
 {
     public class SettingsViewModel : PropertyChangedBase
     {
-        private bool _checkUpdates;
-        private bool _checkServers;
+        private readonly IEventAggregator _eventAggregator;
+
+        private bool _checkUpdates = true;
+        private bool _checkServers = true;
         private bool _checkRepository;
         private string _gamePath;
         private StartAction _startAction;
@@ -15,15 +20,16 @@ namespace _11thLauncher.ViewModels
         private string _syncPath;
         //TODO repository
 
-        private Theme _theme;
-        private Accent _accent;
+        private ThemeStyle _theme;
+        private AccentColor _accent;
         private bool _minimizeToNotification;
         private bool _serversOpenAtStart;
         private bool _repositoryOpenAtStart;
 
-        public SettingsViewModel()
+        public SettingsViewModel(IEventAggregator eventAggregator)
         {
-            
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
         }
 
         public bool CheckUpdates
@@ -96,7 +102,7 @@ namespace _11thLauncher.ViewModels
             }
         }
 
-        public Theme Theme
+        public ThemeStyle SelectedTheme
         {
             get => _theme;
             set
@@ -106,7 +112,7 @@ namespace _11thLauncher.ViewModels
             }
         }
 
-        public Accent Accent
+        public AccentColor SelectedAccent
         {
             get => _accent;
             set
@@ -147,5 +153,34 @@ namespace _11thLauncher.ViewModels
                 
             }
         }
+
+        #region UI Actions
+
+        public void SelectGamePath()
+        {
+
+        }
+
+        public void Theme_SelectionChanged()
+        {
+            //TODO move to settingsmanager?
+            ThemeManager.ChangeAppStyle(Application.Current,
+                ThemeManager.GetAccent(SelectedAccent.ToString()),
+                ThemeManager.GetAppTheme(SelectedTheme.ToString()));
+
+            _eventAggregator.PublishOnCurrentThread(new ThemeChangedMessage() { ThemeStyle = SelectedTheme, AccentColor = SelectedAccent });
+        }
+
+        public void Accent_SelectionChanged()
+        {
+            //TODO move to settingsmanager?
+            ThemeManager.ChangeAppStyle(Application.Current,
+                ThemeManager.GetAccent(SelectedAccent.ToString()),
+                ThemeManager.GetAppTheme(SelectedTheme.ToString()));
+
+            _eventAggregator.PublishOnCurrentThread(new ThemeChangedMessage(){ ThemeStyle = SelectedTheme, AccentColor = SelectedAccent });
+        }
+
+        #endregion
     }
 }

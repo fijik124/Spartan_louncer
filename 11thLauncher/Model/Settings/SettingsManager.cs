@@ -186,7 +186,7 @@ namespace _11thLauncher.Model.Settings
 
             //Set application theme -> this is weird here? move to applicationsettings somehow?
             ThemeManager.ChangeAppStyle(Application.Current,
-                ThemeManager.GetAccent(Constants.Accents[ApplicationSettings.Accent]),
+                ThemeManager.GetAccent(((AccentColor)ApplicationSettings.Accent).ToString()),
                 ThemeManager.GetAppTheme("BaseLight"));
         }
 
