@@ -120,19 +120,21 @@
     <Compile Include="Config\ConfigFile.cs" />
     <Compile Include="Config\ProfileFile.cs" />
     <Compile Include="Messages\AddonsLoaded.cs" />
+    <Compile Include="Messages\FillServerInfoMessage.cs" />
     <Compile Include="Messages\LoadProfileMessage.cs" />
     <Compile Include="Messages\ProfileMessage.cs" />
     <Compile Include="Messages\ProfilesMessage.cs" />
     <Compile Include="Messages\SettingsLoadedMessage.cs" />
     <Compile Include="Messages\ShowDialogMessage.cs" />
-    <Compile Include="Messages\StatusbarMessage.cs" />
     <Compile Include="Messages\ThemeChangedMessage.cs" />
+    <Compile Include="Messages\UpdateStatusBarMessage.cs" />
     <Compile Include="Model\Addons\Addon.cs" />
     <Compile Include="Model\Addons\AddonManager.cs" />
     <Compile Include="Model\Addons\Preset.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="LauncherBootstraper.cs" />
-    <Compile Include="Model\EnumerationExtension.cs" />
+    <Compile Include="Model\ExtensionMethods.cs" />
+    <Compile Include="Views\Util\EnumerationExtension.cs" />
     <Compile Include="Model\Enumerations.cs" />
     <Compile Include="Model\ExceptionMessage.cs" />
     <Compile Include="Model\Game\GameConfig.cs" />
@@ -296,15 +298,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\a3logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\off.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\on.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\unknown.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="lib\QueryMaster.dll" />

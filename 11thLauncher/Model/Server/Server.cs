@@ -45,6 +45,9 @@ namespace _11thLauncher.Model.Server
             }
         }
 
+        [JsonIgnore]
+        public ushort QueryPort => (ushort)(_port + 1);
+
         /// <summary>
         /// Indicates if this server is an application default.
         /// </summary>

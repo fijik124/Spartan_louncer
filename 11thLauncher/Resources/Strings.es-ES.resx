@@ -438,4 +438,10 @@
   <data name="S_THEME_DARK" xml:space="preserve">
     <value>Oscuro</value>
   </data>
+  <data name="S_BTN_CHECK_SERVER_STATUS_TIP" xml:space="preserve">
+    <value>Click para comprobar el estado del servidor</value>
+  </data>
+  <data name="S_ACTION_CHECK_SERVER_STATUS" xml:space="preserve">
+    <value>Comprobando estado de servidor</value>
+  </data>
 </root>

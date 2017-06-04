@@ -8,7 +8,7 @@ using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Settings;
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class GameViewModel : PropertyChangedBase, IHandle<LoadProfileMessage>
+    public class GameViewModel : PropertyChangedBase, IHandle<LoadProfileMessage>, IHandle<FillServerInfoMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly LaunchManager _launchManager;
@@ -37,6 +37,13 @@ namespace _11thLauncher.ViewModels.Controls
         public void Handle(LoadProfileMessage message)
         {
             //TODO copy gameconfig
+        }
+
+        public void Handle(FillServerInfoMessage message)
+        {
+            if (message.Server == null) return;
+            Server = message.Server.Address;
+            Port = message.Server.Port.ToString();
         }
 
         #endregion

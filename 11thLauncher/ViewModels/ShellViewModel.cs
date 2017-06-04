@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
 using Caliburn.Micro;
@@ -31,10 +32,10 @@ namespace _11thLauncher.ViewModels
         private WindowState _windowState;
         private Visibility _showTrayIcon = Visibility.Hidden;
         private bool _showInTaskbar = true;
+        private string _logoImage = Constants.LogoLight;
         private string _gameVersion;
         private Visibility _showVersionMismatch = Visibility.Hidden;
         private string _versionMismatchTooltip;
-        private string _logoImage = Constants.LogoLight;
 
         public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager,
             SettingsManager settingsManager, AddonManager addonManager, ServerManager serverManager, ParameterManager parameterManager,
@@ -59,7 +60,7 @@ namespace _11thLauncher.ViewModels
             Parameters = new ParametersViewModel(_eventAggregator, _parameterManager);
             Game = new GameViewModel(_eventAggregator, _launchManager, _addonManager, _parameterManager,
                 _settingsManager);
-            ServerStatus = new ServerStatusViewModel(_eventAggregator, _settingsManager);
+            ServerStatus = new ServerStatusViewModel(_eventAggregator, _settingsManager, _serverManager);
             Statusbar = new StatusbarViewModel(_eventAggregator);
             //Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("es-ES"); TODO this
             Init();

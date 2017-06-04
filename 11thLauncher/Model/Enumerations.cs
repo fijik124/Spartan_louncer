@@ -2,6 +2,12 @@
 
 namespace _11thLauncher.Model
 {
+    public enum AsyncAction
+    {
+        [Description("S_ACTION_CHECK_SERVER_STATUS")]
+        CheckServerStatus
+    }
+
     public enum LaunchPlatform
     {
         [Description("S_PLATFORM_32")]
@@ -13,9 +19,11 @@ namespace _11thLauncher.Model
 
     public enum LaunchOption
     {
-        [Description("S_LAUNCH_NORMAL")] Normal,
+        [Description("S_LAUNCH_NORMAL")]
+        Normal,
 
-        [Description("S_LAUNCH_JOIN_SERVER")] JoinServer
+        [Description("S_LAUNCH_JOIN_SERVER")]
+        JoinServer
     }
 
     public enum ParameterPlatform
@@ -27,7 +35,7 @@ namespace _11thLauncher.Model
         X64,
 
         [Description("S_PLATFORM_ANY")]
-        Any,
+        Any
 
     }
 
@@ -38,7 +46,7 @@ namespace _11thLauncher.Model
 
     public enum ServerStatus
     {
-        Unknown, Online, Offline
+        Unknown, Checking, Online, Offline
     }
 
     public enum StartAction

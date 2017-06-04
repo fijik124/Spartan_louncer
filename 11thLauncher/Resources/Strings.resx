@@ -418,4 +418,10 @@
   <data name="S_THEME_DARK" xml:space="preserve">
     <value>Dark</value>
   </data>
+  <data name="S_BTN_CHECK_SERVER_STATUS_TIP" xml:space="preserve">
+    <value>Click to check server status</value>
+  </data>
+  <data name="S_ACTION_CHECK_SERVER_STATUS" xml:space="preserve">
+    <value>Checking server status</value>
+  </data>
 </root>

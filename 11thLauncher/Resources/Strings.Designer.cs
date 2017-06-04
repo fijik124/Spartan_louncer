@@ -268,6 +268,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking server status.
+        /// </summary>
+        public static string S_ACTION_CHECK_SERVER_STATUS {
+            get {
+                return ResourceManager.GetString("S_ACTION_CHECK_SERVER_STATUS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Addon presets.
         /// </summary>
         public static string S_ADDON_PRESETS {
@@ -336,6 +345,15 @@ namespace _11thLauncher.Resources {
         public static string S_BTN_ADDONS_UP_TIP {
             get {
                 return ResourceManager.GetString("S_BTN_ADDONS_UP_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to check server status.
+        /// </summary>
+        public static string S_BTN_CHECK_SERVER_STATUS_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_CHECK_SERVER_STATUS_TIP", resourceCulture);
             }
         }
         

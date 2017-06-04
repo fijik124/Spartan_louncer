@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Markup;
 
-namespace _11thLauncher.Model
+namespace _11thLauncher.Views.Util
 {
     /// <summary>
     /// Extension for handling enums in views.

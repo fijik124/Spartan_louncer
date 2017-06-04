@@ -111,42 +111,12 @@ namespace _11thLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap off {
-            get {
-                object obj = ResourceManager.GetObject("off", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap on {
-            get {
-                object obj = ResourceManager.GetObject("on", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] servers {
             get {
                 object obj = ResourceManager.GetObject("servers", resourceCulture);
                 return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap unknown {
-            get {
-                object obj = ResourceManager.GetObject("unknown", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

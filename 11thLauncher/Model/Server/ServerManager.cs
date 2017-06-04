@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 using Caliburn.Micro;
 using QueryMaster;
@@ -63,23 +62,21 @@ namespace _11thLauncher.Model.Server
             return address;
         }
 
-        public static void CheckServerStatus(Server server)
+        public void CheckServerStatus(Server server)
         {
-            //TODO statusbar start
-
-            server.ServerStatus = ServerStatus.Unknown;
-            string players = "-/-"; //TODO
+            _eventAggregator.PublishOnBackgroundThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, true));
+            server.ServerStatus = ServerStatus.Checking;            
 
             try
             {
-                QueryMaster.GameServer.Server gameServer = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp(server.Address).ToString(), server.Port);
+                QueryMaster.GameServer.Server gameServer = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp(server.Address).ToString(), server.QueryPort);
                 QueryMaster.GameServer.ServerInfo info = gameServer.GetInfo();
                 if (info != null)
                 {
                     ServerInfo serverInfo = new ServerInfo()
                     {
-                       Players = info.Players,
-                       MaxPlayers = info.MaxPlayers
+                        Players = info.Players,
+                        MaxPlayers = info.MaxPlayers
                     };
 
                     //ServerInfo info = server.GetInfo();
@@ -96,21 +93,25 @@ namespace _11thLauncher.Model.Server
 
                     //foreach (PlayerInfo p in players)
                     //{
-                        //ServerPlayers.Add(p.Name);
+                    //ServerPlayers.Add(p.Name);
                     //}
 
 
                     server.ServerStatus = ServerStatus.Online;
                     server.ServerInfo = serverInfo;
                 }
+                else
+                {
+                    server.ServerStatus = ServerStatus.Offline;
+                }
                 gameServer.Dispose();
             }
             catch (SocketException)
             {
-                server.ServerStatus = ServerStatus.Offline;
+                server.ServerStatus = ServerStatus.Unknown;
             }
 
-            //TODO update statusbar
+            _eventAggregator.PublishOnBackgroundThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, false));
         }
     }
 }

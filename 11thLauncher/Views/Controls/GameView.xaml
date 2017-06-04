@@ -5,15 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:m="clr-namespace:_11thLauncher.Model"
-             xmlns:model="clr-namespace:_11thLauncher.Model"
              xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
              xmlns:resx="clr-namespace:_11thLauncher.Resources"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             xmlns:util="clr-namespace:_11thLauncher.Views.Util"
              mc:Ignorable="d" 
              d:DesignHeight="337" d:DesignWidth="615" d:DataContext="{d:DesignInstance Type=vm:GameViewModel}">
     <Grid>
-        <controls:SplitButton ItemsSource="{Binding Source={model:Enumeration {x:Type m:LaunchOption}}}" DisplayMemberPath="Description"
+        <controls:SplitButton ItemsSource="{Binding Source={util:Enumeration {x:Type m:LaunchOption}}}" DisplayMemberPath="Description"
                               HorizontalAlignment="Left" VerticalAlignment="Top"
                               HorizontalContentAlignment="Left" 
                               Margin="227,38,0,0"  
@@ -36,7 +36,7 @@
         <Label Content="{x:Static resx:Strings.S_PLATFORM}"
                HorizontalAlignment="Left" VerticalAlignment="Top" 
                Padding="0,5,5,5" Margin="227,102,0,0" />
-        <ComboBox ItemsSource="{Binding Source={model:Enumeration {x:Type m:LaunchPlatform}}}" DisplayMemberPath="Description" 
+        <ComboBox ItemsSource="{Binding Source={util:Enumeration {x:Type m:LaunchPlatform}}}" DisplayMemberPath="Description" 
                   SelectedValue="{Binding Platform}" SelectedValuePath="Value"
                   ToolTip="{x:Static resx:Strings.S_PLATFORM_TIP}"
             HorizontalAlignment="Left" VerticalAlignment="Top" 

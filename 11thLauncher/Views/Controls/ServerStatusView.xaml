@@ -7,80 +7,70 @@
         xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
         xmlns:m="clr-namespace:_11thLauncher.Model.Server"
         xmlns:model="clr-namespace:_11thLauncher.Model"
+        xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+        xmlns:resx="clr-namespace:_11thLauncher.Resources"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:ServerStatusViewModel}" d:DesignHeight="337" d:DesignWidth="615">
     <Grid>
         <Expander x:Name="groupBox_servers" Header="Servidores" HorizontalAlignment="Left" VerticalAlignment="Top" Height="160" Width="185" IsExpanded="True" Margin="430,38,0,0" Padding="0">
-
-            <!--<Grid Height="90" VerticalAlignment="Top" Margin="-4,-4,-2,-6" HorizontalAlignment="Left" Width="179">
-                <Label Content="Coop" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,0,0,0"/>
-                <Label Content="Academia" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,31,0,0"/>
-                <Label Content="ALiVE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,62,0,0"/>
-                <Button x:Name="button_serverCoop" Content="Rellenar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="112,2,0,0" FontSize="10" FontWeight="Medium" ToolTip="Rellenar los campos dirección y puerto para este servidor"/>
-                <Button x:Name="button_serverAcademy" Content="Rellenar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="112,32,0,0"  FontSize="10" FontWeight="Medium" ToolTip="Rellenar los campos dirección y puerto para este servidor"/>
-                <Button x:Name="button_serverAlive" Content="Rellenar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="112,61,0,0" FontSize="10" FontWeight="Medium" ToolTip="Rellenar los campos dirección y puerto para este servidor"/>
-                <Image x:Name="image_coopStatus" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Margin="58,6,0,0" Source="/Resources/unknown.png" Stretch="Fill" ToolTip="Click para comprobar el estado del servidor"/>
-                <Image x:Name="image_academyStatus" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Margin="58,38,0,0" Source="/Resources/unknown.png" Stretch="Fill" ToolTip="Click para comprobar el estado del servidor" RenderTransformOrigin="-0.156,0.467"/>
-                <Image x:Name="image_aliveStatus" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="15" Margin="58,68,0,0" Source="/Resources/unknown.png" Stretch="Fill" ToolTip="Click para comprobar el estado del servidor"/>
-                <Label x:Name="label_coopPlayers" Content="-/-" HorizontalAlignment="Left" Margin="72,2,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="41"/>
-                <Label x:Name="label_academyPlayers" Content="-/-" HorizontalAlignment="Left" Margin="72,33,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="41"/>
-                <Label x:Name="label_alivePlayers" Content="-/-" HorizontalAlignment="Left" Margin="72,61,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="41"/>
-            </Grid>-->
-
-            <ItemsControl x:Name="Servers" d:DataContext="{Binding Servers}"
-                    BorderBrush="#FFCCCCCC"
-                    BorderThickness="0">
-                <ItemsControl.ItemTemplate>
-                    <HierarchicalDataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Rectangle ToolTip="Rellenar información del servidor"
-                                       Height="15"
-                                       Width="15"
-                                       IsHitTestVisible="True" Margin="5,0">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_list}" />
-                                </Rectangle.OpacityMask>
-                                <Rectangle.Style>
-                                    <Style TargetType="Rectangle">
-                                        <Setter Property="Fill" Value="{DynamicResource TextBrush}" />
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Fill">
-                                                    <Setter.Value>
-                                                        <SolidColorBrush Color="{DynamicResource AccentColor}" />
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Rectangle.Style>
-                            </Rectangle>
-                            <Label Content="{Binding Name}" Width="75" />
-                            <!--<Image x:Name="image_coopStatus" Height="15" Width="15" Source="/Resources/unknown.png" Stretch="Fill" ToolTip="Click para comprobar el estado del servidor"/>-->
-                            <Rectangle x:Name="asd" ToolTip="Click para comprobar el estado del servidor"
-                                       Height="15"
-                                       Width="15"
-                                       IsHitTestVisible="True" Margin="5,0">
-                                <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_layer_thick}" />
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
-                            <Label x:Name="label_coopPlayers" Content="{Binding ServerInfo.CurrentPlayers}" HorizontalContentAlignment="Center"/>
-                        </StackPanel>
-                        <HierarchicalDataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Unknown}">
-                                <Setter TargetName="asd" Property="Rectangle.Fill" Value="DarkKhaki"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Offline}">
-                                <Setter TargetName="asd" Property="Rectangle.Fill" Value="DarkRed"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Online}">
-                                <Setter TargetName="asd" Property="Rectangle.Fill" Value="DarkGreen"></Setter>
-                            </DataTrigger>
-                        </HierarchicalDataTemplate.Triggers>
-                    </HierarchicalDataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="Servers" d:DataContext="{Binding Servers}"
+                              BorderBrush="#FFCCCCCC"
+                              BorderThickness="0">
+                    <ItemsControl.ItemTemplate>
+                        <HierarchicalDataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle ToolTip="Rellenar información del servidor"
+                                           cal:Message.Attach="FillServerInfo($datacontext)"
+                                           Height="15" Width="15"
+                                           Margin="5,0" IsHitTestVisible="True" >
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_list}" />
+                                    </Rectangle.OpacityMask>
+                                    <Rectangle.Style>
+                                        <Style TargetType="Rectangle">
+                                            <Setter Property="Fill" Value="{DynamicResource TextBrush}" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Fill">
+                                                        <Setter.Value>
+                                                            <SolidColorBrush Color="{DynamicResource AccentColor}" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Rectangle.Style>
+                                </Rectangle>
+                                <Label Content="{Binding Name}" Width="75" />
+                                <Rectangle x:Name="Status" ToolTip="{x:Static resx:Strings.S_BTN_CHECK_SERVER_STATUS_TIP}"
+                                           cal:Message.Attach="CheckServerStatus($datacontext)"
+                                           Height="15" Width="15"
+                                           Margin="5,0" IsHitTestVisible="True">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_layer_thick}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <Label x:Name="label_coopPlayers" Content="{Binding ServerInfo.CurrentPlayers}" />
+                            </StackPanel>
+                            <HierarchicalDataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Unknown}">
+                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#888888"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Checking}">
+                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#888888"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Offline}">
+                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#BD3400"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Online}">
+                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#56B812"></Setter>
+                                </DataTrigger>
+                            </HierarchicalDataTemplate.Triggers>
+                        </HierarchicalDataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
         </Expander>
     </Grid>
 </UserControl>

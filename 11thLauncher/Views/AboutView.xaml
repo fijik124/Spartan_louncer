@@ -46,7 +46,7 @@
                 </Paragraph>
                 <Paragraph>
                     <Run FontWeight="Bold" Text="MahApps.Metro"/>
-                    <Run Text=": www.mahapps.com/"/>
+                    <Run Text=": www.mahapps.com"/>
                 </Paragraph>
                 <Paragraph>
                     <Run FontWeight="Bold" Text="QueryMaster"/>

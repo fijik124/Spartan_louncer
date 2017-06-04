@@ -2,19 +2,31 @@
   {
     "Name": "Coop",
     "Address": "11thmeu.es",
-    "Port": 2303,
+    "Port": 2302,
     "IsDefault": true
   },
   {
     "Name": "Academia",
     "Address": "11thmeu.es",
-    "Port": 2323,
+    "Port": 2322,
     "IsDefault": true
   },
   {
     "Name": "ALiVE",
     "Address": "11thmeu.es",
-    "Port": 2333,
+    "Port": 2332,
+    "IsDefault": true
+  },
+  {
+    "Name": "Test",
+    "Address": "11thmeu.es",
+    "Port": 2342,
+    "IsDefault": true
+  },
+  {
+    "Name": "Vietnam",
+    "Address": "11thmeu.es",
+    "Port": 2352,
     "IsDefault": true
   }
 ]

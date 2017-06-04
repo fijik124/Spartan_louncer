@@ -8,6 +8,7 @@
         xmlns:model="clr-namespace:_11thLauncher.Model"
         xmlns:vm="clr-namespace:_11thLauncher.ViewModels"
         xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+        xmlns:util="clr-namespace:_11thLauncher.Views.Util"
         mc:Ignorable="d"
         Title="{x:Static resx:Strings.S_APP_SETTINGS}" TitleCharacterCasing="Normal" 
         Height="434" Width="691"
@@ -59,7 +60,7 @@
                            HorizontalAlignment="Left" VerticalAlignment="Top" 
                            Margin="10,190,0,0" />
                     <ComboBox x:Name="comboBox_startAction" 
-                        ItemsSource="{Binding Source={model:Enumeration {x:Type model:StartAction}}}" DisplayMemberPath="Description"
+                        ItemsSource="{Binding Source={util:Enumeration {x:Type model:StartAction}}}" DisplayMemberPath="Description"
                         HorizontalAlignment="Left" VerticalAlignment="Top" 
                         Width="174"
                         Margin="119,191,0,0" SelectedIndex="0" />
@@ -90,13 +91,13 @@
                 <Grid Width="542">
                     <Label Content="Opciones de interfaz" FontWeight="Bold" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" VerticalAlignment="Top" Width="522"/>
                     <Label Content="Tema: " HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
-                    <ComboBox ItemsSource="{Binding Source={model:Enumeration {x:Type model:ThemeStyle}}}" DisplayMemberPath="Description"
+                    <ComboBox ItemsSource="{Binding Source={util:Enumeration {x:Type model:ThemeStyle}}}" DisplayMemberPath="Description"
                               SelectedValue="{Binding SelectedTheme}" SelectedValuePath="Value"
                               HorizontalAlignment="Left" Margin="148,38,0,0" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.058,-0.808"
                               cal:Message.Attach="[Event SelectionChanged] = [Action Theme_SelectionChanged];" />
 
                     <Label Content="Estilo: " HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top"/>
-                    <ComboBox ItemsSource="{Binding Source={model:Enumeration {x:Type model:AccentColor}}}" DisplayMemberPath="Description"
+                    <ComboBox ItemsSource="{Binding Source={util:Enumeration {x:Type model:AccentColor}}}" DisplayMemberPath="Description"
                               SelectedValue="{Binding SelectedAccent}" SelectedValuePath="Value"
                               HorizontalAlignment="Left" Margin="148,68,0,0" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.058,-0.808"
                               cal:Message.Attach="[Event SelectionChanged] = [Action Accent_SelectionChanged];" />
