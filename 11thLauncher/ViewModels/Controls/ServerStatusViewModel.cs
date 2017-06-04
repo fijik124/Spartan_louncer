@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System.Threading;
+using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Model.Server;
 using _11thLauncher.Model.Settings;
@@ -9,7 +10,7 @@ namespace _11thLauncher.ViewModels.Controls
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly SettingsManager _settingsManager;
-        private BindableCollection<Model.Server.Server> _servers;
+        private BindableCollection<Server> _servers;
 
         public ServerStatusViewModel(IEventAggregator eventAggregator, SettingsManager settingsManager)
         {
@@ -17,7 +18,7 @@ namespace _11thLauncher.ViewModels.Controls
             _eventAggregator.Subscribe(this);
             _settingsManager = settingsManager;
 
-            Servers = new BindableCollection<Model.Server.Server>();
+            Servers = new BindableCollection<Server>();
         }
 
         #region Message handling
@@ -25,13 +26,18 @@ namespace _11thLauncher.ViewModels.Controls
         public void Handle(SettingsLoadedMessage message)
         {
             Servers = _settingsManager.Servers;
+            //TODO DEBUG
+            foreach (Server server in Servers)
+            {
+                new Thread(() => ServerManager.CheckServerStatus(server)).Start();
+            }
         }
 
         #endregion
 
-        public BindableCollection<Model.Server.Server> Servers
+        public BindableCollection<Server> Servers
         {
-            get { return _servers; }
+            get => _servers;
             set
             {
                 _servers = value;

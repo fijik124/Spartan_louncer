@@ -18,13 +18,9 @@
         WindowStartupLocation="CenterOwner" 
         d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel}">
     <Grid>
-        <controls:MetroTabControl 
-            HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="2,10,0,0"  
-            TabStripPlacement="Left" 
-            Height="385">
+        <controls:MetroTabControl HorizontalAlignment="Left" TabStripPlacement="Left" controls:TabControlHelper.Underlined="TabPanel">
             <TabItem Header="{x:Static resx:Strings.S_SETTINGS_GENERAL}">
-                <Grid Width="542">
+                <Grid>
                     <Label Content="{x:Static resx:Strings.S_LABEL_STARTUP_OPTIONS}" 
                            FontWeight="Bold" 
                            HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -43,7 +39,7 @@
                               Margin="10,86,0,0" />
                     <Label Content="{x:Static resx:Strings.S_LABEL_GAME_OPTIONS}"
                            HorizontalAlignment="Left" VerticalAlignment="Top"
-                           Height="23" Width="522" 
+                           Width="522" 
                            Margin="10,127,0,0"
                            FontWeight="Bold" />
                     <Label Content="{x:Static resx:Strings.S_LABEL_GAME_PATH}" 
@@ -63,7 +59,7 @@
                            HorizontalAlignment="Left" VerticalAlignment="Top" 
                            Margin="10,190,0,0" />
                     <ComboBox x:Name="comboBox_startAction" 
-                        ItemsSource="{Binding Source={model:Enumeration {x:Type model:StartAction}}}"
+                        ItemsSource="{Binding Source={model:Enumeration {x:Type model:StartAction}}}" DisplayMemberPath="Description"
                         HorizontalAlignment="Left" VerticalAlignment="Top" 
                         Width="174"
                         Margin="119,191,0,0" SelectedIndex="0" />
@@ -109,16 +105,14 @@
                         <ComboBoxItem Content="A la barra de tareas"/>
                         <ComboBoxItem Content="Al área de notificación"/>
                     </ComboBox>
-                    <Label Content="Desplegables" FontWeight="Bold" HorizontalAlignment="Left" Height="23" Margin="10,130,0,0" VerticalAlignment="Top" Width="522" />
+                    <Label Content="Desplegables" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="522" />
                     <CheckBox x:Name="checkBox_serversGroupBox" Content="Mostrar el desplegable del estado de los servidores abierto al iniciar" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" IsChecked="True"/>
                     <CheckBox x:Name="checkBox_repositoryGroupBox" Content="Mostrar el desplegable del estado del repositorio abierto al iniciar" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top" IsChecked="True"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Avanzado">
                 <Grid Width="542">
-                    <StackPanel HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" VerticalAlignment="Top" Width="522">
-                        <Label Content="Opciones avanzadas" FontWeight="Bold"/>
-                    </StackPanel>
+                    <Label Content="Opciones avanzadas" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="522"/>
                     <Label Content="Borrar configuración y perfiles:" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="button_deleteConfiguration" Content="Borrar" HorizontalAlignment="Left" Margin="182,39,0,0" VerticalAlignment="Top" Width="103" />
                     <Label Content="NOTA: Esto borrará todas tus parámetros,&#xD;&#xA;configuraciones y perfiles del launcher." HorizontalAlignment="Left" Margin="295,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-0.038" FontWeight="Medium" Width="237"/>

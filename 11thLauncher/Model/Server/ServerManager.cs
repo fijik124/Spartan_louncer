@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using Caliburn.Micro;
 using QueryMaster;
@@ -10,7 +11,6 @@ namespace _11thLauncher.Model.Server
     public class ServerManager
     {
         private readonly IEventAggregator _eventAggregator;
-        private static readonly IPAddress Address = null;
 
         public ServerManager(IEventAggregator eventAggregator)
         {
@@ -26,9 +26,9 @@ namespace _11thLauncher.Model.Server
             {
                 try
                 {
-                    QueryMaster.GameServer.Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp().ToString(), serverPort);
+                    QueryMaster.GameServer.Server server = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp(Constants.ServerUrl).ToString(), serverPort);
 
-                    ServerInfo config = server.GetInfo();
+                    QueryMaster.GameServer.ServerInfo config = server.GetInfo();
                     server.Dispose();
 
                     if (config != null)
@@ -46,29 +46,71 @@ namespace _11thLauncher.Model.Server
         /// Resolve and return the IPv4 address of 11thmeu.es
         /// </summary>
         /// <returns>IPv4 address of the server</returns>
-        private static IPAddress GetServerIp()
+        private static IPAddress GetServerIp(string url)
         {
             IPAddress address = null;
-            if (Address == null)
-            {
-                IPHostEntry ipHostInfo = Dns.GetHostEntry(Constants.ServerUrl);
+            IPHostEntry ipHostInfo = Dns.GetHostEntry(url);
 
-                //Find IPv4 address
-                foreach (IPAddress addr in ipHostInfo.AddressList)
-                {
-                    if (addr.AddressFamily == AddressFamily.InterNetwork)
-                    {
-                        address = addr;
-                    }
-                }
-            }
-            else
+            //Find IPv4 address
+            foreach (IPAddress addr in ipHostInfo.AddressList)
             {
-                //Address was resolved previously, return it directly
-                address = Address;
+                if (addr.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    address = addr;
+                }
             }
 
             return address;
+        }
+
+        public static void CheckServerStatus(Server server)
+        {
+            //TODO statusbar start
+
+            server.ServerStatus = ServerStatus.Unknown;
+            string players = "-/-"; //TODO
+
+            try
+            {
+                QueryMaster.GameServer.Server gameServer = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp(server.Address).ToString(), server.Port);
+                QueryMaster.GameServer.ServerInfo info = gameServer.GetInfo();
+                if (info != null)
+                {
+                    ServerInfo serverInfo = new ServerInfo()
+                    {
+                       Players = info.Players,
+                       MaxPlayers = info.MaxPlayers
+                    };
+
+                    //ServerInfo info = server.GetInfo();
+                    //IReadOnlyCollection<PlayerInfo> players = server.GetPlayers();
+                    //server.Dispose();
+
+                    //ServerInfo.Add(info.Name);
+                    //ServerInfo.Add(info.Description);
+                    //ServerInfo.Add(info.Ping.ToString());
+                    //ServerInfo.Add(info.Map);
+                    //ServerInfo.Add(info.Players.ToString());
+                    //ServerInfo.Add(info.MaxPlayers.ToString());
+                    //ServerInfo.Add(info.GameVersion);
+
+                    //foreach (PlayerInfo p in players)
+                    //{
+                        //ServerPlayers.Add(p.Name);
+                    //}
+
+
+                    server.ServerStatus = ServerStatus.Online;
+                    server.ServerInfo = serverInfo;
+                }
+                gameServer.Dispose();
+            }
+            catch (SocketException)
+            {
+                server.ServerStatus = ServerStatus.Offline;
+            }
+
+            //TODO update statusbar
         }
     }
 }

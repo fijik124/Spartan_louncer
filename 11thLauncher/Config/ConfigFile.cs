@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Caliburn.Micro;
 using Newtonsoft.Json;
+using _11thLauncher.Model;
+using _11thLauncher.Model.Server;
 using _11thLauncher.Model.Settings;
 
 namespace _11thLauncher.Config
@@ -13,19 +16,22 @@ namespace _11thLauncher.Config
         public ApplicationSettings ApplicationSettings;
         public Guid DefaultProfileId;
         public Dictionary<Guid, string> Profiles;
-        public BindableCollection<Model.Server.Server> Servers;
+        public BindableCollection<Server> Servers;
 
         public ConfigFile()
         {
             ApplicationSettings = new ApplicationSettings();
             DefaultProfileId = Guid.Empty;
             Profiles = new Dictionary<Guid, string>();
-            Servers = new BindableCollection<Model.Server.Server>();
+            Servers = new BindableCollection<Server>();
         }
 
-        public void ReadDefault()
+        public void LoadDefaultServers()
         {
-            JsonConvert.PopulateObject(Encoding.Default.GetString(Properties.Resources.servers), Servers);
+            //Add default servers if they are not present
+            BindableCollection<Server> defaultServers = new BindableCollection<Server>();
+            JsonConvert.PopulateObject(Encoding.Default.GetString(Properties.Resources.servers), defaultServers);
+            Servers = new BindableCollection<Server>(Servers.Union(defaultServers));
         }
 
         public void Read()
@@ -35,7 +41,8 @@ namespace _11thLauncher.Config
 
         public void Write()
         {
-            if (Directory.Exists(Constants.ConfigPath))
+            //If no config directory exists, create it
+            if (!Directory.Exists(Constants.ConfigPath))
             {
                 Directory.CreateDirectory(Constants.ConfigPath);
             }

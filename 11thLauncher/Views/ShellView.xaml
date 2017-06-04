@@ -34,7 +34,11 @@
             <Button x:Name="ButtonSettings" cal:Message.Attach="ButtonSettings" 
                     ToolTip="{x:Static resx:Strings.S_BTN_SETTINGS_TIP}" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Resources/menu_settings.png" Stretch="None" Margin="0,0,5,0"/>
+                    <Rectangle Width="20" Height="20" Margin="0,0,5,0" Fill="{DynamicResource HighlightBrush}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
                     <TextBlock Margin="0,1,0,0"><Run Text="{x:Static resx:Strings.S_BTN_SETTINGS}"/></TextBlock>
                 </StackPanel>
             </Button>
@@ -87,15 +91,19 @@
                HorizontalAlignment="Left" 
                VerticalAlignment="Top"
                Margin="527,93,0,0" />
-        <Image Source="/Resources/warning.png" 
-               ToolTip="{Binding VersionMismatchTooltip}"
-               Visibility="{Binding ShowVersionMismatch}"
-               Height="24"
-               Width="24"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top" 
-               Margin="611,95,0,0" 
-               IsHitTestVisible="True" />
+        <Rectangle ToolTip="{Binding VersionMismatchTooltip}"
+                   Visibility="{Binding ShowVersionMismatch}"
+                   Height="20"
+                   Width="20"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top" 
+                   Margin="611,95,0,0" 
+                   IsHitTestVisible="True"
+                   Fill="{DynamicResource HighlightBrush}">
+            <Rectangle.OpacityMask>
+                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_warning}" />
+            </Rectangle.OpacityMask>
+        </Rectangle>
 
         <!-- Statusbar -->
         <DockPanel Margin="0,464,0,0">

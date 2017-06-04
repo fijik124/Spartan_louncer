@@ -13,7 +13,7 @@ namespace _11thLauncher.ViewModels.Controls
         private BindableCollection<UserProfile> _profiles = new BindableCollection<UserProfile>();
         public BindableCollection<UserProfile> Profiles
         {
-            get { return _profiles; }
+            get => _profiles;
             set
             {
                 _profiles = value;

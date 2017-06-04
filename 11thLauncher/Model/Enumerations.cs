@@ -2,11 +2,8 @@
 
 namespace _11thLauncher.Model
 {
-    public enum Platform
+    public enum LaunchPlatform
     {
-        [Description("S_PLATFORM_ANY")]
-        Any,
-
         [Description("S_PLATFORM_32")]
         X86,
 
@@ -14,30 +11,24 @@ namespace _11thLauncher.Model
         X64
     }
 
-    public enum Priority
-    {
-        [Description("S_PRIORITY_NORMAL")]
-        Normal,
-
-        [Description("S_PRIORITY_ABOVENORMAL")]
-        AboveNormal,
-
-        [Description("S_PRIORITY_HIGH")]
-        High
-    }
-
     public enum LaunchOption
     {
-        [Description("S_LAUNCH_NORMAL")]
-        Normal,
+        [Description("S_LAUNCH_NORMAL")] Normal,
 
-        [Description("S_LAUNCH_JOIN_SERVER")]
-        JoinServer
+        [Description("S_LAUNCH_JOIN_SERVER")] JoinServer
     }
 
-    public enum LaunchError
+    public enum ParameterPlatform
     {
-        None, NoSteam, NoElevation, NoGamePath
+        [Description("S_PLATFORM_32")]
+        X86,
+
+        [Description("S_PLATFORM_64")]
+        X64,
+
+        [Description("S_PLATFORM_ANY")]
+        Any,
+
     }
 
     public enum ParameterType

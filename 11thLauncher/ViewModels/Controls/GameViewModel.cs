@@ -1,15 +1,11 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using Caliburn.Micro;
-using _11thLauncher.Game;
 using _11thLauncher.Messages;
 using _11thLauncher.Model;
 using _11thLauncher.Model.Addons;
 using _11thLauncher.Model.Game;
 using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Settings;
-using _11thLauncher.Properties;
-
 namespace _11thLauncher.ViewModels.Controls
 {
     public class GameViewModel : PropertyChangedBase, IHandle<LoadProfileMessage>
@@ -20,8 +16,7 @@ namespace _11thLauncher.ViewModels.Controls
         private readonly ParameterManager _parameterManager;
         private readonly SettingsManager _settingsManager;
         private LaunchOption _launchOption;
-        private Platform _platform;
-        private Priority _priority;
+        private LaunchPlatform _platform;
         private string _server;
         private string _port;
 
@@ -48,7 +43,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public LaunchOption LaunchOption
         {
-            get { return _launchOption; }
+            get => _launchOption;
             set
             {
                 _launchOption = value;
@@ -56,9 +51,9 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public Platform Platform
+        public LaunchPlatform Platform
         {
-            get { return _platform; }
+            get => _platform;
             set
             {
                 _platform = value;
@@ -66,19 +61,9 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public Priority Priority
-        {
-            get { return _priority; }
-            set
-            {
-                _priority = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
         public string Server
         {
-            get { return _server; }
+            get => _server;
             set
             {
                 _server = value;
@@ -88,7 +73,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public string Port
         {
-            get { return _port; }
+            get => _port;
             set
             {
                 _port = value;
@@ -100,27 +85,8 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void ButtonLaunch(PasswordBox passwordBox)
         {
-            var error = _launchManager.StartGame(_settingsManager.ApplicationSettings.Arma3Path, _addonManager.Addons, _parameterManager.Parameters,
-                LaunchOption, Platform, Priority, 
-                Server, Port, passwordBox.Password);
-
-            switch (error)
-            {
-                case LaunchError.NoGamePath:
-                    _eventAggregator.PublishOnUIThread(new ShowDialogMessage
-                    {
-                        Title = Resources.Strings.S_MSG_PATH_TITLE,
-                        Content = Resources.Strings.S_MSG_PATH_CONTENT
-                    });
-                    break;
-
-                case LaunchError.None:
-                    break;
-
-                default:
-                    _eventAggregator.PublishOnUIThread(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(error)), GetType().Name));
-                    break;
-            }
+            _launchManager.StartGame(_addonManager.Addons, _parameterManager.Parameters,
+                LaunchOption, Platform, Server, Port, passwordBox.Password);
         }
 
         #endregion

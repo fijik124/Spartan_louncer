@@ -40,9 +40,9 @@
                 Margin="15,302,0,0"
                 Width="30" Height="30"
                 HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Rectangle Width="10" Height="10" Fill="{DynamicResource HighlightBrush}">
+            <Rectangle Width="10" Height="10" Fill="{DynamicResource AccentColorBrush}">
                 <Rectangle.OpacityMask>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_up}" />
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_chevron_up}" />
                 </Rectangle.OpacityMask>
             </Rectangle>
         </Button>
@@ -52,9 +52,9 @@
                 Margin="60,302,0,0"
                 Width="30" Height="30"
                 HorizontalAlignment="Left"  VerticalAlignment="Top" >
-            <Rectangle Width="10" Height="10" Fill="{DynamicResource HighlightBrush}">
+            <Rectangle Width="10" Height="10" Fill="{DynamicResource AccentColorBrush}">
                 <Rectangle.OpacityMask>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_down}" />
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_chevron_down}" />
                 </Rectangle.OpacityMask>
             </Rectangle>
         </Button>
@@ -78,7 +78,7 @@
                 Width="30" Height="30"
                 Margin="130,302,0,0"
                 HorizontalAlignment="Left"  VerticalAlignment="Top" >
-            <Rectangle Width="10" Height="10" Fill="{DynamicResource HighlightBrush}">
+            <Rectangle Width="10" Height="10" Fill="{DynamicResource AccentColorBrush}">
                 <Rectangle.OpacityMask>
                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_check}" />
                 </Rectangle.OpacityMask>
@@ -90,7 +90,7 @@
                 Margin="175,302,0,0"
                 Width="30" Height="30"
                 HorizontalAlignment="Left"  VerticalAlignment="Top">
-            <Rectangle Width="10" Height="10" Fill="{DynamicResource HighlightBrush}">
+            <Rectangle Width="10" Height="10" Fill="{DynamicResource AccentColorBrush}">
                 <Rectangle.OpacityMask>
                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_close}" />
                 </Rectangle.OpacityMask>

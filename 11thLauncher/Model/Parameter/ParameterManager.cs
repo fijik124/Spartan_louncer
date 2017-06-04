@@ -19,9 +19,9 @@ namespace _11thLauncher.Model.Parameter
         public LaunchParameter EnableHt = new LaunchParameter("-enableHT", Resources.Strings.S_PARAMETER_HYPERTHREADING, Resources.Strings.S_PARAMETER_HYPERTHREADING_DESC, ParameterType.Boolean);
         public LaunchParameter HugePages = new LaunchParameter("-hugePages", Resources.Strings.S_PARAMETER_HUGE_PAGES, Resources.Strings.S_PARAMETER_HUGE_PAGES_DESC, ParameterType.Boolean);
         public LaunchParameter Malloc32 = new LaunchParameter("-malloc=", Resources.Strings.S_PARAMETER_MALLOC_32, Resources.Strings.S_PARAMETER_MALLOC_32_DESC,
-            ParameterType.Selection, Platform.X86);
+            ParameterType.Selection, ParameterPlatform.X86);
         public LaunchParameter Malloc64 = new LaunchParameter("-malloc=", Resources.Strings.S_PARAMETER_MALLOC_64, Resources.Strings.S_PARAMETER_MALLOC_64_DESC,
-            ParameterType.Selection, Platform.X64);
+            ParameterType.Selection, ParameterPlatform.X64);
         public LaunchParameter Additional = new LaunchParameter("", Resources.Strings.S_PARAMETER_ADDITIONAL, Resources.Strings.S_PARAMETER_ADDITIONAL_DESC, ParameterType.Text);
 
         public BindableCollection<LaunchParameter> Parameters;

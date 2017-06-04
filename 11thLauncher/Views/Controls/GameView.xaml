@@ -36,20 +36,22 @@
         <Label Content="{x:Static resx:Strings.S_PLATFORM}"
                HorizontalAlignment="Left" VerticalAlignment="Top" 
                Padding="0,5,5,5" Margin="227,102,0,0" />
-        <ComboBox ItemsSource="{Binding Source={model:Enumeration {x:Type m:Platform}}}" DisplayMemberPath="Description" 
+        <ComboBox ItemsSource="{Binding Source={model:Enumeration {x:Type m:LaunchPlatform}}}" DisplayMemberPath="Description" 
                   SelectedValue="{Binding Platform}" SelectedValuePath="Value"
                   ToolTip="{x:Static resx:Strings.S_PLATFORM_TIP}"
             HorizontalAlignment="Left" VerticalAlignment="Top" 
-            Width="123" Margin="292,102,0,0" />
-
-        <Label Content="{x:Static resx:Strings.S_PRIORITY}"
-               HorizontalAlignment="Left" VerticalAlignment="Top" 
-               Padding="0,5,5,5" Margin="227,145,0,0" />
-        <ComboBox ItemsSource="{Binding Source={model:Enumeration {x:Type m:Priority}}}" DisplayMemberPath="Description" 
-                  SelectedValue="{Binding Priority}" SelectedValuePath="Value"
-                  ToolTip="{x:Static resx:Strings.S_PRIORITY_TIP}"
-            HorizontalAlignment="Left"  VerticalAlignment="Top" 
-            Width="123" Margin="292,145,0,0" />
+            Width="80" Margin="282,102,0,0" />
+        <Button x:Name="ButtonSelectAll" ToolTip="Copiar al portapapeles"
+                Style="{DynamicResource MetroCircleButtonStyle}" 
+                Width="32" Height="32"
+                Margin="377,100,0,0"
+                HorizontalAlignment="Left"  VerticalAlignment="Top" >
+            <Rectangle Width="15" Height="15" Fill="{DynamicResource AccentColorBrush}">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_link}" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Button>
 
         <Label Content="{x:Static resx:Strings.S_SERVER}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="227,188,0,0" Padding="0,5,5,5"/>
         <TextBox Text="{Binding Server}" HorizontalAlignment="Left" Height="23" Width="188" Margin="227,214,0,0" VerticalAlignment="Top" />

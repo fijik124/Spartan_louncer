@@ -78,6 +78,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.3.1.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -138,7 +139,9 @@
     <Compile Include="Model\Game\LaunchManager.cs" />
     <Compile Include="Model\Parameter\LaunchParameter.cs" />
     <Compile Include="Model\Parameter\ParameterManager.cs" />
+    <Compile Include="Model\Security.cs" />
     <Compile Include="Model\Server\Server.cs" />
+    <Compile Include="Model\Server\ServerInfo.cs" />
     <Compile Include="Model\Settings\ApplicationSettings.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -277,7 +280,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Config\Default\servers.json" />
+    <None Include="Config\servers.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -293,9 +296,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\a3logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\menu_settings.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\off.png" />
@@ -317,9 +317,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\a3sEnabled.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\warning.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\game.png" />

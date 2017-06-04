@@ -17,10 +17,7 @@ namespace _11thLauncher.ViewModels.Controls
         private string _statusText;
         public string StatusText
         {
-            get
-            {
-                return _statusText;
-            }
+            get => _statusText;
             set
             {
                 _statusText = value;
@@ -31,10 +28,7 @@ namespace _11thLauncher.ViewModels.Controls
         private bool _taskRunning;
         public bool TaskRunning
         {
-            get
-            {
-                return _taskRunning;
-            }
+            get => _taskRunning;
             set
             {
                 _taskRunning = value;

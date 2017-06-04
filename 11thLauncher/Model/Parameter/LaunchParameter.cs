@@ -11,7 +11,7 @@ namespace _11thLauncher.Model.Parameter
         public string DisplayName { get; set; }
         public string Tooltip { get; set; }
         public ParameterType Type { get; set; }
-        private Platform _platform;
+        private ParameterPlatform _platform;
         [DataMember]
         public bool IsEnabled { get; set; }
         public BindableCollection<ParameterValueItem> Values { get; set; }
@@ -20,7 +20,7 @@ namespace _11thLauncher.Model.Parameter
 
         public LaunchParameter() { }
 
-        public LaunchParameter(string name, string displayName, string tooltip, ParameterType parameterType, Platform platform = Platform.Any)
+        public LaunchParameter(string name, string displayName, string tooltip, ParameterType parameterType, ParameterPlatform platform = ParameterPlatform.Any)
         {
             Name = name;
             DisplayName = displayName;
@@ -28,7 +28,7 @@ namespace _11thLauncher.Model.Parameter
             Type = parameterType;
             Platform = platform;
         }
-        public LaunchParameter(string name, string displayName, string tooltip, ParameterType parameterType, BindableCollection<ParameterValueItem> parameterValueItems, Platform platform = Platform.Any)
+        public LaunchParameter(string name, string displayName, string tooltip, ParameterType parameterType, BindableCollection<ParameterValueItem> parameterValueItems, ParameterPlatform platform = ParameterPlatform.Any)
         {
             Name = name;
             DisplayName = displayName;
@@ -45,7 +45,7 @@ namespace _11thLauncher.Model.Parameter
         [DataMember]
         public string Name
         {
-            get { return _name; }
+            get => _name;
             set
             {
                 _name = value;
@@ -57,9 +57,9 @@ namespace _11thLauncher.Model.Parameter
         /// Platform of the launch parameter.
         /// </summary>
         [DataMember]
-        public Platform Platform
+        public ParameterPlatform Platform
         {
-            get { return _platform; }
+            get => _platform;
             set
             {
                 _platform = value;

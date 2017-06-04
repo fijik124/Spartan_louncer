@@ -136,7 +136,7 @@
     <value>Opciones 11th MEU Launcher</value>
   </data>
   <data name="S_BTN_ABOUT" xml:space="preserve">
-    <value>Ayuda</value>
+    <value>Acerca de</value>
   </data>
   <data name="S_BTN_ABOUT_TIP" xml:space="preserve">
     <value>Acerca del launcher</value>

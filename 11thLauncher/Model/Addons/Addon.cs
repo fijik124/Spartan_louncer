@@ -25,7 +25,7 @@ namespace _11thLauncher.Model.Addons
         /// </summary>
         public bool IsEnabled
         {
-            get { return _isEnabled; }
+            get => _isEnabled;
             set
             {
                 _isEnabled = value;
@@ -38,7 +38,7 @@ namespace _11thLauncher.Model.Addons
         /// </summary>
         public string Name
         {
-            get { return _name; }
+            get => _name;
             set
             {
                 _name = value;

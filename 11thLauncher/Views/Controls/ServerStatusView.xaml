@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_11thLauncher.Views.Controls"
         xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
+        xmlns:m="clr-namespace:_11thLauncher.Model.Server"
+        xmlns:model="clr-namespace:_11thLauncher.Model"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:ServerStatusViewModel}" d:DesignHeight="337" d:DesignWidth="615">
     <Grid>
@@ -25,19 +27,60 @@
                 <Label x:Name="label_alivePlayers" Content="-/-" HorizontalAlignment="Left" Margin="72,61,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="41"/>
             </Grid>-->
 
-            <ListBox x:Name="Servers" d:DataContext="{Binding Servers}"
+            <ItemsControl x:Name="Servers" d:DataContext="{Binding Servers}"
                     BorderBrush="#FFCCCCCC"
                     BorderThickness="0">
-                <ListBox.ItemTemplate>
+                <ItemsControl.ItemTemplate>
                     <HierarchicalDataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="{Binding Name}" />
-                            <Image x:Name="image_coopStatus" Height="15" Width="15" Source="/Resources/unknown.png" Stretch="Fill" ToolTip="Click para comprobar el estado del servidor"/>
-                            <Label x:Name="label_coopPlayers" Content="-/-" HorizontalContentAlignment="Center"/>
+                            <Rectangle ToolTip="Rellenar información del servidor"
+                                       Height="15"
+                                       Width="15"
+                                       IsHitTestVisible="True" Margin="5,0">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_list}" />
+                                </Rectangle.OpacityMask>
+                                <Rectangle.Style>
+                                    <Style TargetType="Rectangle">
+                                        <Setter Property="Fill" Value="{DynamicResource TextBrush}" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Fill">
+                                                    <Setter.Value>
+                                                        <SolidColorBrush Color="{DynamicResource AccentColor}" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Rectangle.Style>
+                            </Rectangle>
+                            <Label Content="{Binding Name}" Width="75" />
+                            <!--<Image x:Name="image_coopStatus" Height="15" Width="15" Source="/Resources/unknown.png" Stretch="Fill" ToolTip="Click para comprobar el estado del servidor"/>-->
+                            <Rectangle x:Name="asd" ToolTip="Click para comprobar el estado del servidor"
+                                       Height="15"
+                                       Width="15"
+                                       IsHitTestVisible="True" Margin="5,0">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_layer_thick}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <Label x:Name="label_coopPlayers" Content="{Binding ServerInfo.CurrentPlayers}" HorizontalContentAlignment="Center"/>
                         </StackPanel>
+                        <HierarchicalDataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Unknown}">
+                                <Setter TargetName="asd" Property="Rectangle.Fill" Value="DarkKhaki"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Offline}">
+                                <Setter TargetName="asd" Property="Rectangle.Fill" Value="DarkRed"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Online}">
+                                <Setter TargetName="asd" Property="Rectangle.Fill" Value="DarkGreen"></Setter>
+                            </DataTrigger>
+                        </HierarchicalDataTemplate.Triggers>
                     </HierarchicalDataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Expander>
     </Grid>
 </UserControl>

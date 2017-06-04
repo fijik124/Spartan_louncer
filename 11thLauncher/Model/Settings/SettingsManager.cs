@@ -173,6 +173,7 @@ namespace _11thLauncher.Model.Settings
             {
                  configFile.Read();
             }
+            configFile.LoadDefaultServers(); //Add default servers to current config
 
             DefaultProfileId = configFile.DefaultProfileId;
 

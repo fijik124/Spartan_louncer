@@ -304,7 +304,7 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Help.
+        ///   Looks up a localized string similar to About.
         /// </summary>
         public static string S_BTN_ABOUT {
             get {

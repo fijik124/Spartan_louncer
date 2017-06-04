@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using Caliburn.Micro;
-using _11thLauncher.Model;
 using _11thLauncher.Model.Addons;
-using _11thLauncher.Properties;
 
 namespace _11thLauncher
 {
@@ -22,9 +19,8 @@ namespace _11thLauncher
         //
         // Game settings
         //
-        public static readonly string Arma3Filename32 = "arma3.exe";
-        public static readonly string Arma3Filename64 = "arma3_x64.exe";
-        public static readonly Platform DefaultPlatform = Platform.X86;
+        public static readonly string SteamProtocol = "steam";
+        public static readonly int Arma3SteamAppId = 107410;
         public static readonly string[] Arma3RegPath32 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Bohemia Interactive\\ArmA 3", "MAIN", null };
         public static readonly string[] Arma3RegPath64 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bohemia Interactive\\ArmA 3", "MAIN", null };
         public static readonly string[] SteamRegPath32 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Valve\\Steam", "InstallPath", "" };
@@ -63,7 +59,7 @@ namespace _11thLauncher
         //
         // Server Settings
         //
-        public static readonly string ServerUrl = "www.11thmeu.es";
+        public static readonly string ServerUrl = "www.11thmeu.es"; //TODO deprecate
         public static readonly ushort[] ServerPorts = { 2303, 2323, 2333 }; //Query port = server port + 1
 
         //
@@ -73,7 +69,7 @@ namespace _11thLauncher
         public static readonly string DownloadBaseUrl = "https://raw.githubusercontent.com/11thmeu/launcher/master/bin/";
         public static readonly string UpdaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
 
-        public static readonly string CurrentVersion = "210";
+        public static readonly string CurrentVersion = "300";
 
         //
         // About info

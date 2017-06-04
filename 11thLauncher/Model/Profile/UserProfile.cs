@@ -18,7 +18,7 @@ namespace _11thLauncher.Model.Profile
 
         public bool IsDefault
         {
-            get { return _isDefault; }
+            get => _isDefault;
             set
             {
                 _isDefault = value;

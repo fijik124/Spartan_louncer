@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Messages;
@@ -82,7 +81,7 @@ namespace _11thLauncher.ViewModels
 
         public WindowState WindowState
         {
-            get { return _windowState; }
+            get => _windowState;
             set
             {
                 _windowState = value;
@@ -105,7 +104,7 @@ namespace _11thLauncher.ViewModels
 
         public Visibility ShowTrayIcon
         {
-            get { return _showTrayIcon; }
+            get => _showTrayIcon;
             set
             {
                 _showTrayIcon = value;
@@ -115,7 +114,7 @@ namespace _11thLauncher.ViewModels
 
         public bool ShowInTaskbar
         {
-            get { return _showInTaskbar; }
+            get => _showInTaskbar;
             set
             {
                 _showInTaskbar = value;
@@ -125,7 +124,7 @@ namespace _11thLauncher.ViewModels
 
         public string GameVersion
         {
-            get { return _gameVersion; }
+            get => _gameVersion;
 
             set
             {
@@ -136,7 +135,7 @@ namespace _11thLauncher.ViewModels
 
         public Visibility ShowVersionMismatch
         {
-            get { return _showVersionMismatch; }
+            get => _showVersionMismatch;
             set
             {
                 _showVersionMismatch = value;
@@ -146,7 +145,7 @@ namespace _11thLauncher.ViewModels
 
         public string VersionMismatchTooltip
         {
-            get { return _versionMismatchTooltip; }
+            get => _versionMismatchTooltip;
             set
             {
                 _versionMismatchTooltip = value;
@@ -189,12 +188,14 @@ namespace _11thLauncher.ViewModels
 
                 //Create default profile
                 UserProfile defaultProfile = new UserProfile(Resources.Strings.S_DEFAULT_PROFILE_NAME, true);
-                _profileManager.WriteProfile(defaultProfile, _addonManager.Addons, _parameterManager.Parameters, _launchManager.GameConfig);
                 _settingsManager.UserProfiles.Add(defaultProfile);
                 _settingsManager.DefaultProfileId = defaultProfile.Id;
 
-                //Update default settings
+                //Save default settings
                 _settingsManager.Write();
+
+                //Save default profile
+                _profileManager.WriteProfile(defaultProfile, _addonManager.Addons, _parameterManager.Parameters, _launchManager.GameConfig);
             }
             _eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
 
@@ -219,8 +220,7 @@ namespace _11thLauncher.ViewModels
             new Thread(_serverManager.GetServerVersion).Start();
         }
 
-        private void CurrentDomainOnUnhandledException(object sender,
-            UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
         {
             _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_GENERIC_DOMAIN_EXCEPTION,
                 unhandledExceptionEventArgs.ExceptionObject.ToString());

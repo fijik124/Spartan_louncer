@@ -14,7 +14,7 @@ namespace _11thLauncher.ViewModels.Controls
         private BindableCollection<LaunchParameter> _parameters;
         public BindableCollection<LaunchParameter> Parameters
         {
-            get { return _parameters; }
+            get => _parameters;
             set
             {
                 _parameters = value;

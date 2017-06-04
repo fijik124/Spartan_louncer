@@ -124,7 +124,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public BindableCollection<Preset> Presets
         {
-            get { return _presets; }
+            get => _presets;
             set
             {
                 _presets = value;
@@ -134,7 +134,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public Preset SelectedPreset
         {
-            get { return _selectedPreset; }
+            get => _selectedPreset;
             set
             {
                 if (!Equals(_selectedPreset, value))
@@ -147,7 +147,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public BindableCollection<Addon> Addons
         {
-            get { return _addons; }
+            get => _addons;
             set
             {
                 _addons = value;
@@ -157,7 +157,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public Addon SelectedAddon
         {
-            get { return _selectedAddon; }
+            get => _selectedAddon;
             set
             {
                 if (!Equals(_selectedAddon, value))

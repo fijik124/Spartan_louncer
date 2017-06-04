@@ -22,7 +22,7 @@ namespace _11thLauncher.ViewModels.Controls
         private BindableCollection<UserProfile> _profiles = new BindableCollection<UserProfile>();
         public BindableCollection<UserProfile> Profiles
         {
-            get { return _profiles; }
+            get => _profiles;
             set
             {
                 _profiles = value;
@@ -33,7 +33,7 @@ namespace _11thLauncher.ViewModels.Controls
         private UserProfile _selectedProfile;
         public UserProfile SelectedProfile
         {
-            get { return _selectedProfile; }
+            get => _selectedProfile;
             set
             {
                 if (!Equals(_selectedProfile, value))
