@@ -2,33 +2,40 @@
 using System.IO;
 using System.Linq;
 using Caliburn.Micro;
+using _11thLauncher.Model.Addons;
 
-namespace _11thLauncher.Model.Addons
+namespace _11thLauncher.Services
 {
-    public class AddonManager
+    public class AddonService : IAddonService
     {
-        public BindableCollection<Addon> Addons;
+        private readonly BindableCollection<Addon> _addons;
 
-        /// <summary>
-        /// Read the addons from the game path
-        /// </summary>
+        public AddonService()
+        {
+            _addons = new BindableCollection<Addon>();
+        }
+
+        public BindableCollection<Addon> GetAddons()
+        {
+            return _addons;
+        }
+
         public BindableCollection<Addon> ReadAddons(string arma3Path)
         {
-            Addons = new BindableCollection<Addon>();
-
             if (arma3Path == "") return null;
 
             string[] directories = Directory.GetDirectories(arma3Path, Constants.AddonSubfolderName, SearchOption.AllDirectories);
             foreach (string directory in directories)
             {
                 if (Constants.VanillaAddons.Contains(Directory.GetParent(directory).Name.ToLower())) continue;
+                if (Directory.GetFiles(directory, Constants.AddonFilePattern).Length == 0) continue;
                 int pathindex = directory.IndexOf(arma3Path, StringComparison.Ordinal) + arma3Path.Length + 1;
                 string addonName = directory.Substring(pathindex, (directory.Length - pathindex) - (Constants.AddonSubfolderName.Length + 1));
 
-                Addons.Add(new Addon(addonName));
+                _addons.Add(new Addon(addonName));
             }
 
-            return Addons;
+            return _addons;
         }
     }
 }

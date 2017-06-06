@@ -84,10 +84,10 @@ namespace _11thLauncher
             }
 
             //Check servers status
-            if (Settings.CheckServers)
-            {
-                new Thread(Servers.CheckServers).Start();
-            }
+            //if (Settings.CheckServers)
+            //{
+                //new Thread(Servers.CheckServers).Start();
+            //}
 
             //Check for updates
             if (Settings.CheckUpdates)
@@ -196,34 +196,6 @@ namespace _11thLauncher
             //Clipboard.SetText(StartArmA3(multiplayer, false, headless));
         }
 
-        private void image_coopStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //image_coopStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
-            //image_coopStatus.ToolTip = "Comprobando estado";
-            //label_coopPlayers.Content = "-/-";
-            //new Thread(Servers.CheckServer).Start(0);
-        }
-
-        private void image_academyStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //image_academyStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
-            //image_academyStatus.ToolTip = "Comprobando estado";
-            //label_academyPlayers.Content = "-/-";
-            new Thread(Servers.CheckServer).Start(1);
-        }
-
-        private void image_aliveStatus_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //image_aliveStatus.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/unknown.png"));
-            //image_aliveStatus.ToolTip = "Comprobando estado";
-            //label_alivePlayers.Content = "-/-";
-            new Thread(Servers.CheckServer).Start(2);
-        }
-
-
-
-
-
         private void image_arma3Sync_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Repository.JavaVersion != "" && Settings.Arma3SyncPath != "")
@@ -255,7 +227,7 @@ namespace _11thLauncher
 
             button_checkStatus.IsEnabled = false;
 
-            new Thread(Servers.QueryServerInfo).Start(selectedIndex);
+            //new Thread(Servers.QueryServerInfo).Start(selectedIndex);
         }
 
         private void checkBox_maxMemory_Checked(object sender, RoutedEventArgs e)
@@ -906,32 +878,32 @@ namespace _11thLauncher
         private void UpdateServerInfo(int index, bool exception)
         {
 
-            textBox_serverName.Text = "";
-            textBox_serverMission.Text = "";
-            textBox_serverPing.Text = "";
-            textBox_serverMap.Text = "";
-            textBox_serverPlayers.Text = "";
-            textBox_serverVersion.Text = "";
-            listBox_serverPlayers.Items.Clear();
+            //textBox_serverName.Text = "";
+            //textBox_serverMission.Text = "";
+            //textBox_serverPing.Text = "";
+            //textBox_serverMap.Text = "";
+            //textBox_serverPlayers.Text = "";
+            //textBox_serverVersion.Text = "";
+            //listBox_serverPlayers.Items.Clear();
 
-            textBox_serverName.Text = Servers.ServerInfo[0];
-            textBox_serverMission.Text = Servers.ServerInfo[1];
-            textBox_serverPing.Text = Servers.ServerInfo[2];
-            textBox_serverMap.Text = Servers.ServerInfo[3];
-            textBox_serverPlayers.Text = Servers.ServerInfo[4] + "/" + Servers.ServerInfo[5];
-            textBox_serverVersion.Text = Servers.ServerInfo[6];
-            foreach (string player in Servers.ServerPlayers)
-            {
-                listBox_serverPlayers.Items.Add(player);
-            }
+            //textBox_serverName.Text = Servers.ServerInfo[0];
+            //textBox_serverMission.Text = Servers.ServerInfo[1];
+            //textBox_serverPing.Text = Servers.ServerInfo[2];
+            //textBox_serverMap.Text = Servers.ServerInfo[3];
+            //textBox_serverPlayers.Text = Servers.ServerInfo[4] + "/" + Servers.ServerInfo[5];
+            //textBox_serverVersion.Text = Servers.ServerInfo[6];
+            //foreach (string player in Servers.ServerPlayers)
+            //{
+                //listBox_serverPlayers.Items.Add(player);
+            //}
 
-            button_checkStatus.IsEnabled = true;
-            UpdateStatusBar();
+            //button_checkStatus.IsEnabled = true;
+            //UpdateStatusBar();
 
-            if (exception)
-            {
-                this.ShowMessageAsync("Error", "Error de comunicación con el servidor");
-            }
+            //if (exception)
+            //{
+                //this.ShowMessageAsync("Error", "Error de comunicación con el servidor");
+            //}
         }
 
         /// <summary>

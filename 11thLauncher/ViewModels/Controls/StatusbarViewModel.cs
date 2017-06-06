@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Model;
@@ -8,7 +10,7 @@ namespace _11thLauncher.ViewModels.Controls
     public class StatusbarViewModel : PropertyChangedBase, IHandle<UpdateStatusBarMessage>
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly Dictionary<AsyncAction, int> _actions = new Dictionary<AsyncAction, int>();
+        private readonly Dictionary<AsyncAction, int> _actions;
         private string _statusText = Resources.Strings.S_STATUS_READY;
         private bool _taskRunning;
 
@@ -16,6 +18,11 @@ namespace _11thLauncher.ViewModels.Controls
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
+            _actions = new Dictionary<AsyncAction, int>();
+            foreach (AsyncAction type in Enum.GetValues(typeof(AsyncAction)))
+            {
+                _actions[type] = 0;
+            }
         }
 
         public string StatusText
@@ -44,14 +51,7 @@ namespace _11thLauncher.ViewModels.Controls
         {
             if (message.IsRunning)
             {
-                if (_actions.ContainsKey(message.Action))
-                {
-                    _actions[message.Action]++;
-                }
-                else
-                {
-                    _actions[message.Action] = 1;
-                }
+                _actions[message.Action]++;
             }
             else
             {
@@ -60,13 +60,13 @@ namespace _11thLauncher.ViewModels.Controls
 
             bool running = false;
             var statusText = "";
-            foreach (KeyValuePair<AsyncAction, int> actionStatus in _actions)
+            foreach (KeyValuePair<AsyncAction, int> asyncAction in _actions)
             {
-                if (actionStatus.Value == 0) continue;
+                if (asyncAction.Value == 0) continue;
                 running = true;
 
-                statusText += actionStatus.Key.GetDescription() +
-                              (actionStatus.Value > 1 ? " (x" + actionStatus.Value + ")" : "") + 
+                statusText += asyncAction.Key.GetDescription() +
+                              (asyncAction.Value > 1 ? " (x" + asyncAction.Value + ")" : "") + 
                               ", ";
             }
 

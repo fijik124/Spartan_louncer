@@ -4,6 +4,7 @@ using _11thLauncher.Messages;
 using _11thLauncher.Model;
 using _11thLauncher.Model.Server;
 using _11thLauncher.Model.Settings;
+using _11thLauncher.Services;
 
 namespace _11thLauncher.ViewModels.Controls
 {
@@ -11,15 +12,15 @@ namespace _11thLauncher.ViewModels.Controls
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly SettingsManager _settingsManager;
-        private readonly ServerManager _serverManager;
+        private readonly IServerQueryService _serverQueryService;
         private BindableCollection<Server> _servers;
 
-        public ServerStatusViewModel(IEventAggregator eventAggregator, SettingsManager settingsManager, ServerManager serverManager)
+        public ServerStatusViewModel(IEventAggregator eventAggregator, SettingsManager settingsManager, IServerQueryService serverQueryService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
             _settingsManager = settingsManager;
-            _serverManager = serverManager;
+            _serverQueryService = serverQueryService;
 
             Servers = new BindableCollection<Server>();
         }
@@ -29,11 +30,10 @@ namespace _11thLauncher.ViewModels.Controls
         public void Handle(SettingsLoadedMessage message)
         {
             Servers = _settingsManager.Servers;
-            //TODO DEBUG
-            //foreach (Server server in Servers)
-            //{
-                //new Thread(() => ServerManager.CheckServerStatus(server)).Start();
-            //}
+            foreach (Server server in Servers)
+            {
+                CheckServerStatus(server);
+            }
         }
 
         #endregion
@@ -44,7 +44,12 @@ namespace _11thLauncher.ViewModels.Controls
         {
             if (server.ServerStatus != ServerStatus.Checking)
             {
-                new Thread(() => _serverManager.CheckServerStatus(server)).Start();
+                new Thread(() =>
+                {
+                    _eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, true));
+                    _serverQueryService.CheckServerStatus(server);
+                    _eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, false));
+                }).Start();
             }
         }
 

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
-using _11thLauncher.Model.Addons;
 using _11thLauncher.Model.Game;
 using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Profile;
-using _11thLauncher.Model.Server;
 using _11thLauncher.Model.Settings;
+using _11thLauncher.Services;
 using _11thLauncher.ViewModels;
+using _11thLauncher.ViewModels.Controls;
 
 namespace _11thLauncher
 {
@@ -24,18 +24,29 @@ namespace _11thLauncher
 
         protected override void Configure()
         {
+            //Application managers
             _container.Singleton<IWindowManager, WindowManager>();
             _container.Singleton<IEventAggregator, EventAggregator>();
             _container.Singleton<IDialogCoordinator, DialogCoordinator>();
 
-            _container.PerRequest<ShellViewModel>();
+            //ViewModels
+            _container.Singleton<ShellViewModel>();
+            _container.Singleton<ProfileSelectorViewModel>();
+            _container.Singleton<AddonsViewModel>();
+            _container.Singleton<ParametersViewModel>();
+            _container.Singleton<GameViewModel>();
+            _container.Singleton<ServerStatusViewModel>();
+            _container.Singleton<StatusbarViewModel>();
+
+            //TODO
             _container.Singleton<SettingsManager>();
             _container.Singleton<ProfileManager>();
-            _container.Singleton<AddonManager>();
             _container.Singleton<ParameterManager>();
             _container.Singleton<LaunchManager>();
 
-            _container.Singleton<ServerManager>();
+            //Services
+            _container.Singleton<IServerQueryService, ServerQueryService>();
+            _container.Singleton<IAddonService, AddonService>();
         }
 
         protected override object GetInstance(Type service, string key)

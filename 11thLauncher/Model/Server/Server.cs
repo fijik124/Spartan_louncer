@@ -87,12 +87,12 @@ namespace _11thLauncher.Model.Server
         {
             var item = obj as Server;
 
-            return item != null && Name.Equals(item.Name);
+            return item != null && Name.Equals(item.Name) && Address.Equals(item.Address) && Port.Equals(item.Port);
         }
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode();
+            return Name.GetHashCode() * Address.GetHashCode() * Port.GetHashCode();
         }
     }
 }

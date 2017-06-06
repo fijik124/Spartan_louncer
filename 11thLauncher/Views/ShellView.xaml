@@ -68,10 +68,10 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Servidores" HeaderTemplate="{StaticResource TabTitle}">
-       
+
             </TabItem>
             <TabItem Header="Perfiles" HeaderTemplate="{StaticResource TabTitle}">
-                
+
             </TabItem>
         </controls:MetroAnimatedSingleRowTabControl>
 
@@ -80,24 +80,24 @@
 
         <!-- Logo & version -->
         <Image Source="{Binding LogoImage}" 
-               Height="140" 
-               Width="365" 
+               Height="106" 
+               Width="279" 
                HorizontalAlignment="Left" 
                VerticalAlignment="Top" 
-               Margin="273,-10,0,0" 
+               Margin="334,0,0,0" 
                IsHitTestVisible="False" />
         <Label Content="{Binding GameVersion}" 
                FontWeight="Bold"
                HorizontalAlignment="Left" 
                VerticalAlignment="Top"
-               Margin="527,93,0,0" />
+               Margin="524,75,0,0" />
         <Rectangle ToolTip="{Binding VersionMismatchTooltip}"
                    Visibility="{Binding ShowVersionMismatch}"
                    Height="20"
                    Width="20"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top" 
-                   Margin="611,95,0,0" 
+                   Margin="608,77,0,0" 
                    IsHitTestVisible="True"
                    Fill="{DynamicResource HighlightBrush}">
             <Rectangle.OpacityMask>

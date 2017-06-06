@@ -2,17 +2,18 @@
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Model;
-using _11thLauncher.Model.Addons;
 using _11thLauncher.Model.Game;
 using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Settings;
+using _11thLauncher.Services;
+
 namespace _11thLauncher.ViewModels.Controls
 {
     public class GameViewModel : PropertyChangedBase, IHandle<LoadProfileMessage>, IHandle<FillServerInfoMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly LaunchManager _launchManager;
-        private readonly AddonManager _addonManager;
+        private readonly IAddonService _addonService;
         private readonly ParameterManager _parameterManager;
         private readonly SettingsManager _settingsManager;
         private LaunchOption _launchOption;
@@ -21,13 +22,13 @@ namespace _11thLauncher.ViewModels.Controls
         private string _port;
 
         public GameViewModel(IEventAggregator eventAggregator, LaunchManager launchManager, 
-            AddonManager addonManager, ParameterManager parameterManager, SettingsManager settingsManager)
+            IAddonService addonService, ParameterManager parameterManager, SettingsManager settingsManager)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
 
             _launchManager = launchManager;
-            _addonManager = addonManager;
+            _addonService = addonService;
             _parameterManager = parameterManager;
             _settingsManager = settingsManager;
         }
@@ -92,7 +93,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void ButtonLaunch(PasswordBox passwordBox)
         {
-            _launchManager.StartGame(_addonManager.Addons, _parameterManager.Parameters,
+            _launchManager.StartGame(_addonService.GetAddons(), _parameterManager.Parameters,
                 LaunchOption, Platform, Server, Port, passwordBox.Password);
         }
 

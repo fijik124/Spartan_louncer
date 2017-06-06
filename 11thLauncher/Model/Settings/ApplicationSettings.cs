@@ -14,9 +14,6 @@
         public string Arma3SyncRepository = "";
         public bool StartClose = false;
         public bool StartMinimize = false;
-        public bool CheckUpdates = true;
-        public bool CheckServers = true;
-        public bool CheckRepository = false;
         public bool ServersGroupBox = true;
         public bool RepositoryGroupBox = true;
     }

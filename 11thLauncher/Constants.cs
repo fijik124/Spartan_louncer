@@ -26,8 +26,13 @@ namespace _11thLauncher
         public static readonly string[] SteamRegPath32 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Valve\\Steam", "InstallPath", "" };
         public static readonly string[] SteamRegPath64 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam", "InstallPath", ""};
         public static readonly string DefaultArma3SteamPath = "SteamApps\\common\\ArmA 3";
+
+        //
+        // Addon Service
+        //
         public static readonly string[] VanillaAddons = { "arma 3", "expansion", "curator", "kart", "heli", "mark", "jets", "orange", "argo", "tacops", "tanks", "dlcbundle" };
         public static readonly string AddonSubfolderName = "addons";
+        public static readonly string AddonFilePattern = "*.?bo";
 
         // 
         // 11th MEU addon presets
@@ -55,12 +60,6 @@ namespace _11thLauncher
         // Repository Settings
         //
         public static readonly string A3SdsPath = Path.Combine(Path.GetTempPath(), "A3SDS.jar");
-
-        //
-        // Server Settings
-        //
-        public static readonly string ServerUrl = "www.11thmeu.es"; //TODO deprecate
-        public static readonly ushort[] ServerPorts = { 2303, 2323, 2333 }; //Query port = server port + 1
 
         //
         // Updater Settings

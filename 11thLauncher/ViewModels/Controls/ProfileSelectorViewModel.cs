@@ -8,13 +8,14 @@ using _11thLauncher.Model.Addons;
 using _11thLauncher.Model.Game;
 using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Profile;
+using _11thLauncher.Services;
 
 namespace _11thLauncher.ViewModels.Controls
 {
     public class ProfileSelectorViewModel : PropertyChangedBase, IHandle<ProfilesMessage>, IHandle<ProfileMessage>
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly AddonManager _addonManager;
+        private readonly IAddonService _addonService;
         private readonly ProfileManager _profileManager;
         private readonly ParameterManager _parameterManager;
         private readonly LaunchManager _launchManager;
@@ -44,13 +45,13 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public ProfileSelectorViewModel(IEventAggregator eventAggregator, AddonManager addonManager, 
+        public ProfileSelectorViewModel(IEventAggregator eventAggregator, IAddonService addonService, 
             ProfileManager profileManager, ParameterManager parameterManager, LaunchManager launchManager)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
 
-            _addonManager = addonManager;
+            _addonService = addonService;
             _profileManager = profileManager;
             _parameterManager = parameterManager;
             _launchManager = launchManager;
@@ -89,7 +90,7 @@ namespace _11thLauncher.ViewModels.Controls
                 case ProfileAction.Loaded:
                     break;
                 case ProfileAction.Updated:
-                    _profileManager.WriteProfile(SelectedProfile, _addonManager.Addons, _parameterManager.Parameters, _launchManager.GameConfig);
+                    _profileManager.WriteProfile(SelectedProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launchManager.GameConfig);
                     break;
                 default:
                     _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message.Action)), GetType().Name));

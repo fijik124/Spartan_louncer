@@ -129,11 +129,13 @@
     <Compile Include="Messages\ThemeChangedMessage.cs" />
     <Compile Include="Messages\UpdateStatusBarMessage.cs" />
     <Compile Include="Model\Addons\Addon.cs" />
-    <Compile Include="Model\Addons\AddonManager.cs" />
     <Compile Include="Model\Addons\Preset.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="LauncherBootstraper.cs" />
     <Compile Include="Model\ExtensionMethods.cs" />
+    <Compile Include="Services\AddonService.cs" />
+    <Compile Include="Services\IAddonService.cs" />
+    <Compile Include="Services\ServerQueryService.cs" />
     <Compile Include="Views\Util\EnumerationExtension.cs" />
     <Compile Include="Model\Enumerations.cs" />
     <Compile Include="Model\ExceptionMessage.cs" />
@@ -169,8 +171,6 @@
     <Compile Include="Model\Parameter\ParameterValueItem.cs" />
     <Compile Include="Model\Profile\UserProfile.cs" />
     <Compile Include="Model\Profile\ProfileManager.cs" />
-    <Compile Include="Model\Server\ServerManager.cs" />
-    <Compile Include="Messages\ServerVersionMessage.cs" />
     <Compile Include="Model\Settings\SettingsManager.cs" />
     <Compile Include="Processes\Util.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -266,7 +266,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Net\Repository.cs" />
-    <Compile Include="Net\Servers.cs" />
     <Compile Include="Net\Updater.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -316,6 +315,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\a3logo_inverted.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\IServerQueryService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
