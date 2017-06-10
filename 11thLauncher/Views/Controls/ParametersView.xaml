@@ -84,7 +84,6 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid>
-        <ListBox x:Name="Parameters" Margin="0,10,0,0"  ItemTemplateSelector="{StaticResource ParameterTemplateSelector}"/>
-    </Grid>
+    <ListBox x:Name="Parameters" Margin="0,10,0,0"  ItemTemplateSelector="{StaticResource ParameterTemplateSelector}"/>
+
 </UserControl>

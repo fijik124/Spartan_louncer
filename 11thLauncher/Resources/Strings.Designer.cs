@@ -349,11 +349,29 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check server status.
+        /// </summary>
+        public static string S_BTN_CHECK_SERVER_STATUS {
+            get {
+                return ResourceManager.GetString("S_BTN_CHECK_SERVER_STATUS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Click to check server status.
         /// </summary>
         public static string S_BTN_CHECK_SERVER_STATUS_TIP {
             get {
                 return ResourceManager.GetString("S_BTN_CHECK_SERVER_STATUS_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string S_BTN_GAME_PATH {
+            get {
+                return ResourceManager.GetString("S_BTN_GAME_PATH", resourceCulture);
             }
         }
         
@@ -372,15 +390,6 @@ namespace _11thLauncher.Resources {
         public static string S_BTN_SETTINGS_TIP {
             get {
                 return ResourceManager.GetString("S_BTN_SETTINGS_TIP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select.
-        /// </summary>
-        public static string S_BUTTON_GAME_PATH {
-            get {
-                return ResourceManager.GetString("S_BUTTON_GAME_PATH", resourceCulture);
             }
         }
         
@@ -471,6 +480,69 @@ namespace _11thLauncher.Resources {
         public static string S_LABEL_LICENSE {
             get {
                 return ResourceManager.GetString("S_LABEL_LICENSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server:.
+        /// </summary>
+        public static string S_LABEL_SERVER {
+            get {
+                return ResourceManager.GetString("S_LABEL_SERVER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map:.
+        /// </summary>
+        public static string S_LABEL_SERVER_MAP {
+            get {
+                return ResourceManager.GetString("S_LABEL_SERVER_MAP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mission:.
+        /// </summary>
+        public static string S_LABEL_SERVER_MISSION {
+            get {
+                return ResourceManager.GetString("S_LABEL_SERVER_MISSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name:.
+        /// </summary>
+        public static string S_LABEL_SERVER_NAME {
+            get {
+                return ResourceManager.GetString("S_LABEL_SERVER_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ping:.
+        /// </summary>
+        public static string S_LABEL_SERVER_PING {
+            get {
+                return ResourceManager.GetString("S_LABEL_SERVER_PING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Players:.
+        /// </summary>
+        public static string S_LABEL_SERVER_PLAYERS {
+            get {
+                return ResourceManager.GetString("S_LABEL_SERVER_PLAYERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version:.
+        /// </summary>
+        public static string S_LABEL_SERVER_VERSION {
+            get {
+                return ResourceManager.GetString("S_LABEL_SERVER_VERSION", resourceCulture);
             }
         }
         
@@ -966,6 +1038,15 @@ namespace _11thLauncher.Resources {
         public static string S_SERVER {
             get {
                 return ResourceManager.GetString("S_SERVER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Servers.
+        /// </summary>
+        public static string S_SERVERS {
+            get {
+                return ResourceManager.GetString("S_SERVERS", resourceCulture);
             }
         }
         

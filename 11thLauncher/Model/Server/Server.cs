@@ -9,6 +9,7 @@ namespace _11thLauncher.Model.Server
         private string _address;
         private ushort _port;
         private bool _isDefault;
+        private bool _isEnabled;
         private ServerStatus _serverStatus = ServerStatus.Unknown;
         private ServerInfo _serverInfo;
 
@@ -58,6 +59,20 @@ namespace _11thLauncher.Model.Server
             set
             {
                 _isDefault = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Indicates if this server is enabled to be shown on the UI.
+        /// </summary>
+        [JsonProperty]
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                _isEnabled = value;
                 NotifyOfPropertyChange();
             }
         }

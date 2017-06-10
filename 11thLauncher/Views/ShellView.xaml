@@ -67,8 +67,11 @@
                     <ContentControl x:Name="Parameters" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Servidores" HeaderTemplate="{StaticResource TabTitle}">
-
+            <TabItem Header="{x:Static resx:Strings.S_SERVERS}" HeaderTemplate="{StaticResource TabTitle}">
+                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
+                    <!-- Server query -->
+                    <ContentControl x:Name="ServerQuery" />
+                </Grid>
             </TabItem>
             <TabItem Header="Perfiles" HeaderTemplate="{StaticResource TabTitle}">
 

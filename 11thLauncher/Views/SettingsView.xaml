@@ -36,7 +36,7 @@
                              Height="23" Width="308" 
                              Margin="119,34,0,0" />
                     <Button x:Name="SelectGamePath" 
-                            Content="{x:Static resx:Strings.S_BUTTON_GAME_PATH}"
+                            Content="{x:Static resx:Strings.S_BTN_GAME_PATH}"
                             HorizontalAlignment="Left" VerticalAlignment="Top" 
                             Width="100" 
                             Margin="432,34,0,0"  />

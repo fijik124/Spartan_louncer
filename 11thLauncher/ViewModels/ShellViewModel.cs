@@ -54,12 +54,13 @@ namespace _11thLauncher.ViewModels
             _launchManager = launchManager;
             _profileManager = profileManager;
 
+            Statusbar = IoC.Get<StatusbarViewModel>();
             ProfileSelector = IoC.Get<ProfileSelectorViewModel>();
             Addons = IoC.Get<AddonsViewModel>();
-            Parameters = IoC.Get<ParametersViewModel>();
             Game = IoC.Get<GameViewModel>();
             ServerStatus = IoC.Get<ServerStatusViewModel>();
-            Statusbar = IoC.Get<StatusbarViewModel>();
+            Parameters = IoC.Get<ParametersViewModel>();
+            ServerQuery = IoC.Get<ServerQueryViewModel>();
 
             //Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("es-ES"); TODO this
             Init();
@@ -67,17 +68,21 @@ namespace _11thLauncher.ViewModels
 
         #region Properties
 
+        public StatusbarViewModel Statusbar { get; set; }
+
         public ProfileSelectorViewModel ProfileSelector { get; set; }
 
         public AddonsViewModel Addons { get; set; }
-
-        public ParametersViewModel Parameters { get; set; }
 
         public GameViewModel Game { get; set; }
 
         public ServerStatusViewModel ServerStatus { get; set; }
 
-        public StatusbarViewModel Statusbar { get; set; }
+        public ParametersViewModel Parameters { get; set; }
+
+        public ServerQueryViewModel ServerQuery { get; set; }
+
+
 
         public WindowState WindowState
         {

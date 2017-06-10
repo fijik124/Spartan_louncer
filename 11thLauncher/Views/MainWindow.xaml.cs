@@ -214,18 +214,18 @@ namespace _11thLauncher
 
         private void button_checkStatus_Click(object sender, RoutedEventArgs e)
         {
-            int selectedIndex = comboBox_server.SelectedIndex;
-            if (selectedIndex == -1) return;
+            //int selectedIndex = comboBox_server.SelectedIndex;
+            //if (selectedIndex == -1) return;
 
-            textBox_serverName.Text = "";
-            textBox_serverMission.Text = "";
-            textBox_serverPing.Text = "";
-            textBox_serverMap.Text = "";
-            textBox_serverPlayers.Text = "";
-            textBox_serverVersion.Text = "";
-            listBox_serverPlayers.Items.Clear();
+            //textBox_serverName.Text = "";
+            //textBox_serverMission.Text = "";
+            //textBox_serverPing.Text = "";
+            //textBox_serverMap.Text = "";
+            //textBox_serverPlayers.Text = "";
+            //textBox_serverVersion.Text = "";
+            //listBox_serverPlayers.Items.Clear();
 
-            button_checkStatus.IsEnabled = false;
+            //button_checkStatus.IsEnabled = false;
 
             //new Thread(Servers.QueryServerInfo).Start(selectedIndex);
         }

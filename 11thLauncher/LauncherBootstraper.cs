@@ -31,12 +31,13 @@ namespace _11thLauncher
 
             //ViewModels
             _container.Singleton<ShellViewModel>();
+            _container.Singleton<StatusbarViewModel>();
             _container.Singleton<ProfileSelectorViewModel>();
             _container.Singleton<AddonsViewModel>();
-            _container.Singleton<ParametersViewModel>();
             _container.Singleton<GameViewModel>();
             _container.Singleton<ServerStatusViewModel>();
-            _container.Singleton<StatusbarViewModel>();
+            _container.Singleton<ParametersViewModel>();
+            _container.Singleton<ServerQueryViewModel>();
 
             //TODO
             _container.Singleton<SettingsManager>();

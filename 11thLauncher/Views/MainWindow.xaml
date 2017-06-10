@@ -84,28 +84,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Servidores" HeaderTemplate="{StaticResource tabTitle}" >
-                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
-                    <Label Content="Servidor:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <ComboBox x:Name="comboBox_server" HorizontalAlignment="Left" Margin="71,10,0,0" VerticalAlignment="Top" Width="250">
-                        <ComboBoxItem Content="Cooperativo"/>
-                        <ComboBoxItem Content="Academia"/>
-                        <ComboBoxItem Content="ALiVE"/>
-                    </ComboBox>
-                    <Button x:Name="button_checkStatus" Content="Mostrar/Actualizar estado" HorizontalAlignment="Left" Margin="350,10,0,0" VerticalAlignment="Top" Width="255" Height="26" Click="button_checkStatus_Click"/>
-                    <Label Content="Nombre:" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox_serverName" HorizontalAlignment="Left" Height="23" Margin="71,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="534" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE"/>
-                    <Label Content="Misión:" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox_serverMission" HorizontalAlignment="Left" Height="23" Margin="71,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE"/>
-                    <Label Content="Mapa:" HorizontalAlignment="Left" Margin="10,183,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox_serverMap" HorizontalAlignment="Left" Height="23" Margin="71,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE"/>
-                    <Label Content="Ping:" HorizontalAlignment="Left" Margin="10,240,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox_serverPing" HorizontalAlignment="Left" Height="23" Margin="71,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE"/>
-                    <Label Content="Versión:" HorizontalAlignment="Left" Margin="10,296,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox_serverVersion" HorizontalAlignment="Left" Height="23" Margin="71,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE"/>
-                    <Label Content="Jugadores:" HorizontalAlignment="Left" Margin="326,84,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox_serverPlayers" HorizontalAlignment="Left" Height="23" Margin="397,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FFEEEEEE" TextAlignment="Center"/>
-                    <ListBox x:Name="listBox_serverPlayers" HorizontalAlignment="Left" Height="211" Margin="397,116,0,0" VerticalAlignment="Top" Width="208" Background="#FFEEEEEE" BorderBrush="#FFCCCCCC" BorderThickness="1"/>
-                </Grid>
+
             </TabItem>
             <TabItem Header="Parámetros" HeaderTemplate="{StaticResource tabTitle}" >
                 <ScrollViewer Height="337" Width="615">

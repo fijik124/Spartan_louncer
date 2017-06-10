@@ -426,7 +426,7 @@
   <data name="S_LABEL_GAME_OPTIONS" xml:space="preserve">
     <value>Opciones de juego</value>
   </data>
-  <data name="S_BUTTON_GAME_PATH" xml:space="preserve">
+  <data name="S_BTN_GAME_PATH" xml:space="preserve">
     <value>Seleccionar</value>
   </data>
   <data name="S_LABEL_START_ACTION" xml:space="preserve">
@@ -443,5 +443,32 @@
   </data>
   <data name="S_ACTION_CHECK_SERVER_STATUS" xml:space="preserve">
     <value>Comprobando estado de servidor</value>
+  </data>
+  <data name="S_SERVERS" xml:space="preserve">
+    <value>Servidores</value>
+  </data>
+  <data name="S_LABEL_SERVER" xml:space="preserve">
+    <value>Servidor:</value>
+  </data>
+  <data name="S_BTN_CHECK_SERVER_STATUS" xml:space="preserve">
+    <value>Comprobar estado del servidor</value>
+  </data>
+  <data name="S_LABEL_SERVER_NAME" xml:space="preserve">
+    <value>Nombre:</value>
+  </data>
+  <data name="S_LABEL_SERVER_MISSION" xml:space="preserve">
+    <value>Misión:</value>
+  </data>
+  <data name="S_LABEL_SERVER_MAP" xml:space="preserve">
+    <value>Mapa:</value>
+  </data>
+  <data name="S_LABEL_SERVER_PING" xml:space="preserve">
+    <value>Ping:</value>
+  </data>
+  <data name="S_LABEL_SERVER_VERSION" xml:space="preserve">
+    <value>Versión:</value>
+  </data>
+  <data name="S_LABEL_SERVER_PLAYERS" xml:space="preserve">
+    <value>Jugadores:</value>
   </data>
 </root>

@@ -1,7 +1,5 @@
 ﻿using System.IO;
 using Caliburn.Micro;
-using _11thLauncher.Model.Game;
-using _11thLauncher.Properties;
 
 namespace _11thLauncher.Model.Parameter
 {

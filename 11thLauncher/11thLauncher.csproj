@@ -136,6 +136,7 @@
     <Compile Include="Services\AddonService.cs" />
     <Compile Include="Services\IAddonService.cs" />
     <Compile Include="Services\ServerQueryService.cs" />
+    <Compile Include="ViewModels\Controls\ServerQueryViewModel.cs" />
     <Compile Include="Views\Util\EnumerationExtension.cs" />
     <Compile Include="Model\Enumerations.cs" />
     <Compile Include="Model\ExceptionMessage.cs" />
