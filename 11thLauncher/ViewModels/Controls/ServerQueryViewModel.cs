@@ -43,6 +43,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void ButtonQueryServer()
         {
+            if (SelectedServer == null) return;
             if (SelectedServer.ServerStatus != ServerStatus.Checking)
             {
                 new Thread(() =>

@@ -74,7 +74,10 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Perfiles" HeaderTemplate="{StaticResource TabTitle}">
-
+                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
+                    <!-- Profile manager -->
+                    <ContentControl x:Name="ProfileManager" />
+                </Grid>
             </TabItem>
         </controls:MetroAnimatedSingleRowTabControl>
 

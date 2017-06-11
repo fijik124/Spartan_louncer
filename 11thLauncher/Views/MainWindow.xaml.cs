@@ -316,93 +316,93 @@ namespace _11thLauncher
 
         private void button_defaultProfile_Click(object sender, RoutedEventArgs e)
         {
-            if (listBox_profiles.SelectedIndex == -1)
-            {
-                this.ShowMessageAsync("Error de selección", "No has seleccionado ningún perfil");
-            } else
-            {
-                string selectedProfile = listBox_profiles.SelectedItem.ToString();
-                if (selectedProfile.StartsWith("♥")) selectedProfile = selectedProfile.Remove(0, 2);
+            //if (listBox_profiles.SelectedIndex == -1)
+            //{
+                //this.ShowMessageAsync("Error de selección", "No has seleccionado ningún perfil");
+            //} else
+            //{
+                //string selectedProfile = listBox_profiles.SelectedItem.ToString();
+                //if (selectedProfile.StartsWith("♥")) selectedProfile = selectedProfile.Remove(0, 2);
 
-                Profiles.DefaultProfile = selectedProfile;
-                Settings.Write();
+                //Profiles.DefaultProfile = selectedProfile;
+                //Settings.Write();
 
-                //Refill profile list
-                listBox_profiles.Items.Clear();
-                foreach (string profile in Profiles.UserProfiles)
-                {
-                    if (profile.Equals(Profiles.DefaultProfile))
-                    {
-                        int index = listBox_profiles.Items.Add("♥ " + profile);
-                        listBox_profiles.SelectedItem = index;
-                    }
-                    else
-                    {
-                        listBox_profiles.Items.Add(profile);
-                    }
-                }
-            }
+                ////Refill profile list
+                //listBox_profiles.Items.Clear();
+                //foreach (string profile in Profiles.UserProfiles)
+                //{
+                    //if (profile.Equals(Profiles.DefaultProfile))
+                    //{
+                        //int index = listBox_profiles.Items.Add("♥ " + profile);
+                        //listBox_profiles.SelectedItem = index;
+                    //}
+                    //else
+                    //{
+                        //listBox_profiles.Items.Add(profile);
+                    //}
+                //}
+            //}
         }
 
         private void button_createProfile_Click(object sender, RoutedEventArgs e)
         {
-            textBox_newProfile.IsEnabled = true;
-            textBox_newProfile.Text = "Nuevo perfil";
-            button_saveNewProfile.IsEnabled = true;
-            textBox_newProfile.Select(0, textBox_newProfile.Text.Length);
-            textBox_newProfile.Focus();
+            //textBox_newProfile.IsEnabled = true;
+            //textBox_newProfile.Text = "Nuevo perfil";
+            //button_saveNewProfile.IsEnabled = true;
+            //textBox_newProfile.Select(0, textBox_newProfile.Text.Length);
+            //textBox_newProfile.Focus();
         }
 
         private void button_deleteProfile_Click(object sender, RoutedEventArgs e)
         {
-            if (listBox_profiles.SelectedIndex == -1)
-            {
-                this.ShowMessageAsync("Error de borrado", "No has seleccionado ningún perfil");
-            }
-            else
-            {
-                //Check profile name to remove default profile marker
-                string selectedProfile = listBox_profiles.SelectedItem.ToString();
-                if (selectedProfile.StartsWith("♥")) selectedProfile = selectedProfile.Remove(0, 2);
+            //if (listBox_profiles.SelectedIndex == -1)
+            //{
+                //this.ShowMessageAsync("Error de borrado", "No has seleccionado ningún perfil");
+            //}
+            //else
+            //{
+                ////Check profile name to remove default profile marker
+                //string selectedProfile = listBox_profiles.SelectedItem.ToString();
+                //if (selectedProfile.StartsWith("♥")) selectedProfile = selectedProfile.Remove(0, 2);
 
-                if (selectedProfile.Equals("Predeterminado"))
-                {
-                    this.ShowMessageAsync("Error de borrado", "No puedes borrar el perfil predeterminado");
-                }
-                else
-                {
-                    //Check if deleted profile is default
-                    if (selectedProfile.Equals(Profiles.DefaultProfile))
-                    {
-                        Profiles.DefaultProfile = "Predeterminado";
-                    }
-                    Profiles.DeleteProfile(selectedProfile);
-                    UpdateProfiles();
-                    //comboBox_profiles.SelectedIndex = 0;
-                }
-            }
+                //if (selectedProfile.Equals("Predeterminado"))
+                //{
+                    //this.ShowMessageAsync("Error de borrado", "No puedes borrar el perfil predeterminado");
+                //}
+                //else
+                //{
+                    ////Check if deleted profile is default
+                    //if (selectedProfile.Equals(Profiles.DefaultProfile))
+                    //{
+                        //Profiles.DefaultProfile = "Predeterminado";
+                    //}
+                    //Profiles.DeleteProfile(selectedProfile);
+                    //UpdateProfiles();
+                    ////comboBox_profiles.SelectedIndex = 0;
+                //}
+            //}
         }
 
         private void button_saveNewProfile_Click(object sender, RoutedEventArgs e)
         {
-            //Clean profile name string
-            string profileName = textBox_newProfile.Text.Replace("♥", "").Trim();
+            ////Clean profile name string
+            //string profileName = textBox_newProfile.Text.Replace("♥", "").Trim();
 
-            //Check that name is not repeated
-            if (Profiles.UserProfiles.Contains(profileName))
-            {
-                this.ShowMessageAsync("Error de creación de perfil", "Ya existe un perfil con el nombre indicado");
-            }
-            else
-            {
-                Profiles.UserProfiles.Add(profileName);
-                Settings.Write();
-                Profiles.WriteProfile(profileName);
-                UpdateProfiles();
-                textBox_newProfile.Text = "";
-                textBox_newProfile.IsEnabled = false;
-                button_saveNewProfile.IsEnabled = false;
-            }
+            ////Check that name is not repeated
+            //if (Profiles.UserProfiles.Contains(profileName))
+            //{
+                //this.ShowMessageAsync("Error de creación de perfil", "Ya existe un perfil con el nombre indicado");
+            //}
+            //else
+            //{
+                //Profiles.UserProfiles.Add(profileName);
+                //Settings.Write();
+                //Profiles.WriteProfile(profileName);
+                //UpdateProfiles();
+                //textBox_newProfile.Text = "";
+                //textBox_newProfile.IsEnabled = false;
+                //button_saveNewProfile.IsEnabled = false;
+            //}
         }
 
         /// <summary>

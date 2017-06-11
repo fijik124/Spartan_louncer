@@ -376,6 +376,42 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new profile.
+        /// </summary>
+        public static string S_BTN_PROFILE_CREATE {
+            get {
+                return ResourceManager.GetString("S_BTN_PROFILE_CREATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete profile.
+        /// </summary>
+        public static string S_BTN_PROFILE_DELETE {
+            get {
+                return ResourceManager.GetString("S_BTN_PROFILE_DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit profile.
+        /// </summary>
+        public static string S_BTN_PROFILE_EDIT {
+            get {
+                return ResourceManager.GetString("S_BTN_PROFILE_EDIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark as favorite.
+        /// </summary>
+        public static string S_BTN_PROFILE_FAVORITE {
+            get {
+                return ResourceManager.GetString("S_BTN_PROFILE_FAVORITE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string S_BTN_SETTINGS {
@@ -480,6 +516,33 @@ namespace _11thLauncher.Resources {
         public static string S_LABEL_LICENSE {
             get {
                 return ResourceManager.GetString("S_LABEL_LICENSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of profiles.
+        /// </summary>
+        public static string S_LABEL_PROFILE_LIST {
+            get {
+                return ResourceManager.GetString("S_LABEL_PROFILE_LIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile name.
+        /// </summary>
+        public static string S_LABEL_PROFILE_NAME {
+            get {
+                return ResourceManager.GetString("S_LABEL_PROFILE_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save profile.
+        /// </summary>
+        public static string S_LABEL_SAVE_PROFILE {
+            get {
+                return ResourceManager.GetString("S_LABEL_SAVE_PROFILE", resourceCulture);
             }
         }
         
@@ -615,6 +678,15 @@ namespace _11thLauncher.Resources {
         public static string S_MSG_PATH_TITLE {
             get {
                 return ResourceManager.GetString("S_MSG_PATH_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New profile name.
+        /// </summary>
+        public static string S_NEW_PROFILE_NAME {
+            get {
+                return ResourceManager.GetString("S_NEW_PROFILE_NAME", resourceCulture);
             }
         }
         

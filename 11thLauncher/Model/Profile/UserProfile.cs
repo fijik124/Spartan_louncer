@@ -1,32 +1,15 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using Caliburn.Micro;
 
 namespace _11thLauncher.Model.Profile
 {
     [DataContract]
-    public class UserProfile : INotifyPropertyChanged
+    public class UserProfile : PropertyChangedBase
     {
-        [DataMember]
-        public Guid Id;
-        [DataMember]
-        public readonly string Name;
-        public string DisplayName => IsDefault ? "★ " + Name : Name;
-
+        private string _name;
         private bool _isDefault;
 
-        public bool IsDefault
-        {
-            get => _isDefault;
-            set
-            {
-                _isDefault = value;
-                OnPropertyChanged();
-            }
-        }
-
-        //CREATE NEW PROFILE
         public UserProfile(string name, bool isDefault = false)
         {
             Id = Guid.NewGuid();
@@ -41,16 +24,48 @@ namespace _11thLauncher.Model.Profile
             IsDefault = isDefault;
         }
 
+        #region Properties
+
+        [DataMember]
+        public Guid Id { get; }
+
+        [DataMember]
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(() => DisplayName);
+            }
+        }
+
+        public string DisplayName => IsDefault ? "★ " + Name : Name;
+
+        public bool IsDefault
+        {
+            get => _isDefault;
+            set
+            {
+                _isDefault = value;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(() => DisplayName);
+            }
+        }
+
+        #endregion
+
         public override bool Equals(object obj)
         {
             var item = obj as UserProfile;
 
-            return item != null && Name.Equals(item.Name);
+            return item != null && Id.Equals(item.Id);
         }
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode();
+            return Id.GetHashCode();
         }
 
         //public void Write()
@@ -191,11 +206,5 @@ namespace _11thLauncher.Model.Profile
                 //}
             //}
         //}
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

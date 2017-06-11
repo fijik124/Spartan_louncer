@@ -137,6 +137,9 @@
     <Compile Include="Services\IAddonService.cs" />
     <Compile Include="Services\ServerQueryService.cs" />
     <Compile Include="ViewModels\Controls\ServerQueryViewModel.cs" />
+    <Compile Include="Views\Controls\ProfileManagerView.xaml.cs">
+      <DependentUpon>ProfileManagerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Util\EnumerationExtension.cs" />
     <Compile Include="Model\Enumerations.cs" />
     <Compile Include="Model\ExceptionMessage.cs" />
@@ -183,7 +186,7 @@
     <Compile Include="ViewModels\Controls\GameViewModel.cs" />
     <Compile Include="ViewModels\Controls\ParametersViewModel.cs" />
     <Compile Include="ViewModels\Controls\ProfileSelectorViewModel.cs" />
-    <Compile Include="ViewModels\Controls\ProfilesViewModel.cs" />
+    <Compile Include="ViewModels\Controls\ProfileManagerViewModel.cs" />
     <Compile Include="ViewModels\Controls\StatusbarViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\Controls\AddonsView.xaml.cs">
@@ -220,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\ParametersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ProfileManagerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

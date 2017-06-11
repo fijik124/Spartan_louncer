@@ -58,7 +58,7 @@
             <TabItem Header="ArmA 3" HeaderTemplate="{StaticResource tabTitle}" >
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
 
-                    
+
 
                     <Button x:Name="button_clip" Style="{DynamicResource MetroCircleButtonStyle}" HorizontalAlignment="Left" Margin="375,93,0,0" VerticalAlignment="Top" Width="40" Height="40" ToolTip="Copiar linea de inicio al portapapeles" Click="button_clip_Click">
                         <Rectangle Width="20" Height="20">
@@ -151,20 +151,9 @@
                 </ScrollViewer>
             </TabItem>
             <TabItem Header="Perfiles" HeaderTemplate="{StaticResource tabTitle}" >
-                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
-                    <Label Content="Lista de perfiles" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="button_defaultProfile" Content="Marcar como inicial" HorizontalAlignment="Left" Margin="440,75,0,0" VerticalAlignment="Top" Width="166" Height="31" Click="button_defaultProfile_Click"/>
-                    <Button x:Name="button_createProfile" Content="Nuevo Perfil" HorizontalAlignment="Left" Margin="440,111,0,0" VerticalAlignment="Top" Width="166" Height="31" Click="button_createProfile_Click"/>
-                    <Button x:Name="button_deleteProfile" Content="Borrar Perfil" HorizontalAlignment="Left" Margin="440,147,0,0" VerticalAlignment="Top" Width="166" Height="31" Click="button_deleteProfile_Click"/>
-                    <Label Content="Creación de perfil" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox_newProfile" HorizontalAlignment="Left" Height="23" Margin="10,303,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" IsEnabled="False"/>
-                    <Button x:Name="button_saveNewProfile" Content="Guardar perfil" HorizontalAlignment="Left" Margin="439,303,0,0" VerticalAlignment="Top" Width="166" Height="26" IsEnabled="False" Click="button_saveNewProfile_Click"/>
-                    <ListBox x:Name="listBox_profiles" HorizontalAlignment="Left" Height="226" Margin="13,41,0,0" VerticalAlignment="Top" Width="412" BorderThickness="1" BorderBrush="#FFCCCCCC"/>
-                </Grid>
+
             </TabItem>
         </controls:MetroAnimatedSingleRowTabControl>
-        <Label x:Name="label_gameVersion" Content="1.00.000000" HorizontalAlignment="Left" Margin="540,96,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Image x:Name="image_versionWarning" HorizontalAlignment="Left" Height="24" Margin="611,118,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/warning.png" IsHitTestVisible="True" ToolTip="Tu versión no concuerda con la de los servidores de la 11th MEU" Visibility="Hidden"/>
     </Grid>
 </controls:MetroWindow>
 

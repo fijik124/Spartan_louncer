@@ -61,6 +61,7 @@ namespace _11thLauncher.ViewModels
             ServerStatus = IoC.Get<ServerStatusViewModel>();
             Parameters = IoC.Get<ParametersViewModel>();
             ServerQuery = IoC.Get<ServerQueryViewModel>();
+            ProfileManager = IoC.Get<ProfileManagerViewModel>();
 
             //Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("es-ES"); TODO this
             Init();
@@ -82,7 +83,7 @@ namespace _11thLauncher.ViewModels
 
         public ServerQueryViewModel ServerQuery { get; set; }
 
-
+        public ProfileManagerViewModel ProfileManager { get; set; }
 
         public WindowState WindowState
         {

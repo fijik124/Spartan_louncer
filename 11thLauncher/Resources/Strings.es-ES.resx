@@ -471,4 +471,28 @@
   <data name="S_LABEL_SERVER_PLAYERS" xml:space="preserve">
     <value>Jugadores:</value>
   </data>
+  <data name="S_LABEL_PROFILE_LIST" xml:space="preserve">
+    <value>Lista de perfiles</value>
+  </data>
+  <data name="S_NEW_PROFILE_NAME" xml:space="preserve">
+    <value>Nombre de nuevo perfil</value>
+  </data>
+  <data name="S_LABEL_SAVE_PROFILE" xml:space="preserve">
+    <value>Guardar perfil</value>
+  </data>
+  <data name="S_BTN_PROFILE_FAVORITE" xml:space="preserve">
+    <value>Marcar como favorito</value>
+  </data>
+  <data name="S_BTN_PROFILE_CREATE" xml:space="preserve">
+    <value>Crear nuevo perfil</value>
+  </data>
+  <data name="S_BTN_PROFILE_DELETE" xml:space="preserve">
+    <value>Borrar perfil</value>
+  </data>
+  <data name="S_BTN_PROFILE_EDIT" xml:space="preserve">
+    <value>Editar perfil</value>
+  </data>
+  <data name="S_LABEL_PROFILE_NAME" xml:space="preserve">
+    <value>Nombre del perfil</value>
+  </data>
 </root>

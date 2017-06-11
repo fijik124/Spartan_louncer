@@ -38,6 +38,7 @@ namespace _11thLauncher
             _container.Singleton<ServerStatusViewModel>();
             _container.Singleton<ParametersViewModel>();
             _container.Singleton<ServerQueryViewModel>();
+            _container.Singleton<ProfileManagerViewModel>();
 
             //TODO
             _container.Singleton<SettingsManager>();
