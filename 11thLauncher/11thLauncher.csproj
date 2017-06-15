@@ -16,6 +16,12 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PrimaryVersionType>AssemblyFileVersionAttribute</PrimaryVersionType>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyFileVersionSettings>IncrementOnDemand.IncrementOnDemand.Increment.IncrementOnDemandWithReset</AssemblyFileVersionSettings>
+    <AssemblyVersion>3.0.8.0</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -134,8 +140,12 @@
     <Compile Include="LauncherBootstraper.cs" />
     <Compile Include="Model\ExtensionMethods.cs" />
     <Compile Include="Services\AddonService.cs" />
+    <Compile Include="Services\Arma3SyncService.cs" />
     <Compile Include="Services\IAddonService.cs" />
+    <Compile Include="Services\IAddonSyncService.cs" />
+    <Compile Include="Services\ISettingsService.cs" />
     <Compile Include="Services\ServerQueryService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="ViewModels\Controls\ServerQueryViewModel.cs" />
     <Compile Include="Views\Controls\ProfileManagerView.xaml.cs">
       <DependentUpon>ProfileManagerView.xaml</DependentUpon>
@@ -175,7 +185,6 @@
     <Compile Include="Model\Parameter\ParameterValueItem.cs" />
     <Compile Include="Model\Profile\UserProfile.cs" />
     <Compile Include="Model\Profile\ProfileManager.cs" />
-    <Compile Include="Model\Settings\SettingsManager.cs" />
     <Compile Include="Processes\Util.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

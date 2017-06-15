@@ -1,5 +1,13 @@
+Versioning
+{Codename - Major.Minor.Build.Revision}
+Codename - Changed every Minor version
+Major - Version of the launcher
+Minor - Significant changes to the launcher
+Build - Build number
+Revision - Incremental patches, reset after major/minor
+
 -------------------------
---UPDATING THE LAUNCHER--
+--UPDATING THE LAUNCHER-- TODO
 -------------------------
 
 Process:
@@ -18,7 +26,7 @@ This is important because the automatic updater requires this type of name.
 9. Git commit and push.
 
 ---------------------------------
---UPDATING THE LAUNCHER UPDATER--
+--UPDATING THE LAUNCHER UPDATER-- TODO
 ---------------------------------
 NOTE: Only needed if there are changes to the updater
 
@@ -31,7 +39,7 @@ Process:
 3. Move the resulting binary (11thLauncherUpdater.exe) to "/11thLauncher/lib/"
 
 ---------------------------------------
---UPDATING THE ARMA3SYNC DESERIALIZER--
+--UPDATING THE ARMA3SYNC DESERIALIZER-- TODO
 ---------------------------------------
 NOTE: Only needed if there are changes to the deserializer
 

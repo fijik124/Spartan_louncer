@@ -8,7 +8,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("11th MEU Launcher")]
-[assembly: AssemblyDescription("Lanzador de addons de la 11th MEU")]
+[assembly: AssemblyDescription("11th MEU ArmA 3 Game Launcher")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("11th MEU Launcher")]
@@ -52,6 +52,6 @@ using System.Windows;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("3.0.0.0")]
-[assembly: AssemblyFileVersion("3.0.0.0")]
+[assembly: AssemblyFileVersion("3.0.8.0")]
 [assembly: Guid("83268d32-ffe3-49ad-8a4b-626d97a4c03a")]
 

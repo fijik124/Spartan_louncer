@@ -11,15 +11,15 @@ namespace _11thLauncher.ViewModels.Controls
     public class ServerStatusViewModel : PropertyChangedBase, IHandle<SettingsLoadedMessage>
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly SettingsManager _settingsManager;
+        private readonly ISettingsService _settingsService;
         private readonly IServerQueryService _serverQueryService;
         private BindableCollection<Server> _servers;
 
-        public ServerStatusViewModel(IEventAggregator eventAggregator, SettingsManager settingsManager, IServerQueryService serverQueryService)
+        public ServerStatusViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IServerQueryService serverQueryService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
-            _settingsManager = settingsManager;
+            _settingsService = settingsService;
             _serverQueryService = serverQueryService;
 
             Servers = new BindableCollection<Server>();
@@ -29,7 +29,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void Handle(SettingsLoadedMessage message)
         {
-            Servers = _settingsManager.Servers;
+            Servers = _settingsService.Servers;
             foreach (Server server in Servers)
             {
                 CheckServerStatus(server);

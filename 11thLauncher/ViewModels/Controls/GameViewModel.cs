@@ -15,14 +15,14 @@ namespace _11thLauncher.ViewModels.Controls
         private readonly LaunchManager _launchManager;
         private readonly IAddonService _addonService;
         private readonly ParameterManager _parameterManager;
-        private readonly SettingsManager _settingsManager;
+        private readonly SettingsService _settingsService;
         private LaunchOption _launchOption;
         private LaunchPlatform _platform;
         private string _server;
         private string _port;
 
         public GameViewModel(IEventAggregator eventAggregator, LaunchManager launchManager, 
-            IAddonService addonService, ParameterManager parameterManager, SettingsManager settingsManager)
+            IAddonService addonService, ParameterManager parameterManager, SettingsService settingsService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
@@ -30,7 +30,7 @@ namespace _11thLauncher.ViewModels.Controls
             _launchManager = launchManager;
             _addonService = addonService;
             _parameterManager = parameterManager;
-            _settingsManager = settingsManager;
+            _settingsService = settingsService;
         }
 
         #region Message handling

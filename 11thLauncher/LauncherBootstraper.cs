@@ -41,14 +41,15 @@ namespace _11thLauncher
             _container.Singleton<ProfileManagerViewModel>();
 
             //TODO
-            _container.Singleton<SettingsManager>();
             _container.Singleton<ProfileManager>();
             _container.Singleton<ParameterManager>();
             _container.Singleton<LaunchManager>();
 
             //Services
+            _container.Singleton<ISettingsService, SettingsService>();
             _container.Singleton<IServerQueryService, ServerQueryService>();
             _container.Singleton<IAddonService, AddonService>();
+            _container.Singleton<IAddonSyncService, Arma3SyncService>();
         }
 
         protected override object GetInstance(Type service, string key)
