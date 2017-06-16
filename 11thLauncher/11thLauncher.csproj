@@ -21,7 +21,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>IncrementOnDemand.IncrementOnDemand.Increment.IncrementOnDemandWithReset</AssemblyFileVersionSettings>
-    <AssemblyVersion>3.0.8.0</AssemblyVersion>
+    <AssemblyVersion>3.0.25.0</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -348,6 +348,11 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Resource.Embedder.1.2.2\build\Resource.Embedder.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Resource.Embedder.1.2.2\build\Resource.Embedder.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>echo Compiling Arma3Sync Deserializer
+ant -buildfile "$(SolutionDir)A3SDS\build.xml" compile jar
+exit 0</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

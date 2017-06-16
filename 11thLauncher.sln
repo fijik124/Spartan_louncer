@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11thLauncher", "11thLauncher\11thLauncher.csproj", "{0F56EDA9-CF7F-4C49-A67B-3FCD434D4902}"
+	ProjectSection(ProjectDependencies) = postProject
+		{50C8B672-8A4F-486A-B9CB-07C969142D00} = {50C8B672-8A4F-486A-B9CB-07C969142D00}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11thLauncherUpdater", "11thLauncherUpdater\11thLauncherUpdater.csproj", "{50C8B672-8A4F-486A-B9CB-07C969142D00}"
 EndProject
