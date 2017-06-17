@@ -21,7 +21,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>IncrementOnDemand.IncrementOnDemand.Increment.IncrementOnDemandWithReset</AssemblyFileVersionSettings>
-    <AssemblyVersion>3.0.53.0</AssemblyVersion>
+    <AssemblyVersion>3.0.55.0</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -158,7 +158,7 @@
     </Compile>
     <Compile Include="Views\Util\EnumerationExtension.cs" />
     <Compile Include="Models\Enumerations.cs" />
-    <Compile Include="Model\ExceptionMessage.cs" />
+    <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Models\GameConfig.cs" />
     <Compile Include="Models\LaunchParameter.cs" />
     <Compile Include="Models\ParameterManager.cs" />
