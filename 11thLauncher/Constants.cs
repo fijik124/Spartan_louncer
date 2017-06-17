@@ -1,12 +1,24 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
 using Caliburn.Micro;
-using _11thLauncher.Model.Addons;
+using _11thLauncher.Models;
 
 namespace _11thLauncher
 {
+    [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
     public static class Constants
     {
+        //
+        // Build info
+        //
+        public const string Author = "Javier 'Thrax' Rico";
+        public const string BuildCodeName = "Echo";
+        public static DateTime BuildDate = new DateTime(2017, 06, 01);
+        public static readonly string AssemblyVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+
         //
         // Program Settings
         //
@@ -25,7 +37,7 @@ namespace _11thLauncher
         public static readonly string[] SteamRegPath64 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam", "InstallPath", "" };
         public const string DefaultArma3SteamPath = "SteamApps\\common\\ArmA 3";
         public const string GameExecutable32 = "arma3.exe";
-        public static readonly string GameExecutable64 = "arma3_x64.exe";
+        public const string GameExecutable64 = "arma3_x64.exe";
 
         //
         // Addon Service
@@ -34,6 +46,13 @@ namespace _11thLauncher
         public const string AddonSubfolderName = "addons";
         public const string AddonFilePattern = "*.?bo";
 
+        //
+        // Updater Service
+        //
+        public const string VersionUrl = "http://raw.githubusercontent.com/11thmeu/launcher/master/bin/version";
+        public const string DownloadBaseUrl = "https://raw.githubusercontent.com/11thmeu/launcher/master/bin/";
+        public static readonly string UpdaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
+
         // 
         // 11th MEU addon presets
         //
@@ -41,17 +60,17 @@ namespace _11thLauncher
         {
             new Preset
             {
-                Name = Resources.Strings.S_PRESET1,
+                Name = "Guerra Moderna",
                 Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@rhsafrf", "@rhsgref", "@rhsusaf" }
             },
             new Preset
             {
-                Name = Resources.Strings.S_PRESET2,
+                Name = "Guerra Moderna [ALiVE]",
                 Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@rhsafrf", "@rhsgref", "@rhsusaf", "@alive" }
             },
             new Preset
             {
-                Name = Resources.Strings.S_PRESET3,
+                Name = "Vietnam [Unsung]",
                 Addons = new[] { "@cba_a3", "@ace", "@acre2", "@meu", "@unsung" }
             }
         };
@@ -60,20 +79,5 @@ namespace _11thLauncher
         // Repository Settings
         //
         public static readonly string A3SdsPath = Path.Combine(Path.GetTempPath(), "A3SDS.jar");
-
-        //
-        // Updater Settings
-        //
-        public const string VersionUrl = "http://raw.githubusercontent.com/11thmeu/launcher/master/bin/version";
-        public const string DownloadBaseUrl = "https://raw.githubusercontent.com/11thmeu/launcher/master/bin/";
-        public static readonly string UpdaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
-        public const string CurrentVersion = "300"; //TODO derive from build
-
-        //
-        // About info
-        //
-        public const string Author = "Javier 'Thrax' Rico";
-        public const string BuildCodeName = "Echo";
-        public static DateTime BuildDate = new DateTime(2017, 06, 01);
     }
 }

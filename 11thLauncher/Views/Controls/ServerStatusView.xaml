@@ -4,13 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
-        xmlns:model="clr-namespace:_11thLauncher.Model"
+        xmlns:model="clr-namespace:_11thLauncher.Models"
         xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
         xmlns:resx="clr-namespace:_11thLauncher.Resources"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:ServerStatusViewModel}" d:DesignHeight="337" d:DesignWidth="615">
     <Grid>
-        <Expander x:Name="groupBox_servers" Header="Servidores" HorizontalAlignment="Left" VerticalAlignment="Top" Height="160" Width="185" IsExpanded="True" Margin="430,38,0,0" Padding="0">
+        <Expander Header="Servidores" HorizontalAlignment="Left" VerticalAlignment="Top" Height="160" Width="185" IsExpanded="True" Margin="430,38,0,0" Padding="0">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl x:Name="Servers" d:DataContext="{Binding Servers}"
                               BorderBrush="#FFCCCCCC"

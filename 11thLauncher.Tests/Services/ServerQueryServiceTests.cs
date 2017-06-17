@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using _11thLauncher.Model;
-using _11thLauncher.Model.Server;
+using _11thLauncher.Models;
 using _11thLauncher.Services;
+using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.Tests.Services
 {

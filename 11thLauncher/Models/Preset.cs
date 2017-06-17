@@ -1,4 +1,4 @@
-﻿namespace _11thLauncher.Model.Addons
+﻿namespace _11thLauncher.Models
 {
     public class Preset
     {

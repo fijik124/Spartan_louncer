@@ -2,7 +2,8 @@
 using System.IO;
 using System.Linq;
 using Caliburn.Micro;
-using _11thLauncher.Model.Addons;
+using _11thLauncher.Models;
+using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.Services
 {

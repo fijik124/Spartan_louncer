@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
 using Newtonsoft.Json;
 
-namespace _11thLauncher.Model.Addons
+namespace _11thLauncher.Models
 {
     /// <summary>
     /// An game addon managed by the launcher. 

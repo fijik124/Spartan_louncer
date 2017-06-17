@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Caliburn.Micro;
 
-namespace _11thLauncher.Model.Parameter
+namespace _11thLauncher.Models
 {
     public class ParameterManager
     {

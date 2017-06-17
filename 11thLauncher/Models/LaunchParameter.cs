@@ -1,8 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using Caliburn.Micro;
-using _11thLauncher.Model.Game;
 
-namespace _11thLauncher.Model.Parameter
+namespace _11thLauncher.Models
 {
     [DataContract]
     public class LaunchParameter : PropertyChangedBase //TODO complete class

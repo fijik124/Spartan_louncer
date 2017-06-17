@@ -1,6 +1,6 @@
-﻿using _11thLauncher.Model.Server;
+﻿using _11thLauncher.Models;
 
-namespace _11thLauncher.Services
+namespace _11thLauncher.Services.Contracts
 {
     public interface IServerQueryService
     {

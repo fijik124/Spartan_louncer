@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using _11thLauncher.Properties;
 
 namespace _11thLauncher.ViewModels
 {
@@ -7,7 +6,7 @@ namespace _11thLauncher.ViewModels
     {
         public string Author => string.Format(Resources.Strings.S_LABEL_APP_AUTHOR, Constants.Author);
 
-        public string Build => string.Format(Resources.Strings.S_LABEL_BUILD, Assembly.GetExecutingAssembly().GetName().Version,
+        public string Build => string.Format(Resources.Strings.S_LABEL_BUILD, Constants.AssemblyVersion, 
             Constants.BuildCodeName, Constants.BuildDate.ToShortDateString());
     }
 }

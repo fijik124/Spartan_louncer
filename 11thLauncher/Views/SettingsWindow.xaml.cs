@@ -6,11 +6,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
-using MahApps.Metro;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Configuration;
-using _11thLauncher.Model;
-using _11thLauncher.Net;
 
 namespace _11thLauncher
 {
@@ -47,26 +44,26 @@ namespace _11thLauncher
             }
 
             //Repository
-            if (Repository.JavaVersion != "")
-            {
-                label_javaPath.Content = "Detectado";
-                label_javaPath.ToolTip = Repository.JavaVersion;
-                label_javaPath.Foreground = new SolidColorBrush(Colors.Green);
-            }
-            textBox_javaPath.Text = Settings.JavaPath;
-            textBox_a3sPath.Text = Settings.Arma3SyncPath;
-            List<string> repositories = Repository.ListRepositories();
-            comboBox_repository.ItemsSource = repositories;
-            if (repositories.Contains(Settings.Arma3SyncRepository))
-            {
-                comboBox_repository.SelectedItem = Settings.Arma3SyncRepository;
-            } else
-            {
-                if (repositories.Count != 0)
-                {
-                    comboBox_repository.SelectedIndex = 0;
-                }
-            }
+            //if (Repository.JavaVersion != "")
+            //{
+                //label_javaPath.Content = "Detectado";
+                //label_javaPath.ToolTip = Repository.JavaVersion;
+                //label_javaPath.Foreground = new SolidColorBrush(Colors.Green);
+            //}
+            //textBox_javaPath.Text = Settings.JavaPath;
+            //textBox_a3sPath.Text = Settings.Arma3SyncPath;
+            //List<string> repositories = Repository.ListRepositories();
+            //comboBox_repository.ItemsSource = repositories;
+            //if (repositories.Contains(Settings.Arma3SyncRepository))
+            //{
+                //comboBox_repository.SelectedItem = Settings.Arma3SyncRepository;
+            //} else
+            //{
+                //if (repositories.Count != 0)
+                //{
+                    //comboBox_repository.SelectedIndex = 0;
+                //}
+            //}
 
             //Interface
             comboBox_accent.SelectedIndex = Settings.Accent;
@@ -120,25 +117,25 @@ namespace _11thLauncher
             if (!MainWindow.Form.tile_repositoryStatus.IsEnabled)
             {
                 //Check if repository is correctly configured to allow checking
-                if ((Repository.JavaVersion != "" || Settings.JavaPath != "") && Settings.Arma3SyncPath != "" && Settings.Arma3SyncRepository != "")
-                {
-                    MainWindow.Form.image_arma3Sync.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/a3sEnabled.png"));
-                    MainWindow.Form.image_arma3Sync.ToolTip = "Arma3Sync está configurado. Click para iniciar";
-                    MainWindow.Form.tile_repositoryStatus.IsEnabled = true;
-                    MainWindow.Form.tile_repositoryStatus.Background = new SolidColorBrush(Colors.Orange);
-                    MainWindow.Form.tile_repositoryStatus.ToolTip = "Click para comprobar estado";
-                }
+                //if ((Repository.JavaVersion != "" || Settings.JavaPath != "") && Settings.Arma3SyncPath != "" && Settings.Arma3SyncRepository != "")
+                //{
+                    //MainWindow.Form.image_arma3Sync.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/a3sEnabled.png"));
+                    //MainWindow.Form.image_arma3Sync.ToolTip = "Arma3Sync está configurado. Click para iniciar";
+                    //MainWindow.Form.tile_repositoryStatus.IsEnabled = true;
+                    //MainWindow.Form.tile_repositoryStatus.Background = new SolidColorBrush(Colors.Orange);
+                    //MainWindow.Form.tile_repositoryStatus.ToolTip = "Click para comprobar estado";
+                //}
             } else
             {
                 //Check if configuration is incorrect to disable repository checking
-                if ((Repository.JavaVersion == "" && Settings.JavaPath == "") || Settings.Arma3SyncPath == "" || Settings.Arma3SyncRepository == "")
-                {
-                    MainWindow.Form.image_arma3Sync.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/a3sDisabled.png"));
-                    MainWindow.Form.image_arma3Sync.ToolTip = "Arma3Sync no está configurado, configuralo en la ventana de opciones";
-                    MainWindow.Form.tile_repositoryStatus.IsEnabled = false;
-                    MainWindow.Form.tile_repositoryStatus.Background = new SolidColorBrush(Colors.Gray);
-                    MainWindow.Form.tile_repositoryStatus.ToolTip = null;
-                }
+                //if ((Repository.JavaVersion == "" && Settings.JavaPath == "") || Settings.Arma3SyncPath == "" || Settings.Arma3SyncRepository == "")
+                //{
+                    //MainWindow.Form.image_arma3Sync.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/a3sDisabled.png"));
+                    //MainWindow.Form.image_arma3Sync.ToolTip = "Arma3Sync no está configurado, configuralo en la ventana de opciones";
+                    //MainWindow.Form.tile_repositoryStatus.IsEnabled = false;
+                    //MainWindow.Form.tile_repositoryStatus.Background = new SolidColorBrush(Colors.Gray);
+                    //MainWindow.Form.tile_repositoryStatus.ToolTip = null;
+                //}
             }
 
             //Interface
@@ -212,8 +209,8 @@ namespace _11thLauncher
             {
                 Settings.Arma3SyncPath = path;
                 textBox_a3sPath.Text = path;
-                List<string> repositories = Repository.ListRepositories();
-                comboBox_repository.ItemsSource = repositories;
+                //List<string> repositories = Repository.ListRepositories();
+                //comboBox_repository.ItemsSource = repositories;
             }
         }
 

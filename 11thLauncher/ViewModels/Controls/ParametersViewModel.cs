@@ -1,8 +1,7 @@
-﻿using _11thLauncher.Model.Parameter;
+﻿using System.Linq;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
-using System;
-using System.Linq;
+using _11thLauncher.Models;
 
 namespace _11thLauncher.ViewModels.Controls
 {

@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
-using _11thLauncher.Model.Addons;
+using _11thLauncher.Models;
 
-namespace _11thLauncher.Services
+namespace _11thLauncher.Services.Contracts
 {
     public interface IAddonService
     {

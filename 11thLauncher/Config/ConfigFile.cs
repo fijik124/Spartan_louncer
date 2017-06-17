@@ -5,9 +5,7 @@ using System.Linq;
 using System.Text;
 using Caliburn.Micro;
 using Newtonsoft.Json;
-using _11thLauncher.Model;
-using _11thLauncher.Model.Server;
-using _11thLauncher.Model.Settings;
+using _11thLauncher.Models;
 
 namespace _11thLauncher.Config
 {

@@ -277,15 +277,6 @@
   <data name="S_PORT" xml:space="preserve">
     <value>Port</value>
   </data>
-  <data name="S_PRESET1" xml:space="preserve">
-    <value>Modern Warfare</value>
-  </data>
-  <data name="S_PRESET2" xml:space="preserve">
-    <value>Modern Warfare [ALiVE]</value>
-  </data>
-  <data name="S_PRESET3" xml:space="preserve">
-    <value>Vietnam [Unsung]</value>
-  </data>
   <data name="S_PRIORITY" xml:space="preserve">
     <value>Priority:</value>
   </data>
@@ -474,5 +465,17 @@
   </data>
   <data name="S_LABEL_PROFILE_NAME" xml:space="preserve">
     <value>Profile name</value>
+  </data>
+  <data name="S_MSG_UPDATE_SUCCESS_TITLE" xml:space="preserve">
+    <value>Application updated</value>
+  </data>
+  <data name="S_MSG_UPDATE_SUCCESS_CONTENT" xml:space="preserve">
+    <value>The application has been updated successfully</value>
+  </data>
+  <data name="S_MSG_UPDATE_FAIL_TITLE" xml:space="preserve">
+    <value>Error updating</value>
+  </data>
+  <data name="S_MSG_UPDATE_FAIL_CONTENT" xml:space="preserve">
+    <value>There has been an error updating the application, try again later</value>
   </data>
 </root>

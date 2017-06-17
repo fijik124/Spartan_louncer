@@ -1,22 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Input;
 using MahApps.Metro;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Configuration;
-using _11thLauncher.Model;
-using _11thLauncher.Net;
-using _11thLauncher.Processes;
 
 namespace _11thLauncher
 {
@@ -42,46 +35,46 @@ namespace _11thLauncher
             //comboBox_profiles.SelectedIndex = comboBox_profiles.Items.IndexOf(Profiles.DefaultProfile); //Select default profile
 
             //Set accent
-            AccentColor a = ((AccentColor) Settings.Accent);
-            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(((AccentColor)Settings.Accent).ToString()), ThemeManager.GetAppTheme("BaseLight"));
+            //AccentColor a = ((AccentColor) Settings.Accent);
+            //ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(((AccentColor)Settings.Accent).ToString()), ThemeManager.GetAppTheme("BaseLight"));
 
             //Set groupboxes preferences
             //groupBox_servers.IsExpanded = Settings.ServersGroupBox;
             groupBox_repository.IsExpanded = Settings.RepositoryGroupBox;
 
             //If just updated, remove updater and show notification
-            if (Updater.Updated)
-            {
-                Updater.RemoveUpdater();
-                this.ShowMessageAsync("Aplicación actualizada", "La aplicación ha sido actualizada con éxito");
-            }
+            //if (Updater.Updated)
+            //{
+                //Updater.RemoveUpdater();
+                //this.ShowMessageAsync("Aplicación actualizada", "La aplicación ha sido actualizada con éxito");
+            //}
 
-            //Notify if update failed
-            if (Updater.UpdateFailed)
-            {
-                Updater.RemoveUpdater();
-                this.ShowMessageAsync("Error al actualizar", "Se ha producido un error al actualizar la aplicación, vuelve a intentarlo más tarde");
-            }
+            ////Notify if update failed
+            //if (Updater.UpdateFailed)
+            //{
+                //Updater.RemoveUpdater();
+                //this.ShowMessageAsync("Error al actualizar", "Se ha producido un error al actualizar la aplicación, vuelve a intentarlo más tarde");
+            //}
 
             //Check Java presence
-            Repository.CheckJava();
+            //Repository.CheckJava();
 
             //Check Arma3Sync configuration
-            if ((Repository.JavaVersion != "" || Settings.JavaPath != "") && Settings.Arma3SyncPath != "" && Settings.Arma3SyncRepository != "")
-            {
-                image_arma3Sync.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/a3sEnabled.png"));
-                image_arma3Sync.ToolTip = "Arma3Sync está configurado. Click para iniciar";
-                tile_repositoryStatus.IsEnabled = true;
-                tile_repositoryStatus.Background = new SolidColorBrush(Colors.Orange);
-                tile_repositoryStatus.ToolTip = "Click para comprobar estado";
-            }
+            //if ((Repository.JavaVersion != "" || Settings.JavaPath != "") && Settings.Arma3SyncPath != "" && Settings.Arma3SyncRepository != "")
+            //{
+                //image_arma3Sync.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/a3sEnabled.png"));
+                //image_arma3Sync.ToolTip = "Arma3Sync está configurado. Click para iniciar";
+                //tile_repositoryStatus.IsEnabled = true;
+                //tile_repositoryStatus.Background = new SolidColorBrush(Colors.Orange);
+                //tile_repositoryStatus.ToolTip = "Click para comprobar estado";
+            //}
 
             //Check repository for updates
-            if (Settings.CheckRepository)
-            {
-                tile_repositoryStatus.IsEnabled = false;
-                new Thread(Repository.CheckRepository).Start();
-            }
+            //if (Settings.CheckRepository)
+            //{
+                //tile_repositoryStatus.IsEnabled = false;
+                //new Thread(Repository.CheckRepository).Start();
+            //}
 
             //Check servers status
             //if (Settings.CheckServers)
@@ -90,10 +83,10 @@ namespace _11thLauncher
             //}
 
             //Check for updates
-            if (Settings.CheckUpdates)
-            {
-                new Thread(() => Updater.CheckVersion(false)).Start();
-            }
+            //if (Settings.CheckUpdates)
+            //{
+                //new Thread(() => Updater.CheckVersion(false)).Start();
+            //}
 
             //Check processes
             //var steamProcess = Util.GetSteamProcess();
@@ -119,17 +112,6 @@ namespace _11thLauncher
         {
             SettingsWindow settingsWindow = new SettingsWindow {Owner = this};
             settingsWindow.ShowDialog();
-        }
-
-        private void menu_updates_Click(object sender, RoutedEventArgs e)
-        {
-            new Thread(() => Updater.CheckVersion(true)).Start();
-        }
-
-        private void menu_about_Click(object sender, RoutedEventArgs e)
-        {
-            //AboutWindow aboutWindow = new AboutWindow {Owner = this};
-            //aboutWindow.ShowDialog();
         }
 
         private void comboBox_profiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -198,120 +180,18 @@ namespace _11thLauncher
 
         private void image_arma3Sync_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (Repository.JavaVersion != "" && Settings.Arma3SyncPath != "")
-            {
-                Repository.StartArmA3Sync();
-            }
+            //if (Repository.JavaVersion != "" && Settings.Arma3SyncPath != "")
+            //{
+                //Repository.StartArmA3Sync();
+            //}
         }
 
         private void tile_repositoryStatus_Click(object sender, RoutedEventArgs e)
         {
-            label_repositoryRevision.Content = "";
-            tile_repositoryStatus.IsEnabled = false;
-            tile_repositoryStatus.ToolTip = "Comprobando estado";
-            new Thread(Repository.CheckRepository).Start();
-        }
-
-        private void button_checkStatus_Click(object sender, RoutedEventArgs e)
-        {
-            //int selectedIndex = comboBox_server.SelectedIndex;
-            //if (selectedIndex == -1) return;
-
-            //textBox_serverName.Text = "";
-            //textBox_serverMission.Text = "";
-            //textBox_serverPing.Text = "";
-            //textBox_serverMap.Text = "";
-            //textBox_serverPlayers.Text = "";
-            //textBox_serverVersion.Text = "";
-            //listBox_serverPlayers.Items.Clear();
-
-            //button_checkStatus.IsEnabled = false;
-
-            //new Thread(Servers.QueryServerInfo).Start(selectedIndex);
-        }
-
-        private void checkBox_maxMemory_Checked(object sender, RoutedEventArgs e)
-        {
-            comboBox_maxMemory.IsEnabled = true;
-            comboBox_maxMemory.SelectedIndex = 0;
-            SaveProfile();
-        }
-
-        private void checkBox_maxMemory_Unchecked(object sender, RoutedEventArgs e)
-        {
-            comboBox_maxMemory.IsEnabled = false;
-            comboBox_maxMemory.SelectedIndex = -1;
-            SaveProfile();
-        }
-
-        private void checkBox_maxVMemory_Checked(object sender, RoutedEventArgs e)
-        {
-            comboBox_maxVMemory.IsEnabled = true;
-            comboBox_maxVMemory.SelectedIndex = 0;
-            SaveProfile();
-        }
-
-        private void checkBox_maxVMemory_Unchecked(object sender, RoutedEventArgs e)
-        {
-            comboBox_maxVMemory.IsEnabled = false;
-            comboBox_maxVMemory.SelectedIndex = -1;
-            SaveProfile();
-        }
-
-        private void checkBox_cpuCount_Checked(object sender, RoutedEventArgs e)
-        {
-            comboBox_cpuCount.IsEnabled = true;
-            comboBox_cpuCount.SelectedIndex = 0;
-            SaveProfile();
-        }
-
-        private void checkBox_cpuCount_Unchecked(object sender, RoutedEventArgs e)
-        {
-            comboBox_cpuCount.IsEnabled = false;
-            comboBox_cpuCount.SelectedIndex = -1;
-            SaveProfile();
-        }
-
-        private void checkBox_extraThreads_Checked(object sender, RoutedEventArgs e)
-        {
-            comboBox_extraThreads.IsEnabled = true;
-            comboBox_extraThreads.SelectedIndex = 0;
-            SaveProfile();
-        }
-
-        private void checkBox_extraThreads_Unchecked(object sender, RoutedEventArgs e)
-        {
-            comboBox_extraThreads.IsEnabled = false;
-            comboBox_extraThreads.SelectedIndex = -1;
-            SaveProfile();
-        }
-
-        private void checkBox_priority_Checked(object sender, RoutedEventArgs e)
-        {
-            comboBox_priority.IsEnabled = true;
-            comboBox_priority.SelectedIndex = 0;
-            SaveProfile();
-        }
-
-        private void checkBox_priority_Unchecked(object sender, RoutedEventArgs e)
-        {
-            comboBox_priority.IsEnabled = false;
-            comboBox_priority.SelectedIndex = -1;
-            SaveProfile();
-        }
-
-        private void checkBox_malloc_Checked(object sender, RoutedEventArgs e)
-        {
-            comboBox_malloc.IsEnabled = true;
-            comboBox_malloc.SelectedIndex = 0;
-            SaveProfile();
-        }
-
-        private void checkBox_malloc_Unchecked(object sender, RoutedEventArgs e)
-        {
-            comboBox_malloc.IsEnabled = false;
-            comboBox_malloc.SelectedIndex = -1;
-            SaveProfile();
+            //label_repositoryRevision.Content = "";
+            //tile_repositoryStatus.IsEnabled = false;
+            //tile_repositoryStatus.ToolTip = "Comprobando estado";
+            //new Thread(Repository.CheckRepository).Start();
         }
 
         private void button_defaultProfile_Click(object sender, RoutedEventArgs e)
@@ -652,17 +532,17 @@ namespace _11thLauncher
             //Set parameters values
             //button_launch.SelectedIndex = Profiles.GetParameter("launchOption", 0);
 
-            checkBox_noFilePatching.IsChecked = Profiles.GetParameter("noFilePatching", false);
-            checkBox_skipSplash.IsChecked = Profiles.GetParameter("skipSplashScreen", false);
-            checkBox_windowedMode.IsChecked = Profiles.GetParameter("windowsXPMode", false);
-            checkBox_noPause.IsChecked = Profiles.GetParameter("noPause", false);
-            checkBox_showScriptErrors.IsChecked = Profiles.GetParameter("showScriptErrors", false);
-            checkBox_emptyWorld.IsChecked = Profiles.GetParameter("emptyWorld", false);
-            checkBox_skipIntro.IsChecked = Profiles.GetParameter("skipIntro", false);
-            checkBox_windowedMode.IsChecked = Profiles.GetParameter("windowedMode", false);
-            checkBox_noMulticore.IsChecked = Profiles.GetParameter("noCB", false);
-            checkBox_noLogs.IsChecked = Profiles.GetParameter("noLogs", false);
-            checkBox_hyperthreading.IsChecked = Profiles.GetParameter("hyperthreading", false);
+            //checkBox_noFilePatching.IsChecked = Profiles.GetParameter("noFilePatching", false);
+            //checkBox_skipSplash.IsChecked = Profiles.GetParameter("skipSplashScreen", false);
+            //checkBox_windowedMode.IsChecked = Profiles.GetParameter("windowsXPMode", false);
+            //checkBox_noPause.IsChecked = Profiles.GetParameter("noPause", false);
+            //checkBox_showScriptErrors.IsChecked = Profiles.GetParameter("showScriptErrors", false);
+            //checkBox_emptyWorld.IsChecked = Profiles.GetParameter("emptyWorld", false);
+            //checkBox_skipIntro.IsChecked = Profiles.GetParameter("skipIntro", false);
+            //checkBox_windowedMode.IsChecked = Profiles.GetParameter("windowedMode", false);
+            //checkBox_noMulticore.IsChecked = Profiles.GetParameter("noCB", false);
+            //checkBox_noLogs.IsChecked = Profiles.GetParameter("noLogs", false);
+            //checkBox_hyperthreading.IsChecked = Profiles.GetParameter("hyperthreading", false);
 
             checkBox_maxMemory.IsChecked = Profiles.GetParameter("maxMemory", false);
             comboBox_maxMemory.SelectedIndex = Profiles.GetParameter("maxMemoryValue", -1);
@@ -720,17 +600,17 @@ namespace _11thLauncher
             //Save parameters
             //Profiles.ProfileParameters["launchOption"] = button_launch.SelectedIndex.ToString();
 
-            Profiles.ProfileParameters["noFilePatching"] = checkBox_noFilePatching.IsChecked.ToString();
-            Profiles.ProfileParameters["skipSplashScreen"] = checkBox_skipSplash.IsChecked.ToString();
-            Profiles.ProfileParameters["windowsXPMode"] = checkBox_winXPmode.IsChecked.ToString();
-            Profiles.ProfileParameters["noPause"] = checkBox_noPause.IsChecked.ToString();
-            Profiles.ProfileParameters["showScriptErrors"] = checkBox_showScriptErrors.IsChecked.ToString();
-            Profiles.ProfileParameters["emptyWorld"] = checkBox_emptyWorld.IsChecked.ToString();
-            Profiles.ProfileParameters["skipIntro"] = checkBox_skipIntro.IsChecked.ToString();
-            Profiles.ProfileParameters["windowedMode"] = checkBox_windowedMode.IsChecked.ToString();
-            Profiles.ProfileParameters["noCB"] = checkBox_noMulticore.IsChecked.ToString();
-            Profiles.ProfileParameters["noLogs"] = checkBox_noLogs.IsChecked.ToString();
-            Profiles.ProfileParameters["hyperthreading"] = checkBox_hyperthreading.IsChecked.ToString();
+            //Profiles.ProfileParameters["noFilePatching"] = checkBox_noFilePatching.IsChecked.ToString();
+            //Profiles.ProfileParameters["skipSplashScreen"] = checkBox_skipSplash.IsChecked.ToString();
+            //Profiles.ProfileParameters["windowsXPMode"] = checkBox_winXPmode.IsChecked.ToString();
+            //Profiles.ProfileParameters["noPause"] = checkBox_noPause.IsChecked.ToString();
+            //Profiles.ProfileParameters["showScriptErrors"] = checkBox_showScriptErrors.IsChecked.ToString();
+            //Profiles.ProfileParameters["emptyWorld"] = checkBox_emptyWorld.IsChecked.ToString();
+            //Profiles.ProfileParameters["skipIntro"] = checkBox_skipIntro.IsChecked.ToString();
+            //Profiles.ProfileParameters["windowedMode"] = checkBox_windowedMode.IsChecked.ToString();
+            //Profiles.ProfileParameters["noCB"] = checkBox_noMulticore.IsChecked.ToString();
+            //Profiles.ProfileParameters["noLogs"] = checkBox_noLogs.IsChecked.ToString();
+            //Profiles.ProfileParameters["hyperthreading"] = checkBox_hyperthreading.IsChecked.ToString();
 
             Profiles.ProfileParameters["maxMemory"] = checkBox_maxMemory.IsChecked.ToString();
             Profiles.ProfileParameters["maxMemoryValue"] = comboBox_maxMemory.SelectedIndex.ToString();
@@ -782,25 +662,6 @@ namespace _11thLauncher
         }
 
         /// <summary>
-        /// Update the status bar contents
-        /// </summary>
-        /// <param name="text">(optional) Text to show</param>
-        private void UpdateStatusBar(string text = "")
-        {
-
-            if (string.IsNullOrEmpty(text))
-            {
-                statusBar.Text = "Listo";
-                progressBar_statusBar.IsIndeterminate = false;
-            }
-            else
-            {
-                statusBar.Text = text;
-                progressBar_statusBar.IsIndeterminate = true;
-            }
-        }
-
-        /// <summary>
         /// Update the repository status with the given config
         /// </summary>
         /// <param name="revision">Repository revision</param>
@@ -840,70 +701,7 @@ namespace _11thLauncher
                     tile_repositoryStatus.ToolTip = "No tienes la última versión del repositorio. Click para volver a comprobar.";
                 }
             }
-            UpdateStatusBar();
-        }
-
-        /// <summary>
-        /// Update the status for the server with the given index
-        /// </summary>
-        /// <param name="index">Index of the server</param>
-        /// <param name="status">Is the server online or offline</param>
-        /// <param name="players">Number of players in the servers and max players</param>
-        private void UpdateServerStatus(int index, bool status, string players)
-        {
-            //Image[] serverStatusImages = { image_coopStatus, image_academyStatus, image_aliveStatus };
-            //Label[] serverStatusPlayerLabels = {label_coopPlayers, label_academyPlayers, label_alivePlayers};
-            //
-            //if (status)
-            //{
-            //    serverStatusImages[index].Source = new BitmapImage(new Uri("pack://application:,,,/Resources/on.png"));
-            //    serverStatusImages[index].ToolTip = "Online. Click para volver a comprobar";
-            //} else
-            //{
-            //    serverStatusImages[index].Source = new BitmapImage(new Uri("pack://application:,,,/Resources/off.png"));
-            //    serverStatusImages[index].ToolTip = "Desconocido / Offline. Click para volver a comprobar";
-            //}
-            //
-            ////Update number of players on the server
-            //serverStatusPlayerLabels[index].Content = players;
-            //
             //UpdateStatusBar();
-        }
-
-        /// <summary>
-        /// Update the information of the server with the given index
-        /// </summary>
-        /// <param name="index">Index of the server</param>
-        /// <param name="exception">Has there been an exception when querying the server?</param>
-        private void UpdateServerInfo(int index, bool exception)
-        {
-
-            //textBox_serverName.Text = "";
-            //textBox_serverMission.Text = "";
-            //textBox_serverPing.Text = "";
-            //textBox_serverMap.Text = "";
-            //textBox_serverPlayers.Text = "";
-            //textBox_serverVersion.Text = "";
-            //listBox_serverPlayers.Items.Clear();
-
-            //textBox_serverName.Text = Servers.ServerInfo[0];
-            //textBox_serverMission.Text = Servers.ServerInfo[1];
-            //textBox_serverPing.Text = Servers.ServerInfo[2];
-            //textBox_serverMap.Text = Servers.ServerInfo[3];
-            //textBox_serverPlayers.Text = Servers.ServerInfo[4] + "/" + Servers.ServerInfo[5];
-            //textBox_serverVersion.Text = Servers.ServerInfo[6];
-            //foreach (string player in Servers.ServerPlayers)
-            //{
-                //listBox_serverPlayers.Items.Add(player);
-            //}
-
-            //button_checkStatus.IsEnabled = true;
-            //UpdateStatusBar();
-
-            //if (exception)
-            //{
-                //this.ShowMessageAsync("Error", "Error de comunicación con el servidor");
-            //}
         }
 
         /// <summary>
@@ -913,13 +711,13 @@ namespace _11thLauncher
         /// <param name="newVersion">Is there a new version?</param>
         private async void ShowUpdateNotification(string version, bool newVersion)
         {
-            UpdateStatusBar();
+            //UpdateStatusBar();
             if (newVersion)
             {
                 MessageDialogResult result = await this.ShowMessageAsync("Actualización disponible", "Hay una nueva versión disponible para la aplicación (" + version + "), ¿deseas actualizar ahora?", MessageDialogStyle.AffirmativeAndNegative);
                 if (result == MessageDialogResult.Affirmative)
                 {
-                    Updater.ExecuteUpdater();
+                    //Updater.ExecuteUpdater();
                 }
             } else
             {
@@ -933,9 +731,5 @@ namespace _11thLauncher
                 }
             }
         }
-
-        /// <summary>
-        /// Show server version mismatch alert icon
-        /// </summary>
     }
 }

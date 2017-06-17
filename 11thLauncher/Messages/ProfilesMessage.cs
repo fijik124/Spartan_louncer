@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using _11thLauncher.Model.Profile;
+using _11thLauncher.Models;
 
 namespace _11thLauncher.Messages
 {

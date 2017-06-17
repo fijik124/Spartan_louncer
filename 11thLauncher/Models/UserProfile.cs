@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using Caliburn.Micro;
 
-namespace _11thLauncher.Model.Profile
+namespace _11thLauncher.Models
 {
     [DataContract]
     public class UserProfile : PropertyChangedBase

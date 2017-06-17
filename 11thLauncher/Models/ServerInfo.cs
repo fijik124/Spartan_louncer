@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace _11thLauncher.Model.Server
+namespace _11thLauncher.Models
 {
     public class ServerInfo
     {

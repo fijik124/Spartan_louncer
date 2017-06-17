@@ -5,15 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:resx="clr-namespace:_11thLauncher.Resources"
         xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
-        xmlns:model="clr-namespace:_11thLauncher.Model"
-        xmlns:server="clr-namespace:_11thLauncher.Model.Server"
+        xmlns:model="clr-namespace:_11thLauncher.Models"
         mc:Ignorable="d"
         d:DesignHeight="337" d:DesignWidth="615" d:DataContext="{d:DesignInstance Type=vm:ServerQueryViewModel}">
     <Grid>
         <Label Content="{x:Static resx:Strings.S_LABEL_SERVER}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" FontWeight="Bold"/>
         <ComboBox x:Name="Servers" HorizontalAlignment="Left" Margin="71,10,0,0" VerticalAlignment="Top" Width="286">
             <ComboBox.ItemTemplate>
-                <DataTemplate DataType="server:Server">
+                <DataTemplate DataType="model:Server">
                     <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                         <Label Content="{Binding Path=Name, Mode=OneWay}"/>
                         <Rectangle Height="15" Width="15">

@@ -682,6 +682,42 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There has been an error updating the application, try again later.
+        /// </summary>
+        public static string S_MSG_UPDATE_FAIL_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_UPDATE_FAIL_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error updating.
+        /// </summary>
+        public static string S_MSG_UPDATE_FAIL_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_UPDATE_FAIL_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application has been updated successfully.
+        /// </summary>
+        public static string S_MSG_UPDATE_SUCCESS_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_UPDATE_SUCCESS_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application updated.
+        /// </summary>
+        public static string S_MSG_UPDATE_SUCCESS_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_UPDATE_SUCCESS_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New profile name.
         /// </summary>
         public static string S_NEW_PROFILE_NAME {
@@ -1029,33 +1065,6 @@ namespace _11thLauncher.Resources {
         public static string S_PORT {
             get {
                 return ResourceManager.GetString("S_PORT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modern Warfare.
-        /// </summary>
-        public static string S_PRESET1 {
-            get {
-                return ResourceManager.GetString("S_PRESET1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modern Warfare [ALiVE].
-        /// </summary>
-        public static string S_PRESET2 {
-            get {
-                return ResourceManager.GetString("S_PRESET2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vietnam [Unsung].
-        /// </summary>
-        public static string S_PRESET3 {
-            get {
-                return ResourceManager.GetString("S_PRESET3", resourceCulture);
             }
         }
         

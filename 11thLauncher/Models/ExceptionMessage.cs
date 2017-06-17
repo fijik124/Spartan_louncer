@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _11thLauncher.Model
+namespace _11thLauncher.ViewModels
 {
     public class ExceptionMessage
     {

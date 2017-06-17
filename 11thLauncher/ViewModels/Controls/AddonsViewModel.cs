@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Data;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
-using _11thLauncher.Model.Addons;
+using _11thLauncher.Models;
 
 namespace _11thLauncher.ViewModels.Controls
 {

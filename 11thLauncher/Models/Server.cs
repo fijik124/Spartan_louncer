@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
 using Newtonsoft.Json;
 
-namespace _11thLauncher.Model.Server
+namespace _11thLauncher.Models
 {
     public class Server : PropertyChangedBase
     {

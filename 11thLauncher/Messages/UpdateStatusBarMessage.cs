@@ -1,4 +1,4 @@
-﻿using _11thLauncher.Model;
+﻿using _11thLauncher.Models;
 
 namespace _11thLauncher.Messages
 {

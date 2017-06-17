@@ -6,11 +6,9 @@ using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Messages;
 using _11thLauncher.Model;
-using _11thLauncher.Model.Game;
-using _11thLauncher.Model.Parameter;
 using _11thLauncher.Model.Profile;
-using _11thLauncher.Model.Settings;
-using _11thLauncher.Services;
+using _11thLauncher.Models;
+using _11thLauncher.Services.Contracts;
 using _11thLauncher.ViewModels.Controls;
 
 namespace _11thLauncher.ViewModels
@@ -21,12 +19,13 @@ namespace _11thLauncher.ViewModels
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IWindowManager _windowManager;
         private readonly ParameterManager _parameterManager;
-        private readonly LaunchManager _launchManager;
         private readonly ProfileManager _profileManager;
 
         private readonly ISettingsService _settingsService;
         private readonly IAddonService _addonService;
         private readonly IServerQueryService _serverQueryService;
+        private readonly IUpdaterService _updaterService;
+        private readonly IGameLauncherService _gameLauncherService;
 
         private WindowState _windowState;
         private Visibility _showTrayIcon = Visibility.Hidden;
@@ -37,8 +36,8 @@ namespace _11thLauncher.ViewModels
         private string _versionMismatchTooltip;
 
         public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager,
-            ISettingsService settingsService, IAddonService addonService, IServerQueryService serverQueryService, ParameterManager parameterManager,
-            LaunchManager launchManager, ProfileManager profileManager)
+            ISettingsService settingsService, IAddonService addonService, IServerQueryService serverQueryService, IUpdaterService updaterService ,
+            ParameterManager parameterManager, IGameLauncherService gameLauncherService, ProfileManager profileManager)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
@@ -50,8 +49,9 @@ namespace _11thLauncher.ViewModels
             _settingsService = settingsService;
             _addonService = addonService;
             _serverQueryService = serverQueryService;
+            _updaterService = updaterService;
             _parameterManager = parameterManager;
-            _launchManager = launchManager;
+            _gameLauncherService = gameLauncherService;
             _profileManager = profileManager;
 
             Statusbar = IoC.Get<StatusbarViewModel>();
@@ -171,8 +171,30 @@ namespace _11thLauncher.ViewModels
 
         #endregion
 
-        public void Init()
+        private void Init()
         {
+            //If just updated, remove updater and show notification
+            if (Program.Updated)
+            {
+                _updaterService.RemoveUpdater();
+                _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                {
+                    Title = Resources.Strings.S_MSG_UPDATE_SUCCESS_TITLE,
+                    Content = Resources.Strings.S_MSG_UPDATE_SUCCESS_CONTENT
+                });
+            }
+
+            //Notify if update failed
+            if (Program.UpdateFailed)
+            {
+                _updaterService.RemoveUpdater();
+                _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                {
+                    Title = Resources.Strings.S_MSG_UPDATE_FAIL_TITLE,
+                    Content = Resources.Strings.S_MSG_UPDATE_FAIL_CONTENT
+                });
+            }
+
             //TODO LEGACY CONVERT 
             if (_settingsService.SettingsExist())
             {
@@ -201,7 +223,7 @@ namespace _11thLauncher.ViewModels
                 _settingsService.Write();
 
                 //Save default profile
-                _profileManager.WriteProfile(defaultProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launchManager.GameConfig);
+                //_profileManager.WriteProfile(defaultProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launchManager.GameConfig); TODO
             }
             _eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
 
@@ -222,7 +244,7 @@ namespace _11thLauncher.ViewModels
             //TODO - check repository if configured
         }
 
-        public void CompareServerVersion()
+        private void CompareServerVersion()
         {
             var gameVersion = _settingsService.GetGameVersion();
             GameVersion = gameVersion;
@@ -285,6 +307,11 @@ namespace _11thLauncher.ViewModels
         public void TrayIcon_Click()
         {
             WindowState = WindowState.Normal;
+        }
+
+        public void OnClose(ConsoleCancelEventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode); //Close background thread on shell closed
         }
 
         #endregion

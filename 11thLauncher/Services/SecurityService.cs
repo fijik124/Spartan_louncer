@@ -2,19 +2,20 @@
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using _11thLauncher.Services.Contracts;
 
-namespace _11thLauncher.Model
+namespace _11thLauncher.Services
 {
-    internal static class Security
+    public class SecurityService : ISecurityService
     {
-        internal static string EncryptPassword(string text)
+        public string EncryptPassword(string text)
         {
             byte[] original = Encoding.Unicode.GetBytes(text);
             byte[] encrypted = ProtectedData.Protect(original, GetEntropy(), DataProtectionScope.CurrentUser);
             return Convert.ToBase64String(encrypted);
         }
 
-        internal static string DecryptPassword(string text)
+        public string DecryptPassword(string text)
         {
             byte[] encrypted = Convert.FromBase64String(text);
             byte[] original = ProtectedData.Unprotect(encrypted, GetEntropy(), DataProtectionScope.CurrentUser);

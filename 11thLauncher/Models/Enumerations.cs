@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace _11thLauncher.Model
+namespace _11thLauncher.Models
 {
     public enum AsyncAction
     {

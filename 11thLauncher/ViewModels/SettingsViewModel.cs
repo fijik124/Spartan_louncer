@@ -2,7 +2,7 @@
 using Caliburn.Micro;
 using MahApps.Metro;
 using _11thLauncher.Messages;
-using _11thLauncher.Model;
+using _11thLauncher.Models;
 
 namespace _11thLauncher.ViewModels
 {

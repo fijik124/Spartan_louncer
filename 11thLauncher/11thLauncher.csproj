@@ -21,7 +21,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>IncrementOnDemand.IncrementOnDemand.Increment.IncrementOnDemandWithReset</AssemblyFileVersionSettings>
-    <AssemblyVersion>3.0.25.0</AssemblyVersion>
+    <AssemblyVersion>3.0.53.0</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -134,33 +134,37 @@
     <Compile Include="Messages\ShowDialogMessage.cs" />
     <Compile Include="Messages\ThemeChangedMessage.cs" />
     <Compile Include="Messages\UpdateStatusBarMessage.cs" />
-    <Compile Include="Model\Addons\Addon.cs" />
-    <Compile Include="Model\Addons\Preset.cs" />
+    <Compile Include="Models\Addon.cs" />
+    <Compile Include="Models\Preset.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="LauncherBootstraper.cs" />
     <Compile Include="Model\ExtensionMethods.cs" />
     <Compile Include="Services\AddonService.cs" />
     <Compile Include="Services\Arma3SyncService.cs" />
-    <Compile Include="Services\IAddonService.cs" />
-    <Compile Include="Services\IAddonSyncService.cs" />
-    <Compile Include="Services\ISettingsService.cs" />
+    <Compile Include="Services\Contracts\ISecurityService.cs" />
+    <Compile Include="Services\GameLauncherService.cs" />
+    <Compile Include="Services\Contracts\IAddonService.cs" />
+    <Compile Include="Services\Contracts\IAddonSyncService.cs" />
+    <Compile Include="Services\Contracts\IGameLauncherService.cs" />
+    <Compile Include="Services\Contracts\ISettingsService.cs" />
+    <Compile Include="Services\Contracts\IUpdaterService.cs" />
+    <Compile Include="Services\SecurityService.cs" />
     <Compile Include="Services\ServerQueryService.cs" />
     <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\UpdaterService.cs" />
     <Compile Include="ViewModels\Controls\ServerQueryViewModel.cs" />
     <Compile Include="Views\Controls\ProfileManagerView.xaml.cs">
       <DependentUpon>ProfileManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Util\EnumerationExtension.cs" />
-    <Compile Include="Model\Enumerations.cs" />
+    <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Model\ExceptionMessage.cs" />
-    <Compile Include="Model\Game\GameConfig.cs" />
-    <Compile Include="Model\Game\LaunchManager.cs" />
-    <Compile Include="Model\Parameter\LaunchParameter.cs" />
-    <Compile Include="Model\Parameter\ParameterManager.cs" />
-    <Compile Include="Model\Security.cs" />
-    <Compile Include="Model\Server\Server.cs" />
-    <Compile Include="Model\Server\ServerInfo.cs" />
-    <Compile Include="Model\Settings\ApplicationSettings.cs" />
+    <Compile Include="Models\GameConfig.cs" />
+    <Compile Include="Models\LaunchParameter.cs" />
+    <Compile Include="Models\ParameterManager.cs" />
+    <Compile Include="Models\Server.cs" />
+    <Compile Include="Models\ServerInfo.cs" />
+    <Compile Include="Models\ApplicationSettings.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -182,10 +186,9 @@
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Util\ParameterTemplateSelector.cs" />
-    <Compile Include="Model\Parameter\ParameterValueItem.cs" />
-    <Compile Include="Model\Profile\UserProfile.cs" />
+    <Compile Include="Models\ParameterValueItem.cs" />
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Model\Profile\ProfileManager.cs" />
-    <Compile Include="Processes\Util.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -282,8 +285,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Net\Repository.cs" />
-    <Compile Include="Net\Updater.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -334,8 +335,9 @@
     <Resource Include="Resources\a3logo_inverted.png" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\IServerQueryService.cs" />
+    <Compile Include="Services\Contracts\IServerQueryService.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

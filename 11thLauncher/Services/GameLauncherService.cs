@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using _11thLauncher.Game;
-using _11thLauncher.Model.Addons;
-using _11thLauncher.Model.Parameter;
+using _11thLauncher.Models;
+using _11thLauncher.Services.Contracts;
 
-namespace _11thLauncher.Model.Game
+namespace _11thLauncher.Services
 {
-    public class LaunchManager
+    public class GameLauncherService: IGameLauncherService
     {
         public GameConfig GameConfig;
 
-        public LaunchManager()
+        public GameLauncherService()
         {
             GameConfig = new GameConfig();
         }
@@ -159,14 +157,14 @@ namespace _11thLauncher.Model.Game
 
             //    process.Start();
 
-            
+
 
             //TODO alternative launch method
             //steam://rungameid/107410/-noLauncher -noSplash -noPause -showScriptErrors -world=empty -skipIntro -enableHT -mod=@ace;@acre2;@cba_a3;@cup_terrains;@meu;@meu_maps;@meu_rhs;@rhsafrf;@rhsgref;@rhsusaf;
         }
 
         [Obsolete("Uses the game path, the new method is using a registered URI")]
-        public void StartGame(string gamePath, Collection<Addon> addons, Collection<LaunchParameter> parameters, 
+        public void StartGame(string gamePath, Collection<Addon> addons, Collection<LaunchParameter> parameters,
             LaunchOption launchOption, LaunchPlatform platform, string server, string port, string password)
         {
             //string gameParams = "";

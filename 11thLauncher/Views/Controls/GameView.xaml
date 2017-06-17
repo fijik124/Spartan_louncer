@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:m="clr-namespace:_11thLauncher.Model"
+             xmlns:m="clr-namespace:_11thLauncher.Models"
              xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
              xmlns:resx="clr-namespace:_11thLauncher.Resources"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"

@@ -1,4 +1,4 @@
-﻿namespace _11thLauncher.Model.Settings
+﻿namespace _11thLauncher.Models
 {
     public class ApplicationSettings
     {

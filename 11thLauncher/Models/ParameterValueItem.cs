@@ -1,4 +1,4 @@
-﻿namespace _11thLauncher.Model.Parameter
+﻿namespace _11thLauncher.Models
 {
     public class ParameterValueItem
     {

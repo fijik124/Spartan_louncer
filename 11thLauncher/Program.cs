@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Reflection;
-using _11thLauncher.Net;
 
 namespace _11thLauncher
 {
     public class Program
     {
+        public static bool Updated;
+        public static bool UpdateFailed;
+
         [STAThread]
         public static void Main(string[] appArgs)
         {
@@ -33,11 +35,11 @@ namespace _11thLauncher
                 switch (appArgs[0])
                 {
                     case "-updated":
-                        Updater.Updated = true;
+                        Updated = true;
                         break;
 
                     case "-updateFailed":
-                        Updater.UpdateFailed = true;
+                        UpdateFailed = true;
                         break;
 
                     default:

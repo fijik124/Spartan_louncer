@@ -7,10 +7,8 @@ using Caliburn.Micro;
 using MahApps.Metro;
 using Microsoft.Win32;
 using _11thLauncher.Config;
-using _11thLauncher.Model;
-using _11thLauncher.Model.Profile;
-using _11thLauncher.Model.Server;
-using _11thLauncher.Model.Settings;
+using _11thLauncher.Models;
+using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.Services
 {

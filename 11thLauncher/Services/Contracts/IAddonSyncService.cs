@@ -1,4 +1,4 @@
-﻿namespace _11thLauncher.Services
+﻿namespace _11thLauncher.Services.Contracts
 {
     public interface IAddonSyncService
     {

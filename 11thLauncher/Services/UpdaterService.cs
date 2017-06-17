@@ -4,22 +4,19 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Windows;
-using _11thLauncher;
+using _11thLauncher.Services.Contracts;
 
-namespace _11thLauncher.Net
+namespace _11thLauncher.Services
 {
-    public static class Updater
+    public class UpdaterService : IUpdaterService
     {
-        public static bool Updated = false;
-        public static bool UpdateFailed = false;
-
         private static string _latestVersion = "";
 
         /// <summary>
         /// Check if there is a new version available
         /// </summary>
         /// <param name="manualCheck">The check has been called manually, show message if there are no updates</param>
-        public static void CheckVersion(bool manualCheck)
+        public void CheckVersion(bool manualCheck)
         {
             MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando actualizaciones" });
 
@@ -37,10 +34,15 @@ namespace _11thLauncher.Net
                         }
                     }
 
-                if (_latestVersion != Constants.CurrentVersion)
+                //Get short version number from assembly (MajorMinorRevision)
+                var assemblyVersion = Constants.AssemblyVersion.Split('.');
+                var currentVersionStr = assemblyVersion[0] + assemblyVersion[1] + assemblyVersion[2];
+
+                if (_latestVersion != currentVersionStr)
                 {
                     MainWindow.UpdateForm("ShowUpdateNotification", new object[] { _latestVersion, true });
-                } else if (manualCheck)
+                }
+                else if (manualCheck)
                 {
                     MainWindow.UpdateForm("ShowUpdateNotification", new object[] { _latestVersion, false });
                 }
@@ -51,10 +53,11 @@ namespace _11thLauncher.Net
             }
         }
 
+
         /// <summary>
         /// Extract and execute external updater, then close the application
         /// </summary>
-        public static void ExecuteUpdater()
+        public void ExecuteUpdater()
         {
             //Extract updater
             File.WriteAllBytes(Constants.UpdaterPath, Properties.Resources._11thLauncherUpdater);
@@ -83,10 +86,7 @@ namespace _11thLauncher.Net
             Application.Current.Shutdown();
         }
 
-        /// <summary>
-        /// Delete the program updater if it exists in the system
-        /// </summary>
-        public static void RemoveUpdater()
+        public void RemoveUpdater()
         {
             File.Delete(Constants.UpdaterPath);
         }

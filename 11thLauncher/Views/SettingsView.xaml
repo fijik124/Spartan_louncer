@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:resx="clr-namespace:_11thLauncher.Resources"
-        xmlns:model="clr-namespace:_11thLauncher.Model"
+        xmlns:model="clr-namespace:_11thLauncher.Models"
         xmlns:vm="clr-namespace:_11thLauncher.ViewModels"
         xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
         xmlns:util="clr-namespace:_11thLauncher.Views.Util"

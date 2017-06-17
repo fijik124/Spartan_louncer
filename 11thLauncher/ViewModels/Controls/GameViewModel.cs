@@ -1,18 +1,16 @@
 ﻿using System.Windows.Controls;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
-using _11thLauncher.Model;
-using _11thLauncher.Model.Game;
-using _11thLauncher.Model.Parameter;
-using _11thLauncher.Model.Settings;
+using _11thLauncher.Models;
 using _11thLauncher.Services;
+using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
     public class GameViewModel : PropertyChangedBase, IHandle<LoadProfileMessage>, IHandle<FillServerInfoMessage>
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly LaunchManager _launchManager;
+        private readonly IGameLauncherService _gameLauncherService;
         private readonly IAddonService _addonService;
         private readonly ParameterManager _parameterManager;
         private readonly SettingsService _settingsService;
@@ -21,13 +19,13 @@ namespace _11thLauncher.ViewModels.Controls
         private string _server;
         private string _port;
 
-        public GameViewModel(IEventAggregator eventAggregator, LaunchManager launchManager, 
+        public GameViewModel(IEventAggregator eventAggregator, IGameLauncherService gameLauncherService, 
             IAddonService addonService, ParameterManager parameterManager, SettingsService settingsService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
 
-            _launchManager = launchManager;
+            _gameLauncherService = gameLauncherService;
             _addonService = addonService;
             _parameterManager = parameterManager;
             _settingsService = settingsService;
@@ -93,7 +91,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void ButtonLaunch(PasswordBox passwordBox)
         {
-            _launchManager.StartGame(_addonService.GetAddons(), _parameterManager.Parameters,
+            _gameLauncherService.StartGame(_addonService.GetAddons(), _parameterManager.Parameters,
                 LaunchOption, Platform, Server, Port, passwordBox.Password);
         }
 

@@ -3,9 +3,10 @@ using System.Net;
 using System.Net.Sockets;
 using QueryMaster;
 using QueryMaster.GameServer;
-using _11thLauncher.Model;
-using Server = _11thLauncher.Model.Server.Server;
-using ServerInfo = _11thLauncher.Model.Server.ServerInfo;
+using _11thLauncher.Models;
+using _11thLauncher.Services.Contracts;
+using Server = _11thLauncher.Models.Server;
+using ServerInfo = _11thLauncher.Models.ServerInfo;
 
 namespace _11thLauncher.Services
 {

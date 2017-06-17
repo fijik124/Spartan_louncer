@@ -20,7 +20,7 @@
                       BorderThickness="0" GlowBrush="Black"
                       LeftWindowCommandsOverlayBehavior="HiddenTitleBar"
                       WindowState="{Binding WindowState, Mode=TwoWay}"
-                      ShowInTaskbar="{Binding ShowInTaskbar}">
+                      ShowInTaskbar="{Binding ShowInTaskbar}" cal:Message.Attach="[Event Closing] = [Action OnClose($eventArgs)]">
 
     <controls:MetroWindow.Resources>
         <DataTemplate x:Key="TabTitle">
