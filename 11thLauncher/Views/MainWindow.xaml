@@ -28,7 +28,7 @@
             <Button  Click="menu_settings_Click"
                     ToolTip="Abrir ventana de opciones" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Resources/menu_settings.png" Stretch="None" Margin="0,0,5,0"/>
+                    <Image Stretch="None" Margin="0,0,5,0"/>
                     <TextBlock Margin="0,1,0,0"><Run Text="Opciones"/></TextBlock>
                 </StackPanel>
             </Button>

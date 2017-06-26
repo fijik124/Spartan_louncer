@@ -478,4 +478,46 @@
   <data name="S_MSG_UPDATE_FAIL_CONTENT" xml:space="preserve">
     <value>There has been an error updating the application, try again later</value>
   </data>
+  <data name="S_LABEL_LANGUAGE" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="S_LABEL_INTERFACE_SETTINGS" xml:space="preserve">
+    <value>Interface Settings</value>
+  </data>
+  <data name="S_LABEL_THEME" xml:space="preserve">
+    <value>Theme: </value>
+  </data>
+  <data name="S_LABEL_ACCENT" xml:space="preserve">
+    <value>Style: </value>
+  </data>
+  <data name="S_LABEL_MINIMIZE_NOTIFICATION" xml:space="preserve">
+    <value>Minimize to notification area: </value>
+  </data>
+  <data name="S_MSG_RESET_TITLE" xml:space="preserve">
+    <value>Confirm deletion</value>
+  </data>
+  <data name="S_MSG_RESET_CONTENT" xml:space="preserve">
+    <value>Are you sure you want to delete all the data and existing profiles?</value>
+  </data>
+  <data name="S_LABEL_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="S_LABEL_CANCEL" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="S_LABEL_ADVANCED_SETTINGS" xml:space="preserve">
+    <value>Advanced settings</value>
+  </data>
+  <data name="S_LABEL_ADVANCED" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="S_LABEL_RESET_SETTINGS" xml:space="preserve">
+    <value>Delete settings and profiles: </value>
+  </data>
+  <data name="S_BTN_RESET_SETTINGS" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="S_LABEL_RESET_DISCLAIMER" xml:space="preserve">
+    <value>DISCLAIMER: This will delete all your parameters, settings and saved profiles.</value>
+  </data>
 </root>

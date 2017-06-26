@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using _11thLauncher.Configuration;
+using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.Services
@@ -19,6 +20,25 @@ namespace _11thLauncher.Services
         private static string _remoteUrl;
         private static string _remoteRevision;
         private static DateTime _remoteBuildDate;
+
+        public List<Repository> ReadRepositories(string arma3SyncPath)
+        {
+            List<Repository> repositories = new List<Repository>();
+            if (!Directory.Exists(arma3SyncPath)) return repositories;
+
+            string[] files = Directory.GetFiles(Path.Combine(arma3SyncPath, Constants.RepositoryConfigFolder));
+            foreach (string file in files)
+            {
+                string fileName = Path.GetFileName(file);
+                if (fileName != null) repositories.Add(new Repository
+                {
+                    Name = fileName.Substring(0, fileName.IndexOf('.')),
+                    Path = file
+                });
+            }
+
+            return repositories;
+        }
 
         /// <summary>
         /// Get a list of repositories from the Arma3Sync ftp folder

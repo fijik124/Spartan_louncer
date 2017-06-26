@@ -58,6 +58,7 @@ namespace _11thLauncher.ViewModels
             Addons = IoC.Get<AddonsViewModel>();
             Game = IoC.Get<GameViewModel>();
             ServerStatus = IoC.Get<ServerStatusViewModel>();
+            RepositoryStatus = IoC.Get<RepositoryStatusViewModel>();
             Parameters = IoC.Get<ParametersViewModel>();
             ServerQuery = IoC.Get<ServerQueryViewModel>();
             ProfileManager = IoC.Get<ProfileManagerViewModel>();
@@ -77,6 +78,8 @@ namespace _11thLauncher.ViewModels
         public GameViewModel Game { get; set; }
 
         public ServerStatusViewModel ServerStatus { get; set; }
+
+        public RepositoryStatusViewModel RepositoryStatus { get; set; }
 
         public ParametersViewModel Parameters { get; set; }
 
@@ -226,6 +229,10 @@ namespace _11thLauncher.ViewModels
             }
             _eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
 
+            //Set style
+            _eventAggregator.PublishOnCurrentThread(new ThemeChangedMessage(_settingsService.ApplicationSettings.ThemeStyle, 
+                _settingsService.ApplicationSettings.AccentColor));
+
             //Read addons //TODO -> no path detected?
             var addons = _addonService.ReadAddons(_settingsService.ApplicationSettings.Arma3Path);
             _eventAggregator.PublishOnCurrentThread(new AddonsLoaded(addons));
@@ -258,7 +265,7 @@ namespace _11thLauncher.ViewModels
 
                 int gameBuild = Convert.ToInt32(gameVersionInfo[2]);
                 int serverBuild = Convert.ToInt32(serverVersionInfo[2]);
-                if (gameBuild >= serverBuild) return;
+                if (gameBuild == serverBuild) return;
 
                 ShowVersionMismatch = Visibility.Visible;
                 VersionMismatchTooltip = string.Format(Resources.Strings.S_VERSION_MISMATCH, GameVersion, serverVersion);
@@ -286,7 +293,8 @@ namespace _11thLauncher.ViewModels
 
         public void Handle(ThemeChangedMessage message)
         {
-            LogoImage = message.ThemeStyle == ThemeStyle.BaseLight ? Constants.LogoLight : Constants.LogoDark;
+            _settingsService.UpdateThemeAndAccent(message.Theme, message.Accent);
+            LogoImage = message.Theme == ThemeStyle.BaseLight ? Constants.LogoLight : Constants.LogoDark;
         }
 
         #endregion
@@ -295,12 +303,12 @@ namespace _11thLauncher.ViewModels
 
         public void ButtonSettings()
         {
-            _windowManager.ShowDialog(new SettingsViewModel(_eventAggregator));
+            _windowManager.ShowDialog(IoC.Get<SettingsViewModel>());
         }
 
         public void ButtonAbout()
         {
-            _windowManager.ShowDialog(new AboutViewModel());
+            _windowManager.ShowDialog(IoC.Get<AboutViewModel>());
         }
 
         public void TrayIcon_Click()

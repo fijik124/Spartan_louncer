@@ -8,7 +8,7 @@ namespace _11thLauncher.Services.Contracts
         /// Query the given server to get it's current status.
         /// </summary>
         /// <param name="server">Server to check</param>
-        void CheckServerStatus(Server server);
+        void GetServerStatus(Server server);
 
         /// <summary>
         /// Query the given server to get it's game version.

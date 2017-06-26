@@ -45,7 +45,7 @@ namespace _11thLauncher.Config
                 Directory.CreateDirectory(Constants.ConfigPath);
             }
 
-            File.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(this));
+            File.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(this, Formatting.Indented));
         }
     }
 }

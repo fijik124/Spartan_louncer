@@ -20,7 +20,8 @@
                       BorderThickness="0" GlowBrush="Black"
                       LeftWindowCommandsOverlayBehavior="HiddenTitleBar"
                       WindowState="{Binding WindowState, Mode=TwoWay}"
-                      ShowInTaskbar="{Binding ShowInTaskbar}" cal:Message.Attach="[Event Closing] = [Action OnClose($eventArgs)]">
+                      ShowInTaskbar="{Binding ShowInTaskbar}" 
+                      cal:Message.Attach="[Event Closing] = [Action OnClose($eventArgs)]">
 
     <controls:MetroWindow.Resources>
         <DataTemplate x:Key="TabTitle">
@@ -59,6 +60,8 @@
                     <ContentControl x:Name="Game" />
                     <!-- Server status -->
                     <ContentControl x:Name="ServerStatus" />
+                    <!-- Repository status -->
+                    <ContentControl x:Name="RepositoryStatus" />
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:Strings.S_PARAMETERS}" HeaderTemplate="{StaticResource TabTitle}">

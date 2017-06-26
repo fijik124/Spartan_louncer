@@ -8,7 +8,6 @@ using _11thLauncher.Models;
 
 namespace _11thLauncher
 {
-    [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
     public static class Constants
     {
         //
@@ -17,7 +16,7 @@ namespace _11thLauncher
         public const string Author = "Javier 'Thrax' Rico";
         public const string BuildCodeName = "Echo";
         public static DateTime BuildDate = new DateTime(2017, 06, 01);
-        public static readonly string AssemblyVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+        public static readonly string AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         //
         // Program Settings
@@ -29,6 +28,7 @@ namespace _11thLauncher
         //
         // Settings Service
         //
+        public static readonly string[] Languages = { "en-US", "es-ES" };
         public static readonly string ConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "11th Launcher");
         public const string ConfigFileName = "config.json";
         public static readonly string[] Arma3RegPath32 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Bohemia Interactive\\ArmA 3", "MAIN", null };
@@ -52,6 +52,11 @@ namespace _11thLauncher
         public const string VersionUrl = "http://raw.githubusercontent.com/11thmeu/launcher/master/bin/version";
         public const string DownloadBaseUrl = "https://raw.githubusercontent.com/11thmeu/launcher/master/bin/";
         public static readonly string UpdaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
+
+        //
+        // Arma3Sync Service
+        //
+        public const string RepositoryConfigFolder = "\\resources\\ftp\\";
 
         // 
         // 11th MEU addon presets

@@ -21,7 +21,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>IncrementOnDemand.IncrementOnDemand.Increment.IncrementOnDemandWithReset</AssemblyFileVersionSettings>
-    <AssemblyVersion>3.0.55.0</AssemblyVersion>
+    <AssemblyVersion>3.0.61.0</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -138,7 +138,8 @@
     <Compile Include="Models\Preset.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="LauncherBootstraper.cs" />
-    <Compile Include="Model\ExtensionMethods.cs" />
+    <Compile Include="Models\Repository.cs" />
+    <Compile Include="ViewModels\Util\ExtensionMethods.cs" />
     <Compile Include="Services\AddonService.cs" />
     <Compile Include="Services\Arma3SyncService.cs" />
     <Compile Include="Services\Contracts\ISecurityService.cs" />
@@ -152,10 +153,15 @@
     <Compile Include="Services\ServerQueryService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UpdaterService.cs" />
+    <Compile Include="ViewModels\Controls\RepositoryStatusViewModel.cs" />
     <Compile Include="ViewModels\Controls\ServerQueryViewModel.cs" />
     <Compile Include="Views\Controls\ProfileManagerView.xaml.cs">
       <DependentUpon>ProfileManagerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\RepositoryStatusView.xaml.cs">
+      <DependentUpon>RepositoryStatusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Util\CultureDisplayConverter.cs" />
     <Compile Include="Views\Util\EnumerationExtension.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
@@ -243,6 +249,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\ProfileSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\RepositoryStatusView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

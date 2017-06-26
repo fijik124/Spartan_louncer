@@ -9,6 +9,8 @@
         xmlns:vm="clr-namespace:_11thLauncher.ViewModels"
         xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
         xmlns:util="clr-namespace:_11thLauncher.Views.Util"
+        xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        dialog:DialogParticipation.Register="{Binding}"
         mc:Ignorable="d"
         Title="{x:Static resx:Strings.S_APP_SETTINGS}" TitleCharacterCasing="Normal" 
         Height="434" Width="691"
@@ -17,7 +19,11 @@
         ResizeMode="NoResize"
         BorderThickness="0" GlowBrush="Black"
         WindowStartupLocation="CenterOwner" 
-        d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel}">
+        d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel}"
+        cal:Message.Attach="[Event Closing] = [Action OnClose($eventArgs)]">
+    <Control.Resources>
+        <util:CultureDisplayConverter x:Key="CultureConverter" />
+    </Control.Resources>
     <Grid>
         <controls:MetroTabControl HorizontalAlignment="Left" TabStripPlacement="Left" controls:TabControlHelper.Underlined="TabPanel">
             <TabItem Header="{x:Static resx:Strings.S_SETTINGS_GENERAL}">
@@ -25,29 +31,29 @@
                     <Label Content="{x:Static resx:Strings.S_LABEL_GAME_OPTIONS}"
                            HorizontalAlignment="Left" VerticalAlignment="Top"
                            Width="522" 
-                           Margin="10,6,0,0"
+                           Margin="10,103,0,0"
                            FontWeight="Bold" />
                     <Label Content="{x:Static resx:Strings.S_LABEL_GAME_PATH}" 
                            HorizontalAlignment="Left" VerticalAlignment="Top" 
-                           Margin="10,33,0,0" />
+                           Margin="10,126,0,0" />
                     <TextBox x:Name="GamePath" 
                              IsReadOnly="True"
                              HorizontalAlignment="Left" VerticalAlignment="Top"
                              Height="23" Width="308" 
-                             Margin="119,34,0,0" />
+                             Margin="119,127,0,0" />
                     <Button x:Name="SelectGamePath" 
                             Content="{x:Static resx:Strings.S_BTN_GAME_PATH}"
                             HorizontalAlignment="Left" VerticalAlignment="Top" 
                             Width="100" 
-                            Margin="432,34,0,0"  />
+                            Margin="432,127,0,0"  />
                     <Label Content="{x:Static resx:Strings.S_LABEL_START_ACTION}" 
                            HorizontalAlignment="Left" VerticalAlignment="Top" 
-                           Margin="10,69,0,0" />
+                           Margin="10,162,0,0" />
                     <ComboBox x:Name="comboBox_startAction" 
                         ItemsSource="{Binding Source={util:Enumeration {x:Type model:StartAction}}}" DisplayMemberPath="Description"
                         HorizontalAlignment="Left" VerticalAlignment="Top" 
                         Width="174"
-                        Margin="119,70,0,0" SelectedIndex="0" />
+                        Margin="119,163,0,0" SelectedIndex="0" />
                 </Grid>
             </TabItem>
             <TabItem Header="Repositorio">
@@ -73,34 +79,45 @@
             </TabItem>
             <TabItem Header="Interfaz">
                 <Grid Width="542">
-                    <Label Content="Opciones de interfaz" FontWeight="Bold" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" VerticalAlignment="Top" Width="522"/>
-                    <Label Content="Tema: " HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
+                    <Label Content="{x:Static resx:Strings.S_LABEL_INTERFACE_SETTINGS}" FontWeight="Bold" 
+                           HorizontalAlignment="Left" VerticalAlignment="Top"  Width="522" Margin="10,10,0,0" />
+
+                    <Label Content="{x:Static resx:Strings.S_LABEL_LANGUAGE}" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="Languages"
+                              HorizontalAlignment="Left" Margin="148,36,0,0" VerticalAlignment="Top" Width="174" 
+                              cal:Message.Attach="[Event SelectionChanged] = [Action Theme_SelectionChanged];" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=., Converter={StaticResource CultureConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>    
+                    </ComboBox>
+
+                    <Label Content="{x:Static resx:Strings.S_LABEL_THEME}" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" />
                     <ComboBox ItemsSource="{Binding Source={util:Enumeration {x:Type model:ThemeStyle}}}" DisplayMemberPath="Description"
                               SelectedValue="{Binding SelectedTheme}" SelectedValuePath="Value"
-                              HorizontalAlignment="Left" Margin="148,38,0,0" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.058,-0.808"
+                              HorizontalAlignment="Left" Margin="148,67,0,0" VerticalAlignment="Top" Width="174" 
                               cal:Message.Attach="[Event SelectionChanged] = [Action Theme_SelectionChanged];" />
 
-                    <Label Content="Estilo: " HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top"/>
+                    <Label Content="{x:Static resx:Strings.S_LABEL_ACCENT}" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" />
                     <ComboBox ItemsSource="{Binding Source={util:Enumeration {x:Type model:AccentColor}}}" DisplayMemberPath="Description"
                               SelectedValue="{Binding SelectedAccent}" SelectedValuePath="Value"
-                              HorizontalAlignment="Left" Margin="148,68,0,0" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.058,-0.808"
+                              HorizontalAlignment="Left" Margin="148,98,0,0" VerticalAlignment="Top" Width="174" 
                               cal:Message.Attach="[Event SelectionChanged] = [Action Accent_SelectionChanged];" />
-                    <Label Content="Minimizar la aplicación:" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="comboBox_minimize" HorizontalAlignment="Left" Margin="148,99,0,0" VerticalAlignment="Top" Width="174" SelectedIndex="0">
-                        <ComboBoxItem Content="A la barra de tareas"/>
-                        <ComboBoxItem Content="Al área de notificación"/>
-                    </ComboBox>
-                    <Label Content="Desplegables" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="522" />
-                    <CheckBox x:Name="checkBox_serversGroupBox" Content="Mostrar el desplegable del estado de los servidores abierto al iniciar" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <CheckBox x:Name="checkBox_repositoryGroupBox" Content="Mostrar el desplegable del estado del repositorio abierto al iniciar" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="MinimizeNotification"  Content="{x:Static resx:Strings.S_LABEL_MINIMIZE_NOTIFICATION}"
+                              HorizontalAlignment="Left" VerticalAlignment="Top"
+                              Margin="10,129,0,0" Padding="5" Width="237" controls:ToggleButtonHelper.ContentDirection="RightToLeft" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Avanzado">
+            <TabItem Header="{x:Static resx:Strings.S_LABEL_ADVANCED}">
                 <Grid Width="542">
-                    <Label Content="Opciones avanzadas" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="522"/>
-                    <Label Content="Borrar configuración y perfiles:" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="button_deleteConfiguration" Content="Borrar" HorizontalAlignment="Left" Margin="182,39,0,0" VerticalAlignment="Top" Width="103" />
-                    <Label Content="NOTA: Esto borrará todas tus parámetros,&#xD;&#xA;configuraciones y perfiles del launcher." HorizontalAlignment="Left" Margin="295,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-0.038" FontWeight="Medium" Width="237"/>
+                    <Label Content="{x:Static resx:Strings.S_LABEL_ADVANCED_SETTINGS}" FontWeight="Bold" 
+                           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"  Width="522"/>
+                    <Label Content="{x:Static resx:Strings.S_LABEL_RESET_SETTINGS}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,38,0,0"/>
+                    <Button x:Name="DeleteSettings" Content="{x:Static resx:Strings.S_BTN_RESET_SETTINGS}" 
+                            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="182,39,0,0"  Width="103"/>
+                    <Label Content="{x:Static resx:Strings.S_LABEL_RESET_DISCLAIMER}" FontWeight="Medium"
+                           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,71,0,0"  Width="516"/>
                 </Grid>
             </TabItem>
         </controls:MetroTabControl>

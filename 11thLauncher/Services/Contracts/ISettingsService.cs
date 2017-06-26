@@ -31,5 +31,14 @@ namespace _11thLauncher.Services.Contracts
         void Read(bool settingsExist);
 
         void Write();
+
+        void Delete();
+
+        /// <summary>
+        /// Sets the application theme and accent
+        /// </summary>
+        /// <param name="theme">Theme to use</param>
+        /// <param name="accent">Accent to use</param>
+        void UpdateThemeAndAccent(ThemeStyle theme, AccentColor accent);
     }
 }

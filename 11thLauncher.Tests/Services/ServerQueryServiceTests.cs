@@ -30,7 +30,7 @@ namespace _11thLauncher.Tests.Services
             };
 
             //Act
-            _serverQueryService.CheckServerStatus(server);
+            _serverQueryService.GetServerStatus(server);
 
             //Assert
             Assert.That(server.ServerStatus, Is.EqualTo(ServerStatus.Online));

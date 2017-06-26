@@ -35,9 +35,12 @@ namespace _11thLauncher
             _container.Singleton<AddonsViewModel>();
             _container.Singleton<GameViewModel>();
             _container.Singleton<ServerStatusViewModel>();
+            _container.Singleton<RepositoryStatusViewModel>();
             _container.Singleton<ParametersViewModel>();
             _container.Singleton<ServerQueryViewModel>();
             _container.Singleton<ProfileManagerViewModel>();
+            _container.Singleton<SettingsViewModel>();
+            _container.Singleton<AboutViewModel>();
 
             //TODO
             _container.Singleton<ProfileManager>();

@@ -16,7 +16,6 @@ namespace _11thLauncher
     /// </summary>
     public partial class SettingsWindow
     {
-        private bool _restarting;
 
         public SettingsWindow()
         {
@@ -64,22 +63,10 @@ namespace _11thLauncher
                     //comboBox_repository.SelectedIndex = 0;
                 //}
             //}
-
-            //Interface
-            comboBox_accent.SelectedIndex = Settings.Accent;
-            if (Settings.MinimizeNotification)
-            {
-                comboBox_minimize.SelectedIndex = 1;
-            }
-            checkBox_serversGroupBox.IsChecked = Settings.ServersGroupBox;
-            checkBox_repositoryGroupBox.IsChecked = Settings.RepositoryGroupBox;
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //If application is restarting, dont save settings
-            if (_restarting) return;
-
             //
             //Save current settings
             //
@@ -138,19 +125,7 @@ namespace _11thLauncher
                 //}
             }
 
-            //Interface
-            Settings.Accent = comboBox_accent.SelectedIndex;
-            Settings.MinimizeNotification = (comboBox_minimize.SelectedIndex == 1);
-            Settings.ServersGroupBox = checkBox_serversGroupBox.IsChecked.GetValueOrDefault();
-            Settings.RepositoryGroupBox = checkBox_repositoryGroupBox.IsChecked.GetValueOrDefault();
-
             Settings.Write();
-        }
-
-        private void comboBox_accent_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Constants.Accents[comboBox_accent.SelectedIndex]), ThemeManager.GetAppTheme("BaseLight"));
-            //Settings.Accent = comboBox_accent.SelectedIndex;
         }
 
         private void button_selectGamePath_Click(object sender, RoutedEventArgs e)
@@ -211,18 +186,6 @@ namespace _11thLauncher
                 textBox_a3sPath.Text = path;
                 //List<string> repositories = Repository.ListRepositories();
                 //comboBox_repository.ItemsSource = repositories;
-            }
-        }
-
-        private async void button_deleteConfiguration_Click(object sender, RoutedEventArgs e)
-        {
-            MessageDialogResult result = await this.ShowMessageAsync("Confirmar borrado", "¿Estás seguro de que quieres borrar toda la información y perfiles guardados?", MessageDialogStyle.AffirmativeAndNegative);
-            if (result == MessageDialogResult.Affirmative)
-            {
-                Settings.Delete();
-                _restarting = true;
-                System.Windows.Forms.Application.Restart();
-                Application.Current.Shutdown();
             }
         }
     }

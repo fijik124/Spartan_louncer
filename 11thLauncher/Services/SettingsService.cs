@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro;
@@ -121,10 +123,10 @@ namespace _11thLauncher.Services
             ApplicationSettings = configFile.ApplicationSettings;
             Servers = configFile.Servers;
 
-            //Set application theme -> this is weird here? move to applicationsettings somehow?
-            ThemeManager.ChangeAppStyle(Application.Current,
-                ThemeManager.GetAccent(((AccentColor)ApplicationSettings.Accent).ToString()),
-                ThemeManager.GetAppTheme("BaseLight"));
+            //Set language
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Constants.Languages.Contains(ApplicationSettings.Language) 
+                ? ApplicationSettings.Language 
+                : Constants.Languages.First());
         }
 
         /// <summary>
@@ -311,6 +313,13 @@ namespace _11thLauncher.Services
             {
                 Directory.Delete(Constants.ConfigPath, true);
             }
+        }
+
+        public void UpdateThemeAndAccent(ThemeStyle theme, AccentColor accent)
+        {
+            ThemeManager.ChangeAppStyle(Application.Current,
+                ThemeManager.GetAccent(accent.ToString()),
+                ThemeManager.GetAppTheme(theme.ToString()));
         }
 
         #endregion

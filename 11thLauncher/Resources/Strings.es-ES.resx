@@ -498,4 +498,46 @@
   <data name="S_MSG_UPDATE_FAIL_CONTENT" xml:space="preserve">
     <value>Se ha producido un error al actualizar la aplicación, vuelve a intentarlo más tarde</value>
   </data>
+  <data name="S_LABEL_LANGUAGE" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="S_LABEL_INTERFACE_SETTINGS" xml:space="preserve">
+    <value>Opciones de Interfaz</value>
+  </data>
+  <data name="S_LABEL_THEME" xml:space="preserve">
+    <value>Tema: </value>
+  </data>
+  <data name="S_LABEL_ACCENT" xml:space="preserve">
+    <value>Estilo: </value>
+  </data>
+  <data name="S_LABEL_MINIMIZE_NOTIFICATION" xml:space="preserve">
+    <value>Minimizar al área de notificación: </value>
+  </data>
+  <data name="S_MSG_RESET_TITLE" xml:space="preserve">
+    <value>Confirmar borrado</value>
+  </data>
+  <data name="S_MSG_RESET_CONTENT" xml:space="preserve">
+    <value>¿Estás seguro de que quieres borrar toda la información y perfiles guardados?</value>
+  </data>
+  <data name="S_LABEL_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="S_LABEL_CANCEL" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="S_LABEL_ADVANCED_SETTINGS" xml:space="preserve">
+    <value>Opciones avanzadas</value>
+  </data>
+  <data name="S_LABEL_ADVANCED" xml:space="preserve">
+    <value>Avanzado</value>
+  </data>
+  <data name="S_LABEL_RESET_SETTINGS" xml:space="preserve">
+    <value>Borrar configuración y perfiles: </value>
+  </data>
+  <data name="S_BTN_RESET_SETTINGS" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="S_LABEL_RESET_DISCLAIMER" xml:space="preserve">
+    <value>NOTA: Esto borrará todas tus parámetros, configuraciones y perfiles.</value>
+  </data>
 </root>

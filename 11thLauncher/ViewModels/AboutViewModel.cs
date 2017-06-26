@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace _11thLauncher.ViewModels
+﻿namespace _11thLauncher.ViewModels
 {
     public class AboutViewModel
     {

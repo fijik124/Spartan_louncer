@@ -412,6 +412,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string S_BTN_RESET_SETTINGS {
+            get {
+                return ResourceManager.GetString("S_BTN_RESET_SETTINGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string S_BTN_SETTINGS {
@@ -475,6 +484,33 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Style: .
+        /// </summary>
+        public static string S_LABEL_ACCENT {
+            get {
+                return ResourceManager.GetString("S_LABEL_ACCENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced.
+        /// </summary>
+        public static string S_LABEL_ADVANCED {
+            get {
+                return ResourceManager.GetString("S_LABEL_ADVANCED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced settings.
+        /// </summary>
+        public static string S_LABEL_ADVANCED_SETTINGS {
+            get {
+                return ResourceManager.GetString("S_LABEL_ADVANCED_SETTINGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created by {0}.
         /// </summary>
         public static string S_LABEL_APP_AUTHOR {
@@ -489,6 +525,15 @@ namespace _11thLauncher.Resources {
         public static string S_LABEL_BUILD {
             get {
                 return ResourceManager.GetString("S_LABEL_BUILD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string S_LABEL_CANCEL {
+            get {
+                return ResourceManager.GetString("S_LABEL_CANCEL", resourceCulture);
             }
         }
         
@@ -511,11 +556,47 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Interface Settings.
+        /// </summary>
+        public static string S_LABEL_INTERFACE_SETTINGS {
+            get {
+                return ResourceManager.GetString("S_LABEL_INTERFACE_SETTINGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string S_LABEL_LANGUAGE {
+            get {
+                return ResourceManager.GetString("S_LABEL_LANGUAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This program is distributed under GNU GPL v2 license. The program uses code from the following external libraries:.
         /// </summary>
         public static string S_LABEL_LICENSE {
             get {
                 return ResourceManager.GetString("S_LABEL_LICENSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize to notification area: .
+        /// </summary>
+        public static string S_LABEL_MINIMIZE_NOTIFICATION {
+            get {
+                return ResourceManager.GetString("S_LABEL_MINIMIZE_NOTIFICATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string S_LABEL_OK {
+            get {
+                return ResourceManager.GetString("S_LABEL_OK", resourceCulture);
             }
         }
         
@@ -534,6 +615,24 @@ namespace _11thLauncher.Resources {
         public static string S_LABEL_PROFILE_NAME {
             get {
                 return ResourceManager.GetString("S_LABEL_PROFILE_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DISCLAIMER: This will delete all your parameters, settings and saved profiles..
+        /// </summary>
+        public static string S_LABEL_RESET_DISCLAIMER {
+            get {
+                return ResourceManager.GetString("S_LABEL_RESET_DISCLAIMER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete settings and profiles: .
+        /// </summary>
+        public static string S_LABEL_RESET_SETTINGS {
+            get {
+                return ResourceManager.GetString("S_LABEL_RESET_SETTINGS", resourceCulture);
             }
         }
         
@@ -628,6 +727,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Theme: .
+        /// </summary>
+        public static string S_LABEL_THEME {
+            get {
+                return ResourceManager.GetString("S_LABEL_THEME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Join server.
         /// </summary>
         public static string S_LAUNCH_JOIN_SERVER {
@@ -678,6 +786,24 @@ namespace _11thLauncher.Resources {
         public static string S_MSG_PATH_TITLE {
             get {
                 return ResourceManager.GetString("S_MSG_PATH_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete all the data and existing profiles?.
+        /// </summary>
+        public static string S_MSG_RESET_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_RESET_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm deletion.
+        /// </summary>
+        public static string S_MSG_RESET_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_RESET_TITLE", resourceCulture);
             }
         }
         

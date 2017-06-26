@@ -40,7 +40,7 @@
                   SelectedValue="{Binding Platform}" SelectedValuePath="Value"
                   ToolTip="{x:Static resx:Strings.S_PLATFORM_TIP}"
             HorizontalAlignment="Left" VerticalAlignment="Top" 
-            Width="80" Margin="282,102,0,0" />
+            Width="80" Margin="290,102,0,0" />
         <Button x:Name="ButtonSelectAll" ToolTip="Copiar al portapapeles"
                 Style="{DynamicResource MetroCircleButtonStyle}" 
                 Width="32" Height="32"

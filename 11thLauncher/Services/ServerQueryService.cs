@@ -12,7 +12,7 @@ namespace _11thLauncher.Services
 {
     public class ServerQueryService : IServerQueryService
     {
-        public void CheckServerStatus(Server server)
+        public void GetServerStatus(Server server)
         {
             server.ServerStatus = ServerStatus.Checking;
 
@@ -59,19 +59,18 @@ namespace _11thLauncher.Services
         {
             string remoteVersion = null;
 
-            try
+            if (server.ServerInfo != null)
             {
-                QueryMaster.GameServer.Server gameServer = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp(server.Address), server.Port);
-                QueryMaster.GameServer.ServerInfo config = gameServer.GetInfo();
-                gameServer.Dispose();
-
-                if (config != null)
-                {
-                    remoteVersion = config.GameVersion;
-                }
-
+                remoteVersion = server.ServerInfo.GameVersion;
             }
-            catch (SocketException) { }
+            else
+            {
+                GetServerStatus(server);
+                if (server.ServerInfo?.GameVersion != null)
+                {
+                    remoteVersion = server.ServerInfo.GameVersion;
+                }
+            }
 
             return remoteVersion;
         }
@@ -81,7 +80,7 @@ namespace _11thLauncher.Services
         /// </summary>
         /// <param name="url">Address of the server</param>
         /// <returns>IPv4 address of the server</returns>
-        private string GetServerIp(string url)
+        private static string GetServerIp(string url)
         {
             IPAddress address = null;
             IPHostEntry ipHostInfo = Dns.GetHostEntry(url);

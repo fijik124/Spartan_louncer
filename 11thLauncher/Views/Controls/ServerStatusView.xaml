@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:ServerStatusViewModel}" d:DesignHeight="337" d:DesignWidth="615">
     <Grid>
-        <Expander Header="Servidores" HorizontalAlignment="Left" VerticalAlignment="Top" Height="160" Width="185" IsExpanded="True" Margin="430,38,0,0" Padding="0">
+        <Expander Header="{x:Static resx:Strings.S_SERVERS}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="160" Width="185" IsExpanded="True" Margin="430,38,0,0" Padding="0">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl x:Name="Servers" d:DataContext="{Binding Servers}"
                               BorderBrush="#FFCCCCCC"
