@@ -11,8 +11,6 @@ namespace _11thLauncher.Services
 {
     public class Arma3SyncService : IAddonSyncService
     {
-        public static string JavaVersion = "";
-
         private static string _localRevision;
 
         private static string _remoteLogin;
@@ -70,7 +68,7 @@ namespace _11thLauncher.Services
         /// </summary>
         public static void CheckRepository()
         {
-            MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando repositorio" });
+            //MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando repositorio" });
 
             //Extract A3SDS
             File.WriteAllBytes(Constants.A3SdsPath, Properties.Resources.A3SDS);
@@ -99,7 +97,7 @@ namespace _11thLauncher.Services
                 }
             }
 
-            MainWindow.UpdateForm("UpdateRepositoryStatus", new object[] { revision, _remoteBuildDate, updated });
+            //MainWindow.UpdateForm("UpdateRepositoryStatus", new object[] { revision, _remoteBuildDate, updated });
         }
 
         private static void deserializeLocalRepository()
@@ -173,8 +171,9 @@ namespace _11thLauncher.Services
         /// <summary>
         /// Check if Java is present in the system PATH variable
         /// </summary>
-        public static void CheckJava()
+        public string GetJavaInSystem()
         {
+            var javaVersion = "";
             try
             {
                 var p = new Process
@@ -190,11 +189,13 @@ namespace _11thLauncher.Services
                     }
                 };
                 p.Start();
-                JavaVersion = p.StandardError.ReadLine();
+                javaVersion = p.StandardError.ReadLine();
                 p.StandardError.ReadToEnd();
                 p.WaitForExit();
             }
             catch (Exception) { }
+
+            return javaVersion;
         }
 
         /// <summary>

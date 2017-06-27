@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Windows;
+using System.Windows.Forms;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Messages;
@@ -21,6 +22,7 @@ namespace _11thLauncher.ViewModels
         private string _gamePath;
         private StartAction _startAction;
 
+        private string _javaVersion;
         private string _javaPath;
         private string _syncPath;
         //TODO repository
@@ -95,6 +97,16 @@ namespace _11thLauncher.ViewModels
             }
         }
 
+        public string JavaVersion
+        {
+            get => _javaVersion;
+            set
+            {
+                _javaVersion = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         public string JavaPath
         {
             get => _javaPath;
@@ -104,6 +116,8 @@ namespace _11thLauncher.ViewModels
                 NotifyOfPropertyChange();
             }
         }
+
+        public bool JavaDetected => !string.IsNullOrEmpty(JavaVersion);
 
         public string SyncPath
         {
@@ -157,10 +171,16 @@ namespace _11thLauncher.ViewModels
             }
         }
 
+        /// <summary>
+        /// Load the application settings from the settings service
+        /// </summary>
         private void Load()
         {
             //General
             GamePath = _settingsService.ApplicationSettings.Arma3Path;
+
+            //Repository
+            JavaVersion = _settingsService.JavaVersion;
 
             //Interface
             SelectedLanguage = Languages.FirstOrDefault(x => x.Equals(_settingsService.ApplicationSettings.Language)) ?? Constants.Languages.First();
@@ -169,10 +189,15 @@ namespace _11thLauncher.ViewModels
             MinimizeNotification = _settingsService.ApplicationSettings.MinimizeNotification;
         }
 
+        /// <summary>
+        /// Save the application settings to the settings service and write to disk
+        /// </summary>
         private void Save()
         {
             //General
             _settingsService.ApplicationSettings.Arma3Path = GamePath;
+
+            //Repository
 
             //Interface
             _settingsService.ApplicationSettings.Language = SelectedLanguage;
@@ -183,11 +208,63 @@ namespace _11thLauncher.ViewModels
             _settingsService.Write();
         }
 
+        /// <summary>
+        /// Shut down the launcher and start it again.
+        /// </summary>
+        private void RestartApplication()
+        {
+            _restarting = true;
+            Application.Restart();
+            System.Windows.Application.Current.Shutdown();
+        }
+
         #region UI Actions
 
-        public void SelectGamePath()
+        public async void SelectGamePath()
         {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                dialog.Description = Resources.Strings.S_BROWSE_GAME_FOLDER;
+                if (!string.IsNullOrEmpty(GamePath) && Directory.Exists(GamePath))
+                {
+                    dialog.SelectedPath = GamePath;
+                }
 
+                DialogResult result = dialog.ShowDialog();
+                if (result != DialogResult.OK) return;
+
+                string selectedPath = dialog.SelectedPath;
+                if (string.IsNullOrEmpty(selectedPath) || !Directory.Exists(selectedPath)) return;
+
+                //Check if selected folder contains game executable
+                if (!File.Exists(Path.Combine(selectedPath, Constants.GameExecutable32)))
+                {
+                    await _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_INCORRECT_PATH_TITLE,
+                        Resources.Strings.S_MSG_INCORRECT_PATH_CONTENT, MessageDialogStyle.Affirmative, new MetroDialogSettings
+                        {
+                            AffirmativeButtonText = Resources.Strings.S_LABEL_OK
+                        });
+                    return;
+                }
+                
+                GamePath = selectedPath;
+            }
+        }
+
+        public async void Language_SelectionChanged()
+        {
+            MessageDialogResult result = await _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_CHANGE_LANGUAGE_TITLE,
+                Resources.Strings.S_MSG_CHANGE_LANGUAGE_CONTENT, MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings
+                {
+                    AffirmativeButtonText = Resources.Strings.S_LABEL_YES,
+                    NegativeButtonText = Resources.Strings.S_LABEL_NO
+                });
+
+            if (result != MessageDialogResult.Affirmative) return;
+
+            _settingsService.ApplicationSettings.Language = SelectedLanguage;
+            _settingsService.Write();
+            RestartApplication();
         }
 
         public void Theme_SelectionChanged()
@@ -203,7 +280,7 @@ namespace _11thLauncher.ViewModels
         public async void DeleteSettings()
         {
             MessageDialogResult result = await _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_RESET_TITLE, 
-                Resources.Strings.S_MSG_RESET_CONTENT, MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings()
+                Resources.Strings.S_MSG_RESET_CONTENT, MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings
                 {
                     AffirmativeButtonText = Resources.Strings.S_LABEL_OK,
                     NegativeButtonText = Resources.Strings.S_LABEL_CANCEL
@@ -212,9 +289,7 @@ namespace _11thLauncher.ViewModels
             if (result != MessageDialogResult.Affirmative) return;
 
             _settingsService.Delete();
-            _restarting = true;
-            System.Windows.Forms.Application.Restart();
-            Application.Current.Shutdown();
+            RestartApplication();
         }
 
         public void OnClose(ConsoleCancelEventArgs e)

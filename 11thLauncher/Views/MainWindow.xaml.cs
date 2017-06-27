@@ -40,7 +40,7 @@ namespace _11thLauncher
 
             //Set groupboxes preferences
             //groupBox_servers.IsExpanded = Settings.ServersGroupBox;
-            groupBox_repository.IsExpanded = Settings.RepositoryGroupBox;
+            //groupBox_repository.IsExpanded = Settings.RepositoryGroupBox;
 
             //If just updated, remove updater and show notification
             //if (Updater.Updated)
@@ -106,12 +106,6 @@ namespace _11thLauncher
         private void MetroWindow_Closed(object sender, EventArgs e)
         {
             Form = null;
-        }
-
-        private void menu_settings_Click(object sender, RoutedEventArgs e)
-        {
-            SettingsWindow settingsWindow = new SettingsWindow {Owner = this};
-            settingsWindow.ShowDialog();
         }
 
         private void comboBox_profiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -640,25 +634,6 @@ namespace _11thLauncher
             //Profiles.ProfileServerInfo["pass"] = passwordBox_serverPassword.Password;
 
             //Profiles.WriteProfile(comboBox_profiles.SelectedItem.ToString());
-        }
-
-        /// <summary>
-        /// Callback method for updating the display
-        /// </summary>
-        /// <param name="method">Method to execute</param>
-        /// <param name="parameters">Method parameters</param>
-        public static void UpdateForm(string method, object[] parameters)
-        {
-            if (Form != null)
-            {
-                if (Form.Dispatcher.CheckAccess())
-                {
-                    typeof(MainWindow).GetMethod(method, BindingFlags.Instance | BindingFlags.NonPublic).Invoke(Form, parameters);
-                } else
-                {
-                    Form.Dispatcher.Invoke(new UpdateFormCallBack(UpdateForm), method, parameters);
-                }
-            }
         }
 
         /// <summary>

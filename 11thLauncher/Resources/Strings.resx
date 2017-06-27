@@ -520,4 +520,40 @@
   <data name="S_LABEL_RESET_DISCLAIMER" xml:space="preserve">
     <value>DISCLAIMER: This will delete all your parameters, settings and saved profiles.</value>
   </data>
+  <data name="S_SETTINGS_REPOSITORY" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="S_SETTINGS_INTERFACE" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="S_LABEL_YES" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="S_LABEL_NO" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="S_MSG_CHANGE_LANGUAGE_TITLE" xml:space="preserve">
+    <value>Change language</value>
+  </data>
+  <data name="S_MSG_CHANGE_LANGUAGE_CONTENT" xml:space="preserve">
+    <value>You have to restart the launcher to change language. Do you want to restart now?</value>
+  </data>
+  <data name="S_BROWSE_GAME_FOLDER" xml:space="preserve">
+    <value>Arma 3 game folder</value>
+  </data>
+  <data name="S_MSG_INCORRECT_PATH_TITLE" xml:space="preserve">
+    <value>Incorrect path</value>
+  </data>
+  <data name="S_MSG_INCORRECT_PATH_CONTENT" xml:space="preserve">
+    <value>The selected folder does not contain a valid Arma 3 installation.</value>
+  </data>
+  <data name="S_LABEL_JAVA_DETECTED" xml:space="preserve">
+    <value>Detected</value>
+  </data>
+  <data name="S_LABEL_JAVA_UNDETECTED" xml:space="preserve">
+    <value>Not detected</value>
+  </data>
+  <data name="S_LABEL_JAVA_UNDETECTED_TIP" xml:space="preserve">
+    <value>Java has not been detected on PATH</value>
+  </data>
 </root>

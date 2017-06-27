@@ -8,7 +8,7 @@ namespace _11thLauncher.Views.Util
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null ? "" : string.IsNullOrWhiteSpace((string) value) ? "" : CultureInfo.GetCultureInfo((string) value).DisplayName;
+            return value == null ? "" : string.IsNullOrWhiteSpace((string) value) ? "" : CultureInfo.GetCultureInfo((string) value).NativeName;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -540,4 +540,40 @@
   <data name="S_LABEL_RESET_DISCLAIMER" xml:space="preserve">
     <value>NOTA: Esto borrará todas tus parámetros, configuraciones y perfiles.</value>
   </data>
+  <data name="S_SETTINGS_REPOSITORY" xml:space="preserve">
+    <value>Repositorio</value>
+  </data>
+  <data name="S_SETTINGS_INTERFACE" xml:space="preserve">
+    <value>Interfaz</value>
+  </data>
+  <data name="S_LABEL_YES" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="S_LABEL_NO" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="S_MSG_CHANGE_LANGUAGE_TITLE" xml:space="preserve">
+    <value>Cambiar idioma</value>
+  </data>
+  <data name="S_MSG_CHANGE_LANGUAGE_CONTENT" xml:space="preserve">
+    <value>Es necesario reiniciar el launcher para cambiar el idioma ¿Quieres reiniciarlo ahora?</value>
+  </data>
+  <data name="S_BROWSE_GAME_FOLDER" xml:space="preserve">
+    <value>Carpeta de juego de Arma 3</value>
+  </data>
+  <data name="S_MSG_INCORRECT_PATH_TITLE" xml:space="preserve">
+    <value>Ruta incorrecta</value>
+  </data>
+  <data name="S_MSG_INCORRECT_PATH_CONTENT" xml:space="preserve">
+    <value>La carpeta seleccionada no contiene una instalación válida de Arma 3.</value>
+  </data>
+  <data name="S_LABEL_JAVA_DETECTED" xml:space="preserve">
+    <value>Detectado</value>
+  </data>
+  <data name="S_LABEL_JAVA_UNDETECTED" xml:space="preserve">
+    <value>No detectado</value>
+  </data>
+  <data name="S_LABEL_JAVA_UNDETECTED_TIP" xml:space="preserve">
+    <value>No se ha detectado Java en PATH</value>
+  </data>
 </root>

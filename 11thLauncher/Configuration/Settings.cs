@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
-using Microsoft.Win32;
 using System.Collections.Generic;
 
 namespace _11thLauncher.Configuration
@@ -11,11 +10,6 @@ namespace _11thLauncher.Configuration
     {
         //Constants
         public static readonly string ConfigPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\11th Launcher";
-        public static readonly List<string> Accents = new List<string>
-        {
-            "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt", "Indigo", "Violet",
-            "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna"
-        };
 
         //Program behaviour settings
         public static string JavaPath = "";
@@ -25,12 +19,9 @@ namespace _11thLauncher.Configuration
         public static bool MinimizeNotification;
         public static bool StartClose;
         public static bool StartMinimize;
-        public static int Accent;
         public static bool CheckUpdates = true;
         public static bool CheckServers = true;
         public static bool CheckRepository;
-        public static bool ServersGroupBox = true;
-        public static bool RepositoryGroupBox = true;
 
         //Local info
         public static string GameVersion = "";
@@ -43,59 +34,6 @@ namespace _11thLauncher.Configuration
         public static bool ConfigExists()
         {
             return Directory.Exists(ConfigPath);
-        }
-
-        /// <summary>
-        /// Try to read the game path from the windows registry
-        /// </summary>
-        /// <returns>bool value to indicate if the path was read correctly</returns>
-        public static bool ReadPath()
-        {
-            string arma3RegPath;
-            bool valid = false;
-
-            //First try to get the path using ArmA 3 registry entry
-            if (Environment.Is64BitOperatingSystem)
-            {
-                arma3RegPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bohemia Interactive\\ArmA 3", "MAIN", null);
-            }
-            else
-            {
-                arma3RegPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Bohemia Interactive\\ArmA 3", "MAIN", null);
-            }
-            if (!Directory.Exists(arma3RegPath))
-            {
-                arma3RegPath = null;
-            }
-
-            //If ArmA 3 registry entry is not found, use Steam entry
-            if (string.IsNullOrEmpty(arma3RegPath))
-            {
-                string steamPath;
-                if (Environment.Is64BitOperatingSystem)
-                {
-                    steamPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam", "InstallPath", "");
-                    arma3RegPath = Path.Combine(steamPath, "SteamApps\\common\\ArmA 3");
-                }
-                else
-                {
-                    steamPath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Valve\\Steam", "InstallPath", "");
-                    arma3RegPath = Path.Combine(steamPath, "SteamApps\\common\\ArmA 3");
-                }
-            }
-            if (!Directory.Exists(arma3RegPath))
-            {
-                arma3RegPath = null;
-            }
-
-            //If the path is found and exists, set to config and return that a valid path was found
-            if (!string.IsNullOrEmpty(arma3RegPath))
-            {
-                Arma3Path = arma3RegPath;
-                valid = true;
-            }
-
-            return valid;
         }
 
         /// <summary>
@@ -143,12 +81,12 @@ namespace _11thLauncher.Configuration
                 writer.WriteElementString("minimizeNotification", MinimizeNotification.ToString());
                 writer.WriteElementString("startMinimize", StartMinimize.ToString());
                 writer.WriteElementString("startClose", StartClose.ToString());
-                writer.WriteElementString("accent", Accent.ToString());
+                //writer.WriteElementString("accent", Accent.ToString());
                 writer.WriteElementString("checkUpdates", CheckUpdates.ToString());
                 writer.WriteElementString("checkServers", CheckServers.ToString());
                 writer.WriteElementString("checkRepository", CheckRepository.ToString());
-                writer.WriteElementString("serversGroupBox", ServersGroupBox.ToString());
-                writer.WriteElementString("repositoryGroupBox", RepositoryGroupBox.ToString());
+                //writer.WriteElementString("serversGroupBox", ServersGroupBox.ToString());
+                //writer.WriteElementString("repositoryGroupBox", RepositoryGroupBox.ToString());
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
@@ -218,7 +156,7 @@ namespace _11thLauncher.Configuration
                             case "accent":
                                 reader.Read();
                                 value = reader.Value.Trim();
-                                Accent = int.Parse(value);
+                                //Accent = int.Parse(value);
                                 break;
                             case "checkUpdates":
                                 reader.Read();
@@ -238,12 +176,12 @@ namespace _11thLauncher.Configuration
                             case "serversGroupBox":
                                 reader.Read();
                                 value = reader.Value.Trim();
-                                ServersGroupBox = bool.Parse(value);
+                                //ServersGroupBox = bool.Parse(value);
                                 break;
                             case "repositoryGroupBox":
                                 reader.Read();
                                 value = reader.Value.Trim();
-                                RepositoryGroupBox = bool.Parse(value);
+                                //RepositoryGroupBox = bool.Parse(value);
                                 break;
                         }
                     }

@@ -23,6 +23,7 @@ namespace _11thLauncher.ViewModels
         private readonly ISettingsService _settingsService;
         private readonly IAddonService _addonService;
         private readonly IServerQueryService _serverQueryService;
+        private readonly IAddonSyncService _addonSyncService;
         private readonly IUpdaterService _updaterService;
         private readonly IGameLauncherService _gameLauncherService;
 
@@ -35,8 +36,8 @@ namespace _11thLauncher.ViewModels
         private string _versionMismatchTooltip;
 
         public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager,
-            ISettingsService settingsService, IAddonService addonService, IServerQueryService serverQueryService, IUpdaterService updaterService ,
-            ParameterManager parameterManager, IGameLauncherService gameLauncherService, ProfileManager profileManager)
+            ISettingsService settingsService, IAddonService addonService, IServerQueryService serverQueryService, IAddonSyncService addonSyncService,
+            IUpdaterService updaterService, ParameterManager parameterManager, IGameLauncherService gameLauncherService, ProfileManager profileManager)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
@@ -48,6 +49,7 @@ namespace _11thLauncher.ViewModels
             _settingsService = settingsService;
             _addonService = addonService;
             _serverQueryService = serverQueryService;
+            _addonSyncService = addonSyncService;
             _updaterService = updaterService;
             _parameterManager = parameterManager;
             _gameLauncherService = gameLauncherService;
@@ -245,6 +247,12 @@ namespace _11thLauncher.ViewModels
 
             //Check local game version against remote server
             CompareServerVersion();
+
+            //Check repository
+            new Thread(() =>
+            {
+                _settingsService.JavaVersion = _addonSyncService.GetJavaInSystem();
+            }).Start();
 
             //TODO - check updates
             //TODO - check repository if configured

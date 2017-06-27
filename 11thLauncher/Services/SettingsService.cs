@@ -32,6 +32,8 @@ namespace _11thLauncher.Services
 
         public BindableCollection<Server> Servers { get; set; }
 
+        public string JavaVersion { get; set; }
+
         #endregion
 
         #region Methods

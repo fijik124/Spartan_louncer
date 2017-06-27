@@ -16,12 +16,6 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PrimaryVersionType>AssemblyFileVersionAttribute</PrimaryVersionType>
-    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <AssemblyFileVersionSettings>IncrementOnDemand.IncrementOnDemand.Increment.IncrementOnDemandWithReset</AssemblyFileVersionSettings>
-    <AssemblyVersion>3.0.61.0</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

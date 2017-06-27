@@ -25,7 +25,7 @@
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands ShowLastSeparator="False">
-            <Button  Click="menu_settings_Click"
+            <Button 
                     ToolTip="Abrir ventana de opciones" >
                 <StackPanel Orientation="Horizontal">
                     <Image Stretch="None" Margin="0,0,5,0"/>

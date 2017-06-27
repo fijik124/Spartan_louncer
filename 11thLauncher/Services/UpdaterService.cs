@@ -18,7 +18,7 @@ namespace _11thLauncher.Services
         /// <param name="manualCheck">The check has been called manually, show message if there are no updates</param>
         public void CheckVersion(bool manualCheck)
         {
-            MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando actualizaciones" });
+            //MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando actualizaciones" });
 
             try
             {
@@ -40,16 +40,16 @@ namespace _11thLauncher.Services
 
                 if (_latestVersion != currentVersionStr)
                 {
-                    MainWindow.UpdateForm("ShowUpdateNotification", new object[] { _latestVersion, true });
+                    //MainWindow.UpdateForm("ShowUpdateNotification", new object[] { _latestVersion, true });
                 }
                 else if (manualCheck)
                 {
-                    MainWindow.UpdateForm("ShowUpdateNotification", new object[] { _latestVersion, false });
+                    //MainWindow.UpdateForm("ShowUpdateNotification", new object[] { _latestVersion, false });
                 }
             }
             catch (Exception)
             {
-                MainWindow.UpdateForm("ShowUpdateNotification", new object[] { null, false });
+                //MainWindow.UpdateForm("ShowUpdateNotification", new object[] { null, false });
             }
         }
 

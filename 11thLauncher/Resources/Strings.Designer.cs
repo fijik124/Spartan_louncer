@@ -313,6 +313,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arma 3 game folder.
+        /// </summary>
+        public static string S_BROWSE_GAME_FOLDER {
+            get {
+                return ResourceManager.GetString("S_BROWSE_GAME_FOLDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string S_BTN_ABOUT {
@@ -565,6 +574,33 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detected.
+        /// </summary>
+        public static string S_LABEL_JAVA_DETECTED {
+            get {
+                return ResourceManager.GetString("S_LABEL_JAVA_DETECTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not detected.
+        /// </summary>
+        public static string S_LABEL_JAVA_UNDETECTED {
+            get {
+                return ResourceManager.GetString("S_LABEL_JAVA_UNDETECTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Java has not been detected on PATH.
+        /// </summary>
+        public static string S_LABEL_JAVA_UNDETECTED_TIP {
+            get {
+                return ResourceManager.GetString("S_LABEL_JAVA_UNDETECTED_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string S_LABEL_LANGUAGE {
@@ -588,6 +624,15 @@ namespace _11thLauncher.Resources {
         public static string S_LABEL_MINIMIZE_NOTIFICATION {
             get {
                 return ResourceManager.GetString("S_LABEL_MINIMIZE_NOTIFICATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string S_LABEL_NO {
+            get {
+                return ResourceManager.GetString("S_LABEL_NO", resourceCulture);
             }
         }
         
@@ -736,6 +781,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string S_LABEL_YES {
+            get {
+                return ResourceManager.GetString("S_LABEL_YES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Join server.
         /// </summary>
         public static string S_LAUNCH_JOIN_SERVER {
@@ -754,6 +808,24 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have to restart the launcher to change language. Do you want to restart now?.
+        /// </summary>
+        public static string S_MSG_CHANGE_LANGUAGE_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_CHANGE_LANGUAGE_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change language.
+        /// </summary>
+        public static string S_MSG_CHANGE_LANGUAGE_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_CHANGE_LANGUAGE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unhandled domain exception.
         /// </summary>
         public static string S_MSG_GENERIC_DOMAIN_EXCEPTION {
@@ -768,6 +840,24 @@ namespace _11thLauncher.Resources {
         public static string S_MSG_GENERIC_EXCEPTION {
             get {
                 return ResourceManager.GetString("S_MSG_GENERIC_EXCEPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected folder does not contain a valid Arma 3 installation..
+        /// </summary>
+        public static string S_MSG_INCORRECT_PATH_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_INCORRECT_PATH_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect path.
+        /// </summary>
+        public static string S_MSG_INCORRECT_PATH_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_INCORRECT_PATH_TITLE", resourceCulture);
             }
         }
         
@@ -1263,6 +1353,24 @@ namespace _11thLauncher.Resources {
         public static string S_SETTINGS_GENERAL {
             get {
                 return ResourceManager.GetString("S_SETTINGS_GENERAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interface.
+        /// </summary>
+        public static string S_SETTINGS_INTERFACE {
+            get {
+                return ResourceManager.GetString("S_SETTINGS_INTERFACE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repository.
+        /// </summary>
+        public static string S_SETTINGS_REPOSITORY {
+            get {
+                return ResourceManager.GetString("S_SETTINGS_REPOSITORY", resourceCulture);
             }
         }
         

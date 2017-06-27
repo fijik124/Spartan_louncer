@@ -14,6 +14,7 @@ namespace _11thLauncher.Services.Contracts
 
         BindableCollection<Server> Servers { get; set; }
 
+        string JavaVersion { get; set; }
 
         bool SettingsExist();
 

@@ -11,5 +11,11 @@ namespace _11thLauncher.Services.Contracts
         /// <param name="arma3SyncPath">Installation path of Arma3Sync</param>
         /// <returns>List of repositories</returns>
         List<Repository> ReadRepositories(string arma3SyncPath);
+
+        /// <summary>
+        /// Check if Java is present on PATH and the installed version
+        /// </summary>
+        /// <returns>Version of Java on path</returns>
+        string GetJavaInSystem();
     }
 }

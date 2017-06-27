@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Microsoft.Win32;
-using MahApps.Metro.Controls.Dialogs;
 using _11thLauncher.Configuration;
 
 namespace _11thLauncher
@@ -32,7 +26,7 @@ namespace _11thLauncher
             checkBox_checkUpdates.IsChecked = Settings.CheckUpdates;
             checkBox_checkServers.IsChecked = Settings.CheckServers;
             checkBox_checkRepository.IsChecked = Settings.CheckRepository;
-            textBox_gamePath.Text = Settings.Arma3Path;
+            //textBox_gamePath.Text = Settings.Arma3Path;
             if (Settings.StartClose)
             {
                 comboBox_startAction.SelectedIndex = 1;
@@ -43,12 +37,6 @@ namespace _11thLauncher
             }
 
             //Repository
-            //if (Repository.JavaVersion != "")
-            //{
-                //label_javaPath.Content = "Detectado";
-                //label_javaPath.ToolTip = Repository.JavaVersion;
-                //label_javaPath.Foreground = new SolidColorBrush(Colors.Green);
-            //}
             //textBox_javaPath.Text = Settings.JavaPath;
             //textBox_a3sPath.Text = Settings.Arma3SyncPath;
             //List<string> repositories = Repository.ListRepositories();
@@ -76,8 +64,8 @@ namespace _11thLauncher
             Settings.CheckServers = checkBox_checkServers.IsChecked.GetValueOrDefault();
             Settings.CheckRepository = checkBox_checkRepository.IsChecked.GetValueOrDefault();
             //If game path has changed, read addons
-            if (Settings.Arma3Path != textBox_gamePath.Text && textBox_gamePath.Text != "")
-            {
+            //if (Settings.Arma3Path != textBox_gamePath.Text && textBox_gamePath.Text != "")
+            //{
                 //Settings.Arma3Path = textBox_gamePath.Text;
                 //MainWindow.Form.Addons.Clear();
                 //Addons.ReadAddons();
@@ -85,7 +73,7 @@ namespace _11thLauncher
                 //{
                 //    MainWindow.Form.Addons.Add(new Addon { Enabled = false, Name = addon });
                 //}
-            }
+            //}
             Settings.StartClose = false;
             Settings.StartMinimize = false;
             if (comboBox_startAction.SelectedIndex == 1)
@@ -126,25 +114,6 @@ namespace _11thLauncher
             }
 
             Settings.Write();
-        }
-
-        private void button_selectGamePath_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog dialog = new OpenFileDialog();
-            string path = "";
-
-            dialog.FileName = "arma3.exe";
-            dialog.Filter = "Ejecutables (*.exe) | *.exe";
-
-            if (dialog.ShowDialog() == true)
-            {
-                path = Path.GetDirectoryName(dialog.FileName);
-            }
-
-            if (!string.IsNullOrEmpty(path))
-            {
-                textBox_gamePath.Text = path;
-            }
         }
 
         private void button_selectJavaPath_Click(object sender, RoutedEventArgs e)
