@@ -7,10 +7,10 @@
         public bool MinimizeNotification = false;
         public ThemeStyle ThemeStyle = 0;
         public AccentColor AccentColor = 0;
-
-        //TODO process and move up
         public string JavaPath = "";
         public string Arma3SyncPath = "";
+
+        //TODO process and move up
         public string Arma3SyncRepository = "";
         public bool StartClose = false;
         public bool StartMinimize = false;

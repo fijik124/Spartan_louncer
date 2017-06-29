@@ -322,6 +322,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Java Runtime Environment folder.
+        /// </summary>
+        public static string S_BROWSE_JAVA_FOLDER {
+            get {
+                return ResourceManager.GetString("S_BROWSE_JAVA_FOLDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string S_BTN_ABOUT {
@@ -358,6 +367,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse....
+        /// </summary>
+        public static string S_BTN_BROWSE {
+            get {
+                return ResourceManager.GetString("S_BTN_BROWSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check server status.
         /// </summary>
         public static string S_BTN_CHECK_SERVER_STATUS {
@@ -372,15 +390,6 @@ namespace _11thLauncher.Resources {
         public static string S_BTN_CHECK_SERVER_STATUS_TIP {
             get {
                 return ResourceManager.GetString("S_BTN_CHECK_SERVER_STATUS_TIP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select.
-        /// </summary>
-        public static string S_BTN_GAME_PATH {
-            get {
-                return ResourceManager.GetString("S_BTN_GAME_PATH", resourceCulture);
             }
         }
         
@@ -840,6 +849,24 @@ namespace _11thLauncher.Resources {
         public static string S_MSG_GENERIC_EXCEPTION {
             get {
                 return ResourceManager.GetString("S_MSG_GENERIC_EXCEPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected folder does not contain a valid Java Runtime Environment (JRE)..
+        /// </summary>
+        public static string S_MSG_INCORRECT_JAVA_PATH_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_INCORRECT_JAVA_PATH_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect path.
+        /// </summary>
+        public static string S_MSG_INCORRECT_JAVA_PATH_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_INCORRECT_JAVA_PATH_TITLE", resourceCulture);
             }
         }
         

@@ -17,5 +17,7 @@ namespace _11thLauncher.Services.Contracts
         /// </summary>
         /// <returns>Version of Java on path</returns>
         string GetJavaInSystem();
+
+        string GetArma3SyncPath();
     }
 }

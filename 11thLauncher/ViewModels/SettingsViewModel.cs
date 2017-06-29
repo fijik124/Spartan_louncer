@@ -181,6 +181,8 @@ namespace _11thLauncher.ViewModels
 
             //Repository
             JavaVersion = _settingsService.JavaVersion;
+            JavaPath = _settingsService.ApplicationSettings.JavaPath;
+            SyncPath = _settingsService.ApplicationSettings.Arma3SyncPath;
 
             //Interface
             SelectedLanguage = Languages.FirstOrDefault(x => x.Equals(_settingsService.ApplicationSettings.Language)) ?? Constants.Languages.First();
@@ -198,6 +200,8 @@ namespace _11thLauncher.ViewModels
             _settingsService.ApplicationSettings.Arma3Path = GamePath;
 
             //Repository
+            _settingsService.ApplicationSettings.JavaPath = JavaPath;
+            _settingsService.ApplicationSettings.Arma3SyncPath = SyncPath;
 
             //Interface
             _settingsService.ApplicationSettings.Language = SelectedLanguage;
@@ -248,6 +252,42 @@ namespace _11thLauncher.ViewModels
                 }
                 
                 GamePath = selectedPath;
+            }
+        }
+
+        public async void SelectJavaPath()
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                dialog.Description = Resources.Strings.S_BROWSE_JAVA_FOLDER;
+                if (!string.IsNullOrEmpty(JavaPath) && Directory.Exists(JavaPath))
+                {
+                    dialog.SelectedPath = JavaPath;
+                }
+
+                DialogResult result = dialog.ShowDialog();
+                if (result != DialogResult.OK) return;
+
+                string selectedPath = dialog.SelectedPath;
+                if (string.IsNullOrEmpty(selectedPath) || !Directory.Exists(selectedPath)) return;
+
+                //Check if selected folder contains java binary folder or executable
+                if (File.Exists(Path.Combine(selectedPath, Constants.JavaExecutable)))
+                {
+                    JavaPath = selectedPath;
+                }
+                else if (File.Exists(Path.Combine(selectedPath, Constants.JavaRuntimeBinaryFolder, Constants.JavaExecutable)))
+                {
+                    JavaPath = Path.Combine(selectedPath, Constants.JavaRuntimeBinaryFolder);
+                }
+                else
+                {
+                    await _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_INCORRECT_JAVA_PATH_TITLE,
+                        Resources.Strings.S_MSG_INCORRECT_JAVA_PATH_CONTENT, MessageDialogStyle.Affirmative, new MetroDialogSettings
+                        {
+                            AffirmativeButtonText = Resources.Strings.S_LABEL_OK
+                        });
+                }
             }
         }
 

@@ -252,6 +252,7 @@ namespace _11thLauncher.ViewModels
             new Thread(() =>
             {
                 _settingsService.JavaVersion = _addonSyncService.GetJavaInSystem();
+                _settingsService.ApplicationSettings.Arma3SyncPath = _addonSyncService.GetArma3SyncPath(); //TODO only if not set/folder doesn't exist
             }).Start();
 
             //TODO - check updates

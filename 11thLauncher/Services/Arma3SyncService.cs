@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using Microsoft.Win32;
 using _11thLauncher.Configuration;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
@@ -196,6 +197,53 @@ namespace _11thLauncher.Services
             catch (Exception) { }
 
             return javaVersion;
+        }
+
+        public string GetArma3SyncPath()
+        {
+            string arma3SyncPath = "";
+
+            if (Environment.Is64BitOperatingSystem)
+            {
+                using (RegistryKey key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(Constants.Arma3SyncBaseRegistryPath64))
+                {
+                    arma3SyncPath = SearchRegistryInstallations(key);
+                }
+            }
+            else
+            {
+                using (RegistryKey key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(Constants.Arma3SyncBaseRegistryPath32))
+                {
+                    arma3SyncPath = SearchRegistryInstallations(key);
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(arma3SyncPath) || !Directory.Exists(arma3SyncPath))
+            {
+                arma3SyncPath = "";
+            }
+
+            return arma3SyncPath;
+        }
+
+        private static string SearchRegistryInstallations(RegistryKey key)
+        {
+            string arma3SyncPath = "";
+            if (key == null) return arma3SyncPath;
+
+            foreach (string subKeyName in key.GetSubKeyNames())
+            {
+                using (RegistryKey subkey = key.OpenSubKey(subKeyName))
+                {
+                    if (subkey == null) continue;
+                    var displayName = (string)subkey.GetValue(Constants.Arma3SyncRegDisplayNameEntry, "");
+                    if (!displayName.StartsWith(Constants.Arma3SyncRegDisplayNameValue)) continue;
+                    arma3SyncPath = (string)subkey.GetValue(Constants.Arma3SyncRegLocationEntry, "");
+                    break;
+                }
+            }
+
+            return arma3SyncPath;
         }
 
         /// <summary>

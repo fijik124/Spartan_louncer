@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using Caliburn.Micro;
@@ -31,11 +29,11 @@ namespace _11thLauncher
         public static readonly string[] Languages = { "en-US", "es-ES" };
         public static readonly string ConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "11th Launcher");
         public const string ConfigFileName = "config.json";
-        public static readonly string[] Arma3RegPath32 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Bohemia Interactive\\ArmA 3", "MAIN", null };
-        public static readonly string[] Arma3RegPath64 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bohemia Interactive\\ArmA 3", "MAIN", null };
-        public static readonly string[] SteamRegPath32 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Valve\\Steam", "InstallPath", "" };
-        public static readonly string[] SteamRegPath64 = { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam", "InstallPath", "" };
-        public const string DefaultArma3SteamPath = "SteamApps\\common\\ArmA 3";
+        public static readonly string[] Arma3RegPath32 = { @"HKEY_LOCAL_MACHINE\SOFTWARE\Bohemia Interactive\ArmA 3", "MAIN", null };
+        public static readonly string[] Arma3RegPath64 = { @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Bohemia Interactive\ArmA 3", "MAIN", null };
+        public static readonly string[] SteamRegPath32 = { @"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam", "InstallPath", "" };
+        public static readonly string[] SteamRegPath64 = { @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Valve\Steam", "InstallPath", "" };
+        public const string DefaultArma3SteamPath = @"SteamApps\common\ArmA 3";
         public const string GameExecutable32 = "arma3.exe";
         public const string GameExecutable64 = "arma3_x64.exe";
 
@@ -56,7 +54,14 @@ namespace _11thLauncher
         //
         // Arma3Sync Service
         //
-        public const string RepositoryConfigFolder = "\\resources\\ftp\\";
+        public const string JavaExecutable = "java.exe";
+        public const string JavaRuntimeBinaryFolder = "bin";
+        public const string Arma3SyncBaseRegistryPath32 = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+        public const string Arma3SyncBaseRegistryPath64 = @"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+        public const string Arma3SyncRegDisplayNameEntry = "DisplayName";
+        public const string Arma3SyncRegDisplayNameValue = "ArmA3Sync";
+        public const string Arma3SyncRegLocationEntry = "InstallLocation";
+        public const string RepositoryConfigFolder = @"\resources\ftp\";
 
         // 
         // 11th MEU addon presets

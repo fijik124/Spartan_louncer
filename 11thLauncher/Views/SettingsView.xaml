@@ -42,7 +42,7 @@
                              Height="23" Width="308" 
                              Margin="119,127,0,0" />
                     <Button x:Name="SelectGamePath" 
-                            Content="{x:Static resx:Strings.S_BTN_GAME_PATH}"
+                            Content="{x:Static resx:Strings.S_BTN_BROWSE}"
                             HorizontalAlignment="Left" VerticalAlignment="Top" 
                             Width="100" 
                             Margin="432,127,0,0"  />
@@ -63,8 +63,10 @@
                     </StackPanel>
                     <Label Content="Ruta de Java:" HorizontalAlignment="Left" Margin="10,106,0,0" VerticalAlignment="Top"/>
                     <Label Content="Java en PATH:" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox_javaPath" HorizontalAlignment="Left" Height="23" Margin="131,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" IsReadOnly="True"/>
-                    <Button x:Name="button_selectJavaPath" Content="Seleccionar" HorizontalAlignment="Left" Margin="432,106,0,0" VerticalAlignment="Top" Width="100"/>
+                    <TextBox x:Name="JavaPath" TextWrapping="Wrap" IsReadOnly="True"
+                             HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="296" Margin="131,106,0,0" />
+                    <Button x:Name="SelectJavaPath" Content="{x:Static resx:Strings.S_BTN_BROWSE}" 
+                            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="432,106,0,0" Width="100"/>
                     <Label Content="NOTA: Solamente indicar la ruta de Java si no se &#xA;ha detectado en PATH o si se quiere utilizar una &#xA;versión distinta. JRE's compatibles: 7 y 8." HorizontalAlignment="Left" Margin="247,40,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-0.038" FontWeight="Medium" Width="285" Height="66"/>
 
                     <Label HorizontalAlignment="Left" Margin="128,42,0,0" VerticalAlignment="Top" FontWeight="Bold">
@@ -84,8 +86,8 @@
                         </Label.Style>
                     </Label>
                     <Label Content="Ruta de Arma3Sync:" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBox_a3sPath" HorizontalAlignment="Left" Height="23" Margin="131,183,0,0" VerticalAlignment="Top" Width="296" IsReadOnly="True"/>
-                    <Button x:Name="button_selectA3sPath" Content="Seleccionar" HorizontalAlignment="Left" Margin="432,183,0,0" VerticalAlignment="Top" Width="100"/>
+                    <TextBox x:Name="SyncPath" HorizontalAlignment="Left" Height="23" Margin="131,183,0,0" VerticalAlignment="Top" Width="296" IsReadOnly="True"/>
+                    <Button x:Name="button_selectA3sPath" Content="{x:Static resx:Strings.S_BTN_BROWSE}" HorizontalAlignment="Left" Margin="432,183,0,0" VerticalAlignment="Top" Width="100"/>
                     <StackPanel HorizontalAlignment="Left" Height="23" Margin="10,150,0,0" VerticalAlignment="Top" Width="522">
                         <Label Content="Opciones de Arma3Sync" FontWeight="Bold"/>
                     </StackPanel>

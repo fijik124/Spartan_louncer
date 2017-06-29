@@ -397,9 +397,6 @@
   <data name="S_LABEL_GAME_OPTIONS" xml:space="preserve">
     <value>Game options</value>
   </data>
-  <data name="S_BTN_GAME_PATH" xml:space="preserve">
-    <value>Select</value>
-  </data>
   <data name="S_LABEL_START_ACTION" xml:space="preserve">
     <value>After launching:</value>
   </data>
@@ -555,5 +552,17 @@
   </data>
   <data name="S_LABEL_JAVA_UNDETECTED_TIP" xml:space="preserve">
     <value>Java has not been detected on PATH</value>
+  </data>
+  <data name="S_BTN_BROWSE" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="S_BROWSE_JAVA_FOLDER" xml:space="preserve">
+    <value>Java Runtime Environment folder</value>
+  </data>
+  <data name="S_MSG_INCORRECT_JAVA_PATH_TITLE" xml:space="preserve">
+    <value>Incorrect path</value>
+  </data>
+  <data name="S_MSG_INCORRECT_JAVA_PATH_CONTENT" xml:space="preserve">
+    <value>The selected folder does not contain a valid Java Runtime Environment (JRE).</value>
   </data>
 </root>

@@ -14,6 +14,9 @@ namespace _11thLauncher.Services.Contracts
 
         BindableCollection<Server> Servers { get; set; }
 
+        /// <summary>
+        /// Version of Java detected on PATH. Empty string if none detected
+        /// </summary>
         string JavaVersion { get; set; }
 
         bool SettingsExist();
