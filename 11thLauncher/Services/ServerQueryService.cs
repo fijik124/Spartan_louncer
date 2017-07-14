@@ -35,9 +35,12 @@ namespace _11thLauncher.Services
                     };
 
                     var players = gameServer.GetPlayers();
-                    foreach (PlayerInfo p in players)
+                    if (players != null)
                     {
-                        serverInfo.PlayerList.Add(p.Name);
+                        foreach (PlayerInfo p in players)
+                        {
+                            serverInfo.PlayerList.Add(p.Name);
+                        }
                     }
 
                     server.ServerStatus = ServerStatus.Online;
@@ -51,7 +54,8 @@ namespace _11thLauncher.Services
             }
             catch (SocketException)
             {
-                server.ServerStatus = ServerStatus.Unknown;
+                server.ServerStatus = ServerStatus.Offline;
+                server.ServerInfo = null;
             }
         }
 
