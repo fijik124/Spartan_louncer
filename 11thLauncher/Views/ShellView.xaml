@@ -55,37 +55,37 @@
             <TabItem Header="{x:Static resx:Strings.S_GAME_NAME}" HeaderTemplate="{StaticResource TabTitle}">
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
                     <!-- Addons -->
-                    <ContentControl x:Name="Addons" />
+                    <ContentControl x:Name="AddonsControl" />
                     <!-- Game launcher -->
-                    <ContentControl x:Name="Game" />
+                    <ContentControl x:Name="GameControl" />
                     <!-- Server status -->
-                    <ContentControl x:Name="ServerStatus" />
+                    <ContentControl x:Name="ServerStatusControl" />
                     <!-- Repository status -->
-                    <ContentControl x:Name="RepositoryStatus" />
+                    <ContentControl x:Name="RepositoryStatusControl" />
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:Strings.S_PARAMETERS}" HeaderTemplate="{StaticResource TabTitle}">
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
                     <!-- Parameters -->
-                    <ContentControl x:Name="Parameters" />
+                    <ContentControl x:Name="ParametersControl" />
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:Strings.S_SERVERS}" HeaderTemplate="{StaticResource TabTitle}">
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
                     <!-- Server query -->
-                    <ContentControl x:Name="ServerQuery" />
+                    <ContentControl x:Name="ServerQueryControl" />
                 </Grid>
             </TabItem>
             <TabItem Header="Perfiles" HeaderTemplate="{StaticResource TabTitle}">
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
                     <!-- Profile manager -->
-                    <ContentControl x:Name="ProfileManager" />
+                    <ContentControl x:Name="ProfileManagerControl" />
                 </Grid>
             </TabItem>
         </controls:MetroAnimatedSingleRowTabControl>
 
         <!-- Profile selector -->
-        <ContentControl x:Name="ProfileSelector"/>
+        <ContentControl x:Name="ProfileSelectorControl"/>
 
         <!-- Logo & version -->
         <Image Source="{Binding LogoImage}" 
@@ -116,7 +116,7 @@
 
         <!-- Statusbar -->
         <DockPanel Margin="0,464,0,0">
-            <ContentControl x:Name="Statusbar"/>
+            <ContentControl x:Name="StatusbarControl"/>
         </DockPanel>
         <!-- Notification icon -->
         <ni:TaskbarIcon Visibility="{Binding ShowTrayIcon}"

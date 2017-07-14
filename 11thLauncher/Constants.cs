@@ -43,6 +43,7 @@ namespace _11thLauncher
         public static readonly string[] VanillaAddons = { "arma 3", "expansion", "curator", "kart", "heli", "mark", "jets", "orange", "argo", "tacops", "tanks", "dlcbundle" };
         public const string AddonSubfolderName = "addons";
         public const string AddonFilePattern = "*.?bo";
+        public const string AddonMetaDataFile = "mod.cpp";
 
         //
         // Updater Service

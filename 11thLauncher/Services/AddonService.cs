@@ -34,7 +34,9 @@ namespace _11thLauncher.Services
                 int pathindex = directory.IndexOf(arma3Path, StringComparison.Ordinal) + arma3Path.Length + 1;
                 string addonName = directory.Substring(pathindex, (directory.Length - pathindex) - (Constants.AddonSubfolderName.Length + 1));
 
-                _addons.Add(new Addon(Directory.GetParent(directory).FullName, addonName));  
+                var addon = new Addon(Directory.GetParent(directory).FullName, addonName);
+                ReadMetaData(addon);
+                _addons.Add(addon);  
             }
 
             return _addons;
@@ -45,6 +47,58 @@ namespace _11thLauncher.Services
             if (Directory.Exists(addon.Path))
             {
                 Process.Start(addon.Path);
+            }
+        }
+
+        public void BrowseAddonWebsite(Addon addon)
+        {
+            if (!string.IsNullOrEmpty(addon.MetaData?.Action))
+            {
+                Process.Start(addon.MetaData.Action);
+            }
+        }
+
+        private static void ReadMetaData(Addon addon)
+        {
+            var metaFile = Path.Combine(addon.Path, Constants.AddonMetaDataFile);
+            if (!File.Exists(metaFile)) return;
+
+            addon.MetaData = new AddonMetaData();
+
+            try
+            {
+                var properties = File.ReadAllLines(metaFile);
+                foreach (var line in properties)
+                {
+                    var separator = line.IndexOf('=');
+                    if (separator <= 0)
+                        continue;
+                    string param = line.Remove(separator).TrimEnd();
+                    string value = line.Substring(separator + 1).TrimStart();
+                    if (value.Length > 1)
+                    {
+                        value = value.Split('\"', '\"')[1];
+                    }
+
+                    switch (param)
+                    {
+                        case "name":
+                            addon.MetaData.Name = value;
+                            break;
+                        case "tooltip":
+                            addon.MetaData.Tooltip = value;
+                            break;
+                        case "action":
+                            addon.MetaData.Action = value;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                addon.MetaData = null;
             }
         }
     }

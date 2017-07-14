@@ -349,6 +349,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open addon website.
+        /// </summary>
+        public static string S_BTN_ADDON_LINK {
+            get {
+                return ResourceManager.GetString("S_BTN_ADDON_LINK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move selected item down.
         /// </summary>
         public static string S_BTN_ADDONS_DOWN_TIP {

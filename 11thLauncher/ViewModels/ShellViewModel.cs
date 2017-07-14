@@ -55,38 +55,38 @@ namespace _11thLauncher.ViewModels
             _gameLauncherService = gameLauncherService;
             _profileManager = profileManager;
 
-            Statusbar = IoC.Get<StatusbarViewModel>();
-            ProfileSelector = IoC.Get<ProfileSelectorViewModel>();
-            Addons = IoC.Get<AddonsViewModel>();
-            Game = IoC.Get<GameViewModel>();
-            ServerStatus = IoC.Get<ServerStatusViewModel>();
-            RepositoryStatus = IoC.Get<RepositoryStatusViewModel>();
-            Parameters = IoC.Get<ParametersViewModel>();
-            ServerQuery = IoC.Get<ServerQueryViewModel>();
-            ProfileManager = IoC.Get<ProfileManagerViewModel>();
+            StatusbarControl = IoC.Get<StatusbarViewModel>();
+            ProfileSelectorControl = IoC.Get<ProfileSelectorViewModel>();
+            AddonsControl = IoC.Get<AddonsViewModel>();
+            GameControl = IoC.Get<GameViewModel>();
+            ServerStatusControl = IoC.Get<ServerStatusViewModel>();
+            RepositoryStatusControl = IoC.Get<RepositoryStatusViewModel>();
+            ParametersControl = IoC.Get<ParametersViewModel>();
+            ServerQueryControl = IoC.Get<ServerQueryViewModel>();
+            ProfileManagerControl = IoC.Get<ProfileManagerViewModel>();
 
             Init();
         }
 
         #region Properties
 
-        public StatusbarViewModel Statusbar { get; set; }
+        public StatusbarViewModel StatusbarControl { get; set; }
 
-        public ProfileSelectorViewModel ProfileSelector { get; set; }
+        public ProfileSelectorViewModel ProfileSelectorControl { get; set; }
 
-        public AddonsViewModel Addons { get; set; }
+        public AddonsViewModel AddonsControl { get; set; }
 
-        public GameViewModel Game { get; set; }
+        public GameViewModel GameControl { get; set; }
 
-        public ServerStatusViewModel ServerStatus { get; set; }
+        public ServerStatusViewModel ServerStatusControl { get; set; }
 
-        public RepositoryStatusViewModel RepositoryStatus { get; set; }
+        public RepositoryStatusViewModel RepositoryStatusControl { get; set; }
 
-        public ParametersViewModel Parameters { get; set; }
+        public ParametersViewModel ParametersControl { get; set; }
 
-        public ServerQueryViewModel ServerQuery { get; set; }
+        public ServerQueryViewModel ServerQueryControl { get; set; }
 
-        public ProfileManagerViewModel ProfileManager { get; set; }
+        public ProfileManagerViewModel ProfileManagerControl { get; set; }
 
         public WindowState WindowState
         {

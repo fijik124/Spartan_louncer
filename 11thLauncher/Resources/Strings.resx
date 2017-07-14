@@ -571,4 +571,7 @@
   <data name="S_BTN_TOGGLE_ADDON" xml:space="preserve">
     <value>Toggle status</value>
   </data>
+  <data name="S_BTN_ADDON_LINK" xml:space="preserve">
+    <value>Open addon website</value>
+  </data>
 </root>

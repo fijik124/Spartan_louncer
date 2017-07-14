@@ -129,6 +129,7 @@
     <Compile Include="Messages\ThemeChangedMessage.cs" />
     <Compile Include="Messages\UpdateStatusBarMessage.cs" />
     <Compile Include="Models\Addon.cs" />
+    <Compile Include="Models\AddonMetaData.cs" />
     <Compile Include="Models\Preset.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="LauncherBootstraper.cs" />

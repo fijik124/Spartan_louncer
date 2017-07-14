@@ -11,6 +11,7 @@ namespace _11thLauncher.Models
         private string _path;
         private bool _isEnabled;
         private string _name;
+        private AddonMetaData _metaData;
 
         /// <summary>
         /// Creates a new instance of the <see cref="Addon"/> class, with the specified name and initial status.
@@ -62,10 +63,24 @@ namespace _11thLauncher.Models
         }
 
         /// <summary>
-        /// Display name of the addon.
+        /// Addon metadata, taken from the mod.cpp file.
         /// </summary>
         [JsonIgnore]
-        public string DisplayName => Name.Replace("_", "__");
+        public AddonMetaData MetaData
+        {
+            get => _metaData;
+            set
+            {
+                _metaData = value;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(() => IsLinkAvailable);
+            }
+        }
+
+        /// <summary>
+        /// Indicates if a link to the addon website is available.
+        /// </summary>
+        public bool IsLinkAvailable => !string.IsNullOrEmpty(MetaData?.Action);
 
         /// <summary>
         /// Set the status of the addon without triggering an event.

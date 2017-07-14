@@ -23,5 +23,11 @@ namespace _11thLauncher.Services.Contracts
         /// </summary>
         /// <param name="addon">Addon with the path to open</param>
         void BrowseAddonFolder(Addon addon);
+
+        /// <summary>
+        /// Opens a web browser window with the addon website.
+        /// </summary>
+        /// <param name="addon">Addon for which the site should be opened</param>
+        void BrowseAddonWebsite(Addon addon);
     }
 }

@@ -7,8 +7,8 @@
              xmlns:resx="clr-namespace:_11thLauncher.Resources"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance Type=vm:AddonsViewModel}" d:DesignWidth="353.815" d:DesignHeight="406.244">
-
+             d:DataContext="{d:DesignInstance Type=vm:AddonsViewModel}" d:DesignWidth="353" d:DesignHeight="406">
+ 
     <Grid>
         <Label Content="{x:Static resx:Strings.S_ADDON_PRESETS}" 
                HorizontalAlignment="Left" 
@@ -30,15 +30,23 @@
              BorderThickness="1">
             <ListBox.ItemTemplate>
                 <HierarchicalDataTemplate>
-                    <CheckBox Content="{Binding DisplayName}" IsChecked="{Binding IsEnabled}" ToolTip="{Binding Path}"/>
+                    <DockPanel Tag="{Binding DataContext, ElementName=Addons}">
+                        <CheckBox IsChecked="{Binding IsEnabled}" ToolTip="{Binding MetaData.Name}" HorizontalContentAlignment="Stretch">
+                            <CheckBox.Content>
+                                <TextBlock Text="{Binding Name}"/>
+                            </CheckBox.Content>
+                        </CheckBox>
+                        <DockPanel.ContextMenu>
+                            <ContextMenu cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                                <MenuItem Header="{x:Static resx:Strings.S_BTN_TOGGLE_ADDON}" cal:Message.Attach="[Event Click] = [Action ContextToggleAddon($dataContext)];"/>
+                                <MenuItem Header="{x:Static resx:Strings.S_BTN_BROWSE_ADDON}" cal:Message.Attach="[Event Click] = [Action ContextBrowseAddon($dataContext)];"/>
+                                <MenuItem Header="{x:Static resx:Strings.S_BTN_ADDON_LINK}" IsEnabled="{Binding IsLinkAvailable}" 
+                                          cal:Message.Attach="[Event Click] = [Action ContextAddonLink($dataContext)];"/>
+                            </ContextMenu>
+                        </DockPanel.ContextMenu>
+                    </DockPanel>
                 </HierarchicalDataTemplate>
             </ListBox.ItemTemplate>
-            <ListBox.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="{x:Static resx:Strings.S_BTN_TOGGLE_ADDON}" cal:Message.Attach="[Event Click] = [Action ContextToggleAddon];"/>
-                    <MenuItem Header="{x:Static resx:Strings.S_BTN_BROWSE_ADDON}" cal:Message.Attach="[Event Click] = [Action ContextBrowseAddon];"/>
-                </ContextMenu>
-            </ListBox.ContextMenu>
         </ListBox>
 
         <Button x:Name="ButtonMoveUp" ToolTip="{x:Static resx:Strings.S_BTN_ADDONS_UP_TIP}" 

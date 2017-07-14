@@ -78,19 +78,27 @@ namespace _11thLauncher.ViewModels.Controls
             _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
         }
 
-        public void ContextToggleAddon()
+        public void ContextToggleAddon(Addon addon)
         {
-            if (SelectedAddon != null)
+            if (addon != null)
             {
-                SelectedAddon.IsEnabled = !SelectedAddon.IsEnabled;
+                addon.IsEnabled = !addon.IsEnabled;
             }
         }
 
-        public void ContextBrowseAddon()
+        public void ContextBrowseAddon(Addon addon)
         {
-            if (SelectedAddon != null)
+            if (addon != null)
             {
-                _addonService.BrowseAddonFolder(SelectedAddon);
+                _addonService.BrowseAddonFolder(addon);
+            }
+        }
+
+        public void ContextAddonLink(Addon addon)
+        {
+            if (addon != null)
+            {
+                _addonService.BrowseAddonWebsite(addon);
             }
         }
 
