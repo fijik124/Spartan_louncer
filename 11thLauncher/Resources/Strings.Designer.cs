@@ -376,6 +376,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse folder.
+        /// </summary>
+        public static string S_BTN_BROWSE_ADDON {
+            get {
+                return ResourceManager.GetString("S_BTN_BROWSE_ADDON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check server status.
         /// </summary>
         public static string S_BTN_CHECK_SERVER_STATUS {
@@ -453,6 +462,15 @@ namespace _11thLauncher.Resources {
         public static string S_BTN_SETTINGS_TIP {
             get {
                 return ResourceManager.GetString("S_BTN_SETTINGS_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle status.
+        /// </summary>
+        public static string S_BTN_TOGGLE_ADDON {
+            get {
+                return ResourceManager.GetString("S_BTN_TOGGLE_ADDON", resourceCulture);
             }
         }
         

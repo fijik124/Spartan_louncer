@@ -585,4 +585,10 @@
   <data name="S_MSG_INCORRECT_JAVA_PATH_CONTENT" xml:space="preserve">
     <value>La carpeta seleccionada no contiene un entorno de ejecución de Java (JRE) válido.</value>
   </data>
+  <data name="S_BTN_BROWSE_ADDON" xml:space="preserve">
+    <value>Explorar carpeta</value>
+  </data>
+  <data name="S_BTN_TOGGLE_ADDON" xml:space="preserve">
+    <value>Cambiar estado</value>
+  </data>
 </root>

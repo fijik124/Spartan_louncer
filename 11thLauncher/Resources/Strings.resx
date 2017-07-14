@@ -565,4 +565,10 @@
   <data name="S_MSG_INCORRECT_JAVA_PATH_CONTENT" xml:space="preserve">
     <value>The selected folder does not contain a valid Java Runtime Environment (JRE).</value>
   </data>
+  <data name="S_BTN_BROWSE_ADDON" xml:space="preserve">
+    <value>Browse folder</value>
+  </data>
+  <data name="S_BTN_TOGGLE_ADDON" xml:space="preserve">
+    <value>Toggle status</value>
+  </data>
 </root>

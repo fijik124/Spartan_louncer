@@ -1,24 +1,30 @@
 ﻿using System.ComponentModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
+using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
     public class AddonsViewModel : PropertyChangedBase, IHandle<AddonsLoaded>, IHandle<LoadProfileMessage>
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IAddonService _addonService;
+
         private BindableCollection<Preset> _presets;
         private Preset _selectedPreset;
         private BindableCollection<Addon> _addons = new BindableCollection<Addon>();
         private Addon _selectedAddon;
 
-        public AddonsViewModel(IEventAggregator eventAggregator)
+        public AddonsViewModel(IEventAggregator eventAggregator, IAddonService addonService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
+            _addonService = addonService;
 
             Presets = Constants.AddonPresets;
         }
@@ -70,6 +76,22 @@ namespace _11thLauncher.ViewModels.Controls
         private void Addon_StatusChanged(object sender, PropertyChangedEventArgs e)
         {
             _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
+        }
+
+        public void ContextToggleAddon()
+        {
+            if (SelectedAddon != null)
+            {
+                SelectedAddon.IsEnabled = !SelectedAddon.IsEnabled;
+            }
+        }
+
+        public void ContextBrowseAddon()
+        {
+            if (SelectedAddon != null)
+            {
+                _addonService.BrowseAddonFolder(SelectedAddon);
+            }
         }
 
         public void ButtonMoveUp()

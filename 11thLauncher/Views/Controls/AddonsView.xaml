@@ -30,9 +30,15 @@
              BorderThickness="1">
             <ListBox.ItemTemplate>
                 <HierarchicalDataTemplate>
-                    <CheckBox Content="{Binding DisplayName}" IsChecked="{Binding IsEnabled}"/>
+                    <CheckBox Content="{Binding DisplayName}" IsChecked="{Binding IsEnabled}" ToolTip="{Binding Path}"/>
                 </HierarchicalDataTemplate>
             </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{x:Static resx:Strings.S_BTN_TOGGLE_ADDON}" cal:Message.Attach="[Event Click] = [Action ContextToggleAddon];"/>
+                    <MenuItem Header="{x:Static resx:Strings.S_BTN_BROWSE_ADDON}" cal:Message.Attach="[Event Click] = [Action ContextBrowseAddon];"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
         </ListBox>
 
         <Button x:Name="ButtonMoveUp" ToolTip="{x:Static resx:Strings.S_BTN_ADDONS_UP_TIP}" 

@@ -8,16 +8,31 @@ namespace _11thLauncher.Models
     /// </summary>
     public class Addon : PropertyChangedBase
     {
+        private string _path;
         private bool _isEnabled;
         private string _name;
 
         /// <summary>
         /// Creates a new instance of the <see cref="Addon"/> class, with the specified name and initial status.
         /// </summary>
-        public Addon(string name, bool enabled = false)
+        public Addon(string path, string name, bool enabled = false)
         {
+            Path = path;
             Name = name;
             IsEnabled = enabled;
+        }
+
+        /// <summary>
+        /// Location of the addon in the file system.
+        /// </summary>
+        public string Path
+        {
+            get => _path;
+            set
+            {
+                _path = value;
+                NotifyOfPropertyChange();
+            }
         }
 
         /// <summary>

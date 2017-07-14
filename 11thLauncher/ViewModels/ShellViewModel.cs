@@ -65,7 +65,6 @@ namespace _11thLauncher.ViewModels
             ServerQuery = IoC.Get<ServerQueryViewModel>();
             ProfileManager = IoC.Get<ProfileManagerViewModel>();
 
-            //Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("es-ES"); TODO this
             Init();
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Caliburn.Micro;
@@ -33,10 +34,18 @@ namespace _11thLauncher.Services
                 int pathindex = directory.IndexOf(arma3Path, StringComparison.Ordinal) + arma3Path.Length + 1;
                 string addonName = directory.Substring(pathindex, (directory.Length - pathindex) - (Constants.AddonSubfolderName.Length + 1));
 
-                _addons.Add(new Addon(addonName));
+                _addons.Add(new Addon(Directory.GetParent(directory).FullName, addonName));  
             }
 
             return _addons;
+        }
+
+        public void BrowseAddonFolder(Addon addon)
+        {
+            if (Directory.Exists(addon.Path))
+            {
+                Process.Start(addon.Path);
+            }
         }
     }
 }
