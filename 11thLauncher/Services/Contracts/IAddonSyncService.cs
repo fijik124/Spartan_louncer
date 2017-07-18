@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Caliburn.Micro;
 using _11thLauncher.Models;
 
 namespace _11thLauncher.Services.Contracts
@@ -10,7 +10,15 @@ namespace _11thLauncher.Services.Contracts
         /// </summary>
         /// <param name="arma3SyncPath">Installation path of Arma3Sync</param>
         /// <returns>List of repositories</returns>
-        List<Repository> ReadRepositories(string arma3SyncPath);
+        BindableCollection<Repository> ReadRepositories(string arma3SyncPath);
+
+        /// <summary>
+        /// Checks the status of the given repository against the server
+        /// </summary>
+        /// <param name="addonSyncPath">Installation path of addonsync</param>
+        /// <param name="javaPath">Java installation path. Empty if java is used from PATH</param>
+        /// <param name="repository">Repository to check</param>
+        void CheckRepository(string addonSyncPath, string javaPath, Repository repository);
 
         /// <summary>
         /// Check if Java is present on PATH and the installed version
@@ -18,6 +26,15 @@ namespace _11thLauncher.Services.Contracts
         /// <returns>Version of Java on path</returns>
         string GetJavaInSystem();
 
-        string GetArma3SyncPath();
+        /// <summary>
+        /// Returns the addon sync program path
+        /// </summary>
+        /// <returns>Path of the program in the system</returns>
+        string GetAddonSyncPath();
+
+        /// <summary>
+        /// Starts the addon sync program
+        /// </summary>
+        void StartAddonSync(string arma3SyncPath);
     }
 }

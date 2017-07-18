@@ -637,49 +637,6 @@ namespace _11thLauncher
         }
 
         /// <summary>
-        /// Update the repository status with the given config
-        /// </summary>
-        /// <param name="revision">Repository revision</param>
-        /// <param name="buildDate">Repository build date</param>
-        /// <param name="updated">Is the local repository up to date?</param>
-        private void UpdateRepositoryStatus(string revision, DateTime? buildDate, bool updated)
-        {
-            tile_repositoryStatus.IsEnabled = true;
-
-            if (!revision.Equals(""))
-            {
-                label_repositoryRevision.Content = revision;
-            }
-
-            if (buildDate == DateTime.MinValue)
-            {
-                tile_repositoryStatus.Background = new SolidColorBrush(Colors.Orange);
-                tile_repositoryStatus.Content = "Desconocido";
-                tile_repositoryStatus.ToolTip = "No se ha podido comprobar el repositorio en el servidor. Click para volver a comprobar.";
-                label_repositoryRevision.ToolTip = null;
-            } else
-            {
-                if (buildDate != null)
-                {
-                    label_repositoryRevision.Content += " (" + buildDate.Value.ToShortDateString() + ")";
-                    label_repositoryRevision.ToolTip = "Compilado el " + buildDate.Value.ToShortDateString() + " a las " + buildDate.Value.ToShortTimeString();
-                }
-                if (updated)
-                {
-                    tile_repositoryStatus.Background = new SolidColorBrush(Colors.Green);
-                    tile_repositoryStatus.Content = "Actualizado";
-                    tile_repositoryStatus.ToolTip = "Tienes la última versión del repositorio. Click para volver a comprobar.";
-                } else
-                {
-                    tile_repositoryStatus.Background = new SolidColorBrush(Colors.Red);
-                    tile_repositoryStatus.Content = "No actualizado";
-                    tile_repositoryStatus.ToolTip = "No tienes la última versión del repositorio. Click para volver a comprobar.";
-                }
-            }
-            //UpdateStatusBar();
-        }
-
-        /// <summary>
         /// Show a new update notification
         /// </summary>
         /// <param name="version">Latest version available</param>

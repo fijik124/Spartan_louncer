@@ -9,21 +9,6 @@ namespace _11thLauncher
     public static class Constants
     {
         //
-        // Build info
-        //
-        public const string Author = "Javier 'Thrax' Rico";
-        public const string BuildCodeName = "Echo";
-        public static DateTime BuildDate = new DateTime(2017, 06, 01);
-        public static readonly string AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-        //
-        // Program Settings
-        //
-        public static readonly string ProfilesPath = ConfigPath + "\\profiles";
-        public const string LogoLight = "pack://application:,,,/Resources/a3logo.png";
-        public const string LogoDark = "pack://application:,,,/Resources/a3logo_inverted.png";
-
-        //
         // Settings Service
         //
         public static readonly string[] Languages = { "en-US", "es-ES" };
@@ -56,13 +41,17 @@ namespace _11thLauncher
         // Arma3Sync Service
         //
         public const string JavaExecutable = "java.exe";
+        public const string JavaPathCommand = "java";
         public const string JavaRuntimeBinaryFolder = "bin";
         public const string Arma3SyncBaseRegistryPath32 = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
         public const string Arma3SyncBaseRegistryPath64 = @"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
         public const string Arma3SyncRegDisplayNameEntry = "DisplayName";
         public const string Arma3SyncRegDisplayNameValue = "ArmA3Sync";
         public const string Arma3SyncRegLocationEntry = "InstallLocation";
-        public const string RepositoryConfigFolder = @"\resources\ftp\";
+        public const string Arma3SyncExecutable = "ArmA3Sync.exe";
+        public const string Arma3SyncConfigFolder = @"resources\ftp\";
+        public const string Arma3SyncRepositoryExtension = @".a3s.repository";
+        public const string Arma3SyncRemoteServerInfo = @"ftp://{0}/.a3s/serverinfo";
 
         // 
         // 11th MEU addon presets
@@ -72,12 +61,12 @@ namespace _11thLauncher
             new Preset
             {
                 Name = "Guerra Moderna",
-                Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@rhsafrf", "@rhsgref", "@rhsusaf" }
+                Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@meu_fleet", "@rhsafrf", "@rhsgref", "@rhsusaf" }
             },
             new Preset
             {
                 Name = "Guerra Moderna [ALiVE]",
-                Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@rhsafrf", "@rhsgref", "@rhsusaf", "@alive" }
+                Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@meu_fleet", "@rhsafrf", "@rhsgref", "@rhsusaf", "@alive" }
             },
             new Preset
             {
@@ -90,5 +79,22 @@ namespace _11thLauncher
         // Repository Settings
         //
         public static readonly string A3SdsPath = Path.Combine(Path.GetTempPath(), "A3SDS.jar");
+
+        //
+        // Program Settings
+        //
+        public static readonly string ProfilesPath = ConfigPath + "\\profiles";
+        public const string LogoLight = "pack://application:,,,/Resources/a3logo.png";
+        public const string LogoDark = "pack://application:,,,/Resources/a3logo_inverted.png";
+        public const string Arma3SyncIconEnabled = "pack://application:,,,/Resources/a3sEnabled.png";
+        public const string Arma3SyncIconDisabled = "pack://application:,,,/Resources/a3sDisabled.png";
+
+        //
+        // Build info
+        //
+        public const string Author = "Javier 'Thrax' Rico";
+        public const string BuildCodeName = "Echo";
+        public static DateTime BuildDate = new DateTime(2017, 06, 01);
+        public static readonly string AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
     }
 }

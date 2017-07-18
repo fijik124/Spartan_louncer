@@ -594,4 +594,31 @@
   <data name="S_BTN_ADDON_LINK" xml:space="preserve">
     <value>Abrir página web del addon</value>
   </data>
+  <data name="S_LABEL_REPOSITORIES" xml:space="preserve">
+    <value>Repositorios</value>
+  </data>
+  <data name="S_A3S_DISABLED_TIP" xml:space="preserve">
+    <value>Arma3Sync no está configurado, configuralo en la ventana de opciones</value>
+  </data>
+  <data name="S_A3S_ENABLED_TIP" xml:space="preserve">
+    <value>Haz click para iniciar Arma3Sync</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_UNKNOWN" xml:space="preserve">
+    <value>Desconocido</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_UPDATED" xml:space="preserve">
+    <value>Actualizado</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_OUTDATED" xml:space="preserve">
+    <value>Desactualizado</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_UPDATED_TIP" xml:space="preserve">
+    <value>Tienes la última versión del repositorio. Click para volver a comprobar.</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_OUTDATED_TIP" xml:space="preserve">
+    <value>Hay una nueva versión del repositorio. Click para volver a comprobar</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_UNKNOWN_TIP" xml:space="preserve">
+    <value>Click para comprobar el estado del repositorio</value>
+  </data>
 </root>

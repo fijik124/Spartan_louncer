@@ -11,7 +11,6 @@
         public string Arma3SyncPath = "";
 
         //TODO process and move up
-        public string Arma3SyncRepository = "";
         public bool StartClose = false;
         public bool StartMinimize = false;
     }

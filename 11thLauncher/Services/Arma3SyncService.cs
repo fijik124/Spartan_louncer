@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using Caliburn.Micro;
 using Microsoft.Win32;
-using _11thLauncher.Configuration;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 
@@ -12,20 +11,12 @@ namespace _11thLauncher.Services
 {
     public class Arma3SyncService : IAddonSyncService
     {
-        private static string _localRevision;
-
-        private static string _remoteLogin;
-        private static string _remotePassword;
-        private static string _remoteUrl;
-        private static string _remoteRevision;
-        private static DateTime _remoteBuildDate;
-
-        public List<Repository> ReadRepositories(string arma3SyncPath)
+        public BindableCollection<Repository> ReadRepositories(string arma3SyncPath)
         {
-            List<Repository> repositories = new List<Repository>();
+            BindableCollection<Repository> repositories = new BindableCollection<Repository>();
             if (!Directory.Exists(arma3SyncPath)) return repositories;
 
-            string[] files = Directory.GetFiles(Path.Combine(arma3SyncPath, Constants.RepositoryConfigFolder));
+            string[] files = Directory.GetFiles(Path.Combine(arma3SyncPath, Constants.Arma3SyncConfigFolder));
             foreach (string file in files)
             {
                 string fileName = Path.GetFileName(file);
@@ -40,70 +31,40 @@ namespace _11thLauncher.Services
         }
 
         /// <summary>
-        /// Get a list of repositories from the Arma3Sync ftp folder
+        /// Check the given repository
         /// </summary>
-        /// <returns>List of current repositories, empty list if the Arma3Sync path is not configured</returns>
-        public static List<string> ListRepositories()
+        public void CheckRepository(string arma3SyncPath, string javaPath, Repository repository)
         {
-            List<string> repositories = new List<string>();
-
-            if (Settings.Arma3SyncPath != "")
-            {
-                try
-                {
-                    string[] files = Directory.GetFiles(Settings.Arma3SyncPath + "\\resources\\ftp\\");
-                    foreach (string file in files)
-                    {
-                        string fileName = Path.GetFileName(file);
-                        if (fileName != null) repositories.Add(fileName.Substring(0, fileName.IndexOf('.')));
-                    }
-                }
-                catch (Exception) { }
-            }
-
-            return repositories;
-        }
-
-        /// <summary>
-        /// Check the selected local repository
-        /// </summary>
-        public static void CheckRepository()
-        {
-            //MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando repositorio" });
+            repository.Status = RepositoryStatus.Checking;
 
             //Extract A3SDS
             File.WriteAllBytes(Constants.A3SdsPath, Properties.Resources.A3SDS);
 
-            deserializeLocalRepository();
-            deserializeRemoteRepository();
+            DeserializeLocalRepository(arma3SyncPath, javaPath, repository);
+            DeserializeRemoteRepository(javaPath, repository);
 
             //Delete A3SDS
             File.Delete(Constants.A3SdsPath);
 
-            string revision = _localRevision;
-            bool updated = false;
-
-            if (_localRevision != null && MainWindow.Form != null)
+            if (repository.LocalRevision != null)
             {
-                if (_remoteRevision != null)
+                if (repository.RemoteRevision != null)
                 {
-                    if (_localRevision.Equals(_remoteRevision))
+                    if (repository.LocalRevision.Equals(repository.RemoteRevision))
                     {
-                        updated = true;
+                        repository.Status = RepositoryStatus.Updated;
                     }
                     else
                     {
-                        revision = _remoteRevision;
+                        repository.Status = RepositoryStatus.Outdated;
                     }
                 }
             }
-
-            //MainWindow.UpdateForm("UpdateRepositoryStatus", new object[] { revision, _remoteBuildDate, updated });
         }
 
-        private static void deserializeLocalRepository()
+        private static void DeserializeLocalRepository(string arma3SyncPath, string javaPath, Repository repository)
         {
-            string repositoryPath = "\"" + Settings.Arma3SyncPath + "\\resources\\ftp\\" + Settings.Arma3SyncRepository + ".a3s.repository" + "\"";
+            string repositoryPath = Path.Combine(arma3SyncPath, Constants.Arma3SyncConfigFolder, repository.Name + Constants.Arma3SyncRepositoryExtension);
 
             Process p = new Process
             {
@@ -112,8 +73,8 @@ namespace _11thLauncher.Services
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true,
-                    FileName = GetJavaPath(),
-                    Arguments = " -jar " + Constants.A3SdsPath + " -deserializeRepository " + repositoryPath
+                    FileName = !string.IsNullOrEmpty(javaPath) ? javaPath : Constants.JavaPathCommand,
+                    Arguments = " -jar " + Constants.A3SdsPath + " -deserializeRepository \"" + repositoryPath + "\""
                 }
             };
             p.Start();
@@ -121,37 +82,41 @@ namespace _11thLauncher.Services
             string[] localRepositoryInfo = localRepository.TrimEnd('\r', '\n').Split(',');
             p.WaitForExit();
 
-            if (localRepositoryInfo.Length == 6)
-            {
-                _localRevision = localRepositoryInfo[1];
-                _remoteLogin = localRepositoryInfo[2];
-                _remotePassword = localRepositoryInfo[3];
-                _remoteUrl = localRepositoryInfo[5];
-            }
+            if (localRepositoryInfo.Length != 6) return;
+
+            repository.LocalRevision = localRepositoryInfo[1];
+            repository.Login = localRepositoryInfo[2];
+            repository.Password = localRepositoryInfo[3];
+            repository.Address = localRepositoryInfo[5];
         }
 
-        private static void deserializeRemoteRepository()
+        private static void DeserializeRemoteRepository(string javaPath, Repository repository)
         {
             try
             {
-                string tempPath = Path.GetTempPath() + "repoInfo";
-                FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://" + _remoteUrl + "/.a3s/serverinfo");
+                string tempPath = Path.GetTempPath() + repository.Name + "repoInfo";
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(string.Format(Constants.Arma3SyncRemoteServerInfo, repository.Address));
                 request.Method = WebRequestMethods.Ftp.DownloadFile;
-                request.Credentials = new NetworkCredential(_remoteLogin, _remotePassword);
+                request.Credentials = new NetworkCredential(repository.Login, repository.Password);
 
                 FtpWebResponse response = (FtpWebResponse)request.GetResponse();
                 Stream responseStream = response.GetResponseStream();
                 using (Stream s = File.Create(tempPath))
                 {
-                    responseStream.CopyTo(s);
+                    responseStream?.CopyTo(s);
                 }
 
-                Process p = new Process();
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.FileName = @GetJavaPath();
-                p.StartInfo.Arguments = " -jar " + Constants.A3SdsPath + " -deserializeServerInfo \"" + tempPath + "\"";
+                Process p = new Process
+                {
+                    StartInfo =
+                    {
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true,
+                        FileName = !string.IsNullOrEmpty(javaPath) ? javaPath : Constants.JavaPathCommand,
+                        Arguments = " -jar " + Constants.A3SdsPath + " -deserializeServerInfo \"" + tempPath + "\""
+                    }
+                };
                 p.Start();
                 string remoteRepository = p.StandardOutput.ReadToEnd();
                 string[] remoteRepositoryInfo = remoteRepository.TrimEnd('\r', '\n').Split(',');
@@ -162,8 +127,8 @@ namespace _11thLauncher.Services
 
                 if (remoteRepositoryInfo != null && remoteRepositoryInfo.Length == 2)
                 {
-                    _remoteRevision = remoteRepositoryInfo[0];
-                    _remoteBuildDate = JavaDateToDatetime(remoteRepositoryInfo[1]);
+                    repository.RemoteRevision = remoteRepositoryInfo[0];
+                    repository.RemoteBuildDate = JavaDateToDatetime(remoteRepositoryInfo[1]);
                 }
             }
             catch (WebException) { }
@@ -199,7 +164,7 @@ namespace _11thLauncher.Services
             return javaVersion;
         }
 
-        public string GetArma3SyncPath()
+        public string GetAddonSyncPath()
         {
             string arma3SyncPath = "";
 
@@ -226,6 +191,19 @@ namespace _11thLauncher.Services
             return arma3SyncPath;
         }
 
+        public void StartAddonSync(string arma3SyncPath)
+        {
+            var p = new Process
+            {
+                StartInfo =
+                {
+                    WorkingDirectory = arma3SyncPath,
+                    FileName = Path.Combine(arma3SyncPath, Constants.Arma3SyncExecutable)
+                }
+            };
+            p.Start();
+        }
+
         private static string SearchRegistryInstallations(RegistryKey key)
         {
             string arma3SyncPath = "";
@@ -244,33 +222,6 @@ namespace _11thLauncher.Services
             }
 
             return arma3SyncPath;
-        }
-
-        /// <summary>
-        /// Start ArmA3Sync in the configured path
-        /// </summary>
-        public static void StartArmA3Sync()
-        {
-            var p = new Process
-            {
-                StartInfo =
-                {
-                    WorkingDirectory = Settings.Arma3SyncPath,
-                    FileName = Settings.Arma3SyncPath + "\\ArmA3Sync.exe"
-                }
-            };
-            p.Start();
-        }
-
-        /// <summary>
-        /// Get the Java execution path
-        /// </summary>
-        /// <returns>Java execution path</returns>
-        private static string GetJavaPath()
-        {
-            var path = Settings.JavaPath != "" ? Settings.JavaPath : "java";
-
-            return path;
         }
 
         /// <summary>

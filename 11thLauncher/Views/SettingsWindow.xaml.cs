@@ -89,8 +89,8 @@ namespace _11thLauncher
             Settings.JavaPath = textBox_javaPath.Text;
             Settings.Arma3SyncPath = textBox_a3sPath.Text;
             Settings.Arma3SyncRepository = comboBox_repository.SelectedIndex == -1 ? "" : comboBox_repository.SelectedItem.ToString();
-            if (!MainWindow.Form.tile_repositoryStatus.IsEnabled)
-            {
+            //if (!MainWindow.Form.tile_repositoryStatus.IsEnabled)
+            //{
                 //Check if repository is correctly configured to allow checking
                 //if ((Repository.JavaVersion != "" || Settings.JavaPath != "") && Settings.Arma3SyncPath != "" && Settings.Arma3SyncRepository != "")
                 //{
@@ -100,8 +100,8 @@ namespace _11thLauncher
                     //MainWindow.Form.tile_repositoryStatus.Background = new SolidColorBrush(Colors.Orange);
                     //MainWindow.Form.tile_repositoryStatus.ToolTip = "Click para comprobar estado";
                 //}
-            } else
-            {
+            //} else
+            //{
                 //Check if configuration is incorrect to disable repository checking
                 //if ((Repository.JavaVersion == "" && Settings.JavaPath == "") || Settings.Arma3SyncPath == "" || Settings.Arma3SyncRepository == "")
                 //{
@@ -111,7 +111,7 @@ namespace _11thLauncher
                     //MainWindow.Form.tile_repositoryStatus.Background = new SolidColorBrush(Colors.Gray);
                     //MainWindow.Form.tile_repositoryStatus.ToolTip = null;
                 //}
-            }
+            //}
 
             Settings.Write();
         }

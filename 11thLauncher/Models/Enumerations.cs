@@ -141,4 +141,9 @@ namespace _11thLauncher.Models
         [Description("S_ACCENT_SIENNA")]
         Sienna
     }
+
+    public enum RepositoryStatus
+    {
+        Unknown, Checking, Outdated, Updated
+    }
 }

@@ -61,6 +61,24 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arma3Sync is not configured, configure it in the settings window.
+        /// </summary>
+        public static string S_A3S_DISABLED_TIP {
+            get {
+                return ResourceManager.GetString("S_A3S_DISABLED_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to launch Arma3Sync.
+        /// </summary>
+        public static string S_A3S_ENABLED_TIP {
+            get {
+                return ResourceManager.GetString("S_A3S_ENABLED_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amber.
         /// </summary>
         public static string S_ACCENT_AMBER {
@@ -448,6 +466,60 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Outdated.
+        /// </summary>
+        public static string S_BTN_REPOSITORY_OUTDATED {
+            get {
+                return ResourceManager.GetString("S_BTN_REPOSITORY_OUTDATED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is a new update to the repository. Click to check again.
+        /// </summary>
+        public static string S_BTN_REPOSITORY_OUTDATED_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_REPOSITORY_OUTDATED_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string S_BTN_REPOSITORY_UNKNOWN {
+            get {
+                return ResourceManager.GetString("S_BTN_REPOSITORY_UNKNOWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to check the status of the repository.
+        /// </summary>
+        public static string S_BTN_REPOSITORY_UNKNOWN_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_REPOSITORY_UNKNOWN_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated.
+        /// </summary>
+        public static string S_BTN_REPOSITORY_UPDATED {
+            get {
+                return ResourceManager.GetString("S_BTN_REPOSITORY_UPDATED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have the latest version of the repository. Click to check again.
+        /// </summary>
+        public static string S_BTN_REPOSITORY_UPDATED_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_REPOSITORY_UPDATED_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string S_BTN_RESET_SETTINGS {
@@ -696,6 +768,15 @@ namespace _11thLauncher.Resources {
         public static string S_LABEL_PROFILE_NAME {
             get {
                 return ResourceManager.GetString("S_LABEL_PROFILE_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repositories.
+        /// </summary>
+        public static string S_LABEL_REPOSITORIES {
+            get {
+                return ResourceManager.GetString("S_LABEL_REPOSITORIES", resourceCulture);
             }
         }
         

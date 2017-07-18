@@ -1,22 +1,38 @@
-﻿using Caliburn.Micro;
+﻿using System.Threading;
+using Caliburn.Micro;
+using _11thLauncher.Messages;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class RepositoryStatusViewModel : PropertyChangedBase
+    public class RepositoryStatusViewModel : PropertyChangedBase, IHandle<SettingsLoadedMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IAddonSyncService _addonSyncService;
+        private readonly ISettingsService _settingsService;
+
+        private string _arma3SyncIcon = Constants.Arma3SyncIconDisabled;
         private BindableCollection<Repository> _repositories;
 
-        public RepositoryStatusViewModel(IEventAggregator eventAggregator, IAddonSyncService addonSyncService)
+        public RepositoryStatusViewModel(IEventAggregator eventAggregator, IAddonSyncService addonSyncService, ISettingsService settingsService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
             _addonSyncService = addonSyncService;
+            _settingsService = settingsService;
 
-            Repositories = new BindableCollection<Repository>();
+            _repositories = new BindableCollection<Repository>();
+        }
+
+        public string Arma3SyncIcon
+        {
+            get => _arma3SyncIcon;
+            set
+            {
+                _arma3SyncIcon = value;
+                NotifyOfPropertyChange();
+            }
         }
 
         public BindableCollection<Repository> Repositories
@@ -26,6 +42,49 @@ namespace _11thLauncher.ViewModels.Controls
             {
                 _repositories = value;
                 NotifyOfPropertyChange();
+            }
+        }
+
+        public bool Arma3SyncConfigured => !string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath);
+
+        public void Handle(SettingsLoadedMessage message)
+        {
+            if (string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath)) return;
+
+            Arma3SyncIcon = Constants.Arma3SyncIconEnabled;
+            Repositories = _addonSyncService.ReadRepositories(_settingsService.ApplicationSettings.Arma3SyncPath); //TODO ASYNC
+
+            //TODO check if startup check is enabled
+
+            new Thread(() =>
+            {
+                foreach (var repository in Repositories)
+                {
+                    //_eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, true)); TODO
+                    _addonSyncService.CheckRepository(_settingsService.ApplicationSettings.Arma3SyncPath, _settingsService.ApplicationSettings.JavaPath, repository);
+                    //_eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, false)); TODO
+                }
+            }).Start();
+        }
+
+        public void StartArma3Sync()
+        {
+            if (string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath)) return;
+
+            _addonSyncService.StartAddonSync(_settingsService.ApplicationSettings.Arma3SyncPath);
+        }
+
+        public void CheckRepositoryStatus(Repository repository)
+        {
+            if (repository.Status != RepositoryStatus.Checking)
+            {
+                new Thread(() =>
+                {
+                    //_eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, true)); TODO
+                    _addonSyncService.CheckRepository(_settingsService.ApplicationSettings.Arma3SyncPath, _settingsService.ApplicationSettings.JavaPath, repository);
+                    //_eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, false)); TODO
+                }).Start();
+
             }
         }
     }

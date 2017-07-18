@@ -67,20 +67,6 @@
                             </Rectangle.Fill>
                         </Rectangle>
                     </Button>
-
-                    <Expander x:Name="groupBox_repository" Header="Repositorio" HorizontalAlignment="Left" Margin="430,180,0,0" VerticalAlignment="Top" Height="80" Width="185" IsExpanded="True">
-                        <Grid HorizontalAlignment="Left" Height="49" Margin="-4,-4,-2,-4" VerticalAlignment="Top" Width="179">
-                            <Label Content="Versión actual:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <Label Content="Estado:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,23,0,0"/>
-                            <controls:Tile x:Name="tile_repositoryStatus" Content="Desconocido" HorizontalAlignment="Left" Margin="92,28,0,0" VerticalAlignment="Top" Height="18" Width="87" ToolTip="" Click="tile_repositoryStatus_Click" RenderTransformOrigin="0.655,0.611" IsEnabled="False">
-                                <controls:Tile.Background>
-                                    <SolidColorBrush Color="{x:Static Colors.Gray}"/>
-                                </controls:Tile.Background>
-                            </controls:Tile>
-                            <Label x:Name="label_repositoryRevision" Content="?" HorizontalAlignment="Left" Margin="81,0,-4,0" VerticalAlignment="Top" Width="102" HorizontalContentAlignment="Center"/>
-                            <Image x:Name="image_arma3Sync" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" Margin="62,26,0,0" Source="/Resources/a3sDisabled.png" RenderTransformOrigin="0.95,1" ToolTip="Arma3Sync no está configurado, configuralo en la ventana de opciones" MouseLeftButtonDown="image_arma3Sync_MouseLeftButtonDown" IsHitTestVisible="True"/>
-                        </Grid>
-                    </Expander>
                 </Grid>
             </TabItem>
             <TabItem Header="Parámetros" HeaderTemplate="{StaticResource tabTitle}" >

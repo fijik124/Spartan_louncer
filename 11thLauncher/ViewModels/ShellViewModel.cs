@@ -227,12 +227,19 @@ namespace _11thLauncher.ViewModels
 
                 //Save default profile
                 //_profileManager.WriteProfile(defaultProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launchManager.GameConfig); TODO
-            }
-            _eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
 
-            //Set style
-            _eventAggregator.PublishOnCurrentThread(new ThemeChangedMessage(_settingsService.ApplicationSettings.ThemeStyle, 
-                _settingsService.ApplicationSettings.AccentColor));
+                //Read repository settings
+                new Thread(() =>
+                {
+                    _settingsService.ApplicationSettings.Arma3SyncPath = _addonSyncService.GetAddonSyncPath(); //TODO only if not set/folder doesn't exist
+                }).Start();
+            }
+
+            _settingsService.JavaVersion = _addonSyncService.GetJavaInSystem(); //Check java version for repository
+            _eventAggregator.PublishOnCurrentThread(
+                new ThemeChangedMessage(_settingsService.ApplicationSettings.ThemeStyle, _settingsService.ApplicationSettings.AccentColor)); //Set style
+
+            _eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
 
             //Read addons //TODO -> no path detected?
             var addons = _addonService.ReadAddons(_settingsService.ApplicationSettings.Arma3Path);
@@ -247,12 +254,6 @@ namespace _11thLauncher.ViewModels
             //Check local game version against remote server
             CompareServerVersion();
 
-            //Check repository
-            new Thread(() =>
-            {
-                _settingsService.JavaVersion = _addonSyncService.GetJavaInSystem();
-                _settingsService.ApplicationSettings.Arma3SyncPath = _addonSyncService.GetArma3SyncPath(); //TODO only if not set/folder doesn't exist
-            }).Start();
 
             //TODO - check updates
             //TODO - check repository if configured
