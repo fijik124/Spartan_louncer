@@ -8,7 +8,7 @@ using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class AddonsViewModel : PropertyChangedBase, IHandle<AddonsLoaded>, IHandle<LoadProfileMessage>
+    public class AddonsViewModel : PropertyChangedBase, IHandle<AddonsLoadedMessage>, IHandle<LoadProfileMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IAddonService _addonService;
@@ -29,7 +29,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         #region Message handling
 
-        public void Handle(AddonsLoaded message)
+        public void Handle(AddonsLoadedMessage message)
         {
             _addons.AddRange(message.Addons);
             foreach (Addon addon in Addons)

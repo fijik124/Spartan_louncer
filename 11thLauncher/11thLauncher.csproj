@@ -119,11 +119,12 @@
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Config\ConfigFile.cs" />
     <Compile Include="Config\ProfileFile.cs" />
-    <Compile Include="Messages\AddonsLoaded.cs" />
+    <Compile Include="Messages\AddonsLoadedMessage.cs" />
     <Compile Include="Messages\FillServerInfoMessage.cs" />
     <Compile Include="Messages\LoadProfileMessage.cs" />
     <Compile Include="Messages\ProfileMessage.cs" />
     <Compile Include="Messages\ProfilesMessage.cs" />
+    <Compile Include="Messages\RepositoriesLoadedMessage.cs" />
     <Compile Include="Messages\SettingsLoadedMessage.cs" />
     <Compile Include="Messages\ShowDialogMessage.cs" />
     <Compile Include="Messages\ThemeChangedMessage.cs" />
@@ -304,7 +305,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Config\servers.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

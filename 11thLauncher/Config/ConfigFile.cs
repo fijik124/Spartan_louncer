@@ -14,6 +14,7 @@ namespace _11thLauncher.Config
         public ApplicationSettings ApplicationSettings;
         public Guid DefaultProfileId;
         public Dictionary<Guid, string> Profiles;
+        [JsonIgnore]
         public BindableCollection<Server> Servers;
 
         public ConfigFile()
@@ -27,9 +28,7 @@ namespace _11thLauncher.Config
         public void LoadDefaultServers()
         {
             //Add default servers if they are not present
-            BindableCollection<Server> defaultServers = new BindableCollection<Server>();
-            JsonConvert.PopulateObject(Encoding.Default.GetString(Properties.Resources.servers), defaultServers);
-            Servers = new BindableCollection<Server>(Servers.Union(defaultServers));
+            Servers = new BindableCollection<Server>(Servers.Union(Constants.DefaultServers));
         }
 
         public void Read()

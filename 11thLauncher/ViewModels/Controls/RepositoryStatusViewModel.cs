@@ -7,7 +7,7 @@ using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class RepositoryStatusViewModel : PropertyChangedBase, IHandle<SettingsLoadedMessage>
+    public class RepositoryStatusViewModel : PropertyChangedBase, IHandle<RepositoriesLoadedMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IAddonSyncService _addonSyncService;
@@ -48,12 +48,12 @@ namespace _11thLauncher.ViewModels.Controls
 
         public bool Arma3SyncConfigured => !string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath);
 
-        public void Handle(SettingsLoadedMessage message)
+        public void Handle(RepositoriesLoadedMessage message)
         {
             if (string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath)) return;
 
             Arma3SyncIcon = Constants.Arma3SyncIconEnabled;
-            Repositories = _addonSyncService.ReadRepositories(_settingsService.ApplicationSettings.Arma3SyncPath); //TODO ASYNC
+            Repositories = message.Repositories;
 
             //TODO check if startup check is enabled
 

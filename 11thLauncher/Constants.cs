@@ -38,6 +38,50 @@ namespace _11thLauncher
         public static readonly string UpdaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
 
         //
+        // Server Status Service
+        //
+        public static readonly Server[] DefaultServers = 
+        {
+            new Server
+            {
+                Name = "Coop",
+                Address = "11thmeu.es",
+                Port = 2302,
+                IsDefault = true,
+                IsEnabled = true
+            },
+            new Server {
+                Name = "Academia",
+                Address = "11thmeu.es",
+                Port = 2322,
+                IsDefault = true,
+                IsEnabled = true
+            },
+            new Server {
+                Name = "ALiVE",
+                Address = "11thmeu.es",
+                Port = 2332,
+                IsDefault = true,
+                IsEnabled = true
+            },
+            new Server{
+                Name = "Test",
+                Address = "11thmeu.es",
+                Port = 2342,
+                IsDefault = true,
+                IsEnabled = true
+            },
+            new Server {
+                Name = "Vietnam",
+                Address = "11thmeu.es",
+                Port = 2352,
+                IsDefault = true,
+                IsEnabled = true
+            }
+        };
+
+
+        //
         // Arma3Sync Service
         //
         public const string JavaExecutable = "java.exe";

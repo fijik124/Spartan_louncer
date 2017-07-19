@@ -109,15 +109,5 @@ namespace _11thLauncher.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] servers {
-            get {
-                object obj = ResourceManager.GetObject("servers", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

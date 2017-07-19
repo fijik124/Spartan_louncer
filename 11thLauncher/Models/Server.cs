@@ -52,7 +52,7 @@ namespace _11thLauncher.Models
         /// <summary>
         /// Indicates if this server is an application default.
         /// </summary>
-        [JsonProperty]
+        [JsonIgnore]
         public bool IsDefault
         {
             get => _isDefault;

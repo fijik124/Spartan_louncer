@@ -9,6 +9,7 @@ using _11thLauncher.Model.Profile;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 using _11thLauncher.ViewModels.Controls;
+using System.IO;
 
 namespace _11thLauncher.ViewModels
 {
@@ -222,20 +223,13 @@ namespace _11thLauncher.ViewModels
                 _settingsService.UserProfiles.Add(defaultProfile);
                 _settingsService.DefaultProfileId = defaultProfile.Id;
 
-                //Save default settings
+                //Write default settings
                 _settingsService.Write();
 
                 //Save default profile
                 //_profileManager.WriteProfile(defaultProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launchManager.GameConfig); TODO
-
-                //Read repository settings
-                new Thread(() =>
-                {
-                    _settingsService.ApplicationSettings.Arma3SyncPath = _addonSyncService.GetAddonSyncPath(); //TODO only if not set/folder doesn't exist
-                }).Start();
             }
 
-            _settingsService.JavaVersion = _addonSyncService.GetJavaInSystem(); //Check java version for repository
             _eventAggregator.PublishOnCurrentThread(
                 new ThemeChangedMessage(_settingsService.ApplicationSettings.ThemeStyle, _settingsService.ApplicationSettings.AccentColor)); //Set style
 
@@ -243,7 +237,7 @@ namespace _11thLauncher.ViewModels
 
             //Read addons //TODO -> no path detected?
             var addons = _addonService.ReadAddons(_settingsService.ApplicationSettings.Arma3Path);
-            _eventAggregator.PublishOnCurrentThread(new AddonsLoaded(addons));
+            _eventAggregator.PublishOnCurrentThread(new AddonsLoadedMessage(addons));
 
             //Add profiles and load default
             _eventAggregator.PublishOnCurrentThread(new ProfilesMessage(ProfilesAction.Added, _settingsService.UserProfiles));
@@ -251,12 +245,27 @@ namespace _11thLauncher.ViewModels
             //Read memory allocators TODO -> possible problems with parameters read before?
             _parameterManager.ReadAllocators(_settingsService.ApplicationSettings.Arma3Path);
 
+            //Read repository settings
+            new Thread(() =>
+            {
+                if (string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath) ||
+                    !Directory.Exists(_settingsService.ApplicationSettings.Arma3SyncPath))
+                {
+                    //If Arma3Sync path not valid try to get from registry
+                    _settingsService.ApplicationSettings.Arma3SyncPath = _addonSyncService.GetAddonSyncPath(); 
+                }
+
+                var repositories = _addonSyncService.ReadRepositories(_settingsService.ApplicationSettings.Arma3SyncPath);
+                _eventAggregator.PublishOnUIThreadAsync(new RepositoriesLoadedMessage(repositories));
+            }).Start();
+
+            _settingsService.JavaVersion = _addonSyncService.GetJavaInSystem(); //Check java version for repository
+
             //Check local game version against remote server
             CompareServerVersion();
 
 
             //TODO - check updates
-            //TODO - check repository if configured
         }
 
         private void CompareServerVersion()
