@@ -248,6 +248,8 @@ namespace _11thLauncher.ViewModels
             //Read repository settings
             new Thread(() =>
             {
+                _settingsService.JavaVersion = _addonSyncService.GetJavaInSystem();
+
                 if (string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath) ||
                     !Directory.Exists(_settingsService.ApplicationSettings.Arma3SyncPath))
                 {
@@ -259,13 +261,11 @@ namespace _11thLauncher.ViewModels
                 _eventAggregator.PublishOnUIThreadAsync(new RepositoriesLoadedMessage(repositories));
             }).Start();
 
-            _settingsService.JavaVersion = _addonSyncService.GetJavaInSystem(); //Check java version for repository
-
             //Check local game version against remote server
-            CompareServerVersion();
+            CompareServerVersion(); //TODO put this better
 
-
-            //TODO - check updates
+            //if (_settingsService.ApplicationSettings.CheckUpdates)
+                //TODO - check updates
         }
 
         private void CompareServerVersion()

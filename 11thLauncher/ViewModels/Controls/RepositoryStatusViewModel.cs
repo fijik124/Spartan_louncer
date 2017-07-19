@@ -55,7 +55,7 @@ namespace _11thLauncher.ViewModels.Controls
             Arma3SyncIcon = Constants.Arma3SyncIconEnabled;
             Repositories = message.Repositories;
 
-            //TODO check if startup check is enabled
+            if (!_settingsService.ApplicationSettings.CheckRepository) return; //Exit if startup check is disabled
 
             new Thread(() =>
             {

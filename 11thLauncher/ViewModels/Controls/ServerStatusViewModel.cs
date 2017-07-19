@@ -28,6 +28,9 @@ namespace _11thLauncher.ViewModels.Controls
         public void Handle(SettingsLoadedMessage message)
         {
             Servers = _settingsService.Servers;
+
+            if (!_settingsService.ApplicationSettings.CheckServers) return; //Exit if startup check is disabled
+
             foreach (Server server in Servers)
             {
                 CheckServerStatus(server);

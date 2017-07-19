@@ -2,6 +2,9 @@
 {
     public class ApplicationSettings
     {
+        public bool CheckUpdates = true;
+        public bool CheckServers = true;
+        public bool CheckRepository = false;
         public string Language = "en-US";
         public string Arma3Path = null;
         public bool MinimizeNotification = false;

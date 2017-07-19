@@ -12,9 +12,7 @@
                     <StackPanel HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" VerticalAlignment="Top" Width="522" Background="#FFEEEEEE">
                         <Label Content="Opciones de inicio"/>
                     </StackPanel>
-                    <CheckBox x:Name="checkBox_checkUpdates" Content="Comprobar actualizaciones al iniciar la aplicación" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <CheckBox x:Name="checkBox_checkServers" Content="Comprobar estado de los servidores al iniciar la aplicación" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <CheckBox x:Name="checkBox_checkRepository" Content="Comprobar repositorio al iniciar la aplicación (requiere Java y Arma3Sync configurados)" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top"/>
+                    
                     <StackPanel HorizontalAlignment="Left" Height="23" Margin="10,127,0,0" VerticalAlignment="Top" Width="522" Background="#FFEEEEEE">
                         <Label Content="Opciones de juego"/>
                     </StackPanel>

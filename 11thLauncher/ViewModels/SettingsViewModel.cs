@@ -18,7 +18,7 @@ namespace _11thLauncher.ViewModels
 
         private bool _checkUpdates = true;
         private bool _checkServers = true;
-        private bool _checkRepository;
+        private bool _checkRepository = false;
         private string _gamePath;
         private StartAction _startAction;
 
@@ -176,7 +176,12 @@ namespace _11thLauncher.ViewModels
         /// </summary>
         private void Load()
         {
-            //General
+            //Startup
+            CheckUpdates = _settingsService.ApplicationSettings.CheckUpdates;
+            CheckServers = _settingsService.ApplicationSettings.CheckServers;
+            CheckRepository = _settingsService.ApplicationSettings.CheckRepository;
+
+            //Game
             GamePath = _settingsService.ApplicationSettings.Arma3Path;
 
             //Repository
@@ -196,7 +201,12 @@ namespace _11thLauncher.ViewModels
         /// </summary>
         private void Save()
         {
-            //General
+            //Startup
+            _settingsService.ApplicationSettings.CheckUpdates = CheckUpdates;
+            _settingsService.ApplicationSettings.CheckServers = CheckServers;
+            _settingsService.ApplicationSettings.CheckRepository = CheckRepository;
+
+            //Game
             _settingsService.ApplicationSettings.Arma3Path = GamePath;
 
             //Repository

@@ -23,9 +23,9 @@ namespace _11thLauncher
             //
 
             //General
-            checkBox_checkUpdates.IsChecked = Settings.CheckUpdates;
-            checkBox_checkServers.IsChecked = Settings.CheckServers;
-            checkBox_checkRepository.IsChecked = Settings.CheckRepository;
+            //checkBox_checkUpdates.IsChecked = Settings.CheckUpdates;
+            //checkBox_checkServers.IsChecked = Settings.CheckServers;
+            //checkBox_checkRepository.IsChecked = Settings.CheckRepository;
             //textBox_gamePath.Text = Settings.Arma3Path;
             if (Settings.StartClose)
             {
@@ -60,9 +60,9 @@ namespace _11thLauncher
             //
 
             //General
-            Settings.CheckUpdates = checkBox_checkUpdates.IsChecked.GetValueOrDefault();
-            Settings.CheckServers = checkBox_checkServers.IsChecked.GetValueOrDefault();
-            Settings.CheckRepository = checkBox_checkRepository.IsChecked.GetValueOrDefault();
+            //Settings.CheckUpdates = checkBox_checkUpdates.IsChecked.GetValueOrDefault();
+            //Settings.CheckServers = checkBox_checkServers.IsChecked.GetValueOrDefault();
+            //Settings.CheckRepository = checkBox_checkRepository.IsChecked.GetValueOrDefault();
             //If game path has changed, read addons
             //if (Settings.Arma3Path != textBox_gamePath.Text && textBox_gamePath.Text != "")
             //{
