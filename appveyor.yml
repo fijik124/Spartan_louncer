@@ -1,7 +1,7 @@
 version: 1.0.{build}
 image: Visual Studio 2017
 before_build:
-- choco install ant
+- choco install ant --ignore-dependencies
 - cmd: nuget restore
 build:
   verbosity: minimal
