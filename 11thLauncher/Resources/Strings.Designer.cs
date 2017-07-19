@@ -286,6 +286,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking repository status.
+        /// </summary>
+        public static string S_ACTION_CHECK_REPOSITORY_STATUS {
+            get {
+                return ResourceManager.GetString("S_ACTION_CHECK_REPOSITORY_STATUS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking server status.
         /// </summary>
         public static string S_ACTION_CHECK_SERVER_STATUS {

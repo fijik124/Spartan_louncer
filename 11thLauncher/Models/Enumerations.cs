@@ -5,7 +5,9 @@ namespace _11thLauncher.Models
     public enum AsyncAction
     {
         [Description("S_ACTION_CHECK_SERVER_STATUS")]
-        CheckServerStatus
+        CheckServerStatus,
+        [Description("S_ACTION_CHECK_REPOSITORY_STATUS")]
+        CheckRepositoryStatus
     }
 
     public enum LaunchPlatform

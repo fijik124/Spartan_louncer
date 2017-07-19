@@ -21,11 +21,12 @@
                     <ItemsControl.ItemTemplate>
                         <HierarchicalDataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="{Binding Name}" Width="75" />
+                                <TextBlock Text="{Binding Name}" ToolTip="{Binding Name}" Width="75" Margin="5,5,0,0" 
+                                           TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                                 <controls:Tile x:Name="RepositoryStatus" Content="{x:Static model:RepositoryStatus.Unknown}" 
                                                cal:Message.Attach="CheckRepositoryStatus($datacontext)" IsEnabled="{Binding Arma3SyncUpdated}"
                                                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                                               Height="18" Width="90" Margin="-10,3,3,3"/>
+                                               Height="18" Width="90" Margin="10,5,0,0"/>
                             </StackPanel>
                             <HierarchicalDataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Status}" Value="{x:Static model:RepositoryStatus.Unknown}">

@@ -30,9 +30,6 @@ namespace _11thLauncher.Services
             return repositories;
         }
 
-        /// <summary>
-        /// Check the given repository
-        /// </summary>
         public void CheckRepository(string arma3SyncPath, string javaPath, Repository repository)
         {
             repository.Status = RepositoryStatus.Checking;
@@ -134,9 +131,6 @@ namespace _11thLauncher.Services
             catch (WebException) { }
         }
 
-        /// <summary>
-        /// Check if Java is present in the system PATH variable
-        /// </summary>
         public string GetJavaInSystem()
         {
             var javaVersion = "";

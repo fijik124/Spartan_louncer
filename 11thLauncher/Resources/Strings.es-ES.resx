@@ -621,4 +621,7 @@
   <data name="S_BTN_REPOSITORY_UNKNOWN_TIP" xml:space="preserve">
     <value>Click para comprobar el estado del repositorio</value>
   </data>
+  <data name="S_ACTION_CHECK_REPOSITORY_STATUS" xml:space="preserve">
+    <value>Comprobando estado de repositorio</value>
+  </data>
 </root>

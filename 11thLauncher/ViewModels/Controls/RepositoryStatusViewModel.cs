@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
@@ -60,9 +61,7 @@ namespace _11thLauncher.ViewModels.Controls
             {
                 foreach (var repository in Repositories)
                 {
-                    //_eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, true)); TODO
-                    _addonSyncService.CheckRepository(_settingsService.ApplicationSettings.Arma3SyncPath, _settingsService.ApplicationSettings.JavaPath, repository);
-                    //_eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, false)); TODO
+                    CheckRepository(repository);
                 }
             }).Start();
         }
@@ -76,16 +75,20 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void CheckRepositoryStatus(Repository repository)
         {
-            if (repository.Status != RepositoryStatus.Checking)
+            if (Repositories.All(r => r.Status != RepositoryStatus.Checking))
             {
                 new Thread(() =>
                 {
-                    //_eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, true)); TODO
-                    _addonSyncService.CheckRepository(_settingsService.ApplicationSettings.Arma3SyncPath, _settingsService.ApplicationSettings.JavaPath, repository);
-                    //_eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, false)); TODO
+                    CheckRepository(repository);
                 }).Start();
-
             }
+        }
+
+        private void CheckRepository(Repository repository)
+        {
+            _eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckRepositoryStatus, true));
+            _addonSyncService.CheckRepository(_settingsService.ApplicationSettings.Arma3SyncPath, _settingsService.ApplicationSettings.JavaPath, repository);
+            _eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckRepositoryStatus, false));
         }
     }
 }

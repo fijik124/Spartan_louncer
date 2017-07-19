@@ -601,4 +601,7 @@
   <data name="S_BTN_REPOSITORY_UNKNOWN_TIP" xml:space="preserve">
     <value>Click to check the status of the repository</value>
   </data>
+  <data name="S_ACTION_CHECK_REPOSITORY_STATUS" xml:space="preserve">
+    <value>Checking repository status</value>
+  </data>
 </root>
