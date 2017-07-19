@@ -33,7 +33,14 @@ namespace _11thLauncher.Config
 
         public void Read()
         {
-            JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName)), this);
+            try
+            {
+                JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName)), this);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e); //TODO handle better this
+            }
         }
 
         public void Write()

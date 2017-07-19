@@ -50,6 +50,12 @@ namespace _11thLauncher.Services
             return settingsExist;
         }
 
+        public bool SettingsAreValid()
+        {
+            //TODO
+            return false;
+        }
+
         public string GetGameVersion()
         {
             string version = "";

@@ -24,7 +24,8 @@ namespace _11thLauncher.Services
 
         public BindableCollection<Addon> ReadAddons(string arma3Path)
         {
-            if (arma3Path == "") return null;
+            if (string.IsNullOrEmpty(arma3Path)) return new BindableCollection<Addon>();
+            if (_addons.Count != 0) return _addons; //Already read
 
             string[] directories = Directory.GetDirectories(arma3Path, Constants.AddonSubfolderName, SearchOption.AllDirectories);
             foreach (string directory in directories)

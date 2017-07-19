@@ -230,12 +230,14 @@ namespace _11thLauncher.ViewModels
                 //_profileManager.WriteProfile(defaultProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launchManager.GameConfig); TODO
             }
 
-            _eventAggregator.PublishOnCurrentThread(
-                new ThemeChangedMessage(_settingsService.ApplicationSettings.ThemeStyle, _settingsService.ApplicationSettings.AccentColor)); //Set style
-
             _eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
 
-            //Read addons //TODO -> no path detected?
+            //Set application style
+            var style = _settingsService.ApplicationSettings.ThemeStyle;
+            var accent = _settingsService.ApplicationSettings.AccentColor;
+            _eventAggregator.PublishOnCurrentThread(new ThemeChangedMessage(style, accent)); 
+
+            //Read addons
             var addons = _addonService.ReadAddons(_settingsService.ApplicationSettings.Arma3Path);
             _eventAggregator.PublishOnCurrentThread(new AddonsLoadedMessage(addons));
 
