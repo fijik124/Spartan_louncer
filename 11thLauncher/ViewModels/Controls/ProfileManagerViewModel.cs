@@ -1,7 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
-using _11thLauncher.Model;
 using _11thLauncher.Models;
 
 namespace _11thLauncher.ViewModels.Controls

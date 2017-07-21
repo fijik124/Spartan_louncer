@@ -109,6 +109,7 @@
     <EmbeddedResource Include="Resources\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -116,9 +117,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Models\ConfigFile.cs" />
-    <Compile Include="Config\ProfileFile.cs" />
+    <Compile Include="Models\ProfileFile.cs" />
     <Compile Include="Messages\AddonsLoadedMessage.cs" />
     <Compile Include="Messages\FillServerInfoMessage.cs" />
     <Compile Include="Messages\LoadProfileMessage.cs" />
@@ -219,9 +219,6 @@
     <Compile Include="Views\Controls\StatusbarView.xaml.cs">
       <DependentUpon>StatusbarView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -282,10 +279,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -343,9 +336,7 @@
   <ItemGroup>
     <Compile Include="Services\Contracts\IServerQueryService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Profile\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

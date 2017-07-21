@@ -340,6 +340,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arma3Sync installation folder.
+        /// </summary>
+        public static string S_BROWSE_ARMA3SYNC_FOLDER {
+            get {
+                return ResourceManager.GetString("S_BROWSE_ARMA3SYNC_FOLDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arma 3 game folder.
         /// </summary>
         public static string S_BROWSE_GAME_FOLDER {
@@ -970,7 +979,25 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The selected folder does not contain a valid Java Runtime Environment (JRE)..
+        ///   Looks up a localized string similar to The selected folder does not contain a valid Arma3Sync installation.
+        /// </summary>
+        public static string S_MSG_INCORRECT_ARMA3SYNC_PATH_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_INCORRECT_ARMA3SYNC_PATH_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect path.
+        /// </summary>
+        public static string S_MSG_INCORRECT_ARMA3SYNC_PATH_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_INCORRECT_ARMA3SYNC_PATH_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected folder does not contain a valid Java Runtime Environment (JRE).
         /// </summary>
         public static string S_MSG_INCORRECT_JAVA_PATH_CONTENT {
             get {
@@ -988,7 +1015,7 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The selected folder does not contain a valid Arma 3 installation..
+        ///   Looks up a localized string similar to The selected folder does not contain a valid Arma 3 installation.
         /// </summary>
         public static string S_MSG_INCORRECT_PATH_CONTENT {
             get {

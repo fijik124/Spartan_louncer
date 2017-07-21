@@ -316,7 +316,7 @@ namespace _11thLauncher.Services
             //    StartInfo =
             //    {
             //        FileName = gamePath + "\\" + fileName,
-            //        Verb = "runas"
+            //        Verb = "runas" TODO check if admin? if not no runas?
             //    }
             //};
 

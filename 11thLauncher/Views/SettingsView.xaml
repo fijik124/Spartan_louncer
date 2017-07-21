@@ -90,12 +90,11 @@
                     </Label>
                     <Label Content="Ruta de Arma3Sync:" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="SyncPath" HorizontalAlignment="Left" Height="23" Margin="131,183,0,0" VerticalAlignment="Top" Width="296" IsReadOnly="True"/>
-                    <Button x:Name="button_selectA3sPath" Content="{x:Static resx:Strings.S_BTN_BROWSE}" HorizontalAlignment="Left" Margin="432,183,0,0" VerticalAlignment="Top" Width="100"/>
+                    <Button x:Name="SelectArma3SyncPath" Content="{x:Static resx:Strings.S_BTN_BROWSE}" 
+                            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="432,183,0,0" Width="100"/>
                     <StackPanel HorizontalAlignment="Left" Height="23" Margin="10,150,0,0" VerticalAlignment="Top" Width="522">
                         <Label Content="Opciones de Arma3Sync" FontWeight="Bold"/>
                     </StackPanel>
-                    <Label x:Name="label" Content="Repositorio:" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="comboBox_repository" HorizontalAlignment="Left" Margin="131,222,0,0" VerticalAlignment="Top" Width="200"/>
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static resx:Strings.S_SETTINGS_INTERFACE}">

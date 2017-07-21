@@ -1,13 +1,13 @@
-﻿using Caliburn.Micro;
-using _11thLauncher.Config;
+﻿using System.IO;
+using Caliburn.Micro;
+using Newtonsoft.Json;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 
-namespace _11thLauncher.Model.Profile
+namespace _11thLauncher.Services
 {
     public class ProfileService : IProfileService
     {
-   
         public void WriteProfile(UserProfile profile, BindableCollection<Addon> addons, 
             BindableCollection<LaunchParameter> parameters, GameConfig gameConfig)
         {
@@ -19,14 +19,19 @@ namespace _11thLauncher.Model.Profile
                 GameConfig = gameConfig ?? new GameConfig()
             };
 
-            profileFile.Write();
+            if (!Directory.Exists(Constants.ProfilesPath))
+            {
+                Directory.CreateDirectory(Constants.ProfilesPath);
+            }
+
+            File.WriteAllText(Path.Combine(Constants.ProfilesPath, profile.Id + ".json"), JsonConvert.SerializeObject(this));
         }
 
         public void ReadProfile(UserProfile profile, out BindableCollection<Addon> addons,
             out BindableCollection<LaunchParameter> parameters, out GameConfig gameConfig)
         {
             ProfileFile profileFile = new ProfileFile { Profile = profile };
-            profileFile.Read();
+            JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ProfilesPath, profile.Id + ".json")), profileFile); //TODO TRYCTACH
             addons = profileFile.Addons;
             parameters = profileFile.Parameters;
             gameConfig = profileFile.GameConfig;

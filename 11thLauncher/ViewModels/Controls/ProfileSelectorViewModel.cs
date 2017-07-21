@@ -2,8 +2,6 @@
 using System.Linq;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
-using _11thLauncher.Model;
-using _11thLauncher.Model.Profile;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 

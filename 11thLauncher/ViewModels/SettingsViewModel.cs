@@ -18,7 +18,7 @@ namespace _11thLauncher.ViewModels
 
         private bool _checkUpdates = true;
         private bool _checkServers = true;
-        private bool _checkRepository = false;
+        private bool _checkRepository;
         private string _gamePath;
         private StartAction _startAction;
 
@@ -298,6 +298,36 @@ namespace _11thLauncher.ViewModels
                             AffirmativeButtonText = Resources.Strings.S_LABEL_OK
                         });
                 }
+            }
+        }
+        public async void SelectArma3SyncPath()
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                dialog.Description = Resources.Strings.S_BROWSE_ARMA3SYNC_FOLDER;
+                if (!string.IsNullOrEmpty(SyncPath) && Directory.Exists(SyncPath))
+                {
+                    dialog.SelectedPath = SyncPath;
+                }
+
+                DialogResult result = dialog.ShowDialog();
+                if (result != DialogResult.OK) return;
+
+                string selectedPath = dialog.SelectedPath;
+                if (string.IsNullOrEmpty(selectedPath) || !Directory.Exists(selectedPath)) return;
+
+                //Check if selected folder contains arma3sync executable
+                if (!File.Exists(Path.Combine(selectedPath, Constants.Arma3SyncExecutable)))
+                {
+                    await _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_INCORRECT_ARMA3SYNC_PATH_TITLE,
+                        Resources.Strings.S_MSG_INCORRECT_ARMA3SYNC_PATH_CONTENT, MessageDialogStyle.Affirmative, new MetroDialogSettings
+                        {
+                            AffirmativeButtonText = Resources.Strings.S_LABEL_OK
+                        });
+                    return;
+                }
+
+                SyncPath = selectedPath;
             }
         }
 

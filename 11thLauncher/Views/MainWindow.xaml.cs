@@ -31,7 +31,7 @@ namespace _11thLauncher
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             //Add profiles
-            UpdateProfiles();
+            //UpdateProfiles();
             //comboBox_profiles.SelectedIndex = comboBox_profiles.Items.IndexOf(Profiles.DefaultProfile); //Select default profile
 
             //Set accent
@@ -287,354 +287,218 @@ namespace _11thLauncher
         /// <param name="headless">Start headless client?</param>
         private string StartArmA3(bool multiplayer, bool startProcess, bool headless)
         {
-            //Save the current parameters to profile
-            SaveProfile();
+            ////Save the current parameters to profile
+            ////SaveProfile();
 
-            string launchParams = "";
+            //string launchParams = "";
 
-            //Parameters
-            if (Profiles.GetParameter("noFilePatching", false))
-            {
-                launchParams += " -filePatching";
-            }
-            if (Profiles.GetParameter("skipSplashScreen", false))
-                launchParams += " -noSplash";
-            if (Profiles.GetParameter("windowsXPMode", false))
-                launchParams += " -winxp";
-            if (Profiles.GetParameter("noPause", false))
-                launchParams += " -noPause";
-            if (Profiles.GetParameter("showScriptErrors", false))
-                launchParams += " -showScriptErrors";
-            if (Profiles.GetParameter("emptyWorld", false))
-                launchParams += " -world=empty";
-            if (Profiles.GetParameter("skipIntro", false))
-                launchParams += " -skipIntro";
-            if (Profiles.GetParameter("windowedMode", false))
-                launchParams += " -window";
-            if (Profiles.GetParameter("noCB", false))
-                launchParams += " -noCB";
-            if (Profiles.GetParameter("noLogs", false))
-                launchParams += " -noLogs";
-            if (Profiles.GetParameter("hyperthreading", false))
-                launchParams += " -enableHT";
-            if (Profiles.GetParameter("maxMemory", false))
-            {
-                switch (Profiles.GetParameter("maxMemoryValue", "0"))
-                {
-                    case "0":
-                        launchParams += " -maxMem=768";
-                        break;
-                    case "1":
-                        launchParams += " -maxMem=1024";
-                        break;
-                    case "2":
-                        launchParams += " -maxMem=2048";
-                        break;
-                    case "3":
-                        launchParams += " -maxMem=4096";
-                        break;
-                    case "4":
-                        launchParams += " -maxMem=8192";
-                        break;
-                    default:
-                        launchParams += " -maxMem=768";
-                        break;
-                }
-            }
-            if (Profiles.GetParameter("maxVMemory", false))
-            {
-                switch (Profiles.GetParameter("maxVMemoryValue", "0"))
-                {
-                    case "0":
-                        launchParams += " -maxVRAM=128";
-                        break;
-                    case "1":
-                        launchParams += " -maxVRAM=256";
-                        break;
-                    case "2":
-                        launchParams += " -maxVRAM=512";
-                        break;
-                    case "3":
-                        launchParams += " -maxVRAM=1024";
-                        break;
-                    case "4":
-                        launchParams += " -maxVRAM=2048";
-                        break;
-                    case "5":
-                        launchParams += " -maxVRAM=4096";
-                        break;
-                    case "6":
-                        launchParams += " -maxVRAM=8192";
-                        break;
-                    default:
-                        launchParams += " -maxVRAM=1024";
-                        break;
-                }
-            }
-            if (Profiles.GetParameter("cpuCount", false))
-            {
-                int value = Profiles.GetParameter("cpuCountValue", 0) + 1;
-                launchParams += " -cpuCount=" + value;
-            }
-            if (Profiles.GetParameter("extraThreads", false))
-            {
-                switch (Profiles.GetParameter("extraThreadsValue", "0"))
-                {
-                    case "0":
-                        launchParams += " -exThreads=0";
-                        break;
-                    case "1":
-                        launchParams += " -exThreads=1";
-                        break;
-                    case "2":
-                        launchParams += " -exThreads=3";
-                        break;
-                    case "3":
-                        launchParams += " -exThreads=5";
-                        break;
-                    case "4":
-                        launchParams += " -exThreads=7";
-                        break;
-                    default:
-                        launchParams += " -exThreads=0";
-                        break;
-                }
-            }
-            if (Profiles.GetParameter("extraParameters", "").Length > 0)
-            {
-                launchParams += " " + Profiles.GetParameter("extraParameters", "");
-            }
-
-            if (Profiles.GetParameter("memoryAllocator", false))
-            {
-                int allocatorIndex = Profiles.GetParameter("memoryAllocatorValue", -1);
-                if (allocatorIndex > Settings.Allocators.Count)
-                {
-                    allocatorIndex = 0;
-                }
-                launchParams += " -malloc=" + comboBox_malloc.Items[allocatorIndex];
-            }
-
-            //Addons
-            string addonParams = "";
-            if (Profiles.ProfileAddons.Count > 0)
-            {
-                foreach (KeyValuePair<string,string> addon in Profiles.ProfileAddons)
-                {
-                    if (bool.Parse(addon.Value))
-                    {
-                        addonParams += addon.Key + ";";
-                    }
-                }
-            }
-            if (addonParams.Length > 0)
-            {
-                launchParams += " -mod=" + addonParams;
-            }
-
-            //Headless client
-            if (headless)
-            {
-                launchParams += " -client";
-            }
-
-            //Server connection
-            if (multiplayer)
-            {
-                if (Profiles.ProfileServerInfo["server"].Length > 0)
-                    launchParams += " -connect=" + Profiles.ProfileServerInfo["server"].Trim();
-                if (Profiles.ProfileServerInfo["port"].Length > 0)
-                    launchParams += " -port=" + Profiles.ProfileServerInfo["port"].Trim();
-                if (Profiles.ProfileServerInfo["pass"].Length > 0)
-                    launchParams += " -password=" + Profiles.ProfileServerInfo["pass"].Trim();
-            }
-
-            Process process = new Process {StartInfo = {FileName = Settings.Arma3Path + "\\arma3.exe"}};
-            if ((new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator))
-            {
-                process.StartInfo.Verb = "runas";
-            }
-
-            if (launchParams.Length > 0)
-            {
-                process.StartInfo.Arguments = launchParams;
-            }
-
-            //Start process
-            if (startProcess)
-            {
-                if (!(string.IsNullOrEmpty(Settings.Arma3Path)))
-                {
-                    process.Start();
-
-                    //Set priority
-                    if (Profiles.GetParameter("priority", false))
-                    {
-                        switch (Profiles.GetParameter("priorityValue", 0))
-                        {
-                            case 0:
-                                process.PriorityClass = ProcessPriorityClass.Normal;
-                                break;
-                            case 1:
-                                process.PriorityClass = ProcessPriorityClass.AboveNormal;
-                                break;
-                            case 2:
-                                process.PriorityClass = ProcessPriorityClass.High;
-                                break;
-                            default:
-                                process.PriorityClass = ProcessPriorityClass.Normal;
-                                break;
-                        }
-                    }
-                }
-                else
-                {
-                    this.ShowMessageAsync("Error de lanzamiento", "La ruta del ejecutable de ArmA 3 no está configurada");
-                }
-            }
-
-            return process.StartInfo.FileName + " " + launchParams;
-        }
-
-        /// <summary>
-        /// Update the lists of profiles
-        /// </summary>
-        private void UpdateProfiles()
-        {
-            //comboBox_profiles.Items.Clear();
-            //listBox_profiles.Items.Clear();
-            //foreach (string profile in Profiles.UserProfiles)
+            ////Parameters
+            //if (Profiles.GetParameter("noFilePatching", false))
             //{
-            //    comboBox_profiles.Items.Add(profile);
-            //    if (profile.Equals(Profiles.DefaultProfile))
-            //    {
-            //        listBox_profiles.Items.Add("★ " + profile);
-            //    }
-            //    else
-            //    {
-            //        listBox_profiles.Items.Add(profile);
-            //    }
+                //launchParams += " -filePatching";
             //}
-            //comboBox_profiles.SelectedIndex = 0;
-        }
-
-        /// <summary>
-        /// Update the parameters with the current profile
-        /// </summary>
-        private void UpdateForProfile()
-        {
-            //Set parameters values
-            //button_launch.SelectedIndex = Profiles.GetParameter("launchOption", 0);
-
-            //checkBox_noFilePatching.IsChecked = Profiles.GetParameter("noFilePatching", false);
-            //checkBox_skipSplash.IsChecked = Profiles.GetParameter("skipSplashScreen", false);
-            //checkBox_windowedMode.IsChecked = Profiles.GetParameter("windowsXPMode", false);
-            //checkBox_noPause.IsChecked = Profiles.GetParameter("noPause", false);
-            //checkBox_showScriptErrors.IsChecked = Profiles.GetParameter("showScriptErrors", false);
-            //checkBox_emptyWorld.IsChecked = Profiles.GetParameter("emptyWorld", false);
-            //checkBox_skipIntro.IsChecked = Profiles.GetParameter("skipIntro", false);
-            //checkBox_windowedMode.IsChecked = Profiles.GetParameter("windowedMode", false);
-            //checkBox_noMulticore.IsChecked = Profiles.GetParameter("noCB", false);
-            //checkBox_noLogs.IsChecked = Profiles.GetParameter("noLogs", false);
-            //checkBox_hyperthreading.IsChecked = Profiles.GetParameter("hyperthreading", false);
-
-            checkBox_maxMemory.IsChecked = Profiles.GetParameter("maxMemory", false);
-            comboBox_maxMemory.SelectedIndex = Profiles.GetParameter("maxMemoryValue", -1);
-            checkBox_maxVMemory.IsChecked = Profiles.GetParameter("maxVMemory", false);
-            comboBox_maxVMemory.SelectedIndex = Profiles.GetParameter("maxVMemoryValue", -1);
-            checkBox_cpuCount.IsChecked = Profiles.GetParameter("cpuCount", false);
-            comboBox_cpuCount.SelectedIndex = Profiles.GetParameter("cpuCountValue", -1);
-            checkBox_priority.IsChecked = Profiles.GetParameter("priority", false);
-            comboBox_priority.SelectedIndex = Profiles.GetParameter("priorityValue", -1);
-            checkBox_extraThreads.IsChecked = Profiles.GetParameter("extraThreads", false);
-            comboBox_extraThreads.SelectedIndex = Profiles.GetParameter("extraThreadsValue", -1);
-
-            //Check number of allocators when loading in case they were changed
-            checkBox_malloc.IsChecked = Profiles.GetParameter("memoryAllocator", false);
-            int allocatorIndex = Profiles.GetParameter("memoryAllocatorValue", -1);
-            if (allocatorIndex > Settings.Allocators.Count)
-            {
-                allocatorIndex = 0;
-            }
-            comboBox_malloc.SelectedIndex = allocatorIndex;
-
-            textBox_additionalParameters.Text = Profiles.GetParameter("extraParameters", "");
-
-            //Clear addons list
-            //Addons.Clear();
-
-            //Add the addons and their status from the profile
-            //foreach (string addon in Profiles.ProfileAddons.Keys)
+            //if (Profiles.GetParameter("skipSplashScreen", false))
+                //launchParams += " -noSplash";
+            //if (Profiles.GetParameter("windowsXPMode", false))
+                //launchParams += " -winxp";
+            //if (Profiles.GetParameter("noPause", false))
+                //launchParams += " -noPause";
+            //if (Profiles.GetParameter("showScriptErrors", false))
+                //launchParams += " -showScriptErrors";
+            //if (Profiles.GetParameter("emptyWorld", false))
+                //launchParams += " -world=empty";
+            //if (Profiles.GetParameter("skipIntro", false))
+                //launchParams += " -skipIntro";
+            //if (Profiles.GetParameter("windowedMode", false))
+                //launchParams += " -window";
+            //if (Profiles.GetParameter("noCB", false))
+                //launchParams += " -noCB";
+            //if (Profiles.GetParameter("noLogs", false))
+                //launchParams += " -noLogs";
+            //if (Profiles.GetParameter("hyperthreading", false))
+                //launchParams += " -enableHT";
+            //if (Profiles.GetParameter("maxMemory", false))
             //{
-            //    if (Configuration.Addons.LocalAddons.Contains(addon)){
-            //        Addons.Add(new Addon() { Name = addon, Enabled = bool.Parse(Profiles.ProfileAddons[addon]) });
-            //    }
+                //switch (Profiles.GetParameter("maxMemoryValue", "0"))
+                //{
+                    //case "0":
+                        //launchParams += " -maxMem=768";
+                        //break;
+                    //case "1":
+                        //launchParams += " -maxMem=1024";
+                        //break;
+                    //case "2":
+                        //launchParams += " -maxMem=2048";
+                        //break;
+                    //case "3":
+                        //launchParams += " -maxMem=4096";
+                        //break;
+                    //case "4":
+                        //launchParams += " -maxMem=8192";
+                        //break;
+                    //default:
+                        //launchParams += " -maxMem=768";
+                        //break;
+                //}
+            //}
+            //if (Profiles.GetParameter("maxVMemory", false))
+            //{
+                //switch (Profiles.GetParameter("maxVMemoryValue", "0"))
+                //{
+                    //case "0":
+                        //launchParams += " -maxVRAM=128";
+                        //break;
+                    //case "1":
+                        //launchParams += " -maxVRAM=256";
+                        //break;
+                    //case "2":
+                        //launchParams += " -maxVRAM=512";
+                        //break;
+                    //case "3":
+                        //launchParams += " -maxVRAM=1024";
+                        //break;
+                    //case "4":
+                        //launchParams += " -maxVRAM=2048";
+                        //break;
+                    //case "5":
+                        //launchParams += " -maxVRAM=4096";
+                        //break;
+                    //case "6":
+                        //launchParams += " -maxVRAM=8192";
+                        //break;
+                    //default:
+                        //launchParams += " -maxVRAM=1024";
+                        //break;
+                //}
+            //}
+            //if (Profiles.GetParameter("cpuCount", false))
+            //{
+                //int value = Profiles.GetParameter("cpuCountValue", 0) + 1;
+                //launchParams += " -cpuCount=" + value;
+            //}
+            //if (Profiles.GetParameter("extraThreads", false))
+            //{
+                //switch (Profiles.GetParameter("extraThreadsValue", "0"))
+                //{
+                    //case "0":
+                        //launchParams += " -exThreads=0";
+                        //break;
+                    //case "1":
+                        //launchParams += " -exThreads=1";
+                        //break;
+                    //case "2":
+                        //launchParams += " -exThreads=3";
+                        //break;
+                    //case "3":
+                        //launchParams += " -exThreads=5";
+                        //break;
+                    //case "4":
+                        //launchParams += " -exThreads=7";
+                        //break;
+                    //default:
+                        //launchParams += " -exThreads=0";
+                        //break;
+                //}
+            //}
+            //if (Profiles.GetParameter("extraParameters", "").Length > 0)
+            //{
+                //launchParams += " " + Profiles.GetParameter("extraParameters", "");
             //}
 
-            //Add missing addons not present in the profile
-            //foreach (string addon in Configuration.Addons.LocalAddons)
+            //if (Profiles.GetParameter("memoryAllocator", false))
             //{
-            //    if (!Profiles.ProfileAddons.ContainsKey(addon))
-            //    {
-            //        Addons.Add(new Addon { Name = addon, Enabled = false });
-            //    }
+                //int allocatorIndex = Profiles.GetParameter("memoryAllocatorValue", -1);
+                ////if (allocatorIndex > Settings.Allocators.Count)
+                ////{
+                ////    allocatorIndex = 0;
+                ////}
+                //launchParams += " -malloc=" + comboBox_malloc.Items[allocatorIndex];
             //}
 
-            //Load server state
-            //textBox_serverAddress.Text = Profiles.ProfileServerInfo["server"];
-            //textBox_serverPort.Text = Profiles.ProfileServerInfo["port"];
-            //passwordBox_serverPassword.Password = Profiles.ProfileServerInfo["pass"];
-        }
-
-        /// <summary>
-        /// Update the current profile values with the current parameters
-        /// </summary>
-        private void SaveProfile()
-        {
-            //Save parameters
-            //Profiles.ProfileParameters["launchOption"] = button_launch.SelectedIndex.ToString();
-
-            //Profiles.ProfileParameters["noFilePatching"] = checkBox_noFilePatching.IsChecked.ToString();
-            //Profiles.ProfileParameters["skipSplashScreen"] = checkBox_skipSplash.IsChecked.ToString();
-            //Profiles.ProfileParameters["windowsXPMode"] = checkBox_winXPmode.IsChecked.ToString();
-            //Profiles.ProfileParameters["noPause"] = checkBox_noPause.IsChecked.ToString();
-            //Profiles.ProfileParameters["showScriptErrors"] = checkBox_showScriptErrors.IsChecked.ToString();
-            //Profiles.ProfileParameters["emptyWorld"] = checkBox_emptyWorld.IsChecked.ToString();
-            //Profiles.ProfileParameters["skipIntro"] = checkBox_skipIntro.IsChecked.ToString();
-            //Profiles.ProfileParameters["windowedMode"] = checkBox_windowedMode.IsChecked.ToString();
-            //Profiles.ProfileParameters["noCB"] = checkBox_noMulticore.IsChecked.ToString();
-            //Profiles.ProfileParameters["noLogs"] = checkBox_noLogs.IsChecked.ToString();
-            //Profiles.ProfileParameters["hyperthreading"] = checkBox_hyperthreading.IsChecked.ToString();
-
-            Profiles.ProfileParameters["maxMemory"] = checkBox_maxMemory.IsChecked.ToString();
-            Profiles.ProfileParameters["maxMemoryValue"] = comboBox_maxMemory.SelectedIndex.ToString();
-            Profiles.ProfileParameters["maxVMemory"] = checkBox_maxVMemory.IsChecked.ToString();
-            Profiles.ProfileParameters["maxVMemoryValue"] = comboBox_maxVMemory.SelectedIndex.ToString();
-            Profiles.ProfileParameters["cpuCount"] = checkBox_cpuCount.IsChecked.ToString();
-            Profiles.ProfileParameters["cpuCountValue"] = comboBox_cpuCount.SelectedIndex.ToString();
-            Profiles.ProfileParameters["priority"] = checkBox_priority.IsChecked.ToString();
-            Profiles.ProfileParameters["priorityValue"] = comboBox_priority.SelectedIndex.ToString();
-            Profiles.ProfileParameters["extraThreads"] = checkBox_extraThreads.IsChecked.ToString();
-            Profiles.ProfileParameters["extraThreadsValue"] = comboBox_extraThreads.SelectedIndex.ToString();
-            Profiles.ProfileParameters["memoryAllocator"] = checkBox_malloc.IsChecked.ToString();
-            Profiles.ProfileParameters["memoryAllocatorValue"] = comboBox_malloc.SelectedIndex.ToString();
-
-            Profiles.ProfileParameters["extraParameters"] = textBox_additionalParameters.Text;
-
-            //Save addons state
-            Profiles.ProfileAddons.Clear();
-            //foreach (Addon addon in Addons)
+            ////Addons
+            //string addonParams = "";
+            //if (Profiles.ProfileAddons.Count > 0)
             //{
-            //    Profiles.ProfileAddons.Add(addon.Name, addon.Enabled.ToString());
+                //foreach (KeyValuePair<string,string> addon in Profiles.ProfileAddons)
+                //{
+                    //if (bool.Parse(addon.Value))
+                    //{
+                        //addonParams += addon.Key + ";";
+                    //}
+                //}
+            //}
+            //if (addonParams.Length > 0)
+            //{
+                //launchParams += " -mod=" + addonParams;
             //}
 
-            //Save server state
-            //Profiles.ProfileServerInfo["server"] = textBox_serverAddress.Text;
-            //Profiles.ProfileServerInfo["port"] = textBox_serverPort.Text;
-            //Profiles.ProfileServerInfo["pass"] = passwordBox_serverPassword.Password;
+            ////Headless client
+            //if (headless)
+            //{
+                //launchParams += " -client";
+            //}
 
-            //Profiles.WriteProfile(comboBox_profiles.SelectedItem.ToString());
+            ////Server connection
+            //if (multiplayer)
+            //{
+                //if (Profiles.ProfileServerInfo["server"].Length > 0)
+                    //launchParams += " -connect=" + Profiles.ProfileServerInfo["server"].Trim();
+                //if (Profiles.ProfileServerInfo["port"].Length > 0)
+                    //launchParams += " -port=" + Profiles.ProfileServerInfo["port"].Trim();
+                //if (Profiles.ProfileServerInfo["pass"].Length > 0)
+                    //launchParams += " -password=" + Profiles.ProfileServerInfo["pass"].Trim();
+            //}
+
+            //Process process = new Process {StartInfo = {FileName = Settings.Arma3Path + "\\arma3.exe"}};
+            //if ((new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator))
+            //{
+                //process.StartInfo.Verb = "runas";
+            //}
+
+            //if (launchParams.Length > 0)
+            //{
+                //process.StartInfo.Arguments = launchParams;
+            //}
+
+            ////Start process
+            //if (startProcess)
+            //{
+                //if (!(string.IsNullOrEmpty(Settings.Arma3Path)))
+                //{
+                    //process.Start();
+
+                    ////Set priority
+                    //if (Profiles.GetParameter("priority", false))
+                    //{
+                        //switch (Profiles.GetParameter("priorityValue", 0))
+                        //{
+                            //case 0:
+                                //process.PriorityClass = ProcessPriorityClass.Normal;
+                                //break;
+                            //case 1:
+                                //process.PriorityClass = ProcessPriorityClass.AboveNormal;
+                                //break;
+                            //case 2:
+                                //process.PriorityClass = ProcessPriorityClass.High;
+                                //break;
+                            //default:
+                                //process.PriorityClass = ProcessPriorityClass.Normal;
+                                //break;
+                        //}
+                    //}
+                //}
+                //else
+                //{
+                    //this.ShowMessageAsync("Error de lanzamiento", "La ruta del ejecutable de ArmA 3 no está configurada");
+                //}
+            //}
+
+            //return process.StartInfo.FileName + " " + launchParams;
+            return null;
         }
+
+
+
 
         /// <summary>
         /// Show a new update notification

@@ -542,7 +542,7 @@
     <value>Incorrect path</value>
   </data>
   <data name="S_MSG_INCORRECT_PATH_CONTENT" xml:space="preserve">
-    <value>The selected folder does not contain a valid Arma 3 installation.</value>
+    <value>The selected folder does not contain a valid Arma 3 installation</value>
   </data>
   <data name="S_LABEL_JAVA_DETECTED" xml:space="preserve">
     <value>Detected</value>
@@ -563,7 +563,7 @@
     <value>Incorrect path</value>
   </data>
   <data name="S_MSG_INCORRECT_JAVA_PATH_CONTENT" xml:space="preserve">
-    <value>The selected folder does not contain a valid Java Runtime Environment (JRE).</value>
+    <value>The selected folder does not contain a valid Java Runtime Environment (JRE)</value>
   </data>
   <data name="S_BTN_BROWSE_ADDON" xml:space="preserve">
     <value>Browse folder</value>
@@ -603,5 +603,14 @@
   </data>
   <data name="S_ACTION_CHECK_REPOSITORY_STATUS" xml:space="preserve">
     <value>Checking repository status</value>
+  </data>
+  <data name="S_BROWSE_ARMA3SYNC_FOLDER" xml:space="preserve">
+    <value>Arma3Sync installation folder</value>
+  </data>
+  <data name="S_MSG_INCORRECT_ARMA3SYNC_PATH_TITLE" xml:space="preserve">
+    <value>Incorrect path</value>
+  </data>
+  <data name="S_MSG_INCORRECT_ARMA3SYNC_PATH_CONTENT" xml:space="preserve">
+    <value>The selected folder does not contain a valid Arma3Sync installation</value>
   </data>
 </root>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
-using _11thLauncher.Model.Profile;
 using _11thLauncher.Models;
 using _11thLauncher.Services;
 using _11thLauncher.Services.Contracts;

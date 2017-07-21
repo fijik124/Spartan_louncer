@@ -5,11 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Xml;
 using Caliburn.Micro;
 using MahApps.Metro;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using _11thLauncher.Config;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 
@@ -49,12 +49,6 @@ namespace _11thLauncher.Services
             }
 
             return settingsExist;
-        }
-
-        public bool SettingsAreValid()
-        {
-            //TODO
-            return false;
         }
 
         public string GetGameVersion()
@@ -151,99 +145,82 @@ namespace _11thLauncher.Services
             return settingsLoaded;
         }
 
-        /// <summary>
-        /// Read the XML configuration file and set current values
-        /// </summary>
         [Obsolete]
-        private void Reads()
+        private void ReadLegacy()
         {
-            //using (XmlReader reader = XmlReader.Create(Constants.ConfigPath + "\\config.xml"))
-            //{
-            //while (reader.Read())
-            //{
-            //if (!reader.IsStartElement()) continue;
+            ConfigFile configFile = new ConfigFile();
+            using (XmlReader reader = XmlReader.Create(Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName)))
+            {
+                while (reader.Read())
+                {
+                    if (!reader.IsStartElement()) continue;
 
-            //string value;
-            //switch (reader.Name)
-            //{
-            //case "JavaPath":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //JavaPath = value;
-            //break;
-            //case "ArmA3Path":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //Arma3Path = value;
-            //break;
-            //case "ArmA3SyncPath":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //Arma3SyncPath = value;
-            //break;
-            //case "ArmA3SyncRepository":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //Arma3SyncRepository = value;
-            //break;
-            //case "Profiles":
-            //var parameter = reader["default"];
-            //reader.Read();
-            //_defaultProfileName = parameter;
-            //break;
-            //case "Profile":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //UserProfiles.Add(new UserProfile(value));
-            //break;
-            //case "minimizeNotification":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //MinimizeNotification = bool.Parse(value);
-            //break;
-            //case "startMinimize":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //StartMinimize = bool.Parse(value);
-            //break;
-            //case "startClose":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //StartClose = bool.Parse(value);
-            //break;
-            //case "accent":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //Accent = int.Parse(value);
-            //break;
-            //case "checkUpdates":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //CheckUpdates = bool.Parse(value);
-            //break;
-            //case "checkServers":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //CheckServers = bool.Parse(value);
-            //break;
-            //case "checkRepository":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //CheckRepository = bool.Parse(value);
-            //break;
-            //case "serversGroupBox":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //ServersGroupBox = bool.Parse(value);
-            //break;
-            //case "repositoryGroupBox":
-            //reader.Read();
-            //value = reader.Value.Trim();
-            //RepositoryGroupBox = bool.Parse(value);
-            //break;
-            //}
-            //}
-            //}
+                    string value;
+                    switch (reader.Name)
+                    {
+                        case "JavaPath":
+                            reader.Read();
+                            value = reader.Value.Trim();
+                            configFile.ApplicationSettings.JavaPath = value;
+                            break;
+                        case "ArmA3Path":
+                            reader.Read();
+                            value = reader.Value.Trim();
+                            configFile.ApplicationSettings.Arma3Path = value;
+                            break;
+                        case "ArmA3SyncPath":
+                            reader.Read();
+                            value = reader.Value.Trim();
+                            configFile.ApplicationSettings.Arma3SyncPath = value;
+                            break;
+                        case "Profiles":
+                            var parameter = reader["default"];
+                            reader.Read();
+                            //configFile.DefaultProfileId = parameter; //TODO how to do this
+                            break;
+                        case "Profile":
+                            reader.Read();
+                            value = reader.Value.Trim();
+                            UserProfiles.Add(new UserProfile(value));
+                            break;
+                        case "minimizeNotification":
+                            reader.Read();
+                            value = reader.Value.Trim();
+                            configFile.ApplicationSettings.MinimizeNotification = bool.Parse(value);
+                            break;
+                        case "startMinimize":
+                            reader.Read();
+                            value = reader.Value.Trim();
+                            configFile.ApplicationSettings.StartMinimize = bool.Parse(value);
+                            break;
+                        case "startClose":
+                            reader.Read();
+                            value = reader.Value.Trim();
+                            configFile.ApplicationSettings.StartClose = bool.Parse(value);
+                            break;
+                        case "accent":
+                            reader.Read();
+                            value = reader.Value.Trim();
+                            configFile.ApplicationSettings.AccentColor = (AccentColor) int.Parse(value);
+                            break;
+                        case "checkUpdates":
+                            reader.Read();
+                            value = reader.Value.Trim();
+                            configFile.ApplicationSettings.CheckUpdates = bool.Parse(value);
+                            break;
+                        case "checkServers":
+                            reader.Read();
+                            value = reader.Value.Trim();
+                            configFile.ApplicationSettings.CheckServers = bool.Parse(value);
+                            break;
+                        case "checkRepository":
+                            reader.Read();
+                            value = reader.Value.Trim();
+                            configFile.ApplicationSettings.CheckRepository = bool.Parse(value);
+                            break;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -272,7 +249,7 @@ namespace _11thLauncher.Services
                 Directory.CreateDirectory(Constants.ConfigPath);
             }
 
-            File.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(configFile, Formatting.Indented));
+            File.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(configFile, Newtonsoft.Json.Formatting.Indented));
         }
 
         /// <summary>
