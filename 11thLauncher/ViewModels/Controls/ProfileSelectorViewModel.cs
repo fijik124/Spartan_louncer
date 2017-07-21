@@ -13,7 +13,7 @@ namespace _11thLauncher.ViewModels.Controls
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IAddonService _addonService;
-        private readonly ProfileManager _profileManager;
+        private readonly IProfileService _profileService;
         private readonly ParameterManager _parameterManager;
 
         private BindableCollection<UserProfile> _profiles = new BindableCollection<UserProfile>();
@@ -41,14 +41,14 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public ProfileSelectorViewModel(IEventAggregator eventAggregator, IAddonService addonService, 
-            ProfileManager profileManager, ParameterManager parameterManager)
+        public ProfileSelectorViewModel(IEventAggregator eventAggregator, IAddonService addonService,
+            IProfileService profileService, ParameterManager parameterManager)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
 
             _addonService = addonService;
-            _profileManager = profileManager;
+            _profileService = profileService;
             _parameterManager = parameterManager;
         }
 

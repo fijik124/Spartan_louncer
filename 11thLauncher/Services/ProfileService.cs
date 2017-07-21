@@ -1,10 +1,11 @@
 ﻿using Caliburn.Micro;
 using _11thLauncher.Config;
 using _11thLauncher.Models;
+using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.Model.Profile
 {
-    public class ProfileManager
+    public class ProfileService : IProfileService
     {
    
         public void WriteProfile(UserProfile profile, BindableCollection<Addon> addons, 

@@ -8,6 +8,7 @@ using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using _11thLauncher.Config;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
@@ -112,14 +113,25 @@ namespace _11thLauncher.Services
             }
         }
 
-        public void Read(bool settingsExist)
+        public bool Read()
         {
+            var settingsLoaded = true;
+
             var configFile = new ConfigFile();
-            if (settingsExist)
+            if (SettingsExist())
             {
-                configFile.Read();
+                try
+                {
+                    JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName)), configFile);
+                }
+                catch (Exception)
+                {
+                    settingsLoaded = false;
+                    configFile = new ConfigFile();
+                }
             }
-            configFile.LoadDefaultServers(); //Add default servers to current config
+
+            configFile.Servers = new BindableCollection<Server>(configFile.Servers.Union(Constants.DefaultServers)); //Add default servers if they are not present
 
             DefaultProfileId = configFile.DefaultProfileId;
 
@@ -135,6 +147,8 @@ namespace _11thLauncher.Services
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Constants.Languages.Contains(ApplicationSettings.Language) 
                 ? ApplicationSettings.Language 
                 : Constants.Languages.First());
+
+            return settingsLoaded;
         }
 
         /// <summary>
@@ -251,7 +265,14 @@ namespace _11thLauncher.Services
                 Profiles = profiles,
                 Servers = Servers
             };
-            configFile.Write();
+
+            //If no config directory exists, create it
+            if (!Directory.Exists(Constants.ConfigPath))
+            {
+                Directory.CreateDirectory(Constants.ConfigPath);
+            }
+
+            File.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(configFile, Formatting.Indented));
         }
 
         /// <summary>

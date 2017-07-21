@@ -43,11 +43,11 @@ namespace _11thLauncher
             _container.Singleton<AboutViewModel>();
 
             //TODO
-            _container.Singleton<ProfileManager>();
             _container.Singleton<ParameterManager>();
 
             //Services
             _container.Singleton<ISettingsService, SettingsService>();
+            _container.Singleton<IProfileService, ProfileService>();
             _container.Singleton<IServerQueryService, ServerQueryService>();
             _container.Singleton<IAddonService, AddonService>();
             _container.Singleton<IAddonSyncService, Arma3SyncService>();

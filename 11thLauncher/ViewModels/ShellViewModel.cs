@@ -19,9 +19,9 @@ namespace _11thLauncher.ViewModels
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IWindowManager _windowManager;
         private readonly ParameterManager _parameterManager;
-        private readonly ProfileManager _profileManager;
 
         private readonly ISettingsService _settingsService;
+        private readonly IProfileService _profileService;
         private readonly IAddonService _addonService;
         private readonly IServerQueryService _serverQueryService;
         private readonly IAddonSyncService _addonSyncService;
@@ -38,7 +38,7 @@ namespace _11thLauncher.ViewModels
 
         public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager,
             ISettingsService settingsService, IAddonService addonService, IServerQueryService serverQueryService, IAddonSyncService addonSyncService,
-            IUpdaterService updaterService, ParameterManager parameterManager, IGameLauncherService gameLauncherService, ProfileManager profileManager)
+            IUpdaterService updaterService, ParameterManager parameterManager, IGameLauncherService gameLauncherService, IProfileService profileService)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
@@ -48,13 +48,13 @@ namespace _11thLauncher.ViewModels
             _windowManager = windowManager;
 
             _settingsService = settingsService;
+            _profileService = profileService;
             _addonService = addonService;
             _serverQueryService = serverQueryService;
             _addonSyncService = addonSyncService;
             _updaterService = updaterService;
             _parameterManager = parameterManager;
             _gameLauncherService = gameLauncherService;
-            _profileManager = profileManager;
 
             StatusbarControl = IoC.Get<StatusbarViewModel>();
             ProfileSelectorControl = IoC.Get<ProfileSelectorViewModel>();
@@ -200,14 +200,11 @@ namespace _11thLauncher.ViewModels
             }
 
             //TODO LEGACY CONVERT 
-            if (_settingsService.SettingsExist())
-            {
-                _settingsService.Read(true); //Read existing settings
-            }
-            else
-            {
-                _settingsService.Read(false); //Load default settings in memory
+            var loadedExisting = _settingsService.Read();
 
+            //If there were no existing settings or failed to load, start first time load process
+            if (!loadedExisting)
+            {
                 _settingsService.ReadPath();
                 if (string.IsNullOrWhiteSpace(_settingsService.ApplicationSettings.Arma3Path))
                 {

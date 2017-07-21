@@ -32,7 +32,11 @@ namespace _11thLauncher.Services.Contracts
         /// </summary>
         void ReadPath();
 
-        void Read(bool settingsExist);
+        /// <summary>
+        /// Try to read the stored settings from appdata or initialize default values if no settings stored
+        /// </summary>
+        /// <returns>True if stored settings were loaded succesfully. False if they don't exist or failed to load</returns>
+        bool Read();
 
         void Write();
 

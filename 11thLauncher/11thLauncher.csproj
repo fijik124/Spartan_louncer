@@ -117,7 +117,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Configuration\Settings.cs" />
-    <Compile Include="Config\ConfigFile.cs" />
+    <Compile Include="Models\ConfigFile.cs" />
     <Compile Include="Config\ProfileFile.cs" />
     <Compile Include="Messages\AddonsLoadedMessage.cs" />
     <Compile Include="Messages\FillServerInfoMessage.cs" />
@@ -135,6 +135,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="LauncherBootstraper.cs" />
     <Compile Include="Models\Repository.cs" />
+    <Compile Include="Services\Contracts\IProfileService.cs" />
     <Compile Include="ViewModels\Util\ExtensionMethods.cs" />
     <Compile Include="Services\AddonService.cs" />
     <Compile Include="Services\Arma3SyncService.cs" />
@@ -190,7 +191,7 @@
     <Compile Include="Views\Util\ParameterTemplateSelector.cs" />
     <Compile Include="Models\ParameterValueItem.cs" />
     <Compile Include="Models\UserProfile.cs" />
-    <Compile Include="Model\Profile\ProfileManager.cs" />
+    <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -342,7 +343,9 @@
   <ItemGroup>
     <Compile Include="Services\Contracts\IServerQueryService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\Profile\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
