@@ -5,7 +5,7 @@ using _11thLauncher.Models;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class ParametersViewModel : PropertyChangedBase, IHandle<LoadProfileMessage>
+    public class ParametersViewModel : PropertyChangedBase, IHandle<ProfileLoadedMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly ParameterManager _parameterManager;
@@ -32,7 +32,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         #region Message handling
 
-        public void Handle(LoadProfileMessage message)
+        public void Handle(ProfileLoadedMessage message)
         {
             foreach (var parameter in Parameters)
             {

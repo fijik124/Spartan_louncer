@@ -5,13 +5,13 @@ using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.Services
 {
-    public class GameLauncherService: IGameLauncherService
+    public class LauncherService: ILauncherService
     {
-        public GameConfig GameConfig;
+        public LaunchSettings LaunchSettings { get; set; }
 
-        public GameLauncherService()
+        public LauncherService()
         {
-            GameConfig = new GameConfig();
+            LaunchSettings = new LaunchSettings();
         }
 
         public void StartGame(Collection<Addon> addons, Collection<LaunchParameter> parameters,

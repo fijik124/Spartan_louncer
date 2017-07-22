@@ -25,7 +25,7 @@ namespace _11thLauncher.ViewModels
         private readonly IServerQueryService _serverQueryService;
         private readonly IAddonSyncService _addonSyncService;
         private readonly IUpdaterService _updaterService;
-        private readonly IGameLauncherService _gameLauncherService;
+        private readonly ILauncherService _launcherService;
 
         private WindowState _windowState;
         private Visibility _showTrayIcon = Visibility.Hidden;
@@ -37,7 +37,7 @@ namespace _11thLauncher.ViewModels
 
         public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager,
             ISettingsService settingsService, IAddonService addonService, IServerQueryService serverQueryService, IAddonSyncService addonSyncService,
-            IUpdaterService updaterService, ParameterManager parameterManager, IGameLauncherService gameLauncherService, IProfileService profileService)
+            IUpdaterService updaterService, ParameterManager parameterManager, ILauncherService launcherService, IProfileService profileService)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
@@ -53,7 +53,7 @@ namespace _11thLauncher.ViewModels
             _addonSyncService = addonSyncService;
             _updaterService = updaterService;
             _parameterManager = parameterManager;
-            _gameLauncherService = gameLauncherService;
+            _launcherService = launcherService;
 
             StatusbarControl = IoC.Get<StatusbarViewModel>();
             ProfileSelectorControl = IoC.Get<ProfileSelectorViewModel>();
@@ -222,8 +222,8 @@ namespace _11thLauncher.ViewModels
                 //Write default settings
                 _settingsService.Write();
 
-                //Save default profile
-                //_profileManager.WriteProfile(defaultProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launchManager.GameConfig); TODO
+                //Write default profile
+                _profileService.Write(defaultProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launcherService.LaunchSettings);
             }
 
             _eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
@@ -238,7 +238,8 @@ namespace _11thLauncher.ViewModels
             _eventAggregator.PublishOnCurrentThread(new AddonsLoadedMessage(addons));
 
             //Add profiles and load default
-            _eventAggregator.PublishOnCurrentThread(new ProfilesMessage(ProfilesAction.Added, _settingsService.UserProfiles));
+            _eventAggregator.PublishOnCurrentThread(new ProfileAddedMessage(_settingsService.UserProfiles));
+            _eventAggregator.PublishOnCurrentThread(new LoadProfileMessage(_settingsService.DefaultProfile));
 
             //Read memory allocators TODO -> possible problems with parameters read before?
             _parameterManager.ReadAllocators(_settingsService.ApplicationSettings.Arma3Path);

@@ -8,15 +8,15 @@ namespace _11thLauncher.Services
 {
     public class ProfileService : IProfileService
     {
-        public void WriteProfile(UserProfile profile, BindableCollection<Addon> addons, 
-            BindableCollection<LaunchParameter> parameters, GameConfig gameConfig)
+        public void Write(UserProfile profile, BindableCollection<Addon> addons, 
+            BindableCollection<LaunchParameter> parameters, LaunchSettings launchSettings)
         {
             ProfileFile profileFile = new ProfileFile
             {
                 Profile = profile,
                 Addons = addons ?? new BindableCollection<Addon>(),
                 Parameters = parameters ?? new BindableCollection<LaunchParameter>(),
-                GameConfig = gameConfig ?? new GameConfig()
+                LaunchSettings = launchSettings ?? new LaunchSettings()
             };
 
             if (!Directory.Exists(Constants.ProfilesPath))
@@ -24,17 +24,26 @@ namespace _11thLauncher.Services
                 Directory.CreateDirectory(Constants.ProfilesPath);
             }
 
-            File.WriteAllText(Path.Combine(Constants.ProfilesPath, profile.Id + ".json"), JsonConvert.SerializeObject(this));
+            File.WriteAllText(Path.Combine(Constants.ProfilesPath, profile.Id + ".json"), JsonConvert.SerializeObject(profileFile, Formatting.Indented));
         }
 
-        public void ReadProfile(UserProfile profile, out BindableCollection<Addon> addons,
-            out BindableCollection<LaunchParameter> parameters, out GameConfig gameConfig)
+        public void Read(UserProfile profile, out BindableCollection<Addon> addons,
+            out BindableCollection<LaunchParameter> parameters, out LaunchSettings launchSettings)
         {
             ProfileFile profileFile = new ProfileFile { Profile = profile };
             JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ProfilesPath, profile.Id + ".json")), profileFile); //TODO TRYCTACH
             addons = profileFile.Addons;
             parameters = profileFile.Parameters;
-            gameConfig = profileFile.GameConfig;
+            launchSettings = profileFile.LaunchSettings;
+        }
+
+        public void DeleteProfile(UserProfile profile)
+        {
+            var profileFile = Path.Combine(Constants.ProfilesPath, profile.Id + ".json");
+            if (File.Exists(profileFile))
+            {
+                File.Delete(profileFile);
+            }
         }
     }
 }

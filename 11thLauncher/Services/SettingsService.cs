@@ -29,6 +29,8 @@ namespace _11thLauncher.Services
 
         public Guid DefaultProfileId { get; set; }
 
+        public UserProfile DefaultProfile => UserProfiles.FirstOrDefault(p => p.Id.Equals(DefaultProfileId));
+
         public BindableCollection<UserProfile> UserProfiles { get; set; }
 
         public BindableCollection<Server> Servers { get; set; }
@@ -109,7 +111,7 @@ namespace _11thLauncher.Services
 
         public bool Read()
         {
-            var settingsLoaded = true;
+            var settingsLoaded = false;
 
             var configFile = new ConfigFile();
             if (SettingsExist())
@@ -117,11 +119,12 @@ namespace _11thLauncher.Services
                 try
                 {
                     JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName)), configFile);
+                    settingsLoaded = true;
                 }
                 catch (Exception)
                 {
-                    settingsLoaded = false;
                     configFile = new ConfigFile();
+                    settingsLoaded = false;
                 }
             }
 

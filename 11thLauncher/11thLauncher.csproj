@@ -117,13 +117,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Messages\ProfileAddedMessage.cs" />
+    <Compile Include="Messages\ProfileCreatedMessage.cs" />
+    <Compile Include="Messages\ProfileDeletedMessage.cs" />
+    <Compile Include="Messages\LoadProfileMessage.cs" />
+    <Compile Include="Messages\SaveProfileMessage.cs" />
     <Compile Include="Models\ConfigFile.cs" />
     <Compile Include="Models\ProfileFile.cs" />
     <Compile Include="Messages\AddonsLoadedMessage.cs" />
     <Compile Include="Messages\FillServerInfoMessage.cs" />
-    <Compile Include="Messages\LoadProfileMessage.cs" />
-    <Compile Include="Messages\ProfileMessage.cs" />
-    <Compile Include="Messages\ProfilesMessage.cs" />
+    <Compile Include="Messages\ProfileLoadedMessage.cs" />
     <Compile Include="Messages\RepositoriesLoadedMessage.cs" />
     <Compile Include="Messages\SettingsLoadedMessage.cs" />
     <Compile Include="Messages\ShowDialogMessage.cs" />
@@ -140,10 +143,10 @@
     <Compile Include="Services\AddonService.cs" />
     <Compile Include="Services\Arma3SyncService.cs" />
     <Compile Include="Services\Contracts\ISecurityService.cs" />
-    <Compile Include="Services\GameLauncherService.cs" />
+    <Compile Include="Services\LauncherService.cs" />
     <Compile Include="Services\Contracts\IAddonService.cs" />
     <Compile Include="Services\Contracts\IAddonSyncService.cs" />
-    <Compile Include="Services\Contracts\IGameLauncherService.cs" />
+    <Compile Include="Services\Contracts\ILauncherService.cs" />
     <Compile Include="Services\Contracts\ISettingsService.cs" />
     <Compile Include="Services\Contracts\IUpdaterService.cs" />
     <Compile Include="Services\SecurityService.cs" />
@@ -162,7 +165,7 @@
     <Compile Include="Views\Util\EnumerationExtension.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
-    <Compile Include="Models\GameConfig.cs" />
+    <Compile Include="Models\LaunchSettings.cs" />
     <Compile Include="Models\LaunchParameter.cs" />
     <Compile Include="Models\ParameterManager.cs" />
     <Compile Include="Models\Server.cs" />

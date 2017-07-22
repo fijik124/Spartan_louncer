@@ -10,6 +10,8 @@ namespace _11thLauncher.Services.Contracts
 
         Guid DefaultProfileId { get; set; }
 
+        UserProfile DefaultProfile { get; }
+
         BindableCollection<UserProfile> UserProfiles { get; set; }
 
         BindableCollection<Server> Servers { get; set; }

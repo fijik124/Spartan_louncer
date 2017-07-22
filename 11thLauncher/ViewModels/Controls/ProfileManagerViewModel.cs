@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Linq;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class ProfileManagerViewModel : PropertyChangedBase, IHandle<ProfilesMessage>
+    public class ProfileManagerViewModel : PropertyChangedBase, IHandle<ProfileAddedMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private BindableCollection<UserProfile> _profiles = new BindableCollection<UserProfile>();
@@ -20,23 +21,9 @@ namespace _11thLauncher.ViewModels.Controls
 
         #region Message handling
 
-        public void Handle(ProfilesMessage message)
+        public void Handle(ProfileAddedMessage message)
         {
-            switch (message.Action)
-            {
-                case ProfilesAction.Added:
-                    Profiles.AddRange(message.Profiles);
-                    break;
-
-                case ProfilesAction.Deleted:
-                    Profiles.RemoveRange(message.Profiles);
-
-                    break;
-
-                default:
-                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message.Action)), GetType().Name));
-                    break;
-            }
+            Profiles.AddRange(message.Profiles.Where(p => !Profiles.Contains(p)));
         }
 
         #endregion
@@ -46,12 +33,6 @@ namespace _11thLauncher.ViewModels.Controls
         public void ButtonCreateProfile()
         {
             ManagedProfile = new UserProfile(Resources.Strings.ResourceManager.GetString("S_NEW_PROFILE_NAME"));
-        }
-
-        public void ButtonEditProfile()
-        {
-            if (SelectedProfile == null) return;
-            ManagedProfile = SelectedProfile;
         }
 
         public void ButtonMarkFavorite()
@@ -73,20 +54,18 @@ namespace _11thLauncher.ViewModels.Controls
             if (SelectedProfile == null) return;
             if (SelectedProfile.IsDefault) return;
 
+            _eventAggregator.PublishOnCurrentThread(new ProfileDeletedMessage(SelectedProfile));
             Profiles.Remove(SelectedProfile);
-            //TODO update
         }
 
 
         public void ButtonSaveProfile()
         {
             if (ManagedProfile == null) return;
-            if (!Profiles.Contains(ManagedProfile))
-            {
-                Profiles.Add(ManagedProfile);
-            }
-            //TODO save
+            Profiles.Add(ManagedProfile);
 
+            _eventAggregator.PublishOnCurrentThread(new ProfileAddedMessage(new BindableCollection<UserProfile> { ManagedProfile }));
+            _eventAggregator.PublishOnCurrentThread(new ProfileCreatedMessage(ManagedProfile));
             ManagedProfile = null;
         }
 
@@ -109,7 +88,6 @@ namespace _11thLauncher.ViewModels.Controls
             {
                 _selectedProfile = value;
                 NotifyOfPropertyChange();
-                NotifyOfPropertyChange(() => AllowEditProfile);
                 NotifyOfPropertyChange(() => AllowFavoriteProfile);
                 NotifyOfPropertyChange(() => AllowDeleteProfile);
             }
@@ -123,18 +101,15 @@ namespace _11thLauncher.ViewModels.Controls
                 _managedProfile = value;
                 NotifyOfPropertyChange();
                 NotifyOfPropertyChange(() => AllowCreateProfile);
-                NotifyOfPropertyChange(() => AllowEditProfile);
                 NotifyOfPropertyChange(() => AllowSaveProfile);
             }
         }
 
         public bool AllowCreateProfile => ManagedProfile == null;
 
-        public bool AllowEditProfile => ManagedProfile == null && SelectedProfile != null;
-
         public bool AllowSaveProfile => ManagedProfile != null;
 
-        public bool AllowFavoriteProfile => AllowEditProfile  && !SelectedProfile.IsDefault;
+        public bool AllowFavoriteProfile => ManagedProfile == null && SelectedProfile != null && !SelectedProfile.IsDefault;
 
         public bool AllowDeleteProfile => AllowFavoriteProfile;
     }

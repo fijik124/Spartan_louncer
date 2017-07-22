@@ -7,11 +7,14 @@ using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class ProfileSelectorViewModel : PropertyChangedBase, IHandle<ProfilesMessage>, IHandle<ProfileMessage>
+    public class ProfileSelectorViewModel : PropertyChangedBase, IHandle<ProfileAddedMessage>, IHandle<ProfileCreatedMessage>, IHandle<ProfileDeletedMessage>, 
+        IHandle<LoadProfileMessage>, IHandle<SaveProfileMessage>
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly ISettingsService _settingsService;
         private readonly IAddonService _addonService;
         private readonly IProfileService _profileService;
+        private readonly ILauncherService _launcherService;
         private readonly ParameterManager _parameterManager;
 
         private BindableCollection<UserProfile> _profiles = new BindableCollection<UserProfile>();
@@ -39,56 +42,65 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public ProfileSelectorViewModel(IEventAggregator eventAggregator, IAddonService addonService,
-            IProfileService profileService, ParameterManager parameterManager)
+        public ProfileSelectorViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IAddonService addonService,
+            IProfileService profileService, ILauncherService launcherService, ParameterManager parameterManager)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
 
+            _settingsService = settingsService;
             _addonService = addonService;
             _profileService = profileService;
+            _launcherService = launcherService;
             _parameterManager = parameterManager;
         }
 
         #region Message handling
 
-        public void Handle(ProfilesMessage message)
+        public void Handle(ProfileAddedMessage message)
         {
-            switch (message.Action)
+            bool initialLoad = Profiles.Count == 0;
+            Profiles.AddRange(message.Profiles);
+            if (initialLoad)
             {
-                case ProfilesAction.Added:
-                    bool initialLoad = Profiles.Count == 0;
-                    Profiles.AddRange(message.Profiles);
-                    if (initialLoad)
-                    {
-                        SelectedProfile = Profiles.First(p => p.IsDefault);
-                        Profiles_SelectionChanged();
-                    }
-                    break;
-
-                case ProfilesAction.Deleted:
-                    Profiles.RemoveRange(message.Profiles);
-                    break;
-
-                default:
-                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message.Action)), GetType().Name));
-                    break;
+                SelectedProfile = Profiles.First(p => p.IsDefault);
+                Profiles_SelectionChanged();
             }
         }
 
-        public void Handle(ProfileMessage message)
+        public void Handle(ProfileCreatedMessage message)
         {
-            switch (message.Action)
+            _profileService.Write(message.Profile, null, null, null);
+
+            _settingsService.UserProfiles.Add(message.Profile);
+            _settingsService.Write();
+        }
+
+        public void Handle(ProfileDeletedMessage message)
+        {
+            if (SelectedProfile.Equals(message.Profile))
             {
-                case ProfileAction.Loaded:
-                    break;
-                case ProfileAction.Updated:
-                    //_profileManager.WriteProfile(SelectedProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launchManager.GameConfig); TODO
-                    break;
-                default:
-                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message.Action)), GetType().Name));
-                    break;
+                SelectedProfile = Profiles.FirstOrDefault();
             }
+
+            Profiles.Remove(message.Profile);
+            _profileService.DeleteProfile(message.Profile);
+
+            _settingsService.UserProfiles.Remove(message.Profile);
+            _settingsService.Write();
+        }
+
+        public void Handle(SaveProfileMessage message)
+        {
+            _profileService.Write(SelectedProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launcherService.LaunchSettings);
+        }
+
+        public void Handle(LoadProfileMessage message)
+        {
+            _profileService.Read(message.Profile, out BindableCollection<Addon> addons, 
+                out BindableCollection<LaunchParameter> parameters, out LaunchSettings launchSettings);
+
+            _eventAggregator.PublishOnCurrentThread(new ProfileLoadedMessage(message.Profile, addons, parameters, launchSettings));
         }
 
         #endregion
@@ -97,18 +109,12 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void Profiles_SelectionChanged()
         {
-            //TODO
             if (SelectedProfile == null) return;
 
-            BindableCollection<Addon> addons;
-            BindableCollection<LaunchParameter> parameters;
-            GameConfig gameConfig;
-            //_profileManager.ReadProfile(SelectedProfile, out addons, out parameters, out gameConfig); TODO
+            _profileService.Read(SelectedProfile, out BindableCollection<Addon> addons, out BindableCollection<LaunchParameter> parameters, 
+                out LaunchSettings launchSettings);
 
-            //_eventAggregator.PublishOnCurrentThread(new LoadProfileMessage(SelectedProfile, addons, parameters, gameConfig)); TODO
-
-            ////Update the display with the profile
-            //UpdateForProfile(); TODO
+            _eventAggregator.PublishOnCurrentThread(new ProfileLoadedMessage(SelectedProfile, addons, parameters, launchSettings));
         }
 
         #endregion

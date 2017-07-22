@@ -466,15 +466,6 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit profile.
-        /// </summary>
-        public static string S_BTN_PROFILE_EDIT {
-            get {
-                return ResourceManager.GetString("S_BTN_PROFILE_EDIT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mark as favorite.
         /// </summary>
         public static string S_BTN_PROFILE_FAVORITE {

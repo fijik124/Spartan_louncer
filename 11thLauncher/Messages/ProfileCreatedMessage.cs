@@ -2,11 +2,11 @@
 
 namespace _11thLauncher.Messages
 {
-    public class LoadProfileMessage
+    public class ProfileCreatedMessage
     {
         public UserProfile Profile;
 
-        public LoadProfileMessage(UserProfile profile)
+        public ProfileCreatedMessage(UserProfile profile)
         {
             Profile = profile;
         }

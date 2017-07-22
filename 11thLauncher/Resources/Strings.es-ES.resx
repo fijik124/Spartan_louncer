@@ -477,9 +477,6 @@
   <data name="S_BTN_PROFILE_DELETE" xml:space="preserve">
     <value>Borrar perfil</value>
   </data>
-  <data name="S_BTN_PROFILE_EDIT" xml:space="preserve">
-    <value>Editar perfil</value>
-  </data>
   <data name="S_LABEL_PROFILE_NAME" xml:space="preserve">
     <value>Nombre del perfil</value>
   </data>

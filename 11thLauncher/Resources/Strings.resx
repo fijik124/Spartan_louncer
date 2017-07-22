@@ -457,9 +457,6 @@
   <data name="S_BTN_PROFILE_DELETE" xml:space="preserve">
     <value>Delete profile</value>
   </data>
-  <data name="S_BTN_PROFILE_EDIT" xml:space="preserve">
-    <value>Edit profile</value>
-  </data>
   <data name="S_LABEL_PROFILE_NAME" xml:space="preserve">
     <value>Profile name</value>
   </data>

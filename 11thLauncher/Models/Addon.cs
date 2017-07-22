@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System.Runtime.Serialization;
+using Caliburn.Micro;
 using Newtonsoft.Json;
 
 namespace _11thLauncher.Models
@@ -6,11 +7,12 @@ namespace _11thLauncher.Models
     /// <summary>
     /// An game addon managed by the launcher. 
     /// </summary>
+    [DataContract]
     public class Addon : PropertyChangedBase
     {
         private string _path;
-        private bool _isEnabled;
         private string _name;
+        private bool _isEnabled;
         private AddonMetaData _metaData;
 
         /// <summary>
@@ -37,27 +39,29 @@ namespace _11thLauncher.Models
         }
 
         /// <summary>
-        /// Current status of the addon.
-        /// </summary>
-        public bool IsEnabled
-        {
-            get => _isEnabled;
-            set
-            {
-                _isEnabled = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
         /// Name of the addon folder.
         /// </summary>
+        [DataMember]
         public string Name
         {
             get => _name;
             set
             {
                 _name = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Current status of the addon.
+        /// </summary>
+        [DataMember]
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                _isEnabled = value;
                 NotifyOfPropertyChange();
             }
         }
@@ -80,6 +84,7 @@ namespace _11thLauncher.Models
         /// <summary>
         /// Indicates if a link to the addon website is available.
         /// </summary>
+        [JsonIgnore]
         public bool IsLinkAvailable => !string.IsNullOrEmpty(MetaData?.Action);
 
         /// <summary>

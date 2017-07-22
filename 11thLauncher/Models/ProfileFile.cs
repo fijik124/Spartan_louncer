@@ -7,6 +7,6 @@ namespace _11thLauncher.Models
         public UserProfile Profile;
         public BindableCollection<Addon> Addons;
         public BindableCollection<LaunchParameter> Parameters;
-        public GameConfig GameConfig;
+        public LaunchSettings LaunchSettings;
     }
 }

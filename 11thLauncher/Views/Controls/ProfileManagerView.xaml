@@ -19,19 +19,14 @@
                 IsEnabled="{Binding AllowCreateProfile}"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Width="166" Height="31" Margin="439,41,0,0" />
-
-        <Button x:Name="ButtonEditProfile" Content="{x:Static resx:Strings.S_BTN_PROFILE_EDIT}" 
-                IsEnabled="{Binding AllowEditProfile}"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Width="166" Height="31" Margin="439,109,0,0" />
         <Button x:Name="ButtonMarkFavorite" Content="{x:Static resx:Strings.S_BTN_PROFILE_FAVORITE}" 
                 IsEnabled="{Binding AllowFavoriteProfile}"
                 HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Width="166" Height="31" Margin="438,145,0,0" />
+                Width="166" Height="31" Margin="438,121,0,0" />
         <Button x:Name="ButtonDeleteProfile" Content="{x:Static resx:Strings.S_BTN_PROFILE_DELETE}" 
                 IsEnabled="{Binding AllowDeleteProfile}"
                 HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Width="166" Height="31" Margin="438,181,0,0"  />
+                Width="166" Height="31" Margin="438,157,0,0"  />
 
         <Label Content="{x:Static resx:Strings.S_LABEL_PROFILE_NAME}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,272,0,0" />
         <TextBox Text="{Binding ManagedProfile.Name}"

@@ -8,7 +8,7 @@ using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class AddonsViewModel : PropertyChangedBase, IHandle<AddonsLoadedMessage>, IHandle<LoadProfileMessage>
+    public class AddonsViewModel : PropertyChangedBase, IHandle<AddonsLoadedMessage>, IHandle<ProfileLoadedMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IAddonService _addonService;
@@ -38,9 +38,15 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public void Handle(LoadProfileMessage message)
+        public void Handle(ProfileLoadedMessage message)
         {
             SelectedPreset = null;
+
+            //Reset all addons before loading
+            foreach (Addon addon in Addons)
+            {
+                addon.SetStatus(false);
+            }
 
             foreach (var addon in Addons)
             {
@@ -68,12 +74,12 @@ namespace _11thLauncher.ViewModels.Controls
             }
 
             CollectionViewSource.GetDefaultView(Addons).Refresh();
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
         }
 
         private void Addon_StatusChanged(object sender, PropertyChangedEventArgs e)
         {
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
         }
 
         public void ContextToggleAddon(Addon addon)
@@ -109,7 +115,7 @@ namespace _11thLauncher.ViewModels.Controls
                 {
                     Addons.Move(index, index - 1);
                 }
-                _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
         }
 
@@ -123,7 +129,7 @@ namespace _11thLauncher.ViewModels.Controls
                     Addons.Move(index, index + 1);
                 }
             }
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
         }
 
         public void ButtonSelectAll()
@@ -134,7 +140,7 @@ namespace _11thLauncher.ViewModels.Controls
             }
 
             CollectionViewSource.GetDefaultView(Addons).Refresh();
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
         }
 
         public void ButtonSelectNone()
@@ -145,7 +151,7 @@ namespace _11thLauncher.ViewModels.Controls
             }
 
             CollectionViewSource.GetDefaultView(Addons).Refresh();
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
         }
 
         #endregion
