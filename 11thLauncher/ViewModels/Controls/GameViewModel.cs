@@ -1,24 +1,20 @@
-﻿using System.Windows.Controls;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
-using _11thLauncher.Services;
 using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class GameViewModel : PropertyChangedBase, IHandle<LoadProfileMessage>, IHandle<FillServerInfoMessage>
+    public class GameViewModel : PropertyChangedBase, IHandle<ProfileLoadedMessage>, IHandle<FillServerInfoMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly ILauncherService _launcherService;
         private readonly IAddonService _addonService;
         private readonly ParameterManager _parameterManager;
-        private readonly SettingsService _settingsService;
-
-        private LaunchSettings _launchSettings = new LaunchSettings();
+        private readonly ISecurityService _securityService;
 
         public GameViewModel(IEventAggregator eventAggregator, ILauncherService launcherService, 
-            IAddonService addonService, ParameterManager parameterManager, SettingsService settingsService)
+            IAddonService addonService, ParameterManager parameterManager, ISecurityService securityService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
@@ -26,14 +22,27 @@ namespace _11thLauncher.ViewModels.Controls
             _launcherService = launcherService;
             _addonService = addonService;
             _parameterManager = parameterManager;
-            _settingsService = settingsService;
+            _securityService = securityService;
         }
 
         #region Message handling
 
-        public void Handle(LoadProfileMessage message)
+        public void Handle(ProfileLoadedMessage message)
         {
-            //TODO copy gameconfig
+            _launcherService.LaunchSettings.LaunchOption = message.LaunchSettings.LaunchOption;
+            NotifyOfPropertyChange(() => LaunchOption);
+
+            _launcherService.LaunchSettings.Platform = message.LaunchSettings.Platform;
+            NotifyOfPropertyChange(() => Platform);
+
+            _launcherService.LaunchSettings.Server = message.LaunchSettings.Server;
+            NotifyOfPropertyChange(() => Server);
+
+            _launcherService.LaunchSettings.Port = message.LaunchSettings.Port;
+            NotifyOfPropertyChange(() => Port);
+
+            _launcherService.LaunchSettings.Password = message.LaunchSettings.Password;
+            NotifyOfPropertyChange(() => Password);
         }
 
         public void Handle(FillServerInfoMessage message)
@@ -47,50 +56,65 @@ namespace _11thLauncher.ViewModels.Controls
 
         public LaunchOption LaunchOption
         {
-            get => _launchSettings.LaunchOption;
+            get => _launcherService.LaunchSettings.LaunchOption;
             set
             {
-                _launchSettings.LaunchOption = value;
+                _launcherService.LaunchSettings.LaunchOption = value;
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
             }
         }
 
         public LaunchPlatform Platform
         {
-            get => _launchSettings.Platform;
+            get => _launcherService.LaunchSettings.Platform;
             set
             {
-                _launchSettings.Platform = value;
+                _launcherService.LaunchSettings.Platform = value;
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
             }
         }
 
         public string Server
         {
-            get => _launchSettings.Server;
+            get => _launcherService.LaunchSettings.Server;
             set
             {
-                _launchSettings.Server = value;
+                _launcherService.LaunchSettings.Server = value;
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
             }
         }
 
         public string Port
         {
-            get => _launchSettings.Port;
+            get => _launcherService.LaunchSettings.Port;
             set
             {
-                _launchSettings.Port = value;
+                _launcherService.LaunchSettings.Port = value;
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string Password
+        {
+            get => _securityService.DecryptPassword(_launcherService.LaunchSettings.Password);
+            set
+            {
+                _launcherService.LaunchSettings.Password = _securityService.EncryptPassword(value);
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
             }
         }
 
         #region UI Actions
 
-        public void ButtonLaunch(PasswordBox passwordBox)
+        public void ButtonLaunch()
         {
             _launcherService.StartGame(_addonService.GetAddons(), _parameterManager.Parameters,
-                LaunchOption, Platform, Server, Port, passwordBox.Password);
+                LaunchOption, Platform, Server, Port, Password);
         }
 
         #endregion

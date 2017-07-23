@@ -10,6 +10,8 @@ namespace _11thLauncher.Services
     {
         public string EncryptPassword(string text)
         {
+            if (string.IsNullOrEmpty(text)) return string.Empty;
+
             byte[] original = Encoding.Unicode.GetBytes(text);
             byte[] encrypted = ProtectedData.Protect(original, GetEntropy(), DataProtectionScope.CurrentUser);
             return Convert.ToBase64String(encrypted);
@@ -17,6 +19,8 @@ namespace _11thLauncher.Services
 
         public string DecryptPassword(string text)
         {
+            if (string.IsNullOrEmpty(text)) return string.Empty;
+
             byte[] encrypted = Convert.FromBase64String(text);
             byte[] original = ProtectedData.Unprotect(encrypted, GetEntropy(), DataProtectionScope.CurrentUser);
             return Encoding.Unicode.GetString(original);

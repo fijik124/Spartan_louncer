@@ -52,6 +52,7 @@ namespace _11thLauncher
             _container.Singleton<IAddonSyncService, Arma3SyncService>();
             _container.Singleton<ILauncherService, LauncherService>();
             _container.Singleton<IUpdaterService, UpdaterService>();
+            _container.Singleton<ISecurityService, SecurityService>();
         }
 
         protected override object GetInstance(Type service, string key)

@@ -1,6 +1,6 @@
 ﻿namespace _11thLauncher.Services.Contracts
 {
-    internal interface ISecurityService
+    public interface ISecurityService
     {
         string EncryptPassword(string text);
         string DecryptPassword(string text);

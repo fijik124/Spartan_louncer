@@ -4,7 +4,8 @@
     {
         public LaunchOption LaunchOption;
         public LaunchPlatform Platform;
-        public string Server;
-        public string Port;
+        public string Server = "";
+        public string Port = "";
+        public string Password = "";
     }
 }
