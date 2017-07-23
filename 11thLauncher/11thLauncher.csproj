@@ -118,7 +118,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\ProfileAddedMessage.cs" />
-    <Compile Include="Messages\ProfileCreatedMessage.cs" />
     <Compile Include="Messages\ProfileDeletedMessage.cs" />
     <Compile Include="Messages\LoadProfileMessage.cs" />
     <Compile Include="Messages\SaveProfileMessage.cs" />

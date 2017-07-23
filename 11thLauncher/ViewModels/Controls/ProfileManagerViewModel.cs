@@ -1,22 +1,26 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
+using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
     public class ProfileManagerViewModel : PropertyChangedBase, IHandle<ProfileAddedMessage>
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly ISettingsService _settingsService;
+        private readonly IProfileService _profileService;
         private BindableCollection<UserProfile> _profiles = new BindableCollection<UserProfile>();
         private UserProfile _selectedProfile;
         private UserProfile _managedProfile;
 
-        public ProfileManagerViewModel(IEventAggregator eventAggregator)
+        public ProfileManagerViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IProfileService profileService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
+            _settingsService = settingsService;
+            _profileService = profileService;
         }
 
         #region Message handling
@@ -46,7 +50,8 @@ namespace _11thLauncher.ViewModels.Controls
             NotifyOfPropertyChange(() => AllowFavoriteProfile);
             NotifyOfPropertyChange(() => AllowDeleteProfile);
 
-            //TODO save, set favorite in settings
+            _settingsService.DefaultProfileId = SelectedProfile.Id;
+            _settingsService.Write();
         }
 
         public void ButtonDeleteProfile()
@@ -54,18 +59,26 @@ namespace _11thLauncher.ViewModels.Controls
             if (SelectedProfile == null) return;
             if (SelectedProfile.IsDefault) return;
 
+            _profileService.DeleteProfile(SelectedProfile);
+
+            _settingsService.UserProfiles.Remove(SelectedProfile);
+            _settingsService.Write();
+
             _eventAggregator.PublishOnCurrentThread(new ProfileDeletedMessage(SelectedProfile));
             Profiles.Remove(SelectedProfile);
         }
-
 
         public void ButtonSaveProfile()
         {
             if (ManagedProfile == null) return;
             Profiles.Add(ManagedProfile);
 
+            _settingsService.UserProfiles.Add(ManagedProfile);
+            _settingsService.Write();
+            _profileService.Write(ManagedProfile, null, null, null);
+
             _eventAggregator.PublishOnCurrentThread(new ProfileAddedMessage(new BindableCollection<UserProfile> { ManagedProfile }));
-            _eventAggregator.PublishOnCurrentThread(new ProfileCreatedMessage(ManagedProfile));
+
             ManagedProfile = null;
         }
 

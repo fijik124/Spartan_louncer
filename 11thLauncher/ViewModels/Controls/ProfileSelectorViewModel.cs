@@ -7,11 +7,10 @@ using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class ProfileSelectorViewModel : PropertyChangedBase, IHandle<ProfileAddedMessage>, IHandle<ProfileCreatedMessage>, IHandle<ProfileDeletedMessage>, 
+    public class ProfileSelectorViewModel : PropertyChangedBase, IHandle<ProfileAddedMessage>, IHandle<ProfileDeletedMessage>, 
         IHandle<LoadProfileMessage>, IHandle<SaveProfileMessage>
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly ISettingsService _settingsService;
         private readonly IAddonService _addonService;
         private readonly IProfileService _profileService;
         private readonly ILauncherService _launcherService;
@@ -42,13 +41,12 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public ProfileSelectorViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IAddonService addonService,
+        public ProfileSelectorViewModel(IEventAggregator eventAggregator, IAddonService addonService,
             IProfileService profileService, ILauncherService launcherService, ParameterManager parameterManager)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
 
-            _settingsService = settingsService;
             _addonService = addonService;
             _profileService = profileService;
             _launcherService = launcherService;
@@ -61,19 +59,10 @@ namespace _11thLauncher.ViewModels.Controls
         {
             bool initialLoad = Profiles.Count == 0;
             Profiles.AddRange(message.Profiles);
-            if (initialLoad)
-            {
-                SelectedProfile = Profiles.First(p => p.IsDefault);
-                Profiles_SelectionChanged();
-            }
-        }
+            if (!initialLoad) return;
 
-        public void Handle(ProfileCreatedMessage message)
-        {
-            _profileService.Write(message.Profile, null, null, null);
-
-            _settingsService.UserProfiles.Add(message.Profile);
-            _settingsService.Write();
+            SelectedProfile = Profiles.First(p => p.IsDefault);
+            Profiles_SelectionChanged();
         }
 
         public void Handle(ProfileDeletedMessage message)
@@ -84,10 +73,6 @@ namespace _11thLauncher.ViewModels.Controls
             }
 
             Profiles.Remove(message.Profile);
-            _profileService.DeleteProfile(message.Profile);
-
-            _settingsService.UserProfiles.Remove(message.Profile);
-            _settingsService.Write();
         }
 
         public void Handle(SaveProfileMessage message)
