@@ -69,7 +69,7 @@ namespace _11thLauncher.ViewModels.Controls
         {
             if (SelectedProfile.Equals(message.Profile))
             {
-                SelectedProfile = Profiles.FirstOrDefault();
+                SelectedProfile = Profiles.FirstOrDefault(p => !p.Equals(message.Profile));
             }
 
             Profiles.Remove(message.Profile);
