@@ -253,7 +253,8 @@ namespace _11thLauncher.ViewModels
                     !Directory.Exists(_settingsService.ApplicationSettings.Arma3SyncPath))
                 {
                     //If Arma3Sync path not valid try to get from registry
-                    _settingsService.ApplicationSettings.Arma3SyncPath = _addonSyncService.GetAddonSyncPath(); 
+                    _settingsService.ApplicationSettings.Arma3SyncPath = _addonSyncService.GetAddonSyncPath();
+                    _settingsService.Write();
                 }
 
                 var repositories = _addonSyncService.ReadRepositories(_settingsService.ApplicationSettings.Arma3SyncPath);
