@@ -54,7 +54,7 @@
         <TextBox Text="{Binding Port, Delay=1000}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="80" Margin="227,271,0,0" />
 
         <Label Content="{x:Static resx:Strings.S_PASSWORD}" HorizontalAlignment="Left" Margin="320,245,0,0" VerticalAlignment="Top" Padding="0,5,5,5"/>
-        <PasswordBox behaviors:PasswordBoxBindingBehavior.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <PasswordBox behaviors:PasswordBoxBindingBehavior.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
             HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Margin="320,271,0,0">
         </PasswordBox>
     </Grid>

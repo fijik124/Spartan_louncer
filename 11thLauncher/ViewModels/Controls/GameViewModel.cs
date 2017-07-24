@@ -13,6 +13,8 @@ namespace _11thLauncher.ViewModels.Controls
         private readonly ParameterManager _parameterManager;
         private readonly ISecurityService _securityService;
 
+        private bool _loadingProfile;
+
         public GameViewModel(IEventAggregator eventAggregator, ILauncherService launcherService, 
             IAddonService addonService, ParameterManager parameterManager, ISecurityService securityService)
         {
@@ -29,6 +31,8 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void Handle(ProfileLoadedMessage message)
         {
+            _loadingProfile = true;
+
             _launcherService.LaunchSettings.LaunchOption = message.LaunchSettings.LaunchOption;
             NotifyOfPropertyChange(() => LaunchOption);
 
@@ -104,8 +108,9 @@ namespace _11thLauncher.ViewModels.Controls
             set
             {
                 _launcherService.LaunchSettings.Password = _securityService.EncryptPassword(value);
-                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
+                if (_loadingProfile) { _loadingProfile = false; return; } //Avoid profile write when loading profile
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
         }
 
