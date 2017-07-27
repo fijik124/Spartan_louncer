@@ -27,6 +27,7 @@ namespace _11thLauncher.Models
             Type = parameterType;
             Platform = platform;
         }
+
         public LaunchParameter(string name, string displayName, string tooltip, ParameterType parameterType, BindableCollection<ParameterValueItem> parameterValueItems, ParameterPlatform platform = ParameterPlatform.Any)
         {
             Name = name;
@@ -36,7 +37,6 @@ namespace _11thLauncher.Models
             Values = parameterValueItems;
             Platform = platform;
         }
-
 
         /// <summary>
         /// Name of the launch parameter.

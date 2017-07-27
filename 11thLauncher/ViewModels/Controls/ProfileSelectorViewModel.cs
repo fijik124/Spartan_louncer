@@ -61,8 +61,7 @@ namespace _11thLauncher.ViewModels.Controls
             Profiles.AddRange(message.Profiles);
             if (!initialLoad) return;
 
-            _selectedProfile = Profiles.First(p => p.IsDefault);
-            NotifyOfPropertyChange(() => SelectedProfile);
+            SelectedProfile = Profiles.FirstOrDefault(p => p.IsDefault);
             //Profiles_SelectionChanged(); TODO check this is not needed
         }
 
