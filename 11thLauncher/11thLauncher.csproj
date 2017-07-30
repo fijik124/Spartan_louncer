@@ -137,7 +137,9 @@
     <Compile Include="Constants.cs" />
     <Compile Include="LauncherBootstraper.cs" />
     <Compile Include="Models\Repository.cs" />
+    <Compile Include="Services\Contracts\IParameterService.cs" />
     <Compile Include="Services\Contracts\IProfileService.cs" />
+    <Compile Include="Services\ParameterService.cs" />
     <Compile Include="ViewModels\Util\ExtensionMethods.cs" />
     <Compile Include="Services\AddonService.cs" />
     <Compile Include="Services\Arma3SyncService.cs" />
@@ -166,7 +168,6 @@
     <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Models\LaunchSettings.cs" />
     <Compile Include="Models\LaunchParameter.cs" />
-    <Compile Include="Models\ParameterManager.cs" />
     <Compile Include="Models\Server.cs" />
     <Compile Include="Models\ServerInfo.cs" />
     <Compile Include="Models\ApplicationSettings.cs" />
@@ -268,7 +269,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Configuration\Profiles.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

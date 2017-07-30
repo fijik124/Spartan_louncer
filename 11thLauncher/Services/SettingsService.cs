@@ -17,6 +17,8 @@ namespace _11thLauncher.Services
 {
     public class SettingsService : ISettingsService
     {
+        private string _legacyDefaultProfileName;
+
         public SettingsService()
         {
             UserProfiles = new BindableCollection<UserProfile>();
@@ -29,7 +31,9 @@ namespace _11thLauncher.Services
 
         public Guid DefaultProfileId { get; set; }
 
-        public UserProfile DefaultProfile => UserProfiles.FirstOrDefault(p => p.Id.Equals(DefaultProfileId));
+        public UserProfile DefaultProfile => string.IsNullOrEmpty(_legacyDefaultProfileName) ? 
+            UserProfiles.FirstOrDefault(p => p.Id.Equals(DefaultProfileId)) : 
+            UserProfiles.FirstOrDefault(p => p.Name.Equals(_legacyDefaultProfileName));
 
         public BindableCollection<UserProfile> UserProfiles { get; set; }
 
@@ -109,22 +113,42 @@ namespace _11thLauncher.Services
             }
         }
 
-        public bool Read()
+        public LoadSettingsResult Read()
         {
-            var settingsLoaded = false;
-
+            var loadResult = LoadSettingsResult.NoExistingSettings;
             var configFile = new ConfigFile();
-            if (SettingsExist())
+
+            //Try to ready legacy config if present
+            if (LegacyConfigExists())
             {
                 try
                 {
-                    JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName)), configFile);
-                    settingsLoaded = true;
+                    configFile = ReadLegacy();
+                    loadResult = LoadSettingsResult.LoadedLegacySettings;
+                    //TODO convert legacy profiles
+                    //TODO after save new settings
                 }
                 catch (Exception)
                 {
                     configFile = new ConfigFile();
-                    settingsLoaded = false;
+                    loadResult = LoadSettingsResult.ErrorLoadingLegacySettings;
+                }
+            }
+            else
+            {
+                //Read existing config if present
+                if (SettingsExist())
+                {
+                    try
+                    {
+                        JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName)), configFile);
+                        loadResult = LoadSettingsResult.LoadedExistingSettings;
+                    }
+                    catch (Exception)
+                    {
+                        configFile = new ConfigFile();
+                        loadResult = LoadSettingsResult.ErrorLoadingSettings;
+                    }
                 }
             }
 
@@ -145,14 +169,15 @@ namespace _11thLauncher.Services
                 ? ApplicationSettings.Language 
                 : Constants.Languages.First());
 
-            return settingsLoaded;
+            return loadResult;
         }
 
-        [Obsolete]
-        private void ReadLegacy()
+        private ConfigFile ReadLegacy()
         {
             ConfigFile configFile = new ConfigFile();
-            using (XmlReader reader = XmlReader.Create(Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName)))
+
+            var legacyConfigFile = Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName);
+            using (XmlReader reader = XmlReader.Create(legacyConfigFile))
             {
                 while (reader.Read())
                 {
@@ -179,7 +204,7 @@ namespace _11thLauncher.Services
                         case "Profiles":
                             var parameter = reader["default"];
                             reader.Read();
-                            //configFile.DefaultProfileId = parameter; //TODO how to do this
+                            _legacyDefaultProfileName = parameter;
                             break;
                         case "Profile":
                             reader.Read();
@@ -204,7 +229,7 @@ namespace _11thLauncher.Services
                         case "accent":
                             reader.Read();
                             value = reader.Value.Trim();
-                            configFile.ApplicationSettings.AccentColor = (AccentColor) int.Parse(value);
+                            configFile.ApplicationSettings.AccentColor = (AccentColor)int.Parse(value);
                             break;
                         case "checkUpdates":
                             reader.Read();
@@ -224,15 +249,20 @@ namespace _11thLauncher.Services
                     }
                 }
             }
+
+            //Delete the legacy config file after reading it
+            File.Delete(legacyConfigFile);
+
+            return configFile;
         }
 
         /// <summary>
-        /// 
+        /// Checks if there is an existing launcher configuration of a legacy version.
         /// </summary>
-        /// <returns></returns>
-        private bool CheckLegacyConfig()
+        /// <returns>True if a legacy configuration is present</returns>
+        private bool LegacyConfigExists()
         {
-            return false;//TODO
+            return File.Exists(Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName));
         }
 
         public void Write()
@@ -253,64 +283,6 @@ namespace _11thLauncher.Services
             }
 
             File.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(configFile, Newtonsoft.Json.Formatting.Indented));
-        }
-
-        /// <summary>
-        /// Write the XML configuration of the application with the current values
-        /// </summary>
-        [Obsolete]
-        public void Writse()
-        {
-            //if (!Directory.Exists(Constants.ConfigPath))
-            //{
-            //Directory.CreateDirectory(Constants.ConfigPath);
-            //}
-
-            //XmlWriterSettings settings = new XmlWriterSettings
-            //{
-            //Indent = true,
-            //IndentChars = "\t"
-            //};
-
-            //using (XmlWriter writer = XmlWriter.Create(Constants.ConfigPath + "\\config.xml", settings))
-            //{
-            //writer.WriteStartDocument();
-            //writer.WriteStartElement("Configuration");
-
-            ////Path
-            //writer.WriteElementString("JavaPath", JavaPath);
-            //writer.WriteElementString("ArmA3Path", Arma3Path);
-            //writer.WriteElementString("ArmA3SyncPath", Arma3SyncPath);
-            //writer.WriteElementString("ArmA3SyncRepository", Arma3SyncRepository);
-
-            ////Profiles
-            //writer.WriteStartElement("Profiles");
-            //writer.WriteAttributeString("default", Profiles.DefaultProfile);
-            //if (Profiles.UserProfiles != null)
-            //{
-            //foreach (string profile in Profiles.UserProfiles)
-            //{
-            //writer.WriteStartElement("Profile");
-            //writer.WriteString(profile);
-            //writer.WriteEndElement();
-            //}
-            //}
-            //writer.WriteEndElement();
-
-            ////Configuration parameters
-            //writer.WriteElementString("minimizeNotification", MinimizeNotification.ToString());
-            //writer.WriteElementString("startMinimize", StartMinimize.ToString());
-            //writer.WriteElementString("startClose", StartClose.ToString());
-            //writer.WriteElementString("accent", Accent.ToString());
-            //writer.WriteElementString("checkUpdates", CheckUpdates.ToString());
-            //writer.WriteElementString("checkServers", CheckServers.ToString());
-            //writer.WriteElementString("checkRepository", CheckRepository.ToString());
-            //writer.WriteElementString("serversGroupBox", ServersGroupBox.ToString());
-            //writer.WriteElementString("repositoryGroupBox", RepositoryGroupBox.ToString());
-
-            //writer.WriteEndElement();
-            //writer.WriteEndDocument();
-            //}
         }
 
         /// <summary>

@@ -9,7 +9,6 @@ using System.Windows.Media;
 using System.Windows.Input;
 using MahApps.Metro;
 using MahApps.Metro.Controls.Dialogs;
-using _11thLauncher.Configuration;
 
 namespace _11thLauncher
 {
@@ -18,11 +17,6 @@ namespace _11thLauncher
     /// </summary>
     public partial class MainWindow
     {
-        internal static MainWindow Form;
-
-        private delegate void UpdateFormCallBack(string method, object[] parameters);
-        //internal ObservableCollection<Addon> Addons = new ObservableCollection<Addon>();
-
         public MainWindow()
         {
 
@@ -30,18 +24,6 @@ namespace _11thLauncher
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //Add profiles
-            //UpdateProfiles();
-            //comboBox_profiles.SelectedIndex = comboBox_profiles.Items.IndexOf(Profiles.DefaultProfile); //Select default profile
-
-            //Set accent
-            //AccentColor a = ((AccentColor) Settings.Accent);
-            //ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(((AccentColor)Settings.Accent).ToString()), ThemeManager.GetAppTheme("BaseLight"));
-
-            //Set groupboxes preferences
-            //groupBox_servers.IsExpanded = Settings.ServersGroupBox;
-            //groupBox_repository.IsExpanded = Settings.RepositoryGroupBox;
-
             //If just updated, remove updater and show notification
             //if (Updater.Updated)
             //{
@@ -54,32 +36,6 @@ namespace _11thLauncher
             //{
                 //Updater.RemoveUpdater();
                 //this.ShowMessageAsync("Error al actualizar", "Se ha producido un error al actualizar la aplicación, vuelve a intentarlo más tarde");
-            //}
-
-            //Check Java presence
-            //Repository.CheckJava();
-
-            //Check Arma3Sync configuration
-            //if ((Repository.JavaVersion != "" || Settings.JavaPath != "") && Settings.Arma3SyncPath != "" && Settings.Arma3SyncRepository != "")
-            //{
-                //image_arma3Sync.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/a3sEnabled.png"));
-                //image_arma3Sync.ToolTip = "Arma3Sync está configurado. Click para iniciar";
-                //tile_repositoryStatus.IsEnabled = true;
-                //tile_repositoryStatus.Background = new SolidColorBrush(Colors.Orange);
-                //tile_repositoryStatus.ToolTip = "Click para comprobar estado";
-            //}
-
-            //Check repository for updates
-            //if (Settings.CheckRepository)
-            //{
-                //tile_repositoryStatus.IsEnabled = false;
-                //new Thread(Repository.CheckRepository).Start();
-            //}
-
-            //Check servers status
-            //if (Settings.CheckServers)
-            //{
-                //new Thread(Servers.CheckServers).Start();
             //}
 
             //Check for updates
@@ -101,11 +57,6 @@ namespace _11thLauncher
             //Check local game version against server version
             //label_gameVersion.Content = Settings.GetGameVersion();
             //new Thread(Servers.CompareServerVersion).Start();
-        }
-
-        private void MetroWindow_Closed(object sender, EventArgs e)
-        {
-            Form = null;
         }
 
         private void comboBox_profiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -170,113 +121,6 @@ namespace _11thLauncher
             //}
     
             //Clipboard.SetText(StartArmA3(multiplayer, false, headless));
-        }
-
-        private void image_arma3Sync_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //if (Repository.JavaVersion != "" && Settings.Arma3SyncPath != "")
-            //{
-                //Repository.StartArmA3Sync();
-            //}
-        }
-
-        private void tile_repositoryStatus_Click(object sender, RoutedEventArgs e)
-        {
-            //label_repositoryRevision.Content = "";
-            //tile_repositoryStatus.IsEnabled = false;
-            //tile_repositoryStatus.ToolTip = "Comprobando estado";
-            //new Thread(Repository.CheckRepository).Start();
-        }
-
-        private void button_defaultProfile_Click(object sender, RoutedEventArgs e)
-        {
-            //if (listBox_profiles.SelectedIndex == -1)
-            //{
-                //this.ShowMessageAsync("Error de selección", "No has seleccionado ningún perfil");
-            //} else
-            //{
-                //string selectedProfile = listBox_profiles.SelectedItem.ToString();
-                //if (selectedProfile.StartsWith("♥")) selectedProfile = selectedProfile.Remove(0, 2);
-
-                //Profiles.DefaultProfile = selectedProfile;
-                //Settings.Write();
-
-                ////Refill profile list
-                //listBox_profiles.Items.Clear();
-                //foreach (string profile in Profiles.UserProfiles)
-                //{
-                    //if (profile.Equals(Profiles.DefaultProfile))
-                    //{
-                        //int index = listBox_profiles.Items.Add("♥ " + profile);
-                        //listBox_profiles.SelectedItem = index;
-                    //}
-                    //else
-                    //{
-                        //listBox_profiles.Items.Add(profile);
-                    //}
-                //}
-            //}
-        }
-
-        private void button_createProfile_Click(object sender, RoutedEventArgs e)
-        {
-            //textBox_newProfile.IsEnabled = true;
-            //textBox_newProfile.Text = "Nuevo perfil";
-            //button_saveNewProfile.IsEnabled = true;
-            //textBox_newProfile.Select(0, textBox_newProfile.Text.Length);
-            //textBox_newProfile.Focus();
-        }
-
-        private void button_deleteProfile_Click(object sender, RoutedEventArgs e)
-        {
-            //if (listBox_profiles.SelectedIndex == -1)
-            //{
-                //this.ShowMessageAsync("Error de borrado", "No has seleccionado ningún perfil");
-            //}
-            //else
-            //{
-                ////Check profile name to remove default profile marker
-                //string selectedProfile = listBox_profiles.SelectedItem.ToString();
-                //if (selectedProfile.StartsWith("♥")) selectedProfile = selectedProfile.Remove(0, 2);
-
-                //if (selectedProfile.Equals("Predeterminado"))
-                //{
-                    //this.ShowMessageAsync("Error de borrado", "No puedes borrar el perfil predeterminado");
-                //}
-                //else
-                //{
-                    ////Check if deleted profile is default
-                    //if (selectedProfile.Equals(Profiles.DefaultProfile))
-                    //{
-                        //Profiles.DefaultProfile = "Predeterminado";
-                    //}
-                    //Profiles.DeleteProfile(selectedProfile);
-                    //UpdateProfiles();
-                    ////comboBox_profiles.SelectedIndex = 0;
-                //}
-            //}
-        }
-
-        private void button_saveNewProfile_Click(object sender, RoutedEventArgs e)
-        {
-            ////Clean profile name string
-            //string profileName = textBox_newProfile.Text.Replace("♥", "").Trim();
-
-            ////Check that name is not repeated
-            //if (Profiles.UserProfiles.Contains(profileName))
-            //{
-                //this.ShowMessageAsync("Error de creación de perfil", "Ya existe un perfil con el nombre indicado");
-            //}
-            //else
-            //{
-                //Profiles.UserProfiles.Add(profileName);
-                //Settings.Write();
-                //Profiles.WriteProfile(profileName);
-                //UpdateProfiles();
-                //textBox_newProfile.Text = "";
-                //textBox_newProfile.IsEnabled = false;
-                //button_saveNewProfile.IsEnabled = false;
-            //}
         }
 
         /// <summary>

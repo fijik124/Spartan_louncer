@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
-using _11thLauncher.Models;
 using _11thLauncher.Services;
 using _11thLauncher.Services.Contracts;
 using _11thLauncher.ViewModels;
@@ -41,14 +40,12 @@ namespace _11thLauncher
             _container.Singleton<SettingsViewModel>();
             _container.Singleton<AboutViewModel>();
 
-            //TODO
-            _container.Singleton<ParameterManager>();
-
             //Services
             _container.Singleton<ISettingsService, SettingsService>();
             _container.Singleton<IProfileService, ProfileService>();
             _container.Singleton<IServerQueryService, ServerQueryService>();
             _container.Singleton<IAddonService, AddonService>();
+            _container.Singleton<IParameterService, ParameterService>();
             _container.Singleton<IAddonSyncService, Arma3SyncService>();
             _container.Singleton<ILauncherService, LauncherService>();
             _container.Singleton<IUpdaterService, UpdaterService>();

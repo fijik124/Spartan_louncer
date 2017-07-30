@@ -10,20 +10,20 @@ namespace _11thLauncher.ViewModels.Controls
         private readonly IEventAggregator _eventAggregator;
         private readonly ILauncherService _launcherService;
         private readonly IAddonService _addonService;
-        private readonly ParameterManager _parameterManager;
+        private readonly IParameterService _parameterService;
         private readonly ISecurityService _securityService;
 
         private bool _loadingProfile;
 
         public GameViewModel(IEventAggregator eventAggregator, ILauncherService launcherService, 
-            IAddonService addonService, ParameterManager parameterManager, ISecurityService securityService)
+            IAddonService addonService, IParameterService parameterService, ISecurityService securityService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
 
             _launcherService = launcherService;
             _addonService = addonService;
-            _parameterManager = parameterManager;
+            _parameterService = parameterService;
             _securityService = securityService;
         }
 
@@ -118,7 +118,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void ButtonLaunch()
         {
-            _launcherService.StartGame(_addonService.GetAddons(), _parameterManager.Parameters,
+            _launcherService.StartGame(_addonService.GetAddons(), _parameterService.Parameters,
                 LaunchOption, Platform, Server, Port, Password);
         }
 

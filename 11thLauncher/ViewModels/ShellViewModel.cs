@@ -17,11 +17,11 @@ namespace _11thLauncher.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IWindowManager _windowManager;
-        private readonly ParameterManager _parameterManager;
 
         private readonly ISettingsService _settingsService;
         private readonly IProfileService _profileService;
         private readonly IAddonService _addonService;
+        private readonly IParameterService _parameterService;
         private readonly IServerQueryService _serverQueryService;
         private readonly IAddonSyncService _addonSyncService;
         private readonly IUpdaterService _updaterService;
@@ -37,7 +37,7 @@ namespace _11thLauncher.ViewModels
 
         public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager,
             ISettingsService settingsService, IAddonService addonService, IServerQueryService serverQueryService, IAddonSyncService addonSyncService,
-            IUpdaterService updaterService, ParameterManager parameterManager, ILauncherService launcherService, IProfileService profileService)
+            IUpdaterService updaterService, IParameterService parameterService, ILauncherService launcherService, IProfileService profileService)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
@@ -52,7 +52,7 @@ namespace _11thLauncher.ViewModels
             _serverQueryService = serverQueryService;
             _addonSyncService = addonSyncService;
             _updaterService = updaterService;
-            _parameterManager = parameterManager;
+            _parameterService = parameterService;
             _launcherService = launcherService;
 
             StatusbarControl = IoC.Get<StatusbarViewModel>();
@@ -199,10 +199,15 @@ namespace _11thLauncher.ViewModels
             }
 
             //TODO LEGACY CONVERT 
-            var loadedExisting = _settingsService.Read();
+            var loadResult = _settingsService.Read();
+
+            if (loadResult.Equals(LoadSettingsResult.LoadedLegacySettings))
+            {
+                //_profileService.PortLegacyProfiles(_settingsService.UserProfiles);
+            }
 
             //If there were no existing settings or failed to load, start first time load process
-            if (!loadedExisting)
+            if (loadResult.Equals(LoadSettingsResult.NoExistingSettings) || loadResult.Equals(LoadSettingsResult.ErrorLoadingLegacySettings))
             {
                 _settingsService.ReadPath();
                 if (string.IsNullOrWhiteSpace(_settingsService.ApplicationSettings.Arma3Path))
@@ -223,7 +228,7 @@ namespace _11thLauncher.ViewModels
                 _settingsService.Write();
 
                 //Write default profile
-                _profileService.Write(defaultProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launcherService.LaunchSettings);
+                _profileService.Write(defaultProfile, _addonService.GetAddons(), _parameterService.Parameters, _launcherService.LaunchSettings);
             }
 
             _eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
@@ -242,7 +247,7 @@ namespace _11thLauncher.ViewModels
             _eventAggregator.PublishOnCurrentThread(new LoadProfileMessage(_settingsService.DefaultProfile));
 
             //Read memory allocators TODO -> possible problems with parameters read before?
-            _parameterManager.ReadAllocators(_settingsService.ApplicationSettings.Arma3Path);
+            _parameterService.ReadAllocators(_settingsService.ApplicationSettings.Arma3Path);
 
             //Read repository settings
             new Thread(() =>

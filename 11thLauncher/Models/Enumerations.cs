@@ -2,6 +2,15 @@
 
 namespace _11thLauncher.Models
 {
+    public enum LoadSettingsResult
+    {
+        NoExistingSettings,
+        LoadedExistingSettings,
+        LoadedLegacySettings,
+        ErrorLoadingSettings,
+        ErrorLoadingLegacySettings
+    }
+
     public enum AsyncAction
     {
         [Description("S_ACTION_CHECK_SERVER_STATUS")]

@@ -2,13 +2,15 @@
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
+using _11thLauncher.Services;
+using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
     public class ParametersViewModel : PropertyChangedBase, IHandle<ProfileLoadedMessage>
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly ParameterManager _parameterManager;
+        private readonly IParameterService _parameterService;
 
         private BindableCollection<LaunchParameter> _parameters;
         public BindableCollection<LaunchParameter> Parameters
@@ -21,13 +23,13 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public ParametersViewModel(IEventAggregator eventAggregator, ParameterManager parameterManager)
+        public ParametersViewModel(IEventAggregator eventAggregator, IParameterService parameterService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
-            _parameterManager = parameterManager;
+            _parameterService = parameterService;
 
-            Parameters = _parameterManager.Parameters;
+            Parameters = _parameterService.Parameters;
         }
 
         #region Message handling

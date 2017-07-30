@@ -14,7 +14,7 @@ namespace _11thLauncher.ViewModels.Controls
         private readonly IAddonService _addonService;
         private readonly IProfileService _profileService;
         private readonly ILauncherService _launcherService;
-        private readonly ParameterManager _parameterManager;
+        private readonly IParameterService _parameterService;
 
         private BindableCollection<UserProfile> _profiles = new BindableCollection<UserProfile>();
         public BindableCollection<UserProfile> Profiles
@@ -42,7 +42,7 @@ namespace _11thLauncher.ViewModels.Controls
         }
 
         public ProfileSelectorViewModel(IEventAggregator eventAggregator, IAddonService addonService,
-            IProfileService profileService, ILauncherService launcherService, ParameterManager parameterManager)
+            IProfileService profileService, ILauncherService launcherService, IParameterService parameterService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
@@ -50,7 +50,7 @@ namespace _11thLauncher.ViewModels.Controls
             _addonService = addonService;
             _profileService = profileService;
             _launcherService = launcherService;
-            _parameterManager = parameterManager;
+            _parameterService = parameterService;
         }
 
         #region Message handling
@@ -77,7 +77,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void Handle(SaveProfileMessage message)
         {
-            _profileService.Write(SelectedProfile, _addonService.GetAddons(), _parameterManager.Parameters, _launcherService.LaunchSettings);
+            _profileService.Write(SelectedProfile, _addonService.GetAddons(), _parameterService.Parameters, _launcherService.LaunchSettings);
         }
 
         public void Handle(LoadProfileMessage message)

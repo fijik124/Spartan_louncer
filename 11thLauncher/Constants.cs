@@ -121,9 +121,15 @@ namespace _11thLauncher
         public const string GameExecutable64 = "arma3_x64.exe";
 
         //
+        // Profile Service
+        //
+        public const string ProfilesFolder = "profiles";
+        public const string ProfileNameFormat = "{0}.json";
+        public const string LegacyProfileNameFormat = "{0}.xml";
+
+        //
         // Program Settings
         //
-        public static readonly string ProfilesPath = ConfigPath + "\\profiles";
         public const string LogoLight = "pack://application:,,,/Resources/a3logo.png";
         public const string LogoDark = "pack://application:,,,/Resources/a3logo_inverted.png";
         public const string Arma3SyncIconEnabled = "pack://application:,,,/Resources/a3sEnabled.png";

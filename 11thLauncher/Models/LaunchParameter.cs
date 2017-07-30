@@ -7,6 +7,7 @@ namespace _11thLauncher.Models
     public class LaunchParameter : PropertyChangedBase //TODO complete class
     {
         private string _name;
+        public string LegacyName { get; set; }
         public string DisplayName { get; set; }
         public string Tooltip { get; set; }
         public ParameterType Type { get; set; }
