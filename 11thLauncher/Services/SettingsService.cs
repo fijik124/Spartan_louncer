@@ -17,8 +17,6 @@ namespace _11thLauncher.Services
 {
     public class SettingsService : ISettingsService
     {
-        private string _legacyDefaultProfileName;
-
         public SettingsService()
         {
             UserProfiles = new BindableCollection<UserProfile>();
@@ -31,9 +29,7 @@ namespace _11thLauncher.Services
 
         public Guid DefaultProfileId { get; set; }
 
-        public UserProfile DefaultProfile => string.IsNullOrEmpty(_legacyDefaultProfileName) ? 
-            UserProfiles.FirstOrDefault(p => p.Id.Equals(DefaultProfileId)) : 
-            UserProfiles.FirstOrDefault(p => p.Name.Equals(_legacyDefaultProfileName));
+        public UserProfile DefaultProfile => UserProfiles.FirstOrDefault(p => p.Id.Equals(DefaultProfileId));
 
         public BindableCollection<UserProfile> UserProfiles { get; set; }
 
@@ -126,7 +122,10 @@ namespace _11thLauncher.Services
                     configFile = ReadLegacy();
                     loadResult = LoadSettingsResult.LoadedLegacySettings;
                     //TODO convert legacy profiles
-                    //TODO after save new settings
+
+                    ApplicationSettings = configFile.ApplicationSettings; //weird?
+                    DefaultProfileId = configFile.DefaultProfileId;
+                    Write();
                 }
                 catch (Exception)
                 {
@@ -175,6 +174,7 @@ namespace _11thLauncher.Services
         private ConfigFile ReadLegacy()
         {
             ConfigFile configFile = new ConfigFile();
+            string defaultProfileName = "";
 
             var legacyConfigFile = Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName);
             using (XmlReader reader = XmlReader.Create(legacyConfigFile))
@@ -204,7 +204,7 @@ namespace _11thLauncher.Services
                         case "Profiles":
                             var parameter = reader["default"];
                             reader.Read();
-                            _legacyDefaultProfileName = parameter;
+                            defaultProfileName = parameter;
                             break;
                         case "Profile":
                             reader.Read();
@@ -248,6 +248,12 @@ namespace _11thLauncher.Services
                             break;
                     }
                 }
+            }
+
+            var defaultProfile = UserProfiles.SingleOrDefault(p => p.Name.Equals(defaultProfileName));
+            if (defaultProfile != null)
+            {
+                configFile.DefaultProfileId = defaultProfile.Id;
             }
 
             //Delete the legacy config file after reading it

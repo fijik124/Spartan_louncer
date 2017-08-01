@@ -203,7 +203,8 @@ namespace _11thLauncher.ViewModels
 
             if (loadResult.Equals(LoadSettingsResult.LoadedLegacySettings))
             {
-                //_profileService.PortLegacyProfiles(_settingsService.UserProfiles);
+                //TODO trycatchhere?
+                _profileService.PortLegacyProfiles(_settingsService.UserProfiles);
             }
 
             //If there were no existing settings or failed to load, start first time load process

@@ -7,16 +7,7 @@ namespace _11thLauncher.Models
     public class LaunchParameter : PropertyChangedBase //TODO complete class
     {
         private string _name;
-        public string LegacyName { get; set; }
-        public string DisplayName { get; set; }
-        public string Tooltip { get; set; }
-        public ParameterType Type { get; set; }
         private ParameterPlatform _platform;
-        [DataMember]
-        public bool IsEnabled { get; set; }
-        public BindableCollection<ParameterValueItem> Values { get; set; }
-        [DataMember]
-        public ParameterValueItem SelectedValue { get; set; } //TODO
 
         public LaunchParameter() { }
 
@@ -53,6 +44,17 @@ namespace _11thLauncher.Models
             }
         }
 
+        public string LegacyName { get; set; }
+
+        public string DisplayName { get; set; }
+
+        public string Tooltip { get; set; }
+
+        [DataMember]
+        public bool IsEnabled { get; set; }
+
+        public ParameterType Type { get; set; }
+
         /// <summary>
         /// Platform of the launch parameter.
         /// </summary>
@@ -66,6 +68,11 @@ namespace _11thLauncher.Models
                 NotifyOfPropertyChange();
             }
         }
+
+        public BindableCollection<ParameterValueItem> Values { get; set; }
+
+        [DataMember]
+        public ParameterValueItem SelectedValue { get; set; } //TODO
 
         public override bool Equals(object obj)
         {

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Windows.Documents;
 using System.Xml;
 using Caliburn.Micro;
 using Newtonsoft.Json;
@@ -11,6 +13,13 @@ namespace _11thLauncher.Services
 {
     public class ProfileService : IProfileService
     {
+        private readonly IParameterService _parameterService;
+
+        public ProfileService(IParameterService parameterService)
+        {
+            _parameterService = parameterService;
+        }
+
         public void Write(UserProfile profile, BindableCollection<Addon> addons, 
             BindableCollection<LaunchParameter> parameters, LaunchSettings launchSettings)
         {
@@ -52,55 +61,84 @@ namespace _11thLauncher.Services
 
         public void PortLegacyProfiles(BindableCollection<UserProfile> profiles)
         {
-            //foreach (var profile in profiles)
-            //{
-                //try
-                //{
-                    //using (XmlReader reader = XmlReader.Create(Path.Combine(Constants.ConfigPath) + "\\" + profile + ".xml"))
-                    //{
-                        //while (reader.Read())
-                        //{
-                            //if (reader.IsStartElement())
-                            //{
-                                //string parameter;
-                                //string value;
-                                //switch (reader.Name)
-                                //{
-                                    //case "Parameter":
-                                        //parameter = reader["name"];
-                                        //reader.Read();
-                                        //value = reader.Value.Trim();
-                                        //if (parameter != null)
-                                        //{
-                                            //profile.
-                                            //ProfileParameters[parameter] = value;
-                                        //}
-                                        //break;
-                                    //case "A3Addon":
-                                        //parameter = reader["name"];
-                                        //reader.Read();
-                                        //value = reader.Value.Trim();
-                                        ////If addon no longer exists, discard it 
+            foreach (var profile in profiles)
+            {
+                try
+                {
+                    var profileFile = Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.LegacyProfileNameFormat, profile.Name));
+
+                    BindableCollection<Addon> addons = new BindableCollection<Addon>();
+                    BindableCollection<LaunchParameter> parameters = new BindableCollection<LaunchParameter>();
+                    LaunchSettings launchSettings = new LaunchSettings();
+
+                    using (XmlReader reader = XmlReader.Create(profileFile))
+                    {
+                        while (reader.Read())
+                        {
+                            if (reader.IsStartElement())
+                            {
+                                string parameter;
+                                string value;
+                                switch (reader.Name)
+                                {
+                                    case "Parameter":
+                                        parameter = reader["name"];
+                                        reader.Read();
+                                        value = reader.Value.Trim();
+                                        if (parameter != null)
+                                        {
+                                            var matchingParameter = _parameterService.Parameters.FirstOrDefault(p => p.LegacyName.Equals(parameter));
+                                            if (matchingParameter != null)
+                                            {
+                                                switch (matchingParameter.Type)
+                                                {
+                                                    case ParameterType.Boolean:
+                                                        bool parsedValue;
+                                                        var parsed = bool.TryParse(value, out parsedValue);
+                                                        matchingParameter.IsEnabled = parsed && parsedValue;
+                                                        break;
+                                                    case ParameterType.Selection:
+                                                        //TODO
+                                                        break;
+                                                    case ParameterType.Text:
+                                                        //TODO
+                                                        break;
+                                                    default:
+                                                        throw new ArgumentOutOfRangeException();
+                                                }
+                                                parameters.Add(matchingParameter);
+                                            }
+                                        }
+                                        break;
+                                    case "A3Addon":
+                                        parameter = reader["name"];
+                                        reader.Read();
+                                        value = reader.Value.Trim();
+                                        //If addon no longer exists, discard it 
                                         //if (Addons.LocalAddons.Contains(parameter))
                                         //{
-                                            //if (parameter != null) ProfileAddons[parameter] = value;
+                                        //    if (parameter != null) ProfileAddons[parameter] = value;
                                         //}
-                                        //break;
-                                    //case "A3ServerInfo":
-                                        //parameter = reader["name"];
-                                        //reader.Read();
-                                        //value = reader.Value.Trim();
+                                        break;
+                                    case "A3ServerInfo":
+                                        parameter = reader["name"];
+                                        reader.Read();
+                                        value = reader.Value.Trim();
                                         //if (parameter != null) ProfileServerInfo[parameter] = value;
-                                        //break;
-                                //}
-                            //}
-                        //}
-                    //}
-                //catch (Exception)
-                //{
-                    //continue;
-                //}
-            //}
+                                        break;
+                                }
+                            }
+                        }
+                    }
+
+                    Write(profile, addons, parameters, launchSettings);
+                    File.Delete(profileFile);
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+            }
         }
     }
 }
