@@ -35,7 +35,7 @@
             </StackPanel>
         </DataTemplate>
         <!-- Selection parameter template -->
-        <DataTemplate x:Key="ParameterSelectionTemplate" DataType="model:LaunchParameter">
+        <DataTemplate x:Key="ParameterSelectionTemplate" DataType="model:SelectionParameter">
             <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,5">
                 <ComboBox ItemsSource="{Binding Values}" DisplayMemberPath="DisplayName" IsEnabled="{Binding IsEnabled}" Width="280" Margin="20,0,0,0" FlowDirection="LeftToRight"/>
                 <CheckBox IsChecked="{Binding IsEnabled}" Margin="10,0,0,0" />

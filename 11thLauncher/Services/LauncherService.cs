@@ -26,7 +26,7 @@ namespace _11thLauncher.Services
                 gameParams += " " + param.Name;
                 if (param.Type == ParameterType.Selection || param.Type == ParameterType.Text)
                 {
-                    gameParams += param.SelectedValue.Value;
+                    //gameParams += param.SelectedValue.Value;
                 }
             }
 

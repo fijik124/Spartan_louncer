@@ -122,7 +122,8 @@
     <Compile Include="Messages\LoadProfileMessage.cs" />
     <Compile Include="Messages\SaveProfileMessage.cs" />
     <Compile Include="Models\ConfigFile.cs" />
-    <Compile Include="Models\ProfileFile.cs" />
+    <Compile Include="Models\Parameter\SelectionParameter.cs" />
+    <Compile Include="Models\Profile\ProfileFile.cs" />
     <Compile Include="Messages\AddonsLoadedMessage.cs" />
     <Compile Include="Messages\FillServerInfoMessage.cs" />
     <Compile Include="Messages\ProfileLoadedMessage.cs" />
@@ -131,9 +132,9 @@
     <Compile Include="Messages\ShowDialogMessage.cs" />
     <Compile Include="Messages\ThemeChangedMessage.cs" />
     <Compile Include="Messages\UpdateStatusBarMessage.cs" />
-    <Compile Include="Models\Addon.cs" />
-    <Compile Include="Models\AddonMetaData.cs" />
-    <Compile Include="Models\Preset.cs" />
+    <Compile Include="Models\Addon\Addon.cs" />
+    <Compile Include="Models\Addon\AddonMetaData.cs" />
+    <Compile Include="Models\Addon\Preset.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="LauncherBootstraper.cs" />
     <Compile Include="Models\Repository.cs" />
@@ -167,9 +168,9 @@
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Models\LaunchSettings.cs" />
-    <Compile Include="Models\LaunchParameter.cs" />
-    <Compile Include="Models\Server.cs" />
-    <Compile Include="Models\ServerInfo.cs" />
+    <Compile Include="Models\Parameter\LaunchParameter.cs" />
+    <Compile Include="Models\Server\Server.cs" />
+    <Compile Include="Models\Server\ServerInfo.cs" />
     <Compile Include="Models\ApplicationSettings.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -192,8 +193,8 @@
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Util\ParameterTemplateSelector.cs" />
-    <Compile Include="Models\ParameterValueItem.cs" />
-    <Compile Include="Models\UserProfile.cs" />
+    <Compile Include="Models\Parameter\ParameterValueItem.cs" />
+    <Compile Include="Models\Profile\UserProfile.cs" />
     <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

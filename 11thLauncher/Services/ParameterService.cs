@@ -97,7 +97,7 @@ namespace _11thLauncher.Services
             Tooltip = Resources.Strings.S_PARAMETER_HUGE_PAGES_DESC,
             Type = ParameterType.Boolean
         };
-        private readonly LaunchParameter _malloc32 = new LaunchParameter
+        private readonly SelectionParameter _malloc32 = new SelectionParameter
         {
             Name = "-malloc=",
             LegacyName = "memoryAllocatorValue",
@@ -106,7 +106,7 @@ namespace _11thLauncher.Services
             Type = ParameterType.Selection,
             Platform = ParameterPlatform.X86
         };
-        private readonly LaunchParameter _malloc64 = new LaunchParameter
+        private readonly SelectionParameter _malloc64 = new SelectionParameter
         {
             Name = "-malloc=",
             LegacyName = "",
@@ -114,6 +114,21 @@ namespace _11thLauncher.Services
             Tooltip = Resources.Strings.S_PARAMETER_MALLOC_64_DESC,
             Type = ParameterType.Selection,
             Platform = ParameterPlatform.X64
+        };
+        private readonly SelectionParameter _memory = new SelectionParameter
+        {
+            Name = "-maxMem=",
+            LegacyName = "maxVMemoryValue",
+            DisplayName = "TODO",
+            Tooltip = "TODO", 
+            Values = new BindableCollection<ParameterValueItem>
+            {
+                new ParameterValueItem("768", "TODO768"),
+                new ParameterValueItem("1024", "TODO1024"),
+                new ParameterValueItem("2048", "TODO2048"),
+                new ParameterValueItem("4096", "TODO4096"),
+                new ParameterValueItem("8192", "TODO8192"),
+            }
         };
         private readonly LaunchParameter _additional = new LaunchParameter
         {
@@ -142,6 +157,7 @@ namespace _11thLauncher.Services
                 _hugePages,
                 _malloc32,
                 _malloc64,
+                _memory,
                 _additional
             };
         }

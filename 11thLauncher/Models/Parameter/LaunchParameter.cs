@@ -8,26 +8,11 @@ namespace _11thLauncher.Models
     {
         private string _name;
         private ParameterPlatform _platform;
+        private bool _isEnabled;
 
-        public LaunchParameter() { }
-
-        public LaunchParameter(string name, string displayName, string tooltip, ParameterType parameterType, ParameterPlatform platform = ParameterPlatform.Any)
+        public LaunchParameter()
         {
-            Name = name;
-            DisplayName = displayName;
-            Tooltip = tooltip;
-            Type = parameterType;
-            Platform = platform;
-        }
-
-        public LaunchParameter(string name, string displayName, string tooltip, ParameterType parameterType, BindableCollection<ParameterValueItem> parameterValueItems, ParameterPlatform platform = ParameterPlatform.Any)
-        {
-            Name = name;
-            DisplayName = displayName;
-            Tooltip = tooltip;
-            Type = parameterType;
-            Values = parameterValueItems;
-            Platform = platform;
+            Platform = ParameterPlatform.Any;
         }
 
         /// <summary>
@@ -51,7 +36,15 @@ namespace _11thLauncher.Models
         public string Tooltip { get; set; }
 
         [DataMember]
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                _isEnabled = value;
+                NotifyOfPropertyChange();
+            }
+        }
 
         public ParameterType Type { get; set; }
 
@@ -68,11 +61,11 @@ namespace _11thLauncher.Models
                 NotifyOfPropertyChange();
             }
         }
-
-        public BindableCollection<ParameterValueItem> Values { get; set; }
-
-        [DataMember]
-        public ParameterValueItem SelectedValue { get; set; } //TODO
+        
+        public void CopyStatus(LaunchParameter parameter)
+        {
+            IsEnabled = parameter?.IsEnabled ?? false;
+        }
 
         public override bool Equals(object obj)
         {

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
@@ -39,15 +40,7 @@ namespace _11thLauncher.ViewModels.Controls
             foreach (var parameter in Parameters)
             {
                 var profileParameter = message.Parameters.FirstOrDefault(parameter.Equals);
-                if (profileParameter != null)
-                {
-                    parameter.IsEnabled = profileParameter.IsEnabled;
-                    parameter.SelectedValue = profileParameter.SelectedValue;
-                } else 
-                {
-                    parameter.IsEnabled = false;
-                    parameter.SelectedValue = null;
-                }
+                parameter.CopyStatus(profileParameter);
             }
         }
 
