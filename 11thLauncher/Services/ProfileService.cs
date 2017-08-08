@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Windows.Documents;
 using System.Xml;
 using Caliburn.Micro;
 using Newtonsoft.Json;

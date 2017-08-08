@@ -630,4 +630,28 @@
   <data name="S_MSG_INCORRECT_ARMA3SYNC_PATH_CONTENT" xml:space="preserve">
     <value>La carpeta seleccionada no contiene una instalación válida de Arma3Sync</value>
   </data>
+  <data name="S_PARAMETER_MAX_MEMORY" xml:space="preserve">
+    <value>Límite de memoria RAM</value>
+  </data>
+  <data name="S_PARAMETER_MAX_MEMORY_DESC" xml:space="preserve">
+    <value>Cantidad de memoria RAM disponible</value>
+  </data>
+  <data name="S_PARAMETER_MAX_VMEMORY" xml:space="preserve">
+    <value>Límite de memoria de video</value>
+  </data>
+  <data name="S_PARAMETER_MAX_VMEMORY_DESC" xml:space="preserve">
+    <value>Cantidad de memoria de video disponible</value>
+  </data>
+  <data name="S_PARAMETER_CPU_COUNT" xml:space="preserve">
+    <value>Núcleos de CPU</value>
+  </data>
+  <data name="S_PARAMETER_CPU_COUNT_DESC" xml:space="preserve">
+    <value>Número de núcleos a utilizar (menor o igual al número de núcleos del procesador)</value>
+  </data>
+  <data name="S_PARAMETER_EXTHREADS" xml:space="preserve">
+    <value>Hilos adicionales</value>
+  </data>
+  <data name="S_PARAMETER_EX_THREADS_DESC" xml:space="preserve">
+    <value>Número de hilos adicionales a utilizar</value>
+  </data>
 </root>

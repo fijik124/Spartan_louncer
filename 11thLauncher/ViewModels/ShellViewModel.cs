@@ -280,7 +280,7 @@ namespace _11thLauncher.ViewModels
             GameVersion = gameVersion;
             new Thread(() =>
             {
-                var serverVersion = _serverQueryService.GetServerVersion(_settingsService.Servers.First()); //TODO no servers?
+                var serverVersion = _serverQueryService.GetServerVersion(_settingsService.Servers.First()); //TODO no servers? / first server can be offline
                 if (string.IsNullOrEmpty(serverVersion) || string.IsNullOrEmpty(GameVersion)) return;
 
                 var gameVersionInfo = GameVersion.Split('.');

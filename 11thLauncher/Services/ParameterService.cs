@@ -109,7 +109,7 @@ namespace _11thLauncher.Services
         private readonly SelectionParameter _malloc64 = new SelectionParameter
         {
             Name = "-malloc=",
-            LegacyName = "",
+            LegacyName = string.Empty,
             DisplayName = Resources.Strings.S_PARAMETER_MALLOC_64,
             Tooltip = Resources.Strings.S_PARAMETER_MALLOC_64_DESC,
             Type = ParameterType.Selection,
@@ -118,17 +118,50 @@ namespace _11thLauncher.Services
         private readonly SelectionParameter _memory = new SelectionParameter
         {
             Name = "-maxMem=",
-            LegacyName = "maxVMemoryValue",
-            DisplayName = "TODO",
-            Tooltip = "TODO", 
-            Values = new BindableCollection<ParameterValueItem>
+            LegacyName = "maxMemoryValue",
+            DisplayName = Resources.Strings.S_PARAMETER_MAX_MEMORY,
+            Tooltip = Resources.Strings.S_PARAMETER_MAX_MEMORY_DESC, 
+            Values = new BindableCollection<ValueItem>
             {
-                new ParameterValueItem("768", "TODO768"),
-                new ParameterValueItem("1024", "TODO1024"),
-                new ParameterValueItem("2048", "TODO2048"),
-                new ParameterValueItem("4096", "TODO4096"),
-                new ParameterValueItem("8192", "TODO8192"),
+                new ValueItem("1024", "1024 MiB"),
+                new ValueItem("2048", "2048 MiB"),
+                new ValueItem("4096", "4096 MiB"),
+                new ValueItem("8192", "8192 MiB"),
             }
+        };
+        private readonly SelectionParameter _videoMemory = new SelectionParameter
+        {
+            Name = "-maxVRAM=",
+            LegacyName = "maxVMemoryValue",
+            DisplayName = Resources.Strings.S_PARAMETER_MAX_VMEMORY,
+            Tooltip = Resources.Strings.S_PARAMETER_MAX_VMEMORY_DESC,
+            Values = new BindableCollection<ValueItem>
+            {
+                new ValueItem("512", "512 MiB"),
+                new ValueItem("1024", "1024 MiB"),
+                new ValueItem("2048", "2048 MiB"),
+                new ValueItem("4096", "4096 MiB"),
+                new ValueItem("8192", "8192 MiB"),
+            }
+        };
+
+        private readonly NumericalParameter _cpuCount = new NumericalParameter
+        {
+            Name = "-cpuCount=",
+            LegacyName = string.Empty,
+            DisplayName = Resources.Strings.S_PARAMETER_CPU_COUNT,
+            Tooltip = Resources.Strings.S_PARAMETER_CPU_COUNT_DESC,
+            MinValue = 1,
+            MaxValue = 32
+        };
+        private readonly NumericalParameter _exThreads = new NumericalParameter
+        {
+            Name = "-exThreads=",
+            LegacyName = string.Empty,
+            DisplayName = Resources.Strings.S_PARAMETER_EXTHREADS,
+            Tooltip = Resources.Strings.S_PARAMETER_EX_THREADS_DESC,
+            MinValue = 0,
+            MaxValue = 7
         };
         private readonly LaunchParameter _additional = new LaunchParameter
         {
@@ -158,6 +191,9 @@ namespace _11thLauncher.Services
                 _malloc32,
                 _malloc64,
                 _memory,
+                _videoMemory,
+                _cpuCount,
+                _exThreads,
                 _additional
             };
         }
@@ -166,11 +202,11 @@ namespace _11thLauncher.Services
 
         public void ReadAllocators(string arma3Path)
         {
-            BindableCollection<ParameterValueItem> allocators32 = new BindableCollection<ParameterValueItem>();
-            BindableCollection<ParameterValueItem> allocators64 = new BindableCollection<ParameterValueItem>();
+            BindableCollection<ValueItem> allocators32 = new BindableCollection<ValueItem>();
+            BindableCollection<ValueItem> allocators64 = new BindableCollection<ValueItem>();
 
-            allocators32.Add(new ParameterValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
-            allocators64.Add(new ParameterValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
+            allocators32.Add(new ValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
+            allocators64.Add(new ValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
 
             if (arma3Path == "") return;
 
@@ -179,14 +215,14 @@ namespace _11thLauncher.Services
             {
                 if (file.EndsWith("_x64.dll")) continue;
                 var name = Path.GetFileNameWithoutExtension(file);
-                allocators32.Add(new ParameterValueItem(name, name + " (x32)"));
+                allocators32.Add(new ValueItem(name, name + " (x32)"));
             }
 
             string[] filesX64 = Directory.GetFiles(arma3Path + "\\Dll", "*_x64.dll");
             foreach (string file in filesX64)
             {
                 var name = Path.GetFileNameWithoutExtension(file);
-                allocators64.Add(new ParameterValueItem(name, name + " (x64)"));
+                allocators64.Add(new ValueItem(name, name + " (x64)"));
             }
 
             _malloc32.Values = allocators32;

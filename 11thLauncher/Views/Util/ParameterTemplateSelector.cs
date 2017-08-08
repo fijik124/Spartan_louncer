@@ -22,6 +22,8 @@ namespace _11thLauncher.Views.Util
                     return element.FindResource("ParameterSelectionTemplate") as DataTemplate;
                 case ParameterType.Text:
                     return element.FindResource("ParameterTextTemplate") as DataTemplate;
+                case ParameterType.Numerical:
+                    return element.FindResource("ParameterNumericalTemplate") as DataTemplate;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

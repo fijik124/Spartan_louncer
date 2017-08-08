@@ -52,7 +52,7 @@ namespace _11thLauncher.Models
 
     public enum ParameterType
     {
-        Boolean, Selection, Text
+        Boolean, Selection, Text, Numerical
     }
 
     public enum ServerStatus

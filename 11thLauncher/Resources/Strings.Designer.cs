@@ -1132,6 +1132,24 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CPU Count.
+        /// </summary>
+        public static string S_PARAMETER_CPU_COUNT {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_CPU_COUNT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of CPU cores to use (equal or less than the number of processor cores).
+        /// </summary>
+        public static string S_PARAMETER_CPU_COUNT_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_CPU_COUNT_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Empty world.
         /// </summary>
         public static string S_PARAMETER_EMPTY_WORLD {
@@ -1146,6 +1164,24 @@ namespace _11thLauncher.Resources {
         public static string S_PARAMETER_EMPTY_WORLD_DESC {
             get {
                 return ResourceManager.GetString("S_PARAMETER_EMPTY_WORLD_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of additional threads to use.
+        /// </summary>
+        public static string S_PARAMETER_EX_THREADS_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_EX_THREADS_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extra threads.
+        /// </summary>
+        public static string S_PARAMETER_EXTHREADS {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_EXTHREADS", resourceCulture);
             }
         }
         
@@ -1245,6 +1281,42 @@ namespace _11thLauncher.Resources {
         public static string S_PARAMETER_MALLOC_SYSTEM {
             get {
                 return ResourceManager.GetString("S_PARAMETER_MALLOC_SYSTEM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RAM memory limit.
+        /// </summary>
+        public static string S_PARAMETER_MAX_MEMORY {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_MAX_MEMORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount of RAM memory available.
+        /// </summary>
+        public static string S_PARAMETER_MAX_MEMORY_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_MAX_MEMORY_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video memory limit.
+        /// </summary>
+        public static string S_PARAMETER_MAX_VMEMORY {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_MAX_VMEMORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount of video memory available.
+        /// </summary>
+        public static string S_PARAMETER_MAX_VMEMORY_DESC {
+            get {
+                return ResourceManager.GetString("S_PARAMETER_MAX_VMEMORY_DESC", resourceCulture);
             }
         }
         

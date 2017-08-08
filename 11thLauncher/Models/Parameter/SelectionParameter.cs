@@ -10,10 +10,10 @@ namespace _11thLauncher.Models
             Type = ParameterType.Selection;
         }
 
-        public BindableCollection<ParameterValueItem> Values { get; set; }
+        public BindableCollection<ValueItem> Values { get; set; }
 
-        [DataMember]
-        public ParameterValueItem SelectedValue { get; set; } //TODO
+        [DataMember(Order = 3)]
+        public ValueItem SelectedValue { get; set; } //TODO
 
         public void CopyStatus(SelectionParameter parameter)
         {

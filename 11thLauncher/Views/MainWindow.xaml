@@ -22,52 +22,12 @@
             <TabItem Header="Parámetros" HeaderTemplate="{StaticResource tabTitle}" >
                 <ScrollViewer Height="337" Width="615">
                     <Grid Height="1000" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <CheckBox x:Name="checkBox_maxMemory" Content="Límite de RAM" HorizontalAlignment="Left" Margin="359,10,0,0" VerticalAlignment="Top" ToolTip="Definir límite de memoria disponible" />
-                        <ComboBox x:Name="comboBox_maxMemory" HorizontalAlignment="Left" Margin="486,6,0,0" VerticalAlignment="Top" Width="127" IsEnabled="False">
-                            <ComboBoxItem Content="768"/>
-                            <ComboBoxItem Content="1024"/>
-                            <ComboBoxItem Content="2048 (hard-limit)"/>
-                            <ComboBoxItem Content="4096"/>
-                            <ComboBoxItem Content="8192"/>
-                        </ComboBox>
-                        <CheckBox x:Name="checkBox_maxVMemory" Content="Límite de VRAM" HorizontalAlignment="Left" Margin="359,55,0,0" VerticalAlignment="Top" ToolTip="Definir límite de memoria de video disponible" />
-                        <ComboBox x:Name="comboBox_maxVMemory" HorizontalAlignment="Left" Margin="486,51,0,0" VerticalAlignment="Top" Width="127" IsEnabled="False">
-                            <ComboBoxItem Content="128"/>
-                            <ComboBoxItem Content="256"/>
-                            <ComboBoxItem Content="512"/>
-                            <ComboBoxItem Content="1024"/>
-                            <ComboBoxItem Content="2048 (soft-limit)"/>
-                            <ComboBoxItem Content="4096"/>
-                            <ComboBoxItem Content="8192"/>
-                        </ComboBox>
-                        <CheckBox x:Name="checkBox_cpuCount" Content="Número de núcleos" HorizontalAlignment="Left" Margin="359,103,0,0" VerticalAlignment="Top" ToolTip="Número de núcleos a utilizar (menor o igual al número de núcleos del procesador)" />
-                        <ComboBox x:Name="comboBox_cpuCount" HorizontalAlignment="Left" Margin="506,101,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False">
-                            <ComboBoxItem Content="1"/>
-                            <ComboBoxItem Content="2"/>
-                            <ComboBoxItem Content="3"/>
-                            <ComboBoxItem Content="4"/>
-                            <ComboBoxItem Content="5"/>
-                            <ComboBoxItem Content="6"/>
-                            <ComboBoxItem Content="7"/>
-                            <ComboBoxItem Content="8"/>
-                        </ComboBox>
-                        <CheckBox x:Name="checkBox_extraThreads" Content="Hilos adicionales" HorizontalAlignment="Left" Margin="359,155,0,0" VerticalAlignment="Top" ToolTip="Número de hilos adicionales" />
-                        <ComboBox x:Name="comboBox_extraThreads" HorizontalAlignment="Left" Margin="506,155,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False">
-                            <ComboBoxItem Content="0"/>
-                            <ComboBoxItem Content="1"/>
-                            <ComboBoxItem Content="3"/>
-                            <ComboBoxItem Content="5"/>
-                            <ComboBoxItem Content="7"/>
-                        </ComboBox>
                         <CheckBox x:Name="checkBox_priority" Content="Prioridad de proceso" HorizontalAlignment="Left" Margin="359,201,0,0" VerticalAlignment="Top" ToolTip="Prioridad del proceso de ArmA 3 en Windows" />
                         <ComboBox x:Name="comboBox_priority" HorizontalAlignment="Left" Margin="506,201,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False">
                             <ComboBoxItem Content="Normal"/>
                             <ComboBoxItem Content="Encima de lo normal"/>
                             <ComboBoxItem Content="Alta"/>
                         </ComboBox>
-                        <CheckBox x:Name="checkBox_malloc" Content="Asignador de memoria" HorizontalAlignment="Left" Margin="359,246,0,0" VerticalAlignment="Top" ToolTip="Prioridad del proceso de ArmA 3 en Windows" />
-                        <TextBox x:Name="textBox_additionalParameters" HorizontalAlignment="Left" Height="23" Margin="10,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="605" RenderTransformOrigin="0.233,0.5"/>
-                        <ComboBox x:Name="comboBox_malloc" HorizontalAlignment="Left" Margin="506,246,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>

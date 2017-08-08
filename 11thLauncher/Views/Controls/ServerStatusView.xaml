@@ -50,7 +50,7 @@
                                         <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_layer_thick}" />
                                     </Rectangle.OpacityMask>
                                 </Rectangle>
-                                <Label x:Name="label_coopPlayers" Content="{Binding ServerInfo.CurrentPlayers}" />
+                                <Label x:Name="label_coopPlayers" Content="{Binding ServerInfo.CurrentPlayers, FallbackValue='-/-'}" />
                             </StackPanel>
                             <HierarchicalDataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Unknown}">

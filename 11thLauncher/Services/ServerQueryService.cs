@@ -49,6 +49,7 @@ namespace _11thLauncher.Services
                 else
                 {
                     server.ServerStatus = ServerStatus.Offline;
+                    server.ServerInfo = null;
                 }
                 gameServer.Dispose();
             }

@@ -18,7 +18,7 @@ namespace _11thLauncher.Models
         /// <summary>
         /// Name of the launch parameter.
         /// </summary>
-        [DataMember]
+        [DataMember(Order = 0)]
         public string Name
         {
             get => _name;
@@ -35,7 +35,7 @@ namespace _11thLauncher.Models
 
         public string Tooltip { get; set; }
 
-        [DataMember]
+        [DataMember(Order = 1)]
         public bool IsEnabled
         {
             get => _isEnabled;
@@ -51,7 +51,7 @@ namespace _11thLauncher.Models
         /// <summary>
         /// Platform of the launch parameter.
         /// </summary>
-        [DataMember]
+        [DataMember(Order = 2)]
         public ParameterPlatform Platform
         {
             get => _platform;

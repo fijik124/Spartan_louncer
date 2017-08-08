@@ -1,11 +1,11 @@
 ﻿namespace _11thLauncher.Models
 {
-    public class ParameterValueItem
+    public class ValueItem
     {
         public string Value { get; set; }
         public string DisplayName { get; set; }
 
-        public ParameterValueItem(string value, string displayValue)
+        public ValueItem(string value, string displayValue)
         {
             Value = value;
             DisplayName = displayValue;

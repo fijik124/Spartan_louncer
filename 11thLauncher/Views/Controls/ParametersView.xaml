@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:model="clr-namespace:_11thLauncher.Models"
              xmlns:util="clr-namespace:_11thLauncher.Views.Util"
              xmlns:resx="clr-namespace:_11thLauncher.Resources"
@@ -13,7 +14,7 @@
         <util:ParameterTemplateSelector x:Key="ParameterTemplateSelector" />
         <!-- Boolean parameter template -->
         <DataTemplate x:Key="ParameterBooleanTemplate" DataType="model:LaunchParameter">
-            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,1">
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,3">
                 <CheckBox IsChecked="{Binding IsEnabled}" Margin="310,0,0,0"/>
                 <Label Content="{Binding Path=DisplayName}" ContentStringFormat=":{0}" Width="260" >
                     <Label.ToolTip>
@@ -36,7 +37,7 @@
         </DataTemplate>
         <!-- Selection parameter template -->
         <DataTemplate x:Key="ParameterSelectionTemplate" DataType="model:SelectionParameter">
-            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,5">
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,3">
                 <ComboBox ItemsSource="{Binding Values}" DisplayMemberPath="DisplayName" IsEnabled="{Binding IsEnabled}" Width="280" Margin="20,0,0,0" FlowDirection="LeftToRight"/>
                 <CheckBox IsChecked="{Binding IsEnabled}" Margin="10,0,0,0" />
                 <Label Content="{Binding Path=DisplayName}" ContentStringFormat=":{0}" Width="260">
@@ -60,8 +61,33 @@
         </DataTemplate>
         <!-- Text parameter template -->
         <DataTemplate x:Key="ParameterTextTemplate" DataType="model:LaunchParameter">
-            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,5">
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,3">
                 <TextBox Text="{Binding Name, Mode=TwoWay}" IsEnabled="{Binding IsEnabled}" Width="280" Margin="20,0,0,0" FlowDirection="LeftToRight"/>
+                <CheckBox IsChecked="{Binding IsEnabled}" Margin="10,0,0,0" />
+                <Label Content="{Binding Path=DisplayName}" ContentStringFormat=":{0}" Width="260">
+                    <Label.ToolTip>
+                        <ToolTip FlowDirection="LeftToRight">
+                            <StackPanel>
+                                <TextBlock FontWeight="SemiBold">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}: {1}">
+                                            <Binding Mode="OneWay" Source="{x:Static resx:Strings.S_PARAMETER_COMMAND}" />
+                                            <Binding Path="Name"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Tooltip}" />
+                            </StackPanel>
+                        </ToolTip>
+                    </Label.ToolTip>
+                </Label>
+            </StackPanel>
+        </DataTemplate>
+        <!-- Numerical parameter template -->
+        <DataTemplate x:Key="ParameterNumericalTemplate" DataType="model:NumericalParameter">
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,3">
+                <controls:NumericUpDown Value="{Binding Value, Mode=TwoWay}" IsEnabled="{Binding IsEnabled}" Width="280" Margin="20,0,0,0" FlowDirection="LeftToRight" 
+                                        Minimum="{Binding MinValue}" Maximum="{Binding MaxValue}" HasDecimals="False" />
                 <CheckBox IsChecked="{Binding IsEnabled}" Margin="10,0,0,0" />
                 <Label Content="{Binding Path=DisplayName}" ContentStringFormat=":{0}" Width="260">
                     <Label.ToolTip>
