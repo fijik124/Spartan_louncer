@@ -1,9 +1,8 @@
-﻿using System;
+﻿using System.ComponentModel;
 using System.Linq;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
-using _11thLauncher.Services;
 using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
@@ -31,6 +30,10 @@ namespace _11thLauncher.ViewModels.Controls
             _parameterService = parameterService;
 
             Parameters = _parameterService.Parameters;
+            foreach (LaunchParameter parameter in Parameters)
+            {
+                parameter.PropertyChanged += Parameter_StatusChanged;
+            }
         }
 
         #region Message handling
@@ -42,6 +45,15 @@ namespace _11thLauncher.ViewModels.Controls
                 var profileParameter = message.Parameters.FirstOrDefault(parameter.Equals);
                 parameter.CopyStatus(profileParameter);
             }
+        }
+
+        #endregion
+
+        #region UI Actions
+
+        private void Parameter_StatusChanged(object sender, PropertyChangedEventArgs e)
+        {
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
         }
 
         #endregion

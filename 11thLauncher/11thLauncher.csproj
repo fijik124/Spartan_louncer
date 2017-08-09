@@ -124,6 +124,7 @@
     <Compile Include="Models\ConfigFile.cs" />
     <Compile Include="Models\Parameter\NumericalParameter.cs" />
     <Compile Include="Models\Parameter\SelectionParameter.cs" />
+    <Compile Include="Models\Parameter\TextParameter.cs" />
     <Compile Include="Models\Parameter\ValueItem.cs" />
     <Compile Include="Models\Profile\ProfileFile.cs" />
     <Compile Include="Messages\AddonsLoadedMessage.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Services\Contracts\IParameterService.cs" />
     <Compile Include="Services\Contracts\IProfileService.cs" />
     <Compile Include="Services\ParameterService.cs" />
+    <Compile Include="Services\Util\JsonLaunchParameterConverter.cs" />
     <Compile Include="ViewModels\Util\ExtensionMethods.cs" />
     <Compile Include="Services\AddonService.cs" />
     <Compile Include="Services\Arma3SyncService.cs" />

@@ -1,7 +1,11 @@
-﻿namespace _11thLauncher.Models
+﻿using System.Runtime.Serialization;
+
+namespace _11thLauncher.Models
 {
+    [DataContract]
     public class ValueItem
     {
+        [DataMember]
         public string Value { get; set; }
         public string DisplayName { get; set; }
 

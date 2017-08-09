@@ -6,9 +6,9 @@ namespace _11thLauncher.Models
     [DataContract]
     public class LaunchParameter : PropertyChangedBase //TODO complete class
     {
-        private string _name;
-        private ParameterPlatform _platform;
-        private bool _isEnabled;
+        protected string _name;
+        protected ParameterPlatform _platform;
+        protected bool _isEnabled;
 
         public LaunchParameter()
         {
@@ -35,7 +35,7 @@ namespace _11thLauncher.Models
 
         public string Tooltip { get; set; }
 
-        [DataMember(Order = 1)]
+        [DataMember(Order = 3)]
         public bool IsEnabled
         {
             get => _isEnabled;
@@ -46,6 +46,7 @@ namespace _11thLauncher.Models
             }
         }
 
+        [DataMember(Order = 1)]
         public ParameterType Type { get; set; }
 
         /// <summary>
@@ -62,9 +63,9 @@ namespace _11thLauncher.Models
             }
         }
         
-        public void CopyStatus(LaunchParameter parameter)
+        public virtual void CopyStatus(LaunchParameter parameter)
         {
-            IsEnabled = parameter?.IsEnabled ?? false;
+            _isEnabled = parameter?.IsEnabled ?? false;
         }
 
         public override bool Equals(object obj)

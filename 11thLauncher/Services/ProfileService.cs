@@ -6,6 +6,7 @@ using Caliburn.Micro;
 using Newtonsoft.Json;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
+using _11thLauncher.Services.Util;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace _11thLauncher.Services
@@ -42,8 +43,11 @@ namespace _11thLauncher.Services
         public void Read(UserProfile profile, out BindableCollection<Addon> addons, out BindableCollection<LaunchParameter> parameters, out LaunchSettings launchSettings)
         {
             ProfileFile profileFile = new ProfileFile { Profile = profile };
-            JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, 
-                string.Format(Constants.ProfileNameFormat, profile.Id))), profileFile); //TODO TRYCTACH
+
+            var settings = new JsonSerializerSettings { Converters = { new JsonLaunchParameterConverter() } };
+            JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder,
+                string.Format(Constants.ProfileNameFormat, profile.Id))), profileFile, settings); //TODO TRYCTACH
+
             addons = profileFile.Addons;
             parameters = profileFile.Parameters;
             launchSettings = profileFile.LaunchSettings;

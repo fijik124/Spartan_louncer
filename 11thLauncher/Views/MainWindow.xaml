@@ -15,11 +15,7 @@
     
     <Grid>
         <controls:MetroAnimatedSingleRowTabControl x:Name="metroAnimatedSingleRowTabControl" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Height="372" Width="623" controls:TabControlHelper.IsUnderlined="False">
-            <TabItem Header="ArmA 3" HeaderTemplate="{StaticResource tabTitle}" >
-                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
-                </Grid>
-            </TabItem>
-            <TabItem Header="Parámetros" HeaderTemplate="{StaticResource tabTitle}" >
+            <TabItem Header="Parámetros" >
                 <ScrollViewer Height="337" Width="615">
                     <Grid Height="1000" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <CheckBox x:Name="checkBox_priority" Content="Prioridad de proceso" HorizontalAlignment="Left" Margin="359,201,0,0" VerticalAlignment="Top" ToolTip="Prioridad del proceso de ArmA 3 en Windows" />

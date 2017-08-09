@@ -25,12 +25,21 @@ namespace _11thLauncher.Models
             set => _maxValue = value;
         }
 
-        [DataMember(Order = 3)]
+        [DataMember(Order = 4)]
         public int Value
         {
             get => _value;
-            set => _value = (value > MaxValue) ? MaxValue : value;
+            set
+            {
+                _value = (value > MaxValue) ? MaxValue : value;
+                NotifyOfPropertyChange();
+            }
+        }
 
+        public override void CopyStatus(LaunchParameter parameter)
+        {
+            base.CopyStatus(parameter);
+            _value = ((NumericalParameter) parameter)?.Value ?? MinValue;
         }
     }
 }

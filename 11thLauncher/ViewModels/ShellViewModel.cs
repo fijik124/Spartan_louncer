@@ -237,7 +237,10 @@ namespace _11thLauncher.ViewModels
             //Set application style
             var style = _settingsService.ApplicationSettings.ThemeStyle;
             var accent = _settingsService.ApplicationSettings.AccentColor;
-            _eventAggregator.PublishOnCurrentThread(new ThemeChangedMessage(style, accent)); 
+            _eventAggregator.PublishOnCurrentThread(new ThemeChangedMessage(style, accent));
+
+            //Read memory allocators
+            _parameterService.ReadAllocators(_settingsService.ApplicationSettings.Arma3Path);
 
             //Read addons
             var addons = _addonService.ReadAddons(_settingsService.ApplicationSettings.Arma3Path);
@@ -246,9 +249,6 @@ namespace _11thLauncher.ViewModels
             //Add profiles and load default
             _eventAggregator.PublishOnCurrentThread(new ProfileAddedMessage(_settingsService.UserProfiles));
             _eventAggregator.PublishOnCurrentThread(new LoadProfileMessage(_settingsService.DefaultProfile));
-
-            //Read memory allocators TODO -> possible problems with parameters read before?
-            _parameterService.ReadAllocators(_settingsService.ApplicationSettings.Arma3Path);
 
             //Read repository settings
             new Thread(() =>
