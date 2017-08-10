@@ -9,11 +9,15 @@
              xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
              xmlns:resx="clr-namespace:_11thLauncher.Resources"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
-             xmlns:util="clr-namespace:_11thLauncher.Views.Util"
+             xmlns:util="clr-namespace:_11thLauncher.Util"
              mc:Ignorable="d" 
              d:DesignHeight="337" d:DesignWidth="615" d:DataContext="{d:DesignInstance Type=vm:GameViewModel}">
+    <Control.Resources>
+        <util:LaunchOptionConverter x:Key="OptionConverter" />
+    </Control.Resources>
     <Grid>
-        <controls:SplitButton ItemsSource="{Binding Source={util:Enumeration {x:Type m:LaunchOption}}}" DisplayMemberPath="Description"
+        <controls:SplitButton ItemsSource="{Binding Source={util:Enumeration {x:Type m:LaunchOption}}}" 
+                              SelectedItem="{Binding LaunchOption, Converter={StaticResource OptionConverter}}" DisplayMemberPath="Description"
                               cal:Message.Attach="[Event Click] = [Action ButtonLaunch];"
                               HorizontalAlignment="Left" VerticalAlignment="Top"
                               HorizontalContentAlignment="Left" 
@@ -35,11 +39,10 @@
                   ToolTip="{x:Static resx:Strings.S_PLATFORM_TIP}"
             HorizontalAlignment="Left" VerticalAlignment="Top" 
             Width="80" Margin="290,102,0,0" />
-        <Button x:Name="ButtonSelectAll" ToolTip="Copiar al portapapeles"
+        <Button x:Name="ButtonCopyToClipboard" ToolTip="{x:Static resx:Strings.S_BTN_COPY_TO_CLIPBOARD}"
                 Style="{DynamicResource MetroCircleButtonStyle}" 
-                Width="32" Height="32"
-                Margin="377,100,0,0"
-                HorizontalAlignment="Left"  VerticalAlignment="Top" >
+                Width="32" Height="32" Margin="377,100,0,0"
+                HorizontalAlignment="Left" VerticalAlignment="Top" >
             <Rectangle Width="15" Height="15" Fill="{DynamicResource AccentColorBrush}">
                 <Rectangle.OpacityMask>
                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_link}" />

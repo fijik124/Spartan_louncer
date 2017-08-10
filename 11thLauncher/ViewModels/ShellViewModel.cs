@@ -25,7 +25,7 @@ namespace _11thLauncher.ViewModels
         private readonly IServerQueryService _serverQueryService;
         private readonly IAddonSyncService _addonSyncService;
         private readonly IUpdaterService _updaterService;
-        private readonly ILauncherService _launcherService;
+        private readonly IGameService _launcherService;
 
         private WindowState _windowState;
         private Visibility _showTrayIcon = Visibility.Hidden;
@@ -37,7 +37,7 @@ namespace _11thLauncher.ViewModels
 
         public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager,
             ISettingsService settingsService, IAddonService addonService, IServerQueryService serverQueryService, IAddonSyncService addonSyncService,
-            IUpdaterService updaterService, IParameterService parameterService, ILauncherService launcherService, IProfileService profileService)
+            IUpdaterService updaterService, IParameterService parameterService, IGameService launcherService, IProfileService profileService)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 

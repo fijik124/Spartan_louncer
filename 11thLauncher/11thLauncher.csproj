@@ -144,21 +144,22 @@
     <Compile Include="Services\Contracts\IParameterService.cs" />
     <Compile Include="Services\Contracts\IProfileService.cs" />
     <Compile Include="Services\ParameterService.cs" />
-    <Compile Include="Services\Util\JsonLaunchParameterConverter.cs" />
-    <Compile Include="ViewModels\Util\ExtensionMethods.cs" />
+    <Compile Include="Util\JsonLaunchParameterConverter.cs" />
+    <Compile Include="Util\ExtensionMethods.cs" />
     <Compile Include="Services\AddonService.cs" />
     <Compile Include="Services\Arma3SyncService.cs" />
     <Compile Include="Services\Contracts\ISecurityService.cs" />
-    <Compile Include="Services\LauncherService.cs" />
+    <Compile Include="Services\GameService.cs" />
     <Compile Include="Services\Contracts\IAddonService.cs" />
     <Compile Include="Services\Contracts\IAddonSyncService.cs" />
-    <Compile Include="Services\Contracts\ILauncherService.cs" />
+    <Compile Include="Services\Contracts\IGameService.cs" />
     <Compile Include="Services\Contracts\ISettingsService.cs" />
     <Compile Include="Services\Contracts\IUpdaterService.cs" />
     <Compile Include="Services\SecurityService.cs" />
     <Compile Include="Services\ServerQueryService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UpdaterService.cs" />
+    <Compile Include="Util\LaunchOptionConverter.cs" />
     <Compile Include="ViewModels\Controls\RepositoryStatusViewModel.cs" />
     <Compile Include="ViewModels\Controls\ServerQueryViewModel.cs" />
     <Compile Include="Views\Controls\ProfileManagerView.xaml.cs">
@@ -167,8 +168,8 @@
     <Compile Include="Views\Controls\RepositoryStatusView.xaml.cs">
       <DependentUpon>RepositoryStatusView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Util\CultureDisplayConverter.cs" />
-    <Compile Include="Views\Util\EnumerationExtension.cs" />
+    <Compile Include="Util\CultureDisplayConverter.cs" />
+    <Compile Include="Util\EnumerationExtension.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Models\LaunchSettings.cs" />
@@ -196,7 +197,7 @@
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Util\ParameterTemplateSelector.cs" />
+    <Compile Include="Util\ParameterTemplateSelector.cs" />
     <Compile Include="Models\Profile\UserProfile.cs" />
     <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -269,14 +270,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Page Include="Resources\MahApps.Metro.Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

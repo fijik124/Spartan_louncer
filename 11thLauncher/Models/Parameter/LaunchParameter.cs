@@ -4,14 +4,15 @@ using Caliburn.Micro;
 namespace _11thLauncher.Models
 {
     [DataContract]
-    public class LaunchParameter : PropertyChangedBase //TODO complete class
+    public class LaunchParameter : PropertyChangedBase
     {
-        protected string _name;
-        protected ParameterPlatform _platform;
-        protected bool _isEnabled;
+        private string _name;
+        private ParameterPlatform _platform;
+        private bool _isEnabled;
 
         public LaunchParameter()
         {
+            Type = ParameterType.Boolean;
             Platform = ParameterPlatform.Any;
         }
 
@@ -67,6 +68,8 @@ namespace _11thLauncher.Models
         {
             _isEnabled = parameter?.IsEnabled ?? false;
         }
+
+        public virtual string LaunchString => Name;
 
         public override bool Equals(object obj)
         {

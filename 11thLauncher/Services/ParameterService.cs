@@ -14,88 +14,77 @@ namespace _11thLauncher.Services
             Name = "-skipIntro",
             LegacyName = "skipIntro",
             DisplayName = Resources.Strings.S_PARAMETER_SKIP_INTRO,
-            Tooltip = Resources.Strings.S_PARAMETER_SKIP_INTRO_DESC,
-            Type = ParameterType.Boolean
+            Tooltip = Resources.Strings.S_PARAMETER_SKIP_INTRO_DESC
         };
         private readonly LaunchParameter _noSplash = new LaunchParameter
         {
             Name = "-noSplash",
             LegacyName = "skipSplashScreen",
             DisplayName = Resources.Strings.S_PARAMETER_NO_SPLASH,
-            Tooltip = Resources.Strings.S_PARAMETER_NO_SPLASH_DESC,
-            Type = ParameterType.Boolean
+            Tooltip = Resources.Strings.S_PARAMETER_NO_SPLASH_DESC
         };
         private readonly LaunchParameter _emptyWorld = new LaunchParameter
         {
             Name = "-world=empty",
             LegacyName = "emptyWorld",
             DisplayName = Resources.Strings.S_PARAMETER_EMPTY_WORLD,
-            Tooltip = Resources.Strings.S_PARAMETER_EMPTY_WORLD_DESC,
-            Type = ParameterType.Boolean
+            Tooltip = Resources.Strings.S_PARAMETER_EMPTY_WORLD_DESC
         };
         private readonly LaunchParameter _window = new LaunchParameter
         {
             Name = "-window",
             LegacyName = "windowedMode",
             DisplayName = Resources.Strings.S_PARAMETER_WINDOW,
-            Tooltip = Resources.Strings.S_PARAMETER_WINDOW_DESC,
-            Type = ParameterType.Boolean
+            Tooltip = Resources.Strings.S_PARAMETER_WINDOW_DESC
         };
         private readonly LaunchParameter _filePatching = new LaunchParameter
         {
             Name = "-filePatching",
             LegacyName = "noFilePatching",
             DisplayName = Resources.Strings.S_PARAMETER_FILE_PATCHING,
-            Tooltip = Resources.Strings.S_PARAMETER_FILE_PATCHING_DESC,
-            Type = ParameterType.Boolean
+            Tooltip = Resources.Strings.S_PARAMETER_FILE_PATCHING_DESC
         };
         private readonly LaunchParameter _noPause = new LaunchParameter
         {
             Name = "-noPause",
             LegacyName = "noPause",
             DisplayName = Resources.Strings.S_PARAMETER_NO_PAUSE,
-            Tooltip = Resources.Strings.S_PARAMETER_NO_PAUSE_DESC,
-            Type = ParameterType.Boolean
+            Tooltip = Resources.Strings.S_PARAMETER_NO_PAUSE_DESC
         };
         private readonly LaunchParameter _noCb = new LaunchParameter
         {
             Name = "-noCB",
             LegacyName = "noCB",
             DisplayName = Resources.Strings.S_PARAMETER_NO_MULTICORE,
-            Tooltip = Resources.Strings.S_PARAMETER_NO_MULTICORE_DESC,
-            Type = ParameterType.Boolean
+            Tooltip = Resources.Strings.S_PARAMETER_NO_MULTICORE_DESC
         };
         private readonly LaunchParameter _showScriptErrors = new LaunchParameter
         {
             Name = "-showScriptErrors",
             LegacyName = "showScriptErrors",
             DisplayName = Resources.Strings.S_PARAMETER_SHOW_ERRORS,
-            Tooltip = Resources.Strings.S_PARAMETER_SHOW_ERRORS_DESC,
-            Type = ParameterType.Boolean
+            Tooltip = Resources.Strings.S_PARAMETER_SHOW_ERRORS_DESC
         };
         private readonly LaunchParameter _noLogs = new LaunchParameter
         {
             Name = "-noLogs",
             LegacyName = "noLogs",
             DisplayName = Resources.Strings.S_PARAMETER_NO_LOGS,
-            Tooltip = Resources.Strings.S_PARAMETER_NO_LOGS_DESC,
-            Type = ParameterType.Boolean
+            Tooltip = Resources.Strings.S_PARAMETER_NO_LOGS_DESC
         };
         private readonly LaunchParameter _enableHt = new LaunchParameter
         {
             Name = "-enableHT",
             LegacyName = "hyperthreading",
             DisplayName = Resources.Strings.S_PARAMETER_HYPERTHREADING,
-            Tooltip = Resources.Strings.S_PARAMETER_HYPERTHREADING_DESC,
-            Type = ParameterType.Boolean
+            Tooltip = Resources.Strings.S_PARAMETER_HYPERTHREADING_DESC
         };
         private readonly LaunchParameter _hugePages = new LaunchParameter
         {
             Name = "-hugePages",
             LegacyName = string.Empty,
             DisplayName = Resources.Strings.S_PARAMETER_HUGE_PAGES,
-            Tooltip = Resources.Strings.S_PARAMETER_HUGE_PAGES_DESC,
-            Type = ParameterType.Boolean
+            Tooltip = Resources.Strings.S_PARAMETER_HUGE_PAGES_DESC
         };
         private readonly SelectionParameter _malloc32 = new SelectionParameter
         {
@@ -103,7 +92,6 @@ namespace _11thLauncher.Services
             LegacyName = "memoryAllocatorValue",
             DisplayName = Resources.Strings.S_PARAMETER_MALLOC_32,
             Tooltip = Resources.Strings.S_PARAMETER_MALLOC_32_DESC,
-            Type = ParameterType.Selection,
             Platform = ParameterPlatform.X86
         };
         private readonly SelectionParameter _malloc64 = new SelectionParameter
@@ -112,7 +100,6 @@ namespace _11thLauncher.Services
             LegacyName = string.Empty,
             DisplayName = Resources.Strings.S_PARAMETER_MALLOC_64,
             Tooltip = Resources.Strings.S_PARAMETER_MALLOC_64_DESC,
-            Type = ParameterType.Selection,
             Platform = ParameterPlatform.X64
         };
         private readonly SelectionParameter _memory = new SelectionParameter
@@ -144,7 +131,6 @@ namespace _11thLauncher.Services
                 new ValueItem("8192", "8192 MiB"),
             }
         };
-
         private readonly NumericalParameter _cpuCount = new NumericalParameter
         {
             Name = "-cpuCount=",
@@ -163,13 +149,12 @@ namespace _11thLauncher.Services
             MinValue = 0,
             MaxValue = 7
         };
-        private readonly LaunchParameter _additional = new LaunchParameter
+        private readonly LaunchParameter _additional = new TextParameter
         {
             Name = "",
             LegacyName = "extraParameters",
             DisplayName = Resources.Strings.S_PARAMETER_ADDITIONAL,
-            Tooltip = Resources.Strings.S_PARAMETER_ADDITIONAL_DESC,
-            Type = ParameterType.Text
+            Tooltip = Resources.Strings.S_PARAMETER_ADDITIONAL_DESC
         };
 
         #endregion

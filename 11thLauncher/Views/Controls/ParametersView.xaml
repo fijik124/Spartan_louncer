@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:model="clr-namespace:_11thLauncher.Models"
-             xmlns:util="clr-namespace:_11thLauncher.Views.Util"
+             xmlns:util="clr-namespace:_11thLauncher.Util"
              xmlns:resx="clr-namespace:_11thLauncher.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -61,9 +61,9 @@
             </StackPanel>
         </DataTemplate>
         <!-- Text parameter template -->
-        <DataTemplate x:Key="ParameterTextTemplate" DataType="model:LaunchParameter">
+        <DataTemplate x:Key="ParameterTextTemplate" DataType="model:TextParameter">
             <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,3">
-                <TextBox Text="{Binding Name, Mode=TwoWay}" IsEnabled="{Binding IsEnabled}" Width="280" Margin="20,0,0,0" FlowDirection="LeftToRight"/>
+                <TextBox Text="{Binding Value}" IsEnabled="{Binding IsEnabled}" Width="280" Margin="20,0,0,0" FlowDirection="LeftToRight"/>
                 <CheckBox IsChecked="{Binding IsEnabled}" Margin="10,0,0,0" />
                 <Label Content="{Binding Path=DisplayName}" ContentStringFormat=":{0}" Width="260">
                     <Label.ToolTip>
@@ -73,7 +73,7 @@
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0}: {1}">
                                             <Binding Mode="OneWay" Source="{x:Static resx:Strings.S_PARAMETER_COMMAND}" />
-                                            <Binding Path="Name"/>
+                                            <Binding Path="Value"/>
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>

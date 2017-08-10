@@ -654,4 +654,7 @@
   <data name="S_PARAMETER_EX_THREADS_DESC" xml:space="preserve">
     <value>Número de hilos adicionales a utilizar</value>
   </data>
+  <data name="S_BTN_COPY_TO_CLIPBOARD" xml:space="preserve">
+    <value>Copiar linea de inicio al portapapeles</value>
+  </data>
 </root>

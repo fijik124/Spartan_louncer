@@ -1,13 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _11thLauncher.Models.Parameter
+﻿namespace _11thLauncher.Models
 {
     public class TextParameter : LaunchParameter
     {
-        //TODO
+        private string _value;
+
+        public TextParameter()
+        {
+            Type = ParameterType.Text;
+        }
+
+        public string Value
+        {
+            get => _value ?? string.Empty;
+            set
+            {
+                _value = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public override string LaunchString => Value.Trim();
     }
 }

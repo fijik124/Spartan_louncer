@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using _11thLauncher.Models;
 
-namespace _11thLauncher.Views.Util
+namespace _11thLauncher.Util
 {
     public class ParameterTemplateSelector : DataTemplateSelector
     {

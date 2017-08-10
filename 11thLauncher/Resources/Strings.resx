@@ -634,4 +634,7 @@
   <data name="S_PARAMETER_EX_THREADS_DESC" xml:space="preserve">
     <value>Number of additional threads to use</value>
   </data>
+  <data name="S_BTN_COPY_TO_CLIPBOARD" xml:space="preserve">
+    <value>Copy launch shortcut to clipboard</value>
+  </data>
 </root>

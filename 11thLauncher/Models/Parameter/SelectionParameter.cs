@@ -31,5 +31,7 @@ namespace _11thLauncher.Models
             base.CopyStatus(parameter);
             _selectValueItem = Values.FirstOrDefault(p => p.Value.Equals(((SelectionParameter)parameter)?.SelectedValue?.Value)) ?? Values.FirstOrDefault();
         }
+
+        public override string LaunchString => SelectedValue != null ? Name + SelectedValue.Value : string.Empty;
     }
 }

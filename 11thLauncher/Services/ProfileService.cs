@@ -6,7 +6,7 @@ using Caliburn.Micro;
 using Newtonsoft.Json;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
-using _11thLauncher.Services.Util;
+using _11thLauncher.Util;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace _11thLauncher.Services

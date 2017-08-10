@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:resx="clr-namespace:_11thLauncher.Resources"
              xmlns:controls="clr-namespace:_11thLauncher.ViewModels.Controls"
-             xmlns:util="clr-namespace:_11thLauncher.Views.Util"
              mc:Ignorable="d" 
              d:DesignHeight="337" d:DesignWidth="615" d:DataContext="{d:DesignInstance Type=controls:ProfileManagerViewModel}">
     <Grid>

@@ -41,5 +41,7 @@ namespace _11thLauncher.Models
             base.CopyStatus(parameter);
             _value = ((NumericalParameter) parameter)?.Value ?? MinValue;
         }
+
+        public override string LaunchString => Name + Value;
     }
 }

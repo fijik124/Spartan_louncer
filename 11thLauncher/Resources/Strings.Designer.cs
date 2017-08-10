@@ -448,6 +448,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy launch shortcut to clipboard.
+        /// </summary>
+        public static string S_BTN_COPY_TO_CLIPBOARD {
+            get {
+                return ResourceManager.GetString("S_BTN_COPY_TO_CLIPBOARD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create new profile.
         /// </summary>
         public static string S_BTN_PROFILE_CREATE {

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 
-namespace _11thLauncher.ViewModels.Util
+namespace _11thLauncher.Util
 {
     public static class ExtensionMethods
     {

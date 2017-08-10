@@ -47,7 +47,7 @@ namespace _11thLauncher
             _container.Singleton<IAddonService, AddonService>();
             _container.Singleton<IParameterService, ParameterService>();
             _container.Singleton<IAddonSyncService, Arma3SyncService>();
-            _container.Singleton<ILauncherService, LauncherService>();
+            _container.Singleton<IGameService, GameService>();
             _container.Singleton<IUpdaterService, UpdaterService>();
             _container.Singleton<ISecurityService, SecurityService>();
         }

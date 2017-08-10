@@ -8,7 +8,7 @@
         xmlns:model="clr-namespace:_11thLauncher.Models"
         xmlns:vm="clr-namespace:_11thLauncher.ViewModels"
         xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
-        xmlns:util="clr-namespace:_11thLauncher.Views.Util"
+        xmlns:util="clr-namespace:_11thLauncher.Util"
         xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
         dialog:DialogParticipation.Register="{Binding}"
         mc:Ignorable="d"

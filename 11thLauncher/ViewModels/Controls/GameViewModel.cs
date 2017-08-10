@@ -8,22 +8,17 @@ namespace _11thLauncher.ViewModels.Controls
     public class GameViewModel : PropertyChangedBase, IHandle<ProfileLoadedMessage>, IHandle<FillServerInfoMessage>
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly ILauncherService _launcherService;
-        private readonly IAddonService _addonService;
-        private readonly IParameterService _parameterService;
+        private readonly IGameService _gameService;
         private readonly ISecurityService _securityService;
 
         private bool _loadingProfile;
 
-        public GameViewModel(IEventAggregator eventAggregator, ILauncherService launcherService, 
-            IAddonService addonService, IParameterService parameterService, ISecurityService securityService)
+        public GameViewModel(IEventAggregator eventAggregator, IGameService gameService, ISecurityService securityService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
 
-            _launcherService = launcherService;
-            _addonService = addonService;
-            _parameterService = parameterService;
+            _gameService = gameService;
             _securityService = securityService;
         }
 
@@ -33,19 +28,19 @@ namespace _11thLauncher.ViewModels.Controls
         {
             _loadingProfile = true;
 
-            _launcherService.LaunchSettings.LaunchOption = message.LaunchSettings.LaunchOption;
+            _gameService.LaunchSettings.LaunchOption = message.LaunchSettings.LaunchOption;
             NotifyOfPropertyChange(() => LaunchOption);
 
-            _launcherService.LaunchSettings.Platform = message.LaunchSettings.Platform;
+            _gameService.LaunchSettings.Platform = message.LaunchSettings.Platform;
             NotifyOfPropertyChange(() => Platform);
 
-            _launcherService.LaunchSettings.Server = message.LaunchSettings.Server;
+            _gameService.LaunchSettings.Server = message.LaunchSettings.Server;
             NotifyOfPropertyChange(() => Server);
 
-            _launcherService.LaunchSettings.Port = message.LaunchSettings.Port;
+            _gameService.LaunchSettings.Port = message.LaunchSettings.Port;
             NotifyOfPropertyChange(() => Port);
 
-            _launcherService.LaunchSettings.Password = message.LaunchSettings.Password;
+            _gameService.LaunchSettings.Password = message.LaunchSettings.Password;
             NotifyOfPropertyChange(() => Password);
         }
 
@@ -60,10 +55,10 @@ namespace _11thLauncher.ViewModels.Controls
 
         public LaunchOption LaunchOption
         {
-            get => _launcherService.LaunchSettings.LaunchOption;
+            get => _gameService.LaunchSettings.LaunchOption;
             set
             {
-                _launcherService.LaunchSettings.LaunchOption = value;
+                _gameService.LaunchSettings.LaunchOption = value;
                 _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
             }
@@ -71,10 +66,10 @@ namespace _11thLauncher.ViewModels.Controls
 
         public LaunchPlatform Platform
         {
-            get => _launcherService.LaunchSettings.Platform;
+            get => _gameService.LaunchSettings.Platform;
             set
             {
-                _launcherService.LaunchSettings.Platform = value;
+                _gameService.LaunchSettings.Platform = value;
                 _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
             }
@@ -82,10 +77,10 @@ namespace _11thLauncher.ViewModels.Controls
 
         public string Server
         {
-            get => _launcherService.LaunchSettings.Server;
+            get => _gameService.LaunchSettings.Server;
             set
             {
-                _launcherService.LaunchSettings.Server = value;
+                _gameService.LaunchSettings.Server = value;
                 _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
             }
@@ -93,10 +88,10 @@ namespace _11thLauncher.ViewModels.Controls
 
         public string Port
         {
-            get => _launcherService.LaunchSettings.Port;
+            get => _gameService.LaunchSettings.Port;
             set
             {
-                _launcherService.LaunchSettings.Port = value;
+                _gameService.LaunchSettings.Port = value;
                 _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
             }
@@ -104,10 +99,10 @@ namespace _11thLauncher.ViewModels.Controls
 
         public string Password
         {
-            get => _securityService.DecryptPassword(_launcherService.LaunchSettings.Password);
+            get => _securityService.DecryptPassword(_gameService.LaunchSettings.Password);
             set
             {
-                _launcherService.LaunchSettings.Password = _securityService.EncryptPassword(value);
+                _gameService.LaunchSettings.Password = _securityService.EncryptPassword(value);
                 NotifyOfPropertyChange();
                 if (_loadingProfile) { _loadingProfile = false; return; } //Avoid profile write when loading profile
                 _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
@@ -118,8 +113,12 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void ButtonLaunch()
         {
-            _launcherService.StartGame(_addonService.GetAddons(), _parameterService.Parameters,
-                LaunchOption, Platform, Server, Port, Password);
+            _gameService.StartGame(LaunchOption, Platform, Server, Port, Password);
+        }
+
+        public void ButtonCopyToClipboard()
+        {
+            _gameService.CopyLaunchShortcut(LaunchOption, Platform, Server, Port, Password);
         }
 
         #endregion
