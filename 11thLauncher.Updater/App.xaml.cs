@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace _11thLauncherUpdater
+namespace _11thLauncher.Updater
 {
     /// <summary>
     /// Interaction logic for App.xaml

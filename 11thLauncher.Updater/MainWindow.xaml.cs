@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Diagnostics;
 
-namespace _11thLauncherUpdater
+namespace _11thLauncher.Updater
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
