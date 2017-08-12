@@ -1,7 +1,16 @@
 version: 1.0.{build}
 image: Visual Studio 2017
+
 before_build:
-- choco install ant --ignore-dependencies
-- cmd: nuget restore
+  - choco install ant --ignore-dependencies
+  - cmd: nuget restore
+
+configuration:
+  - Release
+
 build:
   verbosity: minimal
+  
+artifacts:
+  - path: bin\Release\11thLauncher.exe
+  - name: 11th MEU Launcher
