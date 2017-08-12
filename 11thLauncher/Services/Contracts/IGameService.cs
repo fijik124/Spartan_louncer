@@ -6,8 +6,8 @@ namespace _11thLauncher.Services.Contracts
     {
         LaunchSettings LaunchSettings { get; set; }
 
-        void StartGame(LaunchOption launchOption, LaunchPlatform platform, string server, string port, string password);
+        void StartGame();
 
-        void CopyLaunchShortcut(LaunchOption launchOption, LaunchPlatform platform, string server, string port, string password);
+        void CopyLaunchShortcut();
     }
 }

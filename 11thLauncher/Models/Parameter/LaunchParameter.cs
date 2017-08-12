@@ -63,13 +63,18 @@ namespace _11thLauncher.Models
                 NotifyOfPropertyChange();
             }
         }
-        
+
+        public virtual string LaunchString => Name;
+
+        public virtual void SetStatus(bool enabled)
+        {
+            _isEnabled = enabled;
+        }
+
         public virtual void CopyStatus(LaunchParameter parameter)
         {
             _isEnabled = parameter?.IsEnabled ?? false;
         }
-
-        public virtual string LaunchString => Name;
 
         public override bool Equals(object obj)
         {

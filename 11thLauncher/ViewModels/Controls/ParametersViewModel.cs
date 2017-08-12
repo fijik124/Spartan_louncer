@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Linq;
+using System.Windows.Data;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
@@ -40,11 +41,19 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void Handle(ProfileLoadedMessage message)
         {
+            //Reset all parameters before loading
+            foreach (LaunchParameter parameter in Parameters)
+            {
+                parameter.SetStatus(false);
+            }
+
             foreach (var parameter in Parameters)
             {
                 var profileParameter = message.Parameters.FirstOrDefault(parameter.Equals);
                 parameter.CopyStatus(profileParameter);
             }
+
+            CollectionViewSource.GetDefaultView(Parameters).Refresh();
         }
 
         #endregion

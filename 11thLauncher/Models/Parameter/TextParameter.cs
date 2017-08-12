@@ -1,4 +1,6 @@
-﻿namespace _11thLauncher.Models
+﻿using System.Runtime.Serialization;
+
+namespace _11thLauncher.Models
 {
     public class TextParameter : LaunchParameter
     {
@@ -9,6 +11,7 @@
             Type = ParameterType.Text;
         }
 
+        [DataMember(Order = 4)]
         public string Value
         {
             get => _value ?? string.Empty;
@@ -20,5 +23,11 @@
         }
 
         public override string LaunchString => Value.Trim();
+
+        public void SetStatus(bool enabled, string value)
+        {
+            base.SetStatus(enabled);
+            _value = value;
+        }
     }
 }

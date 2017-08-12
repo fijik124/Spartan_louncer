@@ -19,11 +19,9 @@
         <controls:SplitButton ItemsSource="{Binding Source={util:Enumeration {x:Type m:LaunchOption}}}" 
                               SelectedItem="{Binding LaunchOption, Converter={StaticResource OptionConverter}}" DisplayMemberPath="Description"
                               cal:Message.Attach="[Event Click] = [Action ButtonLaunch];"
-                              HorizontalAlignment="Left" VerticalAlignment="Top"
-                              HorizontalContentAlignment="Left" 
-                              Margin="227,38,0,0"  
-                              Width="188" Height="50" 
-                              FontSize="12" FontWeight="Normal" SelectedIndex="0">
+                              HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" 
+                              Margin="227,38,0,0" Width="188" Height="50" 
+                              FontSize="12" FontWeight="Normal">
             <controls:SplitButton.IconTemplate>
                 <DataTemplate>
                     <Image Source="/Resources/game.png" HorizontalAlignment="Left" Width="32" Height="32" Margin="5"/>

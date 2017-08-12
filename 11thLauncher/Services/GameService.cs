@@ -12,30 +12,29 @@ namespace _11thLauncher.Services
         private readonly ISettingsService _settingsService;
         private readonly IAddonService _addonService;
         private readonly IParameterService _parameterService;
+        private readonly ISecurityService _securityService;
 
         public LaunchSettings LaunchSettings { get; set; }
 
-        public GameService(ISettingsService settingsService, IAddonService addonService, IParameterService parameterService)
+        public GameService(ISettingsService settingsService, IAddonService addonService, IParameterService parameterService, ISecurityService securityService)
         {
             _settingsService = settingsService;
             _addonService = addonService;
             _parameterService = parameterService;
+            _securityService = securityService;
 
             LaunchSettings = new LaunchSettings();
         }
 
-        public void StartGame(LaunchOption launchOption, LaunchPlatform platform, string server, string port, string password)
+        public void StartGame()
         {
-            var gameParams = string.Join(" ", 
-                GetParameterArguments(platform),
-                GetAddonArguments(), 
-                GetConnectionArguments(launchOption, server, port, password)).Trim();
+            var gameParams = string.Join(" ", GetParameterArguments(), GetAddonArguments(), GetConnectionArguments()).Trim();
 
             Process process = new Process
             {
                 StartInfo =
                 {
-                    FileName = "" + "\\" + GetGameExecutablePath(platform),
+                    FileName = "" + "\\" + GetGameExecutablePath(),
                     Verb = "runas"
                 }
             };
@@ -48,13 +47,13 @@ namespace _11thLauncher.Services
             process.Start();
         }
 
-        public void CopyLaunchShortcut(LaunchOption launchOption, LaunchPlatform platform, string server, string port, string password)
+        public void CopyLaunchShortcut()
         {
             var shortcut = string.Join(" ", 
-                GetGameExecutablePath(platform), 
-                GetParameterArguments(platform), 
+                GetGameExecutablePath(), 
+                GetParameterArguments(), 
                 GetAddonArguments(), 
-                GetConnectionArguments(launchOption, server, port, password)).Trim();
+                GetConnectionArguments()).Trim();
             Clipboard.SetText(shortcut);
         }
 
@@ -70,33 +69,34 @@ namespace _11thLauncher.Services
             return addonParams;
         }
 
-        private string GetParameterArguments(LaunchPlatform platform)
+        private string GetParameterArguments()
         {
             return string.Join(" ", _parameterService.Parameters
-                .Where(p => p.IsEnabled && (p.Platform == ParameterPlatform.Any || (int)p.Platform == (int)platform))
+                .Where(p => p.IsEnabled && (p.Platform == ParameterPlatform.Any || (int)p.Platform == (int)LaunchSettings.Platform))
                 .Select(p => p.LaunchString));
         }
 
-        private string GetConnectionArguments(LaunchOption launchOption, string server, string port, string password)
+        private string GetConnectionArguments()
         {
             var serverParams = "";
+            if (LaunchSettings.LaunchOption != LaunchOption.JoinServer) return serverParams;
 
-            if (launchOption == LaunchOption.JoinServer)
+            if (LaunchSettings.Server.Length > 0)
             {
-                if (server.Length > 0)
-                    serverParams += " -connect=" + server;
-                if (port.Length > 0)
-                    serverParams += " -port=" + port;
-                if (password.Length > 0)
-                    serverParams += " -password=" + password;
+                serverParams += "-connect=" + LaunchSettings.Server;
+
+                if (LaunchSettings.Port.Length > 0)
+                    serverParams += " -port=" + LaunchSettings.Port;
+                if (LaunchSettings.Password.Length > 0)
+                    serverParams += " -password=" + _securityService.DecryptPassword(LaunchSettings.Password);
             }
 
             return serverParams;
         }
 
-        private string GetGameExecutablePath(LaunchPlatform platform)
+        private string GetGameExecutablePath()
         {
-            return Path.Combine(_settingsService.ApplicationSettings.Arma3Path, platform == LaunchPlatform.X86 ? Constants.GameExecutable32 : Constants.GameExecutable64);
+            return Path.Combine(_settingsService.ApplicationSettings.Arma3Path, LaunchSettings.Platform == LaunchPlatform.X86 ? Constants.GameExecutable32 : Constants.GameExecutable64);
         }
     }
 }

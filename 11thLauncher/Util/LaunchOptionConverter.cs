@@ -11,11 +11,7 @@ namespace _11thLauncher.Util
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var launchOption = (LaunchOption?) value ?? 0;
-            return new EnumerationMember
-            {
-                Value = launchOption,
-                Description = launchOption.GetDescription()
-            };
+            return new EnumerationMember(launchOption, launchOption.GetDescription());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

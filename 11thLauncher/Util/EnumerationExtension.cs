@@ -43,11 +43,7 @@ namespace _11thLauncher.Util
 
             return (
               from object enumValue in enumValues
-              select new EnumerationMember
-              {
-                  Value = enumValue,
-                  Description = GetDescription(enumValue)
-              }).ToArray();
+              select new EnumerationMember(enumValue, GetDescription(enumValue))).ToArray();
         }
 
         private string GetDescription(object enumValue)
@@ -66,7 +62,25 @@ namespace _11thLauncher.Util
         public class EnumerationMember
         {
             public string Description { get; set; }
-            public object Value { get; set; }
+            public object Value { get; }
+
+            public EnumerationMember(object value, string description)
+            {
+                Value = value;
+                Description = description;
+            }
+
+            public override bool Equals(object obj)
+            {
+                var item = obj as EnumerationMember;
+
+                return item != null && Value.Equals(item.Value);
+            }
+
+            public override int GetHashCode()
+            {
+                return Value.GetHashCode();
+            }
         }
     }
 }

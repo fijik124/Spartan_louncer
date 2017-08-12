@@ -113,12 +113,12 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void ButtonLaunch()
         {
-            _gameService.StartGame(LaunchOption, Platform, Server, Port, Password);
+            _gameService.StartGame();
         }
 
         public void ButtonCopyToClipboard()
         {
-            _gameService.CopyLaunchShortcut(LaunchOption, Platform, Server, Port, Password);
+            _gameService.CopyLaunchShortcut();
         }
 
         #endregion

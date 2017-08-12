@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
@@ -82,10 +81,9 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void Handle(LoadProfileMessage message)
         {
-            _profileService.Read(message.Profile, out BindableCollection<Addon> addons, 
-                out BindableCollection<LaunchParameter> parameters, out LaunchSettings launchSettings);
-
-            _eventAggregator.PublishOnCurrentThread(new ProfileLoadedMessage(message.Profile, addons, parameters, launchSettings));
+            _selectedProfile = message.Profile;
+            NotifyOfPropertyChange(() => SelectedProfile);
+            LoadProfile(message.Profile);
         }
 
         #endregion
@@ -95,13 +93,17 @@ namespace _11thLauncher.ViewModels.Controls
         public void Profiles_SelectionChanged()
         {
             if (SelectedProfile == null) return;
-
-            _profileService.Read(SelectedProfile, out BindableCollection<Addon> addons, out BindableCollection<LaunchParameter> parameters, 
-                out LaunchSettings launchSettings);
-
-            _eventAggregator.PublishOnCurrentThread(new ProfileLoadedMessage(SelectedProfile, addons, parameters, launchSettings));
+            LoadProfile(SelectedProfile);
         }
 
         #endregion
+
+        private void LoadProfile(UserProfile profile)
+        {
+            _profileService.Read(profile, out BindableCollection<Addon> addons,
+                out BindableCollection<LaunchParameter> parameters, out LaunchSettings launchSettings);
+
+            _eventAggregator.PublishOnCurrentThread(new ProfileLoadedMessage(profile, addons, parameters, launchSettings));
+        }
     }
 }

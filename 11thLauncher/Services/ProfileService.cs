@@ -14,10 +14,12 @@ namespace _11thLauncher.Services
     public class ProfileService : IProfileService
     {
         private readonly IParameterService _parameterService;
+        private readonly ISecurityService _securityService;
 
-        public ProfileService(IParameterService parameterService)
+        public ProfileService(IParameterService parameterService, ISecurityService securityService)
         {
             _parameterService = parameterService;
+            _securityService = securityService;
         }
 
         public void Write(UserProfile profile, BindableCollection<Addon> addons, 
@@ -78,58 +80,87 @@ namespace _11thLauncher.Services
                     {
                         while (reader.Read())
                         {
-                            if (reader.IsStartElement())
+                            if (!reader.IsStartElement()) continue;
+
+                            string parameter;
+                            string value;
+                            bool parsed;
+                            switch (reader.Name)
                             {
-                                string parameter;
-                                string value;
-                                switch (reader.Name)
-                                {
-                                    case "Parameter":
-                                        parameter = reader["name"];
-                                        reader.Read();
-                                        value = reader.Value.Trim();
-                                        if (parameter != null)
+                                case "Parameter":
+                                    parameter = reader["name"];
+                                    reader.Read();
+                                    value = reader.Value.Trim();
+                                    if (parameter != null)
+                                    {
+                                        var matchingParameter = _parameterService.Parameters.FirstOrDefault(p => p.LegacyName.Equals(parameter));
+                                        if (matchingParameter != null)
                                         {
-                                            var matchingParameter = _parameterService.Parameters.FirstOrDefault(p => p.LegacyName.Equals(parameter));
-                                            if (matchingParameter != null)
+                                            switch (matchingParameter.Type)
                                             {
-                                                switch (matchingParameter.Type)
-                                                {
-                                                    case ParameterType.Boolean:
-                                                        bool parsedValue;
-                                                        var parsed = bool.TryParse(value, out parsedValue);
-                                                        matchingParameter.IsEnabled = parsed && parsedValue;
-                                                        break;
-                                                    case ParameterType.Selection:
-                                                        //TODO
-                                                        break;
-                                                    case ParameterType.Text:
-                                                        //TODO
-                                                        break;
-                                                    default:
-                                                        throw new ArgumentOutOfRangeException();
-                                                }
-                                                parameters.Add(matchingParameter);
+                                                case ParameterType.Boolean:
+                                                    bool parsedValue;
+                                                    parsed = bool.TryParse(value, out parsedValue);
+                                                    matchingParameter.SetStatus(parsed && parsedValue);
+                                                    break;
+                                                case ParameterType.Selection:
+                                                    //No legacy conversion
+                                                    break;
+                                                case ParameterType.Numerical:
+                                                    //No legacy conversion
+                                                    break;
+                                                case ParameterType.Text:
+                                                    ((TextParameter) matchingParameter).SetStatus(true, value);
+                                                    break;
+                                                default:
+                                                    throw new ArgumentOutOfRangeException();
                                             }
+                                            parameters.Add(matchingParameter);
                                         }
-                                        break;
-                                    case "A3Addon":
-                                        parameter = reader["name"];
-                                        reader.Read();
-                                        value = reader.Value.Trim();
-                                        //If addon no longer exists, discard it 
-                                        //if (Addons.LocalAddons.Contains(parameter))
-                                        //{
-                                        //    if (parameter != null) ProfileAddons[parameter] = value;
-                                        //}
-                                        break;
-                                    case "A3ServerInfo":
-                                        parameter = reader["name"];
-                                        reader.Read();
-                                        value = reader.Value.Trim();
-                                        //if (parameter != null) ProfileServerInfo[parameter] = value;
-                                        break;
-                                }
+                                    }
+                                    break;
+
+                                case "A3Addon":
+                                    parameter = reader["name"];
+                                    reader.Read();
+                                    bool enabled;
+                                    parsed = bool.TryParse(reader.Value.Trim(), out enabled);
+                                    if (parameter != null && parsed)
+                                    {
+                                        var addon = new Addon
+                                        {
+                                            IsEnabled = enabled,
+                                            Name = parameter
+                                        };
+                                        addons.Add(addon);
+                                    }
+                                    break;
+
+                                case "A3ServerInfo":
+                                    parameter = reader["name"];
+                                    reader.Read();
+                                    value = reader.Value.Trim();
+                                    switch (parameter)
+                                    {
+                                        case "server":
+                                            launchSettings.Server = value;
+                                            break;
+
+                                        case "port":
+                                            launchSettings.Port = value;
+                                            break;
+
+                                        case "pass":
+                                            launchSettings.Password = _securityService.EncryptPassword(value);
+                                            break;
+
+                                        default:
+                                            break;
+                                    }
+                                    break;
+
+                                default:
+                                    break;
                             }
                         }
                     }

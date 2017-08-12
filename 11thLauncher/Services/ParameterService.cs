@@ -89,7 +89,7 @@ namespace _11thLauncher.Services
         private readonly SelectionParameter _malloc32 = new SelectionParameter
         {
             Name = "-malloc=",
-            LegacyName = "memoryAllocatorValue",
+            LegacyName = string.Empty,
             DisplayName = Resources.Strings.S_PARAMETER_MALLOC_32,
             Tooltip = Resources.Strings.S_PARAMETER_MALLOC_32_DESC,
             Platform = ParameterPlatform.X86
@@ -105,7 +105,7 @@ namespace _11thLauncher.Services
         private readonly SelectionParameter _memory = new SelectionParameter
         {
             Name = "-maxMem=",
-            LegacyName = "maxMemoryValue",
+            LegacyName = string.Empty,
             DisplayName = Resources.Strings.S_PARAMETER_MAX_MEMORY,
             Tooltip = Resources.Strings.S_PARAMETER_MAX_MEMORY_DESC, 
             Values = new BindableCollection<ValueItem>
@@ -119,7 +119,7 @@ namespace _11thLauncher.Services
         private readonly SelectionParameter _videoMemory = new SelectionParameter
         {
             Name = "-maxVRAM=",
-            LegacyName = "maxVMemoryValue",
+            LegacyName = string.Empty,
             DisplayName = Resources.Strings.S_PARAMETER_MAX_VMEMORY,
             Tooltip = Resources.Strings.S_PARAMETER_MAX_VMEMORY_DESC,
             Values = new BindableCollection<ValueItem>
@@ -151,7 +151,7 @@ namespace _11thLauncher.Services
         };
         private readonly LaunchParameter _additional = new TextParameter
         {
-            Name = "",
+            Name = "Additional parameters",
             LegacyName = "extraParameters",
             DisplayName = Resources.Strings.S_PARAMETER_ADDITIONAL,
             Tooltip = Resources.Strings.S_PARAMETER_ADDITIONAL_DESC

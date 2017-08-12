@@ -15,6 +15,8 @@ namespace _11thLauncher.Models
         private bool _isEnabled;
         private AddonMetaData _metaData;
 
+        public Addon() {}
+
         /// <summary>
         /// Creates a new instance of the <see cref="Addon"/> class, with the specified name and initial status.
         /// </summary>

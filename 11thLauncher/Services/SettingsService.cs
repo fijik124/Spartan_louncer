@@ -121,7 +121,6 @@ namespace _11thLauncher.Services
                 {
                     configFile = ReadLegacy();
                     loadResult = LoadSettingsResult.LoadedLegacySettings;
-                    //TODO convert legacy profiles
 
                     ApplicationSettings = configFile.ApplicationSettings; //weird?
                     DefaultProfileId = configFile.DefaultProfileId;
@@ -254,6 +253,7 @@ namespace _11thLauncher.Services
             if (defaultProfile != null)
             {
                 configFile.DefaultProfileId = defaultProfile.Id;
+                defaultProfile.IsDefault = true;
             }
 
             //Delete the legacy config file after reading it
