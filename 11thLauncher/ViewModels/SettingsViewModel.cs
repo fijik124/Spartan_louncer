@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
@@ -15,6 +16,8 @@ namespace _11thLauncher.ViewModels
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
+        private readonly IFileAccessor _fileAccessor;
+        private readonly ISettingsService _settingsService;
 
         private bool _checkUpdates = true;
         private bool _checkServers = true;
@@ -31,17 +34,16 @@ namespace _11thLauncher.ViewModels
         private AccentColor _accent;
         private bool _minimizeNotification;
 
-        private readonly ISettingsService _settingsService;
-
         private string _selectedLanguage;
 
         private bool _restarting;
 
-        public SettingsViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, ISettingsService settingsService)
+        public SettingsViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IFileAccessor fileAccessor, ISettingsService settingsService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
             _dialogCoordinator = dialogCoordinator;
+            _fileAccessor = fileAccessor;
             _settingsService = settingsService;
 
             Load();
@@ -239,7 +241,7 @@ namespace _11thLauncher.ViewModels
             using (var dialog = new FolderBrowserDialog())
             {
                 dialog.Description = Resources.Strings.S_BROWSE_GAME_FOLDER;
-                if (!string.IsNullOrEmpty(GamePath) && Directory.Exists(GamePath))
+                if (!string.IsNullOrEmpty(GamePath) && _fileAccessor.DirectoryExists(GamePath))
                 {
                     dialog.SelectedPath = GamePath;
                 }
@@ -248,10 +250,10 @@ namespace _11thLauncher.ViewModels
                 if (result != DialogResult.OK) return;
 
                 string selectedPath = dialog.SelectedPath;
-                if (string.IsNullOrEmpty(selectedPath) || !Directory.Exists(selectedPath)) return;
+                if (string.IsNullOrEmpty(selectedPath) || !_fileAccessor.DirectoryExists(selectedPath)) return;
 
                 //Check if selected folder contains game executable
-                if (!File.Exists(Path.Combine(selectedPath, Constants.GameExecutable32)))
+                if (!_fileAccessor.FileExists(Path.Combine(selectedPath, Constants.GameExecutable32)))
                 {
                     await _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_INCORRECT_PATH_TITLE,
                         Resources.Strings.S_MSG_INCORRECT_PATH_CONTENT, MessageDialogStyle.Affirmative, new MetroDialogSettings
@@ -270,7 +272,7 @@ namespace _11thLauncher.ViewModels
             using (var dialog = new FolderBrowserDialog())
             {
                 dialog.Description = Resources.Strings.S_BROWSE_JAVA_FOLDER;
-                if (!string.IsNullOrEmpty(JavaPath) && Directory.Exists(JavaPath))
+                if (!string.IsNullOrEmpty(JavaPath) && _fileAccessor.DirectoryExists(JavaPath))
                 {
                     dialog.SelectedPath = JavaPath;
                 }
@@ -279,14 +281,14 @@ namespace _11thLauncher.ViewModels
                 if (result != DialogResult.OK) return;
 
                 string selectedPath = dialog.SelectedPath;
-                if (string.IsNullOrEmpty(selectedPath) || !Directory.Exists(selectedPath)) return;
+                if (string.IsNullOrEmpty(selectedPath) || !_fileAccessor.DirectoryExists(selectedPath)) return;
 
                 //Check if selected folder contains java binary folder or executable
-                if (File.Exists(Path.Combine(selectedPath, Constants.JavaExecutable)))
+                if (_fileAccessor.FileExists(Path.Combine(selectedPath, Constants.JavaExecutable)))
                 {
                     JavaPath = selectedPath;
                 }
-                else if (File.Exists(Path.Combine(selectedPath, Constants.JavaRuntimeBinaryFolder, Constants.JavaExecutable)))
+                else if (_fileAccessor.FileExists(Path.Combine(selectedPath, Constants.JavaRuntimeBinaryFolder, Constants.JavaExecutable)))
                 {
                     JavaPath = Path.Combine(selectedPath, Constants.JavaRuntimeBinaryFolder);
                 }
@@ -305,7 +307,7 @@ namespace _11thLauncher.ViewModels
             using (var dialog = new FolderBrowserDialog())
             {
                 dialog.Description = Resources.Strings.S_BROWSE_ARMA3SYNC_FOLDER;
-                if (!string.IsNullOrEmpty(SyncPath) && Directory.Exists(SyncPath))
+                if (!string.IsNullOrEmpty(SyncPath) && _fileAccessor.DirectoryExists(SyncPath))
                 {
                     dialog.SelectedPath = SyncPath;
                 }
@@ -314,10 +316,10 @@ namespace _11thLauncher.ViewModels
                 if (result != DialogResult.OK) return;
 
                 string selectedPath = dialog.SelectedPath;
-                if (string.IsNullOrEmpty(selectedPath) || !Directory.Exists(selectedPath)) return;
+                if (string.IsNullOrEmpty(selectedPath) || !_fileAccessor.DirectoryExists(selectedPath)) return;
 
                 //Check if selected folder contains arma3sync executable
-                if (!File.Exists(Path.Combine(selectedPath, Constants.Arma3SyncExecutable)))
+                if (!_fileAccessor.FileExists(Path.Combine(selectedPath, Constants.Arma3SyncExecutable)))
                 {
                     await _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_INCORRECT_ARMA3SYNC_PATH_TITLE,
                         Resources.Strings.S_MSG_INCORRECT_ARMA3SYNC_PATH_CONTENT, MessageDialogStyle.Affirmative, new MetroDialogSettings

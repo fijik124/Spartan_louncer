@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Caliburn.Micro;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 
@@ -8,6 +9,8 @@ namespace _11thLauncher.Services
     class ParameterService : IParameterService
     {
         #region Fields
+
+        private readonly IFileAccessor _fileAccessor;
 
         private readonly LaunchParameter _skipIntro = new LaunchParameter
         {
@@ -159,8 +162,10 @@ namespace _11thLauncher.Services
 
         #endregion
 
-        public ParameterService()
+        public ParameterService(IFileAccessor fileAccessor)
         {
+            _fileAccessor = fileAccessor;
+
             Parameters = new BindableCollection<LaunchParameter> {
                 _skipIntro,
                 _noSplash,
@@ -195,7 +200,7 @@ namespace _11thLauncher.Services
 
             if (arma3Path == "") return;
 
-            string[] files = Directory.GetFiles(arma3Path + "\\Dll", "*.dll");
+            string[] files = _fileAccessor.GetFiles(arma3Path + "\\Dll", "*.dll");
             foreach (string file in files)
             {
                 if (file.EndsWith("_x64.dll")) continue;
@@ -203,7 +208,7 @@ namespace _11thLauncher.Services
                 allocators32.Add(new ValueItem(name, name + " (x32)"));
             }
 
-            string[] filesX64 = Directory.GetFiles(arma3Path + "\\Dll", "*_x64.dll");
+            string[] filesX64 = _fileAccessor.GetFiles(arma3Path + "\\Dll", "*_x64.dll");
             foreach (string file in filesX64)
             {
                 var name = Path.GetFileNameWithoutExtension(file);

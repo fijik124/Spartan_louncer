@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
+using _11thLauncher.Accessors;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Services;
 using _11thLauncher.Services.Contracts;
 using _11thLauncher.ViewModels;
@@ -50,6 +52,11 @@ namespace _11thLauncher
             _container.Singleton<IGameService, GameService>();
             _container.Singleton<IUpdaterService, UpdaterService>();
             _container.Singleton<ISecurityService, SecurityService>();
+
+            //Accessors
+            _container.Singleton<IFileAccessor, FileAccessor>();
+            _container.Singleton<INetworkAccessor, NetworkAccessor>();
+            _container.Singleton<IRegistryAccessor, RegistryAccessor>();
         }
 
         protected override object GetInstance(Type service, string key)

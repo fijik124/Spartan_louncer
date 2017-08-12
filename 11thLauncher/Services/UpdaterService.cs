@@ -4,13 +4,20 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Windows;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.Services
 {
     public class UpdaterService : IUpdaterService
     {
+        private readonly IFileAccessor _fileAccessor;
         private static string _latestVersion = "";
+
+        public UpdaterService(IFileAccessor fileAccessor)
+        {
+            _fileAccessor = fileAccessor;
+        }
 
         /// <summary>
         /// Check if there is a new version available
@@ -60,7 +67,7 @@ namespace _11thLauncher.Services
         public void ExecuteUpdater()
         {
             //Extract updater
-            File.WriteAllBytes(Constants.UpdaterPath, Properties.Resources._11thLauncher_Updater);
+            _fileAccessor.WriteAllBytes(Constants.UpdaterPath, Properties.Resources._11thLauncher_Updater);
 
             var appPath = Assembly.GetExecutingAssembly().Location;
             var fullPath = "";
@@ -88,7 +95,7 @@ namespace _11thLauncher.Services
 
         public void RemoveUpdater()
         {
-            File.Delete(Constants.UpdaterPath);
+            _fileAccessor.DeleteFile(Constants.UpdaterPath);
         }
     }
 }

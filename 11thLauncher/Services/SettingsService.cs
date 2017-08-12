@@ -10,6 +10,7 @@ using Caliburn.Micro;
 using MahApps.Metro;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 
@@ -17,8 +18,11 @@ namespace _11thLauncher.Services
 {
     public class SettingsService : ISettingsService
     {
-        public SettingsService()
+        private readonly IFileAccessor _fileAccessor;
+        public SettingsService(IFileAccessor fileAccessor)
         {
+            _fileAccessor = fileAccessor;
+
             UserProfiles = new BindableCollection<UserProfile>();
             ApplicationSettings = new ApplicationSettings();
         }
@@ -45,9 +49,9 @@ namespace _11thLauncher.Services
         {
             var settingsExist = false;
 
-            if (Directory.Exists(Constants.ConfigPath))
+            if (_fileAccessor.DirectoryExists(Constants.ConfigPath))
             {
-                settingsExist = File.Exists(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName));
+                settingsExist = _fileAccessor.FileExists(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName));
             }
 
             return settingsExist;
@@ -77,7 +81,7 @@ namespace _11thLauncher.Services
             {
                 arma3RegPath = (string)Registry.GetValue(Constants.Arma3RegPath32[0], Constants.Arma3RegPath32[1], Constants.Arma3RegPath32[2]);
             }
-            if (!Directory.Exists(arma3RegPath))
+            if (!_fileAccessor.DirectoryExists(arma3RegPath))
             {
                 arma3RegPath = null;
             }
@@ -97,7 +101,7 @@ namespace _11thLauncher.Services
                     arma3RegPath = Path.Combine(steamPath, Constants.DefaultArma3SteamPath);
                 }
             }
-            if (!Directory.Exists(arma3RegPath))
+            if (!_fileAccessor.DirectoryExists(arma3RegPath))
             {
                 arma3RegPath = null;
             }
@@ -139,7 +143,7 @@ namespace _11thLauncher.Services
                 {
                     try
                     {
-                        JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName)), configFile);
+                        JsonConvert.PopulateObject(_fileAccessor.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName)), configFile);
                         loadResult = LoadSettingsResult.LoadedExistingSettings;
                     }
                     catch (Exception)
@@ -176,7 +180,10 @@ namespace _11thLauncher.Services
             string defaultProfileName = "";
 
             var legacyConfigFile = Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName);
-            using (XmlReader reader = XmlReader.Create(legacyConfigFile))
+            var legacyConfigFileContent = _fileAccessor.ReadAllText(legacyConfigFile);
+
+            using (StringReader stringReader = new StringReader(legacyConfigFileContent))
+            using (XmlReader reader = XmlReader.Create(stringReader))
             {
                 while (reader.Read())
                 {
@@ -257,7 +264,7 @@ namespace _11thLauncher.Services
             }
 
             //Delete the legacy config file after reading it
-            File.Delete(legacyConfigFile);
+            _fileAccessor.DeleteFile(legacyConfigFile);
 
             return configFile;
         }
@@ -268,7 +275,7 @@ namespace _11thLauncher.Services
         /// <returns>True if a legacy configuration is present</returns>
         private bool LegacyConfigExists()
         {
-            return File.Exists(Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName));
+            return _fileAccessor.FileExists(Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName));
         }
 
         public void Write()
@@ -283,12 +290,12 @@ namespace _11thLauncher.Services
             };
 
             //If no config directory exists, create it
-            if (!Directory.Exists(Constants.ConfigPath))
+            if (!_fileAccessor.DirectoryExists(Constants.ConfigPath))
             {
-                Directory.CreateDirectory(Constants.ConfigPath);
+                _fileAccessor.CreateDirectory(Constants.ConfigPath);
             }
 
-            File.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(configFile, Newtonsoft.Json.Formatting.Indented));
+            _fileAccessor.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(configFile, Newtonsoft.Json.Formatting.Indented));
         }
 
         /// <summary>
@@ -296,9 +303,9 @@ namespace _11thLauncher.Services
         /// </summary>
         public void Delete()
         {
-            if (Directory.Exists(Constants.ConfigPath))
+            if (_fileAccessor.DirectoryExists(Constants.ConfigPath))
             {
-                Directory.Delete(Constants.ConfigPath, true);
+                _fileAccessor.DeleteDirectory(Constants.ConfigPath, true);
             }
         }
 

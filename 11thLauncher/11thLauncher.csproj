@@ -117,6 +117,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Accessors\Contracts\IFileAccessor.cs" />
+    <Compile Include="Accessors\Contracts\INetworkAccessor.cs" />
+    <Compile Include="Accessors\Contracts\IRegistryAccessor.cs" />
+    <Compile Include="Accessors\FileAccessor.cs" />
+    <Compile Include="Accessors\NetworkAccessor.cs" />
+    <Compile Include="Accessors\RegistryAccessor.cs" />
     <Compile Include="Messages\ProfileAddedMessage.cs" />
     <Compile Include="Messages\ProfileDeletedMessage.cs" />
     <Compile Include="Messages\LoadProfileMessage.cs" />

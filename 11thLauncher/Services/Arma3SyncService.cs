@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using Caliburn.Micro;
 using Microsoft.Win32;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 
@@ -11,12 +12,19 @@ namespace _11thLauncher.Services
 {
     public class Arma3SyncService : IAddonSyncService
     {
+        private readonly IFileAccessor _fileAccessor;
+
+        public Arma3SyncService(IFileAccessor fileAccessor)
+        {
+            _fileAccessor = fileAccessor;
+        }
+
         public BindableCollection<Repository> ReadRepositories(string arma3SyncPath)
         {
             BindableCollection<Repository> repositories = new BindableCollection<Repository>();
-            if (!Directory.Exists(arma3SyncPath)) return repositories;
+            if (!_fileAccessor.DirectoryExists(arma3SyncPath)) return repositories;
 
-            string[] files = Directory.GetFiles(Path.Combine(arma3SyncPath, Constants.Arma3SyncConfigFolder));
+            string[] files = _fileAccessor.GetFiles(Path.Combine(arma3SyncPath, Constants.Arma3SyncConfigFolder));
             foreach (string file in files)
             {
                 string fileName = Path.GetFileName(file);
@@ -35,13 +43,13 @@ namespace _11thLauncher.Services
             repository.Status = RepositoryStatus.Checking;
 
             //Extract A3SDS
-            File.WriteAllBytes(Constants.A3SdsPath, Properties.Resources.A3SDS);
+            _fileAccessor.WriteAllBytes(Constants.A3SdsPath, Properties.Resources.A3SDS);
 
             DeserializeLocalRepository(arma3SyncPath, javaPath, repository);
             DeserializeRemoteRepository(javaPath, repository);
 
             //Delete A3SDS
-            File.Delete(Constants.A3SdsPath);
+            _fileAccessor.DeleteFile(Constants.A3SdsPath);
 
             if (repository.LocalRevision != null)
             {
@@ -87,7 +95,7 @@ namespace _11thLauncher.Services
             repository.Address = localRepositoryInfo[5];
         }
 
-        private static void DeserializeRemoteRepository(string javaPath, Repository repository)
+        private void DeserializeRemoteRepository(string javaPath, Repository repository)
         {
             try
             {
@@ -98,7 +106,7 @@ namespace _11thLauncher.Services
 
                 FtpWebResponse response = (FtpWebResponse)request.GetResponse();
                 Stream responseStream = response.GetResponseStream();
-                using (Stream s = File.Create(tempPath))
+                using (Stream s = _fileAccessor.CreateFile(tempPath))
                 {
                     responseStream?.CopyTo(s);
                 }
@@ -120,7 +128,7 @@ namespace _11thLauncher.Services
                 p.WaitForExit();
 
                 //Delete temp file
-                File.Delete(tempPath);
+                _fileAccessor.DeleteFile(tempPath);
 
                 if (remoteRepositoryInfo != null && remoteRepositoryInfo.Length == 2)
                 {
@@ -177,12 +185,17 @@ namespace _11thLauncher.Services
                 }
             }
 
-            if (string.IsNullOrWhiteSpace(arma3SyncPath) || !Directory.Exists(arma3SyncPath))
+            if (string.IsNullOrWhiteSpace(arma3SyncPath) || !_fileAccessor.DirectoryExists(arma3SyncPath))
             {
                 arma3SyncPath = "";
             }
 
             return arma3SyncPath;
+        }
+
+        public bool AddonSyncPathIsValid(string path)
+        {
+            return !string.IsNullOrEmpty(path) && _fileAccessor.DirectoryExists(path) && _fileAccessor.FileExists(Path.Combine(path, Constants.Arma3SyncExecutable));
         }
 
         public void StartAddonSync(string arma3SyncPath)

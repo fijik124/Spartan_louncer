@@ -8,7 +8,6 @@ using _11thLauncher.Messages;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 using _11thLauncher.ViewModels.Controls;
-using System.IO;
 
 namespace _11thLauncher.ViewModels
 {
@@ -255,8 +254,7 @@ namespace _11thLauncher.ViewModels
             {
                 _settingsService.JavaVersion = _addonSyncService.GetJavaInSystem();
 
-                if (string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath) ||
-                    !Directory.Exists(_settingsService.ApplicationSettings.Arma3SyncPath))
+                if (!_addonSyncService.AddonSyncPathIsValid(_settingsService.ApplicationSettings.Arma3SyncPath))
                 {
                     //If Arma3Sync path not valid try to get from registry
                     _settingsService.ApplicationSettings.Arma3SyncPath = _addonSyncService.GetAddonSyncPath();

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Caliburn.Micro;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 
@@ -10,10 +11,13 @@ namespace _11thLauncher.Services
 {
     public class AddonService : IAddonService
     {
+        private readonly IFileAccessor _fileAccessor;
+
         private readonly BindableCollection<Addon> _addons;
 
-        public AddonService()
+        public AddonService(IFileAccessor fileAccessor)
         {
+            _fileAccessor = fileAccessor;
             _addons = new BindableCollection<Addon>();
         }
 
@@ -27,15 +31,15 @@ namespace _11thLauncher.Services
             if (string.IsNullOrEmpty(arma3Path)) return new BindableCollection<Addon>();
             if (_addons.Count != 0) return _addons; //Already read
 
-            string[] directories = Directory.GetDirectories(arma3Path, Constants.AddonSubfolderName, SearchOption.AllDirectories);
+            string[] directories = _fileAccessor.GetDirectories(arma3Path, Constants.AddonSubfolderName, SearchOption.AllDirectories);
             foreach (string directory in directories)
             {
-                if (Constants.VanillaAddons.Contains(Directory.GetParent(directory).Name.ToLower())) continue;
-                if (Directory.GetFiles(directory, Constants.AddonFilePattern).Length == 0) continue;
+                if (Constants.VanillaAddons.Contains(_fileAccessor.GetParent(directory).Name.ToLower())) continue;
+                if (_fileAccessor.GetFiles(directory, Constants.AddonFilePattern).Length == 0) continue;
                 int pathindex = directory.IndexOf(arma3Path, StringComparison.Ordinal) + arma3Path.Length + 1;
                 string addonName = directory.Substring(pathindex, (directory.Length - pathindex) - (Constants.AddonSubfolderName.Length + 1));
 
-                var addon = new Addon(Directory.GetParent(directory).FullName, addonName);
+                var addon = new Addon(_fileAccessor.GetParent(directory).FullName, addonName);
                 ReadMetaData(addon);
                 _addons.Add(addon);  
             }
@@ -45,7 +49,7 @@ namespace _11thLauncher.Services
 
         public void BrowseAddonFolder(Addon addon)
         {
-            if (Directory.Exists(addon.Path))
+            if (_fileAccessor.DirectoryExists(addon.Path))
             {
                 Process.Start(addon.Path);
             }
@@ -59,16 +63,16 @@ namespace _11thLauncher.Services
             }
         }
 
-        private static void ReadMetaData(Addon addon)
+        private void ReadMetaData(Addon addon)
         {
             var metaFile = Path.Combine(addon.Path, Constants.AddonMetaDataFile);
-            if (!File.Exists(metaFile)) return;
+            if (!_fileAccessor.FileExists(metaFile)) return;
 
             addon.MetaData = new AddonMetaData();
 
             try
             {
-                var properties = File.ReadAllLines(metaFile);
+                var properties = _fileAccessor.ReadAllLines(metaFile);
                 foreach (var line in properties)
                 {
                     var separator = line.IndexOf('=');

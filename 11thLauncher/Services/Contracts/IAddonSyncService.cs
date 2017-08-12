@@ -32,6 +32,8 @@ namespace _11thLauncher.Services.Contracts
         /// <returns>Path of the program in the system</returns>
         string GetAddonSyncPath();
 
+        bool AddonSyncPathIsValid(string path);
+
         /// <summary>
         /// Starts the addon sync program
         /// </summary>

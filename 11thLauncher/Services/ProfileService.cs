@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml;
 using Caliburn.Micro;
 using Newtonsoft.Json;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 using _11thLauncher.Util;
@@ -13,11 +14,13 @@ namespace _11thLauncher.Services
 {
     public class ProfileService : IProfileService
     {
+        private readonly IFileAccessor _fileAccessor;
         private readonly IParameterService _parameterService;
         private readonly ISecurityService _securityService;
 
-        public ProfileService(IParameterService parameterService, ISecurityService securityService)
+        public ProfileService(IFileAccessor fileAccessor, IParameterService parameterService, ISecurityService securityService)
         {
+            _fileAccessor = fileAccessor;
             _parameterService = parameterService;
             _securityService = securityService;
         }
@@ -33,12 +36,12 @@ namespace _11thLauncher.Services
                 LaunchSettings = launchSettings ?? new LaunchSettings()
             };
 
-            if (!Directory.Exists(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder)))
+            if (!_fileAccessor.DirectoryExists(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder)))
             {
-                Directory.CreateDirectory(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder));
+                _fileAccessor.CreateDirectory(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder));
             }
 
-            File.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.ProfileNameFormat, profile.Id)), 
+            _fileAccessor.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.ProfileNameFormat, profile.Id)), 
                 JsonConvert.SerializeObject(profileFile, Formatting.Indented));
         }
 
@@ -47,7 +50,7 @@ namespace _11thLauncher.Services
             ProfileFile profileFile = new ProfileFile { Profile = profile };
 
             var settings = new JsonSerializerSettings { Converters = { new JsonLaunchParameterConverter() } };
-            JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder,
+            JsonConvert.PopulateObject(_fileAccessor.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder,
                 string.Format(Constants.ProfileNameFormat, profile.Id))), profileFile, settings); //TODO TRYCTACH
 
             addons = profileFile.Addons;
@@ -58,9 +61,9 @@ namespace _11thLauncher.Services
         public void DeleteProfile(UserProfile profile)
         {
             var profileFile = Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.ProfileNameFormat, profile.Id));
-            if (File.Exists(profileFile))
+            if (_fileAccessor.DirectoryExists(profileFile))
             {
-                File.Delete(profileFile);
+                _fileAccessor.DeleteFile(profileFile);
             }
         }
 
@@ -71,12 +74,14 @@ namespace _11thLauncher.Services
                 try
                 {
                     var profileFile = Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.LegacyProfileNameFormat, profile.Name));
+                    var profileContent = _fileAccessor.ReadAllText(profileFile);
 
                     BindableCollection<Addon> addons = new BindableCollection<Addon>();
                     BindableCollection<LaunchParameter> parameters = new BindableCollection<LaunchParameter>();
                     LaunchSettings launchSettings = new LaunchSettings();
 
-                    using (XmlReader reader = XmlReader.Create(profileFile))
+                    using (StringReader stringReader = new StringReader(profileContent))
+                    using (XmlReader reader = XmlReader.Create(stringReader))
                     {
                         while (reader.Read())
                         {
@@ -166,7 +171,7 @@ namespace _11thLauncher.Services
                     }
 
                     Write(profile, addons, parameters, launchSettings);
-                    File.Delete(profileFile);
+                    _fileAccessor.DeleteFile(profileFile);
                 }
                 catch (Exception e)
                 {
