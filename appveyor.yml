@@ -13,4 +13,4 @@ build:
   
 artifacts:
   - path: bin\Release\11thLauncher.exe
-  - name: 11th MEU Launcher
+    name: 11th MEU Launcher
