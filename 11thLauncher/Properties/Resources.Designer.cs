@@ -65,7 +65,7 @@ namespace _11thLauncher.Properties {
         /// </summary>
         public static byte[] _11thLauncherUpdater {
             get {
-                object obj = ResourceManager.GetObject("_11thLauncherUpdater", resourceCulture);
+                object obj = ResourceManager.GetObject("_11thLauncher.Updater", resourceCulture);
                 return ((byte[])(obj));
             }
         }
