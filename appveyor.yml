@@ -12,5 +12,5 @@ build:
   verbosity: minimal
   
 artifacts:
-  - path: bin\Release\11thLauncher.exe
+  - path: 11thLauncher\bin\Release\11thLauncher.exe
     name: 11th MEU Launcher
