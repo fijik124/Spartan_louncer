@@ -318,9 +318,6 @@
     <EmbeddedResource Include="lib\QueryMaster.dll" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\11thLauncherUpdater.exe" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\a3sDisabled.png" />
   </ItemGroup>
   <ItemGroup>
@@ -335,7 +332,9 @@
   <ItemGroup>
     <Compile Include="Services\Contracts\IServerQueryService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="lib\11thLauncher.Updater.exe" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

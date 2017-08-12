@@ -63,9 +63,9 @@ namespace _11thLauncher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] _11thLauncherUpdater {
+        public static byte[] _11thLauncher_Updater {
             get {
-                object obj = ResourceManager.GetObject("_11thLauncher.Updater", resourceCulture);
+                object obj = ResourceManager.GetObject("_11thLauncher_Updater", resourceCulture);
                 return ((byte[])(obj));
             }
         }

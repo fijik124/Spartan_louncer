@@ -60,7 +60,7 @@ namespace _11thLauncher.Services
         public void ExecuteUpdater()
         {
             //Extract updater
-            File.WriteAllBytes(Constants.UpdaterPath, Properties.Resources._11thLauncherUpdater);
+            File.WriteAllBytes(Constants.UpdaterPath, Properties.Resources._11thLauncher_Updater);
 
             var appPath = Assembly.GetExecutingAssembly().Location;
             var fullPath = "";
