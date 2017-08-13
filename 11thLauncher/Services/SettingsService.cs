@@ -19,9 +19,12 @@ namespace _11thLauncher.Services
     public class SettingsService : ISettingsService
     {
         private readonly IFileAccessor _fileAccessor;
-        public SettingsService(IFileAccessor fileAccessor)
+        private readonly IRegistryAccessor _registryAccessor;
+
+        public SettingsService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor)
         {
             _fileAccessor = fileAccessor;
+            _registryAccessor = registryAccessor;
 
             UserProfiles = new BindableCollection<UserProfile>();
             ApplicationSettings = new ApplicationSettings();
@@ -75,11 +78,11 @@ namespace _11thLauncher.Services
             //First try to get the path using ArmA 3 registry entry
             if (Environment.Is64BitOperatingSystem)
             {
-                arma3RegPath = (string)Registry.GetValue(Constants.Arma3RegPath64[0], Constants.Arma3RegPath64[1], Constants.Arma3RegPath64[2]);
+                arma3RegPath = (string)_registryAccessor.GetValue(Constants.Arma3RegPath64[0], Constants.Arma3RegPath64[1], Constants.Arma3RegPath64[2]);
             }
             else
             {
-                arma3RegPath = (string)Registry.GetValue(Constants.Arma3RegPath32[0], Constants.Arma3RegPath32[1], Constants.Arma3RegPath32[2]);
+                arma3RegPath = (string)_registryAccessor.GetValue(Constants.Arma3RegPath32[0], Constants.Arma3RegPath32[1], Constants.Arma3RegPath32[2]);
             }
             if (!_fileAccessor.DirectoryExists(arma3RegPath))
             {
@@ -92,12 +95,12 @@ namespace _11thLauncher.Services
                 string steamPath;
                 if (Environment.Is64BitOperatingSystem)
                 {
-                    steamPath = (string)Registry.GetValue(Constants.SteamRegPath64[0], Constants.SteamRegPath64[1], Constants.SteamRegPath64[2]);
+                    steamPath = (string)_registryAccessor.GetValue(Constants.SteamRegPath64[0], Constants.SteamRegPath64[1], Constants.SteamRegPath64[2]);
                     arma3RegPath = Path.Combine(steamPath, Constants.DefaultArma3SteamPath);
                 }
                 else
                 {
-                    steamPath = (string)Registry.GetValue(Constants.SteamRegPath32[0], Constants.SteamRegPath32[1], Constants.SteamRegPath32[2]);
+                    steamPath = (string)_registryAccessor.GetValue(Constants.SteamRegPath32[0], Constants.SteamRegPath32[1], Constants.SteamRegPath32[2]);
                     arma3RegPath = Path.Combine(steamPath, Constants.DefaultArma3SteamPath);
                 }
             }

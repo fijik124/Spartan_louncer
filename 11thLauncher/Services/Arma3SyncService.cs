@@ -13,10 +13,12 @@ namespace _11thLauncher.Services
     public class Arma3SyncService : IAddonSyncService
     {
         private readonly IFileAccessor _fileAccessor;
+        private readonly IRegistryAccessor _registryAccessor;
 
-        public Arma3SyncService(IFileAccessor fileAccessor)
+        public Arma3SyncService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor)
         {
             _fileAccessor = fileAccessor;
+            _registryAccessor = registryAccessor;
         }
 
         public BindableCollection<Repository> ReadRepositories(string arma3SyncPath)
@@ -172,14 +174,14 @@ namespace _11thLauncher.Services
 
             if (Environment.Is64BitOperatingSystem)
             {
-                using (RegistryKey key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(Constants.Arma3SyncBaseRegistryPath64))
+                using (RegistryKey key = _registryAccessor.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(Constants.Arma3SyncBaseRegistryPath64))
                 {
                     arma3SyncPath = SearchRegistryInstallations(key);
                 }
             }
             else
             {
-                using (RegistryKey key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(Constants.Arma3SyncBaseRegistryPath32))
+                using (RegistryKey key = _registryAccessor.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(Constants.Arma3SyncBaseRegistryPath32))
                 {
                     arma3SyncPath = SearchRegistryInstallations(key);
                 }
@@ -211,19 +213,19 @@ namespace _11thLauncher.Services
             p.Start();
         }
 
-        private static string SearchRegistryInstallations(RegistryKey key)
+        private string SearchRegistryInstallations(RegistryKey key)
         {
             string arma3SyncPath = "";
             if (key == null) return arma3SyncPath;
 
             foreach (string subKeyName in key.GetSubKeyNames())
             {
-                using (RegistryKey subkey = key.OpenSubKey(subKeyName))
+                using (RegistryKey subkey = _registryAccessor.OpenSubKey(key, subKeyName))
                 {
                     if (subkey == null) continue;
-                    var displayName = (string)subkey.GetValue(Constants.Arma3SyncRegDisplayNameEntry, "");
+                    var displayName = (string)_registryAccessor.GetKeyValue(subkey, Constants.Arma3SyncRegDisplayNameEntry, "");
                     if (!displayName.StartsWith(Constants.Arma3SyncRegDisplayNameValue)) continue;
-                    arma3SyncPath = (string)subkey.GetValue(Constants.Arma3SyncRegLocationEntry, "");
+                    arma3SyncPath = (string)_registryAccessor.GetKeyValue(subkey, Constants.Arma3SyncRegLocationEntry, "");
                     break;
                 }
             }
