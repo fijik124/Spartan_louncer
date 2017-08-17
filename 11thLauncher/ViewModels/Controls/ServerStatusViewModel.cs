@@ -1,4 +1,4 @@
-﻿using System.Threading;
+﻿using System.Threading.Tasks;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
@@ -45,12 +45,12 @@ namespace _11thLauncher.ViewModels.Controls
         {
             if (server.ServerStatus != ServerStatus.Checking)
             {
-                new Thread(() =>
+                Task.Run(() =>
                 {
                     _eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, true));
                     _serverQueryService.GetServerStatus(server);
                     _eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, false));
-                }).Start();
+                });
             }
         }
 

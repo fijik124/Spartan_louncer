@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
@@ -250,7 +250,7 @@ namespace _11thLauncher.ViewModels
             _eventAggregator.PublishOnCurrentThread(new LoadProfileMessage(_settingsService.DefaultProfile));
 
             //Read repository settings
-            new Thread(() =>
+            Task.Run(() =>
             {
                 _settingsService.JavaVersion = _addonSyncService.GetJavaInSystem();
 
@@ -263,7 +263,7 @@ namespace _11thLauncher.ViewModels
 
                 var repositories = _addonSyncService.ReadRepositories(_settingsService.ApplicationSettings.Arma3SyncPath);
                 _eventAggregator.PublishOnUIThreadAsync(new RepositoriesLoadedMessage(repositories));
-            }).Start();
+            });
 
             //Check local game version against remote server
             CompareServerVersion(); //TODO put this better
@@ -276,7 +276,7 @@ namespace _11thLauncher.ViewModels
         {
             var gameVersion = _settingsService.GetGameVersion();
             GameVersion = gameVersion;
-            new Thread(() =>
+            Task.Run(() =>
             {
                 var serverVersion = _serverQueryService.GetServerVersion(_settingsService.Servers.First()); //TODO no servers? / first server can be offline
                 if (string.IsNullOrEmpty(serverVersion) || string.IsNullOrEmpty(GameVersion)) return;
@@ -291,7 +291,7 @@ namespace _11thLauncher.ViewModels
 
                 ShowVersionMismatch = Visibility.Visible;
                 VersionMismatchTooltip = string.Format(Resources.Strings.S_VERSION_MISMATCH, GameVersion, serverVersion);
-            }).Start();
+            });
         }
 
         private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)

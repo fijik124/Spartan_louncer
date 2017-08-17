@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
@@ -57,13 +57,13 @@ namespace _11thLauncher.ViewModels.Controls
 
             if (!_settingsService.ApplicationSettings.CheckRepository) return; //Exit if startup check is disabled
 
-            new Thread(() =>
+            Task.Run(() =>
             {
                 foreach (var repository in Repositories)
                 {
                     CheckRepository(repository);
                 }
-            }).Start();
+            });
         }
 
         public void StartArma3Sync()
@@ -77,10 +77,10 @@ namespace _11thLauncher.ViewModels.Controls
         {
             if (Repositories.All(r => r.Status != RepositoryStatus.Checking))
             {
-                new Thread(() =>
+                Task.Run(() =>
                 {
                     CheckRepository(repository);
-                }).Start();
+                });
             }
         }
 
