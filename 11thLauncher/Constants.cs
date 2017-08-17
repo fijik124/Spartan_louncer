@@ -101,8 +101,10 @@ namespace _11thLauncher
         //
         // Updater Service
         //
-        public const string VersionUrl = "http://raw.githubusercontent.com/11thmeu/launcher/master/bin/version";
-        public const string DownloadBaseUrl = "https://raw.githubusercontent.com/11thmeu/launcher/master/bin/";
+        public const string UpdaterServiceUserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko";
+        public const string GithubApiReleaseEndpoint = "https://api.github.com/repos/11thmeu/launcher/releases/latest";
+        public const string GithubApiCurrentVersion = "application/vnd.github.v3+json";
+        public const string GithubVersionTagFormat = "v{0}";
         public static readonly string UpdaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
 
         //
@@ -141,6 +143,5 @@ namespace _11thLauncher
         public const string Author = "Javier 'Thrax' Rico";
         public const string BuildCodeName = "Echo";
         public static DateTime BuildDate = new DateTime(2017, 06, 01);
-        public static readonly string AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
     }
 }

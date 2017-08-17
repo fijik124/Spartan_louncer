@@ -574,6 +574,24 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string S_BTN_UPDATE {
+            get {
+                return ResourceManager.GetString("S_BTN_UPDATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for updates.
+        /// </summary>
+        public static string S_BTN_UPDATE_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_UPDATE_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check repository when the application starts (requires Java and Arma3Sync configured).
         /// </summary>
         public static string S_CHECKBOX_CHECK_REPOSITORY {
@@ -1069,6 +1087,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is a new update available.
+        /// </summary>
+        public static string S_MSG_UPDATE_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_UPDATE_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There has been an error updating the application, try again later.
         /// </summary>
         public static string S_MSG_UPDATE_FAIL_CONTENT {
@@ -1101,6 +1128,15 @@ namespace _11thLauncher.Resources {
         public static string S_MSG_UPDATE_SUCCESS_TITLE {
             get {
                 return ResourceManager.GetString("S_MSG_UPDATE_SUCCESS_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update available.
+        /// </summary>
+        public static string S_MSG_UPDATE_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_UPDATE_TITLE", resourceCulture);
             }
         }
         

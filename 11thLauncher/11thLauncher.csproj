@@ -150,6 +150,7 @@
     <Compile Include="Services\Contracts\IParameterService.cs" />
     <Compile Include="Services\Contracts\IProfileService.cs" />
     <Compile Include="Services\ParameterService.cs" />
+    <Compile Include="Util\GithubRelease.cs" />
     <Compile Include="Util\JsonLaunchParameterConverter.cs" />
     <Compile Include="Util\ExtensionMethods.cs" />
     <Compile Include="Services\AddonService.cs" />

@@ -1,65 +1,94 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Windows;
+using Newtonsoft.Json;
 using _11thLauncher.Accessors.Contracts;
+using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
+using _11thLauncher.Util;
 
 namespace _11thLauncher.Services
 {
     public class UpdaterService : IUpdaterService
     {
         private readonly IFileAccessor _fileAccessor;
-        private static string _latestVersion = "";
+        private readonly INetworkAccessor _networkAccessor;
 
-        public UpdaterService(IFileAccessor fileAccessor)
+        private readonly string _assemblyVersion;
+        private string _lastEtag = ""; //Latest entity tag for caching
+
+        public UpdaterService(IFileAccessor fileAccessor, INetworkAccessor networkAccessor)
         {
             _fileAccessor = fileAccessor;
+            _networkAccessor = networkAccessor;
+
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            _assemblyVersion = string.Join(".", version.Major, version.Minor, version.Build);
         }
 
         /// <summary>
-        /// Check if there is a new version available
+        /// Use the GitHub API to check if there is a new release
         /// </summary>
-        /// <param name="manualCheck">The check has been called manually, show message if there are no updates</param>
-        public void CheckVersion(bool manualCheck)
+        /// <returns>Result of the update check</returns>
+        public UpdateCheckResult CheckUpdates()
         {
-            //MainWindow.UpdateForm("UpdateStatusBar", new object[] { "Comprobando actualizaciones" });
-
-            try
+            using (WebClient client = new WebClient())
             {
-                WebClient client = new WebClient();
-                using (Stream stream = client.OpenRead(Constants.VersionUrl))
-                    if (stream != null)
+                client.UseDefaultCredentials = true;
+                client.Headers.Add(HttpRequestHeader.Accept, Constants.GithubApiCurrentVersion);
+                client.Headers.Add(HttpRequestHeader.IfNoneMatch, _lastEtag);
+                client.Headers.Add(HttpRequestHeader.UserAgent, Constants.UpdaterServiceUserAgent);
+
+                try
+                {
+                    string releaseStr = _networkAccessor.DownloadString(client, Constants.GithubApiReleaseEndpoint);
+                    GithubRelease release = JsonConvert.DeserializeObject<GithubRelease>(releaseStr);
+                    var updated = false;
+
+                    if (!string.IsNullOrEmpty(release.tag_name))
                     {
-                        using (StreamReader reader = new StreamReader(stream))
+                        var latestVersion = release.tag_name;
+
+                        if (latestVersion != null)
                         {
-                            string versionRaw = reader.ReadToEnd();
-                            string[] versionData = versionRaw.Split('\n');
-                            _latestVersion = versionData[1];
+                            updated = latestVersion.Equals(string.Format(Constants.GithubVersionTagFormat, _assemblyVersion));
                         }
                     }
 
-                //Get short version number from assembly (MajorMinorRevision)
-                var assemblyVersion = Constants.AssemblyVersion.Split('.');
-                var currentVersionStr = assemblyVersion[0] + assemblyVersion[1] + assemblyVersion[2];
+                    _lastEtag = client.ResponseHeaders[HttpResponseHeader.ETag];
 
-                if (_latestVersion != currentVersionStr)
-                {
-                    //MainWindow.UpdateForm("ShowUpdateNotification", new object[] { _latestVersion, true });
+                    return updated ? UpdateCheckResult.UpdateAvailable : UpdateCheckResult.NoUpdateAvailable;
                 }
-                else if (manualCheck)
+                catch (WebException e)
                 {
-                    //MainWindow.UpdateForm("ShowUpdateNotification", new object[] { _latestVersion, false });
+                    HttpWebResponse webException = e.Response as HttpWebResponse;
+                    if (webException == null) throw;
+
+                    switch (webException.StatusCode)
+                    {
+                        case HttpStatusCode.Forbidden:
+                            int rateRemaining;
+                            var rateHeader = int.TryParse(e.Response.Headers["X-RateLimit-Remaining"], out rateRemaining);
+                            if (rateHeader && rateRemaining == 0)
+                            {
+                                return UpdateCheckResult.ErrorRateExceeded;
+                            }
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                    return UpdateCheckResult.ErrorCheckingUpdates;
                 }
-            }
-            catch (Exception)
-            {
-                //MainWindow.UpdateForm("ShowUpdateNotification", new object[] { null, false });
+                catch (Exception)
+                {
+                    return UpdateCheckResult.ErrorCheckingUpdates;
+                }
             }
         }
-
 
         /// <summary>
         /// Extract and execute external updater, then close the application
@@ -77,18 +106,18 @@ namespace _11thLauncher.Services
             }
 
             //Execute updater
-            var p = new Process
-            {
-                StartInfo =
-                {
-                    FileName = Constants.UpdaterPath,
-                    Arguments =
-                        $"\"{fullPath}\"" + " " +
-                        (Constants.DownloadBaseUrl + "11thLauncher" + _latestVersion + ".zip")
+            //var p = new Process
+            //{
+                //StartInfo =
+                //{
+                    //FileName = Constants.UpdaterPath,
+                    //Arguments =
+                        //$"\"{fullPath}\"" + " " +
+                        //(Constants.DownloadBaseUrl + "11thLauncher" + _latestVersion + ".zip")
 
-                }
-            };
-            p.Start();
+                //}
+            //};
+            //p.Start();
 
             Application.Current.Shutdown();
         }

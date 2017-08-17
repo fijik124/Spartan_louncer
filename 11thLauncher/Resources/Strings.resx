@@ -637,4 +637,16 @@
   <data name="S_BTN_COPY_TO_CLIPBOARD" xml:space="preserve">
     <value>Copy launch shortcut to clipboard</value>
   </data>
+  <data name="S_MSG_UPDATE_TITLE" xml:space="preserve">
+    <value>Update available</value>
+  </data>
+  <data name="S_MSG_UPDATE_CONTENT" xml:space="preserve">
+    <value>There is a new update available</value>
+  </data>
+  <data name="S_BTN_UPDATE_TIP" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="S_BTN_UPDATE" xml:space="preserve">
+    <value>Update</value>
+  </data>
 </root>

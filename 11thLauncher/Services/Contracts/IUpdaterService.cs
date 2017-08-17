@@ -1,4 +1,6 @@
-﻿namespace _11thLauncher.Services.Contracts
+﻿using _11thLauncher.Models;
+
+namespace _11thLauncher.Services.Contracts
 {
     public interface IUpdaterService
     {
@@ -6,5 +8,7 @@
         /// Delete the program updater if it exists in the system
         /// </summary>
         void RemoveUpdater();
+
+        UpdateCheckResult CheckUpdates();
     }
 }

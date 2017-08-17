@@ -14,11 +14,13 @@ namespace _11thLauncher.Services
     {
         private readonly IFileAccessor _fileAccessor;
         private readonly IRegistryAccessor _registryAccessor;
+        private readonly INetworkAccessor _networkAccessor;
 
-        public Arma3SyncService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor)
+        public Arma3SyncService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor, INetworkAccessor networkAccessor)
         {
             _fileAccessor = fileAccessor;
             _registryAccessor = registryAccessor;
+            _networkAccessor = networkAccessor;
         }
 
         public BindableCollection<Repository> ReadRepositories(string arma3SyncPath)
@@ -106,7 +108,7 @@ namespace _11thLauncher.Services
                 request.Method = WebRequestMethods.Ftp.DownloadFile;
                 request.Credentials = new NetworkCredential(repository.Login, repository.Password);
 
-                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                FtpWebResponse response = (FtpWebResponse)_networkAccessor.GetWebResponse(request);
                 Stream responseStream = response.GetResponseStream();
                 using (Stream s = _fileAccessor.CreateFile(tempPath))
                 {

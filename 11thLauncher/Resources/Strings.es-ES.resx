@@ -657,4 +657,16 @@
   <data name="S_BTN_COPY_TO_CLIPBOARD" xml:space="preserve">
     <value>Copiar linea de inicio al portapapeles</value>
   </data>
+  <data name="S_MSG_UPDATE_TITLE" xml:space="preserve">
+    <value>Actualización disponible</value>
+  </data>
+  <data name="S_MSG_UPDATE_CONTENT" xml:space="preserve">
+    <value>Hay una nueva actualización disponible</value>
+  </data>
+  <data name="S_BTN_UPDATE_TIP" xml:space="preserve">
+    <value>Comprobar actualizaciones</value>
+  </data>
+  <data name="S_BTN_UPDATE" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
 </root>

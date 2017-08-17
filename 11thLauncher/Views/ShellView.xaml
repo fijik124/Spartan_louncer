@@ -35,7 +35,7 @@
             <Button cal:Message.Attach="ButtonSettings" 
                     ToolTip="{x:Static resx:Strings.S_BTN_SETTINGS_TIP}" >
                 <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="20" Height="20" Margin="0,0,5,0" Fill="{DynamicResource HighlightBrush}">
+                    <Rectangle Width="15" Height="15" Margin="0,0,5,0" Fill="{DynamicResource MenuItemBackgroundBrush}">
                         <Rectangle.OpacityMask>
                             <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
                         </Rectangle.OpacityMask>

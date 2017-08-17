@@ -2,6 +2,14 @@
 
 namespace _11thLauncher.Models
 {
+    public enum UpdateCheckResult
+    {
+        UpdateAvailable,
+        NoUpdateAvailable,
+        ErrorCheckingUpdates,
+        ErrorRateExceeded
+    }
+
     public enum LoadSettingsResult
     {
         NoExistingSettings,
@@ -15,6 +23,7 @@ namespace _11thLauncher.Models
     {
         [Description("S_ACTION_CHECK_SERVER_STATUS")]
         CheckServerStatus,
+
         [Description("S_ACTION_CHECK_REPOSITORY_STATUS")]
         CheckRepositoryStatus
     }
@@ -47,7 +56,6 @@ namespace _11thLauncher.Models
 
         [Description("S_PLATFORM_ANY")]
         Any
-
     }
 
     public enum ParameterType

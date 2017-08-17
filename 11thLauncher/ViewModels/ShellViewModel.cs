@@ -268,8 +268,21 @@ namespace _11thLauncher.ViewModels
             //Check local game version against remote server
             CompareServerVersion(); //TODO put this better
 
-            //if (_settingsService.ApplicationSettings.CheckUpdates)
-                //TODO - check updates
+            if (_settingsService.ApplicationSettings.CheckUpdates)
+            {
+                Task.Run(() =>
+                {
+                    var updateCheckResult = _updaterService.CheckUpdates();
+                    if (updateCheckResult.Equals(UpdateCheckResult.UpdateAvailable))
+                    {
+                        _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                        {
+                            Title = Resources.Strings.S_MSG_UPDATE_TITLE,
+                            Content = Resources.Strings.S_MSG_UPDATE_CONTENT
+                        });
+                    }
+                });
+            }
         }
 
         private void CompareServerVersion()
