@@ -14,15 +14,15 @@ namespace _11thLauncher.Util
 
             LaunchParameter parameter = (LaunchParameter) item;
 
-            switch (parameter.Type)
+            switch (parameter)
             {
-                case ParameterType.Boolean:
+                case BooleanParameter b:
                     return element.FindResource("ParameterBooleanTemplate") as DataTemplate;
-                case ParameterType.Selection:
+                case SelectionParameter s:
                     return element.FindResource("ParameterSelectionTemplate") as DataTemplate;
-                case ParameterType.Text:
+                case TextParameter t:
                     return element.FindResource("ParameterTextTemplate") as DataTemplate;
-                case ParameterType.Numerical:
+                case NumericalParameter n:
                     return element.FindResource("ParameterNumericalTemplate") as DataTemplate;
                 default:
                     throw new ArgumentOutOfRangeException();

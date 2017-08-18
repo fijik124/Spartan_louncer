@@ -101,21 +101,21 @@ namespace _11thLauncher.Services
                                         var matchingParameter = _parameterService.Parameters.FirstOrDefault(p => p.LegacyName.Equals(parameter));
                                         if (matchingParameter != null)
                                         {
-                                            switch (matchingParameter.Type)
+                                            switch (matchingParameter)
                                             {
-                                                case ParameterType.Boolean:
+                                                case BooleanParameter b:
                                                     bool parsedValue;
                                                     parsed = bool.TryParse(value, out parsedValue);
-                                                    matchingParameter.SetStatus(parsed && parsedValue);
+                                                    b.SetStatus(parsed && parsedValue);
                                                     break;
-                                                case ParameterType.Selection:
+                                                case SelectionParameter s:
                                                     //No legacy conversion
                                                     break;
-                                                case ParameterType.Numerical:
+                                                case NumericalParameter n:
                                                     //No legacy conversion
                                                     break;
-                                                case ParameterType.Text:
-                                                    ((TextParameter) matchingParameter).SetStatus(true, value);
+                                                case TextParameter t:
+                                                    t.SetStatus(true, value);
                                                     break;
                                                 default:
                                                     throw new ArgumentOutOfRangeException();

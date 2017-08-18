@@ -12,7 +12,6 @@ namespace _11thLauncher.Models
 
         public LaunchParameter()
         {
-            Type = ParameterType.Boolean;
             Platform = ParameterPlatform.Any;
         }
 
