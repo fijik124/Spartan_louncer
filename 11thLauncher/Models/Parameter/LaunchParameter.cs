@@ -12,7 +12,6 @@ namespace _11thLauncher.Models
 
         public LaunchParameter()
         {
-            Type = ParameterType.Boolean;
             Platform = ParameterPlatform.Any;
         }
 
@@ -36,7 +35,7 @@ namespace _11thLauncher.Models
 
         public string Tooltip { get; set; }
 
-        [DataMember(Order = 3)]
+        [DataMember(Order = 2)]
         public bool IsEnabled
         {
             get => _isEnabled;
@@ -47,13 +46,10 @@ namespace _11thLauncher.Models
             }
         }
 
-        [DataMember(Order = 1)]
-        public ParameterType Type { get; set; }
-
         /// <summary>
         /// Platform of the launch parameter.
         /// </summary>
-        [DataMember(Order = 2)]
+        [DataMember(Order = 1)]
         public ParameterPlatform Platform
         {
             get => _platform;

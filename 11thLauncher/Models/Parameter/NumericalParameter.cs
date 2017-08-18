@@ -8,11 +8,6 @@ namespace _11thLauncher.Models
         private int? _maxValue;
         private int _value;
 
-        public NumericalParameter()
-        {
-            Type = ParameterType.Numerical;
-        }
-
         public int MinValue
         {
             get => _minValue ?? 0;
@@ -25,7 +20,7 @@ namespace _11thLauncher.Models
             set => _maxValue = value;
         }
 
-        [DataMember(Order = 4)]
+        [DataMember(Order = 3)]
         public int Value
         {
             get => _value;
@@ -36,12 +31,12 @@ namespace _11thLauncher.Models
             }
         }
 
+        public override string LaunchString => Name + Value;
+
         public override void CopyStatus(LaunchParameter parameter)
         {
             base.CopyStatus(parameter);
             _value = ((NumericalParameter) parameter)?.Value ?? MinValue;
         }
-
-        public override string LaunchString => Name + Value;
     }
 }

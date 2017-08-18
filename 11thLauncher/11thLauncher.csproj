@@ -128,6 +128,7 @@
     <Compile Include="Messages\LoadProfileMessage.cs" />
     <Compile Include="Messages\SaveProfileMessage.cs" />
     <Compile Include="Models\ConfigFile.cs" />
+    <Compile Include="Models\Parameter\BooleanParameter.cs" />
     <Compile Include="Models\Parameter\NumericalParameter.cs" />
     <Compile Include="Models\Parameter\SelectionParameter.cs" />
     <Compile Include="Models\Parameter\TextParameter.cs" />
