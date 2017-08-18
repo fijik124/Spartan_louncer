@@ -6,7 +6,12 @@ namespace _11thLauncher.Models
     {
         private string _value;
 
-        [DataMember(Order = 3)]
+        public TextParameter()
+        {
+            Type = ParameterType.Text;
+        }
+
+        [DataMember(Order = 4)]
         public string Value
         {
             get => _value ?? string.Empty;

@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using _11thLauncher.Models;
-using _11thLauncher.Models.Parameter;
 
 namespace _11thLauncher.Util
 {
@@ -15,15 +14,15 @@ namespace _11thLauncher.Util
 
             LaunchParameter parameter = (LaunchParameter) item;
 
-            switch (parameter)
+            switch (parameter.Type)
             {
-                case BooleanParameter b:
+                case ParameterType.Boolean:
                     return element.FindResource("ParameterBooleanTemplate") as DataTemplate;
-                case SelectionParameter s:
+                case ParameterType.Selection:
                     return element.FindResource("ParameterSelectionTemplate") as DataTemplate;
-                case TextParameter t:
+                case ParameterType.Text:
                     return element.FindResource("ParameterTextTemplate") as DataTemplate;
-                case NumericalParameter n:
+                case ParameterType.Numerical:
                     return element.FindResource("ParameterNumericalTemplate") as DataTemplate;
                 default:
                     throw new ArgumentOutOfRangeException();

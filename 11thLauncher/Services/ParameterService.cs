@@ -2,7 +2,6 @@
 using Caliburn.Micro;
 using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
-using _11thLauncher.Models.Parameter;
 using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.Services
@@ -13,77 +12,77 @@ namespace _11thLauncher.Services
 
         private readonly IFileAccessor _fileAccessor;
 
-        private readonly BooleanParameter _skipIntro = new BooleanParameter
+        private readonly LaunchParameter _skipIntro = new LaunchParameter
         {
             Name = "-skipIntro",
             LegacyName = "skipIntro",
             DisplayName = Resources.Strings.S_PARAMETER_SKIP_INTRO,
             Tooltip = Resources.Strings.S_PARAMETER_SKIP_INTRO_DESC
         };
-        private readonly BooleanParameter _noSplash = new BooleanParameter
+        private readonly LaunchParameter _noSplash = new LaunchParameter
         {
             Name = "-noSplash",
             LegacyName = "skipSplashScreen",
             DisplayName = Resources.Strings.S_PARAMETER_NO_SPLASH,
             Tooltip = Resources.Strings.S_PARAMETER_NO_SPLASH_DESC
         };
-        private readonly BooleanParameter _emptyWorld = new BooleanParameter
+        private readonly LaunchParameter _emptyWorld = new LaunchParameter
         {
             Name = "-world=empty",
             LegacyName = "emptyWorld",
             DisplayName = Resources.Strings.S_PARAMETER_EMPTY_WORLD,
             Tooltip = Resources.Strings.S_PARAMETER_EMPTY_WORLD_DESC
         };
-        private readonly BooleanParameter _window = new BooleanParameter
+        private readonly LaunchParameter _window = new LaunchParameter
         {
             Name = "-window",
             LegacyName = "windowedMode",
             DisplayName = Resources.Strings.S_PARAMETER_WINDOW,
             Tooltip = Resources.Strings.S_PARAMETER_WINDOW_DESC
         };
-        private readonly BooleanParameter _filePatching = new BooleanParameter
+        private readonly LaunchParameter _filePatching = new LaunchParameter
         {
             Name = "-filePatching",
             LegacyName = "noFilePatching",
             DisplayName = Resources.Strings.S_PARAMETER_FILE_PATCHING,
             Tooltip = Resources.Strings.S_PARAMETER_FILE_PATCHING_DESC
         };
-        private readonly BooleanParameter _noPause = new BooleanParameter
+        private readonly LaunchParameter _noPause = new LaunchParameter
         {
             Name = "-noPause",
             LegacyName = "noPause",
             DisplayName = Resources.Strings.S_PARAMETER_NO_PAUSE,
             Tooltip = Resources.Strings.S_PARAMETER_NO_PAUSE_DESC
         };
-        private readonly BooleanParameter _noCb = new BooleanParameter
+        private readonly LaunchParameter _noCb = new LaunchParameter
         {
             Name = "-noCB",
             LegacyName = "noCB",
             DisplayName = Resources.Strings.S_PARAMETER_NO_MULTICORE,
             Tooltip = Resources.Strings.S_PARAMETER_NO_MULTICORE_DESC
         };
-        private readonly BooleanParameter _showScriptErrors = new BooleanParameter
+        private readonly LaunchParameter _showScriptErrors = new LaunchParameter
         {
             Name = "-showScriptErrors",
             LegacyName = "showScriptErrors",
             DisplayName = Resources.Strings.S_PARAMETER_SHOW_ERRORS,
             Tooltip = Resources.Strings.S_PARAMETER_SHOW_ERRORS_DESC
         };
-        private readonly BooleanParameter _noLogs = new BooleanParameter
+        private readonly LaunchParameter _noLogs = new LaunchParameter
         {
             Name = "-noLogs",
             LegacyName = "noLogs",
             DisplayName = Resources.Strings.S_PARAMETER_NO_LOGS,
             Tooltip = Resources.Strings.S_PARAMETER_NO_LOGS_DESC
         };
-        private readonly BooleanParameter _enableHt = new BooleanParameter
+        private readonly LaunchParameter _enableHt = new LaunchParameter
         {
             Name = "-enableHT",
             LegacyName = "hyperthreading",
             DisplayName = Resources.Strings.S_PARAMETER_HYPERTHREADING,
             Tooltip = Resources.Strings.S_PARAMETER_HYPERTHREADING_DESC
         };
-        private readonly BooleanParameter _hugePages = new BooleanParameter
+        private readonly LaunchParameter _hugePages = new LaunchParameter
         {
             Name = "-hugePages",
             LegacyName = string.Empty,
@@ -153,7 +152,7 @@ namespace _11thLauncher.Services
             MinValue = 0,
             MaxValue = 7
         };
-        private readonly TextParameter _additional = new TextParameter
+        private readonly LaunchParameter _additional = new TextParameter
         {
             Name = "Additional parameters",
             LegacyName = "extraParameters",

@@ -6,7 +6,6 @@ using Caliburn.Micro;
 using Newtonsoft.Json;
 using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
-using _11thLauncher.Models.Parameter;
 using _11thLauncher.Services.Contracts;
 using _11thLauncher.Util;
 using Formatting = Newtonsoft.Json.Formatting;
@@ -102,21 +101,21 @@ namespace _11thLauncher.Services
                                         var matchingParameter = _parameterService.Parameters.FirstOrDefault(p => p.LegacyName.Equals(parameter));
                                         if (matchingParameter != null)
                                         {
-                                            switch (matchingParameter)
+                                            switch (matchingParameter.Type)
                                             {
-                                                case BooleanParameter b:
+                                                case ParameterType.Boolean:
                                                     bool parsedValue;
                                                     parsed = bool.TryParse(value, out parsedValue);
-                                                    b.SetStatus(parsed && parsedValue);
+                                                    matchingParameter.SetStatus(parsed && parsedValue);
                                                     break;
-                                                case SelectionParameter s:
+                                                case ParameterType.Selection:
                                                     //No legacy conversion
                                                     break;
-                                                case NumericalParameter n:
+                                                case ParameterType.Numerical:
                                                     //No legacy conversion
                                                     break;
-                                                case TextParameter t:
-                                                    t.SetStatus(true, value);
+                                                case ParameterType.Text:
+                                                    ((TextParameter) matchingParameter).SetStatus(true, value);
                                                     break;
                                                 default:
                                                     throw new ArgumentOutOfRangeException();
