@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Caliburn.Micro;
+using Newtonsoft.Json;
 using _11thLauncher.Models;
 
 namespace _11thLauncher
@@ -127,6 +128,11 @@ namespace _11thLauncher
         public const string DefaultArma3SteamPath = @"SteamApps\common\ArmA 3";
         public const string GameExecutable32 = "arma3.exe";
         public const string GameExecutable64 = "arma3_x64.exe";
+#if DEBUG 
+        public const Formatting JsonFormatting = Formatting.Indented;
+#else
+        public const Formatting JsonFormatting = Formatting.None;
+#endif
 
         //
         // Profile Service
@@ -134,6 +140,17 @@ namespace _11thLauncher
         public const string ProfilesFolder = "profiles";
         public const string ProfileNameFormat = "{0}.json";
         public const string LegacyProfileNameFormat = "{0}.xml";
+
+        //
+        // Logging
+        //
+#if DEBUG
+        public const LogLevel MaxLogLevel = LogLevel.DEBUG;
+#else
+        public const LogLevel MaxLogLevel = LogLevel.INFO;
+#endif
+        public const int LogRolledFiles = 2;
+        public const long LogSizeLimit = 5242880; //5MB
 
         //
         // Program Settings

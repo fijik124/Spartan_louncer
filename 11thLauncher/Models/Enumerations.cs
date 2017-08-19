@@ -2,6 +2,14 @@
 
 namespace _11thLauncher.Models
 {
+    public enum RepositoryStatus
+    {
+        Unknown,
+        Checking,
+        Outdated,
+        Updated
+    }
+
     public enum UpdateCheckResult
     {
         UpdateAvailable,
@@ -60,12 +68,18 @@ namespace _11thLauncher.Models
 
     public enum ParameterType
     {
-        Boolean, Selection, Text, Numerical
+        Boolean,
+        Selection,
+        Text,
+        Numerical
     }
 
     public enum ServerStatus
     {
-        Unknown, Checking, Online, Offline
+        Unknown,
+        Checking,
+        Online,
+        Offline
     }
 
     public enum StartAction
@@ -161,8 +175,11 @@ namespace _11thLauncher.Models
         Sienna
     }
 
-    public enum RepositoryStatus
+    public enum LogLevel
     {
-        Unknown, Checking, Outdated, Updated
+        NONE,
+        ERROR,
+        INFO,
+        DEBUG
     }
 }

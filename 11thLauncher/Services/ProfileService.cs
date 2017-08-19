@@ -8,19 +8,20 @@ using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Converters;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
-using Formatting = Newtonsoft.Json.Formatting;
 
 namespace _11thLauncher.Services
 {
     public class ProfileService : IProfileService
     {
         private readonly IFileAccessor _fileAccessor;
+        private readonly ILogger _logger;
         private readonly IParameterService _parameterService;
         private readonly ISecurityService _securityService;
 
-        public ProfileService(IFileAccessor fileAccessor, IParameterService parameterService, ISecurityService securityService)
+        public ProfileService(IFileAccessor fileAccessor, ILogger logger, IParameterService parameterService, ISecurityService securityService)
         {
             _fileAccessor = fileAccessor;
+            _logger = logger;
             _parameterService = parameterService;
             _securityService = securityService;
         }
@@ -42,7 +43,7 @@ namespace _11thLauncher.Services
             }
 
             _fileAccessor.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.ProfileNameFormat, profile.Id)), 
-                JsonConvert.SerializeObject(profileFile, Formatting.Indented));
+                JsonConvert.SerializeObject(profileFile, Constants.JsonFormatting));
         }
 
         public void Read(UserProfile profile, out BindableCollection<Addon> addons, out BindableCollection<LaunchParameter> parameters, out LaunchSettings launchSettings)

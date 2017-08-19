@@ -57,6 +57,7 @@ namespace _11thLauncher
             _container.Singleton<IFileAccessor, FileAccessor>();
             _container.Singleton<INetworkAccessor, NetworkAccessor>();
             _container.Singleton<IRegistryAccessor, RegistryAccessor>();
+            _container.Singleton<ILogger, Logger>();
         }
 
         protected override object GetInstance(Type service, string key)

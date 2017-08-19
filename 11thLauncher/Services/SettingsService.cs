@@ -8,7 +8,6 @@ using System.Windows;
 using System.Xml;
 using Caliburn.Micro;
 using MahApps.Metro;
-using Microsoft.Win32;
 using Newtonsoft.Json;
 using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
@@ -298,7 +297,7 @@ namespace _11thLauncher.Services
                 _fileAccessor.CreateDirectory(Constants.ConfigPath);
             }
 
-            _fileAccessor.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(configFile, Newtonsoft.Json.Formatting.Indented));
+            _fileAccessor.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(configFile, Constants.JsonFormatting));
         }
 
         /// <summary>
