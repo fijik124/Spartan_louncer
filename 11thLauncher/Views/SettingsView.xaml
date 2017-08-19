@@ -9,6 +9,7 @@
         xmlns:vm="clr-namespace:_11thLauncher.ViewModels"
         xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
         xmlns:util="clr-namespace:_11thLauncher.Util"
+        xmlns:conv="clr-namespace:_11thLauncher.Converters"
         xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
         dialog:DialogParticipation.Register="{Binding}"
         mc:Ignorable="d"
@@ -22,7 +23,7 @@
         d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel}"
         cal:Message.Attach="[Event Closing] = [Action OnClose($eventArgs)]">
     <Control.Resources>
-        <util:CultureDisplayConverter x:Key="CultureConverter" />
+        <conv:CultureDisplayConverter x:Key="CultureConverter" />
     </Control.Resources>
     <Grid>
         <controls:MetroTabControl HorizontalAlignment="Left" TabStripPlacement="Left" controls:TabControlHelper.Underlined="TabPanel" Width="685">

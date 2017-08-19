@@ -10,10 +10,11 @@
              xmlns:resx="clr-namespace:_11thLauncher.Resources"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
              xmlns:util="clr-namespace:_11thLauncher.Util"
+             xmlns:conv="clr-namespace:_11thLauncher.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="337" d:DesignWidth="615" d:DataContext="{d:DesignInstance Type=vm:GameViewModel}">
     <Control.Resources>
-        <util:LaunchOptionConverter x:Key="OptionConverter" />
+        <conv:LaunchOptionConverter x:Key="OptionConverter" />
     </Control.Resources>
     <Grid>
         <controls:SplitButton ItemsSource="{Binding Source={util:Enumeration {x:Type m:LaunchOption}}}" 

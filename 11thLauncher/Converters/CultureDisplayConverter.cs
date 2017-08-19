@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace _11thLauncher.Util
+namespace _11thLauncher.Converters
 {
     public class CultureDisplayConverter : IValueConverter
     {

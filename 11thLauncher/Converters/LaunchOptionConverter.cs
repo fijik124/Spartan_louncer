@@ -2,9 +2,10 @@
 using System.Globalization;
 using System.Windows.Data;
 using _11thLauncher.Models;
+using _11thLauncher.Util;
 using EnumerationMember = _11thLauncher.Util.EnumerationExtension.EnumerationMember;
 
-namespace _11thLauncher.Util
+namespace _11thLauncher.Converters
 {
     public class LaunchOptionConverter : IValueConverter
     {

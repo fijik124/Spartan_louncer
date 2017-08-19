@@ -152,7 +152,7 @@
     <Compile Include="Services\Contracts\IProfileService.cs" />
     <Compile Include="Services\ParameterService.cs" />
     <Compile Include="Util\GithubRelease.cs" />
-    <Compile Include="Util\JsonLaunchParameterConverter.cs" />
+    <Compile Include="Converters\JsonLaunchParameterConverter.cs" />
     <Compile Include="Util\ExtensionMethods.cs" />
     <Compile Include="Services\AddonService.cs" />
     <Compile Include="Services\Arma3SyncService.cs" />
@@ -167,7 +167,7 @@
     <Compile Include="Services\ServerQueryService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UpdaterService.cs" />
-    <Compile Include="Util\LaunchOptionConverter.cs" />
+    <Compile Include="Converters\LaunchOptionConverter.cs" />
     <Compile Include="ViewModels\Controls\RepositoryStatusViewModel.cs" />
     <Compile Include="ViewModels\Controls\ServerQueryViewModel.cs" />
     <Compile Include="Views\Controls\ProfileManagerView.xaml.cs">
@@ -176,7 +176,7 @@
     <Compile Include="Views\Controls\RepositoryStatusView.xaml.cs">
       <DependentUpon>RepositoryStatusView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Util\CultureDisplayConverter.cs" />
+    <Compile Include="Converters\CultureDisplayConverter.cs" />
     <Compile Include="Util\EnumerationExtension.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />

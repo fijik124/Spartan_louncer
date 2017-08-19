@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using _11thLauncher.Models;
 
-namespace _11thLauncher.Util
+namespace _11thLauncher.Converters
 {
     public class JsonLaunchParameterConverter : JsonConverter
     {
