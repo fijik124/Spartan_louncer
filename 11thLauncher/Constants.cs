@@ -35,6 +35,13 @@ namespace _11thLauncher
         };
 
         //
+        // Parameter Service
+        //
+        public const string AllocatorsFolder = "Dll";
+        public const string AllocatorsPattern32 = ".dll";
+        public const string AllocatorsPattern64 = "_x64.dll";
+
+        //
         // Server Status Service
         //
         public static readonly Server[] DefaultServers = 

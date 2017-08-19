@@ -200,15 +200,15 @@ namespace _11thLauncher.Services
 
             if (arma3Path == "") return;
 
-            string[] files = _fileAccessor.GetFiles(arma3Path + "\\Dll", "*.dll");
+            string[] files = _fileAccessor.GetFiles(Path.Combine(arma3Path, Constants.AllocatorsFolder), $"*{Constants.AllocatorsPattern32}");
             foreach (string file in files)
             {
-                if (file.EndsWith("_x64.dll")) continue;
+                if (file.EndsWith(Constants.AllocatorsPattern64)) continue;
                 var name = Path.GetFileNameWithoutExtension(file);
                 allocators32.Add(new ValueItem(name, name + " (x32)"));
             }
 
-            string[] filesX64 = _fileAccessor.GetFiles(arma3Path + "\\Dll", "*_x64.dll");
+            string[] filesX64 = _fileAccessor.GetFiles(Path.Combine(arma3Path, Constants.AllocatorsFolder), $"*{Constants.AllocatorsPattern64}");
             foreach (string file in filesX64)
             {
                 var name = Path.GetFileNameWithoutExtension(file);
