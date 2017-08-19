@@ -119,7 +119,8 @@ namespace _11thLauncher.Services
                                                     t.SetStatus(true, value);
                                                     break;
                                                 default:
-                                                    throw new ArgumentOutOfRangeException();
+                                                    _logger.LogException("ProfileService", "Matching parameter type not found", new ArgumentOutOfRangeException());
+                                                    break;
                                             }
                                             parameters.Add(matchingParameter);
                                         }

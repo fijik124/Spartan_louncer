@@ -15,14 +15,16 @@ namespace _11thLauncher.Services
     {
         private readonly IFileAccessor _fileAccessor;
         private readonly INetworkAccessor _networkAccessor;
+        private readonly ILogger _logger;
 
         private readonly string _assemblyVersion;
         private string _lastEtag = ""; //Latest entity tag for caching
 
-        public UpdaterService(IFileAccessor fileAccessor, INetworkAccessor networkAccessor)
+        public UpdaterService(IFileAccessor fileAccessor, INetworkAccessor networkAccessor, ILogger logger)
         {
             _fileAccessor = fileAccessor;
             _networkAccessor = networkAccessor;
+            _logger = logger;
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             _assemblyVersion = string.Join(".", version.Major, version.Minor, version.Build);
@@ -78,7 +80,8 @@ namespace _11thLauncher.Services
                             break;
 
                         default:
-                            throw new ArgumentOutOfRangeException();
+                            _logger.LogException("UpdaterService", "Unexpected HTTP response received", new ArgumentOutOfRangeException());
+                            break;
                     }
 
                     return UpdateCheckResult.ErrorCheckingUpdates;
