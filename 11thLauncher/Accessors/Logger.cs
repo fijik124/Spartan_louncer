@@ -34,7 +34,7 @@ namespace _11thLauncher.Accessors
         public void LogInfo(string component, string message)
         {
             if (_maxLogLevel >= LogLevel.INFO)
-                WriteMessageToLog(LogLevel.DEBUG, component, message);
+                WriteMessageToLog(LogLevel.INFO, component, message);
         }
 
         public void LogException(string component, string message, Exception e)
@@ -89,6 +89,9 @@ namespace _11thLauncher.Accessors
 
         private void WriteToLog(string content)
         {
+#if DEBUG
+            Console.Write(content);
+#endif
             try
             {
                 lock (_logFile)
