@@ -21,7 +21,7 @@ namespace _11thLauncher.ViewModels
             _updaterService = updaterService;
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
-            _assemblyVersion = string.Join(",", version.Major, version.Minor, version.Build);
+            _assemblyVersion = string.Join(".", version.Major, version.Minor, version.Build);
         }
 
         public string Author => string.Format(Resources.Strings.S_LABEL_APP_AUTHOR, Constants.Author);
