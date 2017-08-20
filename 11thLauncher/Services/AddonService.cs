@@ -75,30 +75,38 @@ namespace _11thLauncher.Services
                 var properties = _fileAccessor.ReadAllLines(metaFile);
                 foreach (var line in properties)
                 {
-                    var separator = line.IndexOf('=');
-                    if (separator <= 0)
-                        continue;
-                    string param = line.Remove(separator).TrimEnd();
-                    string value = line.Substring(separator + 1).TrimStart();
-                    if (value.Length > 1)
+                    try
                     {
-                        value = value.Split('\"', '\"')[1];
-                    }
+                        var separator = line.IndexOf('=');
+                        if (separator <= 0)
+                            continue;
+                        string param = line.Remove(separator).TrimEnd();
+                        string value = line.Substring(separator + 1).TrimStart().TrimEnd(';');
+                        if (value.Length > 1)
+                        {
+                            value = value.Split('\"', '\"')[1];
+                        }
 
-                    switch (param)
-                    {
-                        case "name":
-                            addon.MetaData.Name = value;
-                            break;
-                        case "tooltip":
-                            addon.MetaData.Tooltip = value;
-                            break;
-                        case "action":
-                            addon.MetaData.Action = value;
-                            break;
-                        default:
-                            break;
+                        switch (param)
+                        {
+                            case "name":
+                                addon.MetaData.Name = value;
+                                break;
+                            case "tooltip":
+                                addon.MetaData.Tooltip = value;
+                                break;
+                            case "action":
+                                addon.MetaData.Action = value;
+                                break;
+                            default:
+                                break;
+                        }
                     }
+                    catch (Exception)
+                    {
+                        // continue
+                    }
+                    
                 }
             }
             catch (Exception)
