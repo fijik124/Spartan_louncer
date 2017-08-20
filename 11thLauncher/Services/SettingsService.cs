@@ -19,11 +19,13 @@ namespace _11thLauncher.Services
     {
         private readonly IFileAccessor _fileAccessor;
         private readonly IRegistryAccessor _registryAccessor;
+        private readonly ILogger _logger;
 
-        public SettingsService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor)
+        public SettingsService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor, ILogger logger)
         {
             _fileAccessor = fileAccessor;
             _registryAccessor = registryAccessor;
+            _logger = logger;
 
             UserProfiles = new BindableCollection<UserProfile>();
             ApplicationSettings = new ApplicationSettings();
@@ -56,61 +58,77 @@ namespace _11thLauncher.Services
                 settingsExist = _fileAccessor.FileExists(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName));
             }
 
+            _logger.LogDebug("SettingsService", "Checked if settings exist, result is: " + settingsExist);
             return settingsExist;
         }
 
         public string GetGameVersion()
         {
             string version = "";
-            if (string.IsNullOrEmpty(ApplicationSettings.Arma3Path)) return version;
+            if (string.IsNullOrEmpty(ApplicationSettings.Arma3Path))
+            {
+                _logger.LogDebug("SettingsService", "Unable to detect game version, path is not set");
+                return version;
+            }
 
             FileVersionInfo info = FileVersionInfo.GetVersionInfo(Path.Combine(ApplicationSettings.Arma3Path, Constants.GameExecutable32));
             version = info.FileVersion + "." + info.FileBuildPart + info.FilePrivatePart;
 
+            _logger.LogDebug("SettingsService", "Local game version detected to be: " + version);
             return version;
         }
 
         public void ReadPath()
         {
-            string arma3RegPath;
+            string arma3RegPath = null;
 
-            //First try to get the path using ArmA 3 registry entry
-            if (Environment.Is64BitOperatingSystem)
+            try
             {
-                arma3RegPath = (string)_registryAccessor.GetValue(Constants.Arma3RegPath64[0], Constants.Arma3RegPath64[1], Constants.Arma3RegPath64[2]);
-            }
-            else
-            {
-                arma3RegPath = (string)_registryAccessor.GetValue(Constants.Arma3RegPath32[0], Constants.Arma3RegPath32[1], Constants.Arma3RegPath32[2]);
-            }
-            if (!_fileAccessor.DirectoryExists(arma3RegPath))
-            {
-                arma3RegPath = null;
-            }
-
-            //If ArmA 3 registry entry is not found, use Steam entry
-            if (string.IsNullOrEmpty(arma3RegPath))
-            {
-                string steamPath;
+                //First try to get the path using ArmA 3 registry entry
                 if (Environment.Is64BitOperatingSystem)
                 {
-                    steamPath = (string)_registryAccessor.GetValue(Constants.SteamRegPath64[0], Constants.SteamRegPath64[1], Constants.SteamRegPath64[2]);
-                    arma3RegPath = Path.Combine(steamPath, Constants.DefaultArma3SteamPath);
+                    arma3RegPath = (string)_registryAccessor.GetValue(Constants.Arma3RegPath64[0], Constants.Arma3RegPath64[1], Constants.Arma3RegPath64[2]);
                 }
                 else
                 {
-                    steamPath = (string)_registryAccessor.GetValue(Constants.SteamRegPath32[0], Constants.SteamRegPath32[1], Constants.SteamRegPath32[2]);
-                    arma3RegPath = Path.Combine(steamPath, Constants.DefaultArma3SteamPath);
+                    arma3RegPath = (string)_registryAccessor.GetValue(Constants.Arma3RegPath32[0], Constants.Arma3RegPath32[1], Constants.Arma3RegPath32[2]);
+                }
+                if (!_fileAccessor.DirectoryExists(arma3RegPath))
+                {
+                    arma3RegPath = null;
+                }
+
+                //If ArmA 3 registry entry is not found, use Steam entry
+                if (string.IsNullOrEmpty(arma3RegPath))
+                {
+                    string steamPath;
+                    if (Environment.Is64BitOperatingSystem)
+                    {
+                        steamPath = (string)_registryAccessor.GetValue(Constants.SteamRegPath64[0], Constants.SteamRegPath64[1], Constants.SteamRegPath64[2]);
+                        arma3RegPath = Path.Combine(steamPath, Constants.DefaultArma3SteamPath);
+                    }
+                    else
+                    {
+                        steamPath = (string)_registryAccessor.GetValue(Constants.SteamRegPath32[0], Constants.SteamRegPath32[1], Constants.SteamRegPath32[2]);
+                        arma3RegPath = Path.Combine(steamPath, Constants.DefaultArma3SteamPath);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                _logger.LogException("SettingsService", "Exception trying to read game path from registry", e);
+            }
+
             if (!_fileAccessor.DirectoryExists(arma3RegPath))
             {
+                _logger.LogDebug("SettingsService", $"Unable to detect game path from registry, the directory '{arma3RegPath}' doesn't exist");
                 arma3RegPath = null;
             }
 
             //If the path is found and exists, set to config and return that a valid path was found
             if (!string.IsNullOrEmpty(arma3RegPath))
             {
+                _logger.LogInfo("SettingsService", $"Game path successfully read from registry: '{arma3RegPath}'");
                 ApplicationSettings.Arma3Path = arma3RegPath;
             }
         }
@@ -128,14 +146,15 @@ namespace _11thLauncher.Services
                     configFile = ReadLegacy();
                     loadResult = LoadSettingsResult.LoadedLegacySettings;
 
-                    ApplicationSettings = configFile.ApplicationSettings; //weird?
+                    ApplicationSettings = configFile.ApplicationSettings;
                     DefaultProfileId = configFile.DefaultProfileId;
                     Write();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     configFile = new ConfigFile();
                     loadResult = LoadSettingsResult.ErrorLoadingLegacySettings;
+                    _logger.LogException("SettingsService", "Exception reading legacy settings", e);
                 }
             }
             else
@@ -178,6 +197,7 @@ namespace _11thLauncher.Services
 
         private ConfigFile ReadLegacy()
         {
+            _logger.LogInfo("SettingsService", "Starting conversion of legacy settings");
             ConfigFile configFile = new ConfigFile();
             string defaultProfileName = "";
 
@@ -190,71 +210,78 @@ namespace _11thLauncher.Services
                 while (reader.Read())
                 {
                     if (!reader.IsStartElement()) continue;
-
-                    string value;
-                    switch (reader.Name)
+                    try
                     {
-                        case "JavaPath":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            configFile.ApplicationSettings.JavaPath = value;
-                            break;
-                        case "ArmA3Path":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            configFile.ApplicationSettings.Arma3Path = value;
-                            break;
-                        case "ArmA3SyncPath":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            configFile.ApplicationSettings.Arma3SyncPath = value;
-                            break;
-                        case "Profiles":
-                            var parameter = reader["default"];
-                            reader.Read();
-                            defaultProfileName = parameter;
-                            break;
-                        case "Profile":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            UserProfiles.Add(new UserProfile(value));
-                            break;
-                        case "minimizeNotification":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            configFile.ApplicationSettings.MinimizeNotification = bool.Parse(value);
-                            break;
-                        case "startMinimize":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            configFile.ApplicationSettings.StartMinimize = bool.Parse(value);
-                            break;
-                        case "startClose":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            configFile.ApplicationSettings.StartClose = bool.Parse(value);
-                            break;
-                        case "accent":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            configFile.ApplicationSettings.AccentColor = (AccentColor)int.Parse(value);
-                            break;
-                        case "checkUpdates":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            configFile.ApplicationSettings.CheckUpdates = bool.Parse(value);
-                            break;
-                        case "checkServers":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            configFile.ApplicationSettings.CheckServers = bool.Parse(value);
-                            break;
-                        case "checkRepository":
-                            reader.Read();
-                            value = reader.Value.Trim();
-                            configFile.ApplicationSettings.CheckRepository = bool.Parse(value);
-                            break;
+                        string value;
+                        switch (reader.Name)
+                        {
+                            case "JavaPath":
+                                reader.Read();
+                                value = reader.Value.Trim();
+                                configFile.ApplicationSettings.JavaPath = value;
+                                break;
+                            case "ArmA3Path":
+                                reader.Read();
+                                value = reader.Value.Trim();
+                                configFile.ApplicationSettings.Arma3Path = value;
+                                break;
+                            case "ArmA3SyncPath":
+                                reader.Read();
+                                value = reader.Value.Trim();
+                                configFile.ApplicationSettings.Arma3SyncPath = value;
+                                break;
+                            case "Profiles":
+                                var parameter = reader["default"];
+                                reader.Read();
+                                defaultProfileName = parameter;
+                                break;
+                            case "Profile":
+                                reader.Read();
+                                value = reader.Value.Trim();
+                                UserProfiles.Add(new UserProfile(value));
+                                break;
+                            case "minimizeNotification":
+                                reader.Read();
+                                value = reader.Value.Trim();
+                                configFile.ApplicationSettings.MinimizeNotification = bool.Parse(value);
+                                break;
+                            case "startMinimize":
+                                reader.Read();
+                                value = reader.Value.Trim();
+                                configFile.ApplicationSettings.StartMinimize = bool.Parse(value);
+                                break;
+                            case "startClose":
+                                reader.Read();
+                                value = reader.Value.Trim();
+                                configFile.ApplicationSettings.StartClose = bool.Parse(value);
+                                break;
+                            case "accent":
+                                reader.Read();
+                                value = reader.Value.Trim();
+                                configFile.ApplicationSettings.AccentColor = (AccentColor)int.Parse(value);
+                                break;
+                            case "checkUpdates":
+                                reader.Read();
+                                value = reader.Value.Trim();
+                                configFile.ApplicationSettings.CheckUpdates = bool.Parse(value);
+                                break;
+                            case "checkServers":
+                                reader.Read();
+                                value = reader.Value.Trim();
+                                configFile.ApplicationSettings.CheckServers = bool.Parse(value);
+                                break;
+                            case "checkRepository":
+                                reader.Read();
+                                value = reader.Value.Trim();
+                                configFile.ApplicationSettings.CheckRepository = bool.Parse(value);
+                                break;
+                        }
                     }
+                    catch (Exception e)
+                    {
+                        _logger.LogException("SettingsService", "Error reading a legacy setting", e);
+                    }
+                    
                 }
             }
 
@@ -266,8 +293,10 @@ namespace _11thLauncher.Services
             }
 
             //Delete the legacy config file after reading it
+            _logger.LogInfo("SettingsService", "Deleting legacy config file");
             _fileAccessor.DeleteFile(legacyConfigFile);
 
+            _logger.LogInfo("SettingsService", "Finished conversion of legacy settings");
             return configFile;
         }
 
@@ -277,7 +306,14 @@ namespace _11thLauncher.Services
         /// <returns>True if a legacy configuration is present</returns>
         private bool LegacyConfigExists()
         {
-            return _fileAccessor.FileExists(Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName));
+            bool fileExists = _fileAccessor.FileExists(Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName));
+
+            if (fileExists)
+            {
+                _logger.LogInfo("SettingsService", "Legacy config file detected");
+            }
+
+            return fileExists;
         }
 
         public void Write()

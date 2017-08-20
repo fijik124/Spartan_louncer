@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
@@ -16,7 +17,8 @@ namespace _11thLauncher.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IWindowManager _windowManager;
-
+   
+        private readonly ILogger _logger;
         private readonly ISettingsService _settingsService;
         private readonly IProfileService _profileService;
         private readonly IAddonService _addonService;
@@ -34,7 +36,7 @@ namespace _11thLauncher.ViewModels
         private Visibility _showVersionMismatch = Visibility.Hidden;
         private string _versionMismatchTooltip;
 
-        public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager,
+        public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager, ILogger logger,
             ISettingsService settingsService, IAddonService addonService, IServerQueryService serverQueryService, IAddonSyncService addonSyncService,
             IUpdaterService updaterService, IParameterService parameterService, IGameService launcherService, IProfileService profileService)
         {
@@ -45,6 +47,7 @@ namespace _11thLauncher.ViewModels
             _dialogCoordinator = DialogCoordinator.Instance;
             _windowManager = windowManager;
 
+            _logger = logger;
             _settingsService = settingsService;
             _profileService = profileService;
             _addonService = addonService;
@@ -175,6 +178,8 @@ namespace _11thLauncher.ViewModels
 
         private void Init()
         {
+            _logger.LogDebug("ShellViewModel", "Starting Shell initialization");
+
             //If just updated, remove updater and show notification
             if (Program.Updated)
             {
@@ -184,6 +189,7 @@ namespace _11thLauncher.ViewModels
                     Title = Resources.Strings.S_MSG_UPDATE_SUCCESS_TITLE,
                     Content = Resources.Strings.S_MSG_UPDATE_SUCCESS_CONTENT
                 });
+                _logger.LogInfo("ShellViewModel", "An update to the program was detected");
             }
 
             //Notify if update failed
@@ -195,6 +201,7 @@ namespace _11thLauncher.ViewModels
                     Title = Resources.Strings.S_MSG_UPDATE_FAIL_TITLE,
                     Content = Resources.Strings.S_MSG_UPDATE_FAIL_CONTENT
                 });
+                _logger.LogInfo("ShellViewModel", "A failed update to the program was detected");
             }
 
             //TODO LEGACY CONVERT 
@@ -283,6 +290,8 @@ namespace _11thLauncher.ViewModels
                     }
                 });
             }
+
+            _logger.LogDebug("ShellViewModel", "Finished Shell initialization");
         }
 
         private void CompareServerVersion()
@@ -353,6 +362,7 @@ namespace _11thLauncher.ViewModels
 
         public void OnClose(ConsoleCancelEventArgs e)
         {
+            _logger.LogDebug("ShellViewModel", "Close event detected. Terminating all processes");
             Environment.Exit(Environment.ExitCode); //Close background thread on shell closed
         }
 
