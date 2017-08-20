@@ -45,10 +45,11 @@ namespace _11thLauncher.Accessors
 
         private void WriteMessageToLog(LogLevel logLevel, string component, string message)
         {
-            string content = string.Format("{1} - [{2}] {3} - {4}{0}",
+            string logLevelStr = $"[{logLevel}]".PadRight(7);
+            string content = string.Format("{1} - {2} {3} - {4}{0}",
                 Environment.NewLine,
                 DateTime.Now,
-                logLevel,
+                logLevelStr,
                 component,
                 message);
             WriteToLog(content);
@@ -56,10 +57,11 @@ namespace _11thLauncher.Accessors
 
         private void WriteExceptionToLog(string component, string message, Exception e)
         {
-            string content = string.Format("{1} - [{2}] {3} - {4} {0}{5}{0}",
+            string logLevelStr = $"[{LogLevel.ERROR}]".PadRight(7);
+            string content = string.Format("{1} - {2} {3} - {4} {0}{5}{0}",
                 Environment.NewLine,
                 DateTime.Now,
-                LogLevel.ERROR,
+                logLevelStr,
                 component,
                 message,
                 e);
