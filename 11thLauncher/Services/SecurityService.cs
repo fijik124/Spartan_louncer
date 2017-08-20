@@ -2,28 +2,52 @@
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.Services
 {
     public class SecurityService : ISecurityService
     {
+        private readonly ILogger _logger;
+
+        public SecurityService(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public string EncryptPassword(string text)
         {
             if (string.IsNullOrEmpty(text)) return string.Empty;
 
-            byte[] original = Encoding.Unicode.GetBytes(text);
-            byte[] encrypted = ProtectedData.Protect(original, GetEntropy(), DataProtectionScope.CurrentUser);
-            return Convert.ToBase64String(encrypted);
+            try
+            {
+                byte[] original = Encoding.Unicode.GetBytes(text);
+                byte[] encrypted = ProtectedData.Protect(original, GetEntropy(), DataProtectionScope.CurrentUser);
+                return Convert.ToBase64String(encrypted);
+            }
+            catch (Exception e)
+            {
+                _logger.LogException("SecurityService", "Error encrypting password", e);
+                return string.Empty;
+            }
         }
 
         public string DecryptPassword(string text)
         {
             if (string.IsNullOrEmpty(text)) return string.Empty;
 
-            byte[] encrypted = Convert.FromBase64String(text);
-            byte[] original = ProtectedData.Unprotect(encrypted, GetEntropy(), DataProtectionScope.CurrentUser);
-            return Encoding.Unicode.GetString(original);
+            try
+            {
+                byte[] encrypted = Convert.FromBase64String(text);
+                byte[] original = ProtectedData.Unprotect(encrypted, GetEntropy(), DataProtectionScope.CurrentUser);
+                return Encoding.Unicode.GetString(original);
+            }
+            catch (Exception e)
+            {
+                _logger.LogException("SecurityService", "Error decrypting password", e);
+                return string.Empty;
+            }
         }
 
         private static byte[] GetEntropy()
