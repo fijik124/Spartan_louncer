@@ -669,4 +669,34 @@
   <data name="S_BTN_UPDATE" xml:space="preserve">
     <value>Actualizar</value>
   </data>
+  <data name="S_LABEL_JAVA_OPTIONS" xml:space="preserve">
+    <value>Opciones de Java</value>
+  </data>
+  <data name="S_LABEL_JAVA_PATH" xml:space="preserve">
+    <value>Ruta de Java:</value>
+  </data>
+  <data name="S_LABEL_JAVA_PATH_VAR" xml:space="preserve">
+    <value>Java en PATH:</value>
+  </data>
+  <data name="S_LABEL_JAVA_DISCLAIMER" xml:space="preserve">
+    <value>NOTA: Solamente indicar la ruta de Java si no se ha detectado en PATH o si se quiere utilizar una versión distinta. JRE's compatibles: 7 y 8.</value>
+  </data>
+  <data name="S_LABEL_ARMA3SYNC_PATH" xml:space="preserve">
+    <value>Ruta de Arma3Sync:</value>
+  </data>
+  <data name="S_LABEL_ARMA3SYNC_OPTIONS" xml:space="preserve">
+    <value>Opciones de Arma3Sync</value>
+  </data>
+  <data name="S_BUTTON_SELECT_ALL_TIP" xml:space="preserve">
+    <value>Seleccionar todos</value>
+  </data>
+  <data name="S_BUTTON_SELECT_NONE_TIP" xml:space="preserve">
+    <value>Seleccionar ninguno</value>
+  </data>
+  <data name="S_BUTTON_FILL_SERVER_TIP" xml:space="preserve">
+    <value>Rellenar información del servidor</value>
+  </data>
+  <data name="S_PROFILES" xml:space="preserve">
+    <value>Perfiles</value>
+  </data>
 </root>

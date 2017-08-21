@@ -76,7 +76,7 @@
                     <ContentControl x:Name="ServerQueryControl" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Perfiles" HeaderTemplate="{StaticResource TabTitle}">
+            <TabItem Header="{x:Static resx:Strings.S_PROFILES}" HeaderTemplate="{StaticResource TabTitle}">
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
                     <!-- Profile manager -->
                     <ContentControl x:Name="ProfileManagerControl" />

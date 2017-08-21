@@ -8,9 +8,9 @@ namespace _11thLauncher.Services.Contracts
         BindableCollection<LaunchParameter> Parameters { get; }
 
         /// <summary>
-        /// Read the memory allocators available in the ArmA 3 Dll folder
+        /// Create the parameter variables and read the memory allocators available in the ArmA 3 Dll folder
         /// </summary>
         /// <param name="arma3Path">Game path</param>
-        void ReadAllocators(string arma3Path);
+        void InitializeParameters(string arma3Path);
     }
 }

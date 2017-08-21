@@ -29,42 +29,72 @@ namespace _11thLauncher.Services
         public void Write(UserProfile profile, BindableCollection<Addon> addons, 
             BindableCollection<LaunchParameter> parameters, LaunchSettings launchSettings)
         {
-            ProfileFile profileFile = new ProfileFile
-            {
-                Profile = profile,
-                Addons = addons ?? new BindableCollection<Addon>(),
-                Parameters = parameters ?? new BindableCollection<LaunchParameter>(),
-                LaunchSettings = launchSettings ?? new LaunchSettings()
-            };
+            _logger.LogDebug("ProfileService", "Writing profile to disk");
 
-            if (!_fileAccessor.DirectoryExists(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder)))
+            try
             {
-                _fileAccessor.CreateDirectory(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder));
+                ProfileFile profileFile = new ProfileFile
+                {
+                    Profile = profile,
+                    Addons = addons ?? new BindableCollection<Addon>(),
+                    Parameters = parameters ?? new BindableCollection<LaunchParameter>(),
+                    LaunchSettings = launchSettings ?? new LaunchSettings()
+                };
+
+                if (!_fileAccessor.DirectoryExists(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder)))
+                {
+                    _fileAccessor.CreateDirectory(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder));
+                }
+
+                _fileAccessor.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.ProfileNameFormat, profile.Id)),
+                    JsonConvert.SerializeObject(profileFile, Constants.JsonFormatting));
             }
-
-            _fileAccessor.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.ProfileNameFormat, profile.Id)), 
-                JsonConvert.SerializeObject(profileFile, Constants.JsonFormatting));
+            catch (Exception e)
+            {
+                _logger.LogException("ProfileService", "Error writing profile", e);
+            }
         }
 
         public void Read(UserProfile profile, out BindableCollection<Addon> addons, out BindableCollection<LaunchParameter> parameters, out LaunchSettings launchSettings)
         {
-            ProfileFile profileFile = new ProfileFile { Profile = profile };
+            _logger.LogDebug("ProfileService", "Reading profile from disk");
 
-            var settings = new JsonSerializerSettings { Converters = { new JsonLaunchParameterConverter() } };
-            JsonConvert.PopulateObject(_fileAccessor.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder,
-                string.Format(Constants.ProfileNameFormat, profile.Id))), profileFile, settings); //TODO TRYCTACH
+            try
+            {
+                ProfileFile profileFile = new ProfileFile { Profile = profile };
 
-            addons = profileFile.Addons;
-            parameters = profileFile.Parameters;
-            launchSettings = profileFile.LaunchSettings;
+                var settings = new JsonSerializerSettings { Converters = { new JsonLaunchParameterConverter() } };
+                JsonConvert.PopulateObject(_fileAccessor.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder,
+                    string.Format(Constants.ProfileNameFormat, profile.Id))), profileFile, settings); //TODO TRYCTACH
+
+                addons = profileFile.Addons;
+                parameters = profileFile.Parameters;
+                launchSettings = profileFile.LaunchSettings;
+            }
+            catch (Exception e)
+            {
+                _logger.LogException("ProfileService", "Error reading profile", e);
+                addons = new BindableCollection<Addon>();
+                parameters = new BindableCollection<LaunchParameter>();
+                launchSettings = new LaunchSettings();
+            }
         }
 
         public void DeleteProfile(UserProfile profile)
         {
+            _logger.LogDebug("ProfileService", "Deleting profile from disk");
+
             var profileFile = Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.ProfileNameFormat, profile.Id));
-            if (_fileAccessor.DirectoryExists(profileFile))
+            try
             {
-                _fileAccessor.DeleteFile(profileFile);
+                if (_fileAccessor.DirectoryExists(profileFile))
+                {
+                    _fileAccessor.DeleteFile(profileFile);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogException("ProfileService", "Error deleting profile", e);
             }
         }
 
@@ -177,7 +207,7 @@ namespace _11thLauncher.Services
                 }
                 catch (Exception e)
                 {
-                    throw;
+                    _logger.LogException("ProfileService", "Error porting legacy profile", e);
                 }
             }
         }

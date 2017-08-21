@@ -12,16 +12,13 @@
     <Grid>
         <Expander Header="{x:Static resx:Strings.S_SERVERS}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="160" Width="185" IsExpanded="True" Margin="430,38,0,0" Padding="0">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:Name="Servers" d:DataContext="{Binding Servers}"
-                              BorderBrush="#FFCCCCCC"
-                              BorderThickness="0">
+                <ItemsControl x:Name="Servers" d:DataContext="{Binding Servers}" BorderBrush="#FFCCCCCC" BorderThickness="0">
                     <ItemsControl.ItemTemplate>
                         <HierarchicalDataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Rectangle ToolTip="Rellenar información del servidor"
+                                <Rectangle ToolTip="{x:Static resx:Strings.S_BUTTON_FILL_SERVER_TIP}"
                                            cal:Message.Attach="FillServerInfo($datacontext)"
-                                           Height="15" Width="15"
-                                           Margin="5,0" IsHitTestVisible="True" >
+                                           Height="15" Width="15" Margin="5,0" IsHitTestVisible="True" >
                                     <Rectangle.OpacityMask>
                                         <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_list}" />
                                     </Rectangle.OpacityMask>
@@ -44,8 +41,7 @@
                                            TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                                 <Rectangle x:Name="Status" ToolTip="{x:Static resx:Strings.S_BTN_CHECK_SERVER_STATUS_TIP}"
                                            cal:Message.Attach="CheckServerStatus($datacontext)"
-                                           Height="15" Width="15"
-                                           Margin="5,0" IsHitTestVisible="True">
+                                           Height="15" Width="15" Margin="5,0" IsHitTestVisible="True">
                                     <Rectangle.OpacityMask>
                                         <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_layer_thick}" />
                                     </Rectangle.OpacityMask>
@@ -54,16 +50,16 @@
                             </StackPanel>
                             <HierarchicalDataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Unknown}">
-                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#888888"></Setter>
+                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#888888"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Checking}">
-                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#888888"></Setter>
+                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#888888"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Offline}">
-                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#BD3400"></Setter>
+                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#BD3400"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding ServerStatus}" Value="{x:Static model:ServerStatus.Online}">
-                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#56B812"></Setter>
+                                    <Setter TargetName="Status" Property="Rectangle.Fill" Value="#56B812"/>
                                 </DataTrigger>
                             </HierarchicalDataTemplate.Triggers>
                         </HierarchicalDataTemplate>

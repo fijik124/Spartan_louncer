@@ -125,6 +125,7 @@
     <Compile Include="Accessors\Logger.cs" />
     <Compile Include="Accessors\NetworkAccessor.cs" />
     <Compile Include="Accessors\RegistryAccessor.cs" />
+    <Compile Include="Messages\ParametersInitializedMessage.cs" />
     <Compile Include="Messages\ProfileAddedMessage.cs" />
     <Compile Include="Messages\ProfileDeletedMessage.cs" />
     <Compile Include="Messages\LoadProfileMessage.cs" />

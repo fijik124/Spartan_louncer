@@ -9,32 +9,20 @@
              d:DesignHeight="337" d:DesignWidth="615" d:DataContext="{d:DesignInstance Type=controls:ProfileManagerViewModel}">
     <Grid>
         <Label Content="{x:Static resx:Strings.S_LABEL_PROFILE_LIST}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" />
-        <ListBox x:Name="Profiles" DisplayMemberPath="DisplayName"
-                 BorderThickness="1" BorderBrush="#FFCCCCCC"
-                 HorizontalAlignment="Left" VerticalAlignment="Top" 
-                 Height="226" Width="412" Margin="13,41,0,0" />
+        <ListBox x:Name="Profiles" DisplayMemberPath="DisplayName" BorderThickness="1" BorderBrush="#FFCCCCCC"
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Height="226" Width="412" Margin="13,41,0,0" />
 
-        <Button x:Name="ButtonCreateProfile" Content="{x:Static resx:Strings.S_BTN_PROFILE_CREATE}" 
-                IsEnabled="{Binding AllowCreateProfile}"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Width="166" Height="31" Margin="439,41,0,0" />
-        <Button x:Name="ButtonMarkFavorite" Content="{x:Static resx:Strings.S_BTN_PROFILE_FAVORITE}" 
-                IsEnabled="{Binding AllowFavoriteProfile}"
-                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Width="166" Height="31" Margin="438,121,0,0" />
-        <Button x:Name="ButtonDeleteProfile" Content="{x:Static resx:Strings.S_BTN_PROFILE_DELETE}" 
-                IsEnabled="{Binding AllowDeleteProfile}"
-                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Width="166" Height="31" Margin="438,157,0,0"  />
+        <Button x:Name="ButtonCreateProfile" Content="{x:Static resx:Strings.S_BTN_PROFILE_CREATE}" IsEnabled="{Binding AllowCreateProfile}"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Width="166" Height="31" Margin="439,41,0,0" />
+        <Button x:Name="ButtonMarkFavorite" Content="{x:Static resx:Strings.S_BTN_PROFILE_FAVORITE}" IsEnabled="{Binding AllowFavoriteProfile}"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Width="166" Height="31" Margin="438,121,0,0" />
+        <Button x:Name="ButtonDeleteProfile" Content="{x:Static resx:Strings.S_BTN_PROFILE_DELETE}" IsEnabled="{Binding AllowDeleteProfile}"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Width="166" Height="31" Margin="438,157,0,0"  />
 
         <Label Content="{x:Static resx:Strings.S_LABEL_PROFILE_NAME}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,272,0,0" />
-        <TextBox Text="{Binding ManagedProfile.Name}"
-                 TextWrapping="Wrap" IsEnabled="{Binding AllowSaveProfile}"
-                 HorizontalAlignment="Left" VerticalAlignment="Top"
-                 Height="23" Width="415" Margin="10,303,0,0" />
-        <Button x:Name="ButtonSaveProfile" Content="{x:Static resx:Strings.S_LABEL_SAVE_PROFILE}" 
-                IsEnabled="{Binding AllowSaveProfile}"
-                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Width="166" Height="26" Margin="439,303,0,0" />
+        <TextBox Text="{Binding ManagedProfile.Name}" IsEnabled="{Binding AllowSaveProfile}" TextWrapping="Wrap" 
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="415" Margin="10,303,0,0" />
+        <Button x:Name="ButtonSaveProfile" Content="{x:Static resx:Strings.S_LABEL_SAVE_PROFILE}" IsEnabled="{Binding AllowSaveProfile}"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Width="166" Height="26" Margin="439,303,0,0" />
     </Grid>
 </UserControl>

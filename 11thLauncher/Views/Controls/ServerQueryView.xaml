@@ -44,9 +44,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <Button x:Name="ButtonQueryServer" Content="{x:Static resx:Strings.S_BTN_CHECK_SERVER_STATUS}" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Width="223" Height="26" 
-                Margin="382,10,0,0">
+                HorizontalAlignment="Left" VerticalAlignment="Top" Width="223" Height="26" Margin="382,10,0,0">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Setter Property="IsEnabled" Value="True"/>
@@ -63,44 +61,30 @@
         </Button>
 
         <Label Content="{x:Static resx:Strings.S_LABEL_SERVER_NAME}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,52,0,0" />
-        <TextBox Text="{Binding SelectedServer.ServerInfo.Name}" 
-                 TextWrapping="Wrap" IsEnabled="False"
-                 HorizontalAlignment="Left" VerticalAlignment="Top" 
-                 Height="23" Width="534" Margin="71,53,0,0" />
+        <TextBox Text="{Binding SelectedServer.ServerInfo.Name}" TextWrapping="Wrap" IsEnabled="False"
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="534" Margin="71,53,0,0" />
 
         <Label Content="{x:Static resx:Strings.S_LABEL_SERVER_MISSION}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,94,0,0" />
-        <TextBox Text="{Binding SelectedServer.ServerInfo.Description}" 
-                 TextWrapping="Wrap" IsEnabled="False"
-                 HorizontalAlignment="Left" VerticalAlignment="Top" 
-                 Height="23" Width="250" Margin="71,95,0,0" />
+        <TextBox Text="{Binding SelectedServer.ServerInfo.Description}" TextWrapping="Wrap" IsEnabled="False"
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="250" Margin="71,95,0,0" />
 
         <Label Content="{x:Static resx:Strings.S_LABEL_SERVER_MAP}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,134,0,0" />
-        <TextBox Text="{Binding SelectedServer.ServerInfo.Map}" 
-                 TextWrapping="Wrap"  IsEnabled="False"
-                 HorizontalAlignment="Left" VerticalAlignment="Top"
-                 Height="23" Width="250" Margin="71,135,0,0" />
+        <TextBox Text="{Binding SelectedServer.ServerInfo.Map}" TextWrapping="Wrap"  IsEnabled="False"
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="250" Margin="71,135,0,0" />
 
         <Label Content="{x:Static resx:Strings.S_LABEL_SERVER_PING}" HorizontalAlignment="Left" Margin="10,177,0,0" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding SelectedServer.ServerInfo.Ping}" 
-                 TextWrapping="Wrap" IsEnabled="False"
-                 HorizontalAlignment="Left" VerticalAlignment="Top" 
-                 Height="23" Width="250" Margin="71,178,0,0" />
+        <TextBox Text="{Binding SelectedServer.ServerInfo.Ping}" TextWrapping="Wrap" IsEnabled="False"
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="250" Margin="71,178,0,0" />
 
         <Label Content="{x:Static resx:Strings.S_LABEL_SERVER_VERSION}" HorizontalAlignment="Left" Margin="10,221,0,0" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding SelectedServer.ServerInfo.GameVersion}" 
-                 TextWrapping="Wrap" IsEnabled="False"
-                 HorizontalAlignment="Left" VerticalAlignment="Top"
-                 Height="23" Width="250" Margin="71,222,0,0" />
+        <TextBox Text="{Binding SelectedServer.ServerInfo.GameVersion}" TextWrapping="Wrap" IsEnabled="False"
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="250" Margin="71,222,0,0" />
 
         <Label Content="{x:Static resx:Strings.S_LABEL_SERVER_PLAYERS}" HorizontalAlignment="Left" Margin="326,94,0,0" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding SelectedServer.ServerInfo.CurrentPlayers, Mode=OneWay}" 
-                 TextWrapping="Wrap" TextAlignment="Center" IsEnabled="False" 
-                 HorizontalAlignment="Left" VerticalAlignment="Top"
-                 Height="23" Width="208" Margin="397,95,0,0" />
+        <TextBox Text="{Binding SelectedServer.ServerInfo.CurrentPlayers, Mode=OneWay}" TextWrapping="Wrap" TextAlignment="Center" IsEnabled="False" 
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="208" Margin="397,95,0,0" />
         <ListBox ItemsSource="{Binding SelectedServer.ServerInfo.PlayerList, Mode=OneWay}"
-                 BorderBrush="#FFCCCCCC" BorderThickness="1"
-                 HorizontalAlignment="Left" VerticalAlignment="Top"
-                 Height="193" Width="208" 
-                 Margin="397,134,0,0" />
+                 BorderBrush="#FFCCCCCC" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                 Height="193" Width="208" Margin="397,134,0,0" />
     </Grid>
 </UserControl>

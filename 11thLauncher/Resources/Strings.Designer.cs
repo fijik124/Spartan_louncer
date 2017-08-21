@@ -19,7 +19,7 @@ namespace _11thLauncher.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -592,6 +592,33 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fill server information.
+        /// </summary>
+        public static string S_BUTTON_FILL_SERVER_TIP {
+            get {
+                return ResourceManager.GetString("S_BUTTON_FILL_SERVER_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all.
+        /// </summary>
+        public static string S_BUTTON_SELECT_ALL_TIP {
+            get {
+                return ResourceManager.GetString("S_BUTTON_SELECT_ALL_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select none.
+        /// </summary>
+        public static string S_BUTTON_SELECT_NONE_TIP {
+            get {
+                return ResourceManager.GetString("S_BUTTON_SELECT_NONE_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check repository when the application starts (requires Java and Arma3Sync configured).
         /// </summary>
         public static string S_CHECKBOX_CHECK_REPOSITORY {
@@ -601,7 +628,7 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check servers status when the application sstarts.
+        ///   Looks up a localized string similar to Check servers status when the application starts.
         /// </summary>
         public static string S_CHECKBOX_CHECK_SERVERS {
             get {
@@ -655,7 +682,7 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Advanced settings.
+        ///   Looks up a localized string similar to Advanced options.
         /// </summary>
         public static string S_LABEL_ADVANCED_SETTINGS {
             get {
@@ -669,6 +696,24 @@ namespace _11thLauncher.Resources {
         public static string S_LABEL_APP_AUTHOR {
             get {
                 return ResourceManager.GetString("S_LABEL_APP_AUTHOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arma3Sync options.
+        /// </summary>
+        public static string S_LABEL_ARMA3SYNC_OPTIONS {
+            get {
+                return ResourceManager.GetString("S_LABEL_ARMA3SYNC_OPTIONS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arma3Sync path:.
+        /// </summary>
+        public static string S_LABEL_ARMA3SYNC_PATH {
+            get {
+                return ResourceManager.GetString("S_LABEL_ARMA3SYNC_PATH", resourceCulture);
             }
         }
         
@@ -709,7 +754,7 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interface Settings.
+        ///   Looks up a localized string similar to Interface options.
         /// </summary>
         public static string S_LABEL_INTERFACE_SETTINGS {
             get {
@@ -723,6 +768,42 @@ namespace _11thLauncher.Resources {
         public static string S_LABEL_JAVA_DETECTED {
             get {
                 return ResourceManager.GetString("S_LABEL_JAVA_DETECTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DISCLAIMER: Only select Java path if it&apos;s not automatically detected on PATH or if you want to use a different version. Compatible JRE&apos;s: 7 and 8..
+        /// </summary>
+        public static string S_LABEL_JAVA_DISCLAIMER {
+            get {
+                return ResourceManager.GetString("S_LABEL_JAVA_DISCLAIMER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Java options.
+        /// </summary>
+        public static string S_LABEL_JAVA_OPTIONS {
+            get {
+                return ResourceManager.GetString("S_LABEL_JAVA_OPTIONS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Java path:.
+        /// </summary>
+        public static string S_LABEL_JAVA_PATH {
+            get {
+                return ResourceManager.GetString("S_LABEL_JAVA_PATH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Java in PATH:.
+        /// </summary>
+        public static string S_LABEL_JAVA_PATH_VAR {
+            get {
+                return ResourceManager.GetString("S_LABEL_JAVA_PATH_VAR", resourceCulture);
             }
         }
         
@@ -1605,6 +1686,15 @@ namespace _11thLauncher.Resources {
         public static string S_PRIORITY_TIP {
             get {
                 return ResourceManager.GetString("S_PRIORITY_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profiles.
+        /// </summary>
+        public static string S_PROFILES {
+            get {
+                return ResourceManager.GetString("S_PROFILES", resourceCulture);
             }
         }
         

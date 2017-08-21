@@ -293,8 +293,15 @@ namespace _11thLauncher.Services
             }
 
             //Delete the legacy config file after reading it
-            _logger.LogInfo("SettingsService", "Deleting legacy config file");
-            _fileAccessor.DeleteFile(legacyConfigFile);
+            try
+            {
+                _fileAccessor.DeleteFile(legacyConfigFile);
+                _logger.LogInfo("SettingsService", "Legacy config file deleted");
+            }
+            catch (Exception e)
+            {
+                _logger.LogException("SettingsService", "Error deleting legacy config file", e);
+            }
 
             _logger.LogInfo("SettingsService", "Finished conversion of legacy settings");
             return configFile;

@@ -320,7 +320,7 @@
     <value>Check repository when the application starts (requires Java and Arma3Sync configured)</value>
   </data>
   <data name="S_CHECKBOX_CHECK_SERVERS" xml:space="preserve">
-    <value>Check servers status when the application sstarts</value>
+    <value>Check servers status when the application starts</value>
   </data>
   <data name="S_ACCENT_RED" xml:space="preserve">
     <value>Red</value>
@@ -476,7 +476,7 @@
     <value>Language</value>
   </data>
   <data name="S_LABEL_INTERFACE_SETTINGS" xml:space="preserve">
-    <value>Interface Settings</value>
+    <value>Interface options</value>
   </data>
   <data name="S_LABEL_THEME" xml:space="preserve">
     <value>Theme: </value>
@@ -500,7 +500,7 @@
     <value>Cancel</value>
   </data>
   <data name="S_LABEL_ADVANCED_SETTINGS" xml:space="preserve">
-    <value>Advanced settings</value>
+    <value>Advanced options</value>
   </data>
   <data name="S_LABEL_ADVANCED" xml:space="preserve">
     <value>Advanced</value>
@@ -648,5 +648,35 @@
   </data>
   <data name="S_BTN_UPDATE" xml:space="preserve">
     <value>Update</value>
+  </data>
+  <data name="S_LABEL_JAVA_OPTIONS" xml:space="preserve">
+    <value>Java options</value>
+  </data>
+  <data name="S_LABEL_JAVA_PATH" xml:space="preserve">
+    <value>Java path:</value>
+  </data>
+  <data name="S_LABEL_JAVA_PATH_VAR" xml:space="preserve">
+    <value>Java in PATH:</value>
+  </data>
+  <data name="S_LABEL_JAVA_DISCLAIMER" xml:space="preserve">
+    <value>DISCLAIMER: Only select Java path if it's not automatically detected on PATH or if you want to use a different version. Compatible JRE's: 7 and 8.</value>
+  </data>
+  <data name="S_LABEL_ARMA3SYNC_PATH" xml:space="preserve">
+    <value>Arma3Sync path:</value>
+  </data>
+  <data name="S_LABEL_ARMA3SYNC_OPTIONS" xml:space="preserve">
+    <value>Arma3Sync options</value>
+  </data>
+  <data name="S_BUTTON_SELECT_ALL_TIP" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="S_BUTTON_SELECT_NONE_TIP" xml:space="preserve">
+    <value>Select none</value>
+  </data>
+  <data name="S_BUTTON_FILL_SERVER_TIP" xml:space="preserve">
+    <value>Fill server information</value>
+  </data>
+  <data name="S_PROFILES" xml:space="preserve">
+    <value>Profiles</value>
   </data>
 </root>

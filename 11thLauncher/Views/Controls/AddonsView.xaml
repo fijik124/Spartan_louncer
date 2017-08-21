@@ -11,23 +11,16 @@
  
     <Grid>
         <Label Content="{x:Static resx:Strings.S_ADDON_PRESETS}" 
-               HorizontalAlignment="Left" 
-               VerticalAlignment="Top"
-               Margin="45,10,0,0" />
+               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="45,10,0,0" />
 
         <ComboBox x:Name="Presets" d:DataContext="{Binding Presets}"
                   DisplayMemberPath="Name"
-                  Width="210"
-                  Margin="6,38,0,0"
+                  Width="210" Margin="6,38,0,0"
                   HorizontalAlignment="Left" VerticalAlignment="Top" 
                   cal:Message.Attach="[Event SelectionChanged] = [Action Presets_SelectionChanged];" />
 
-        <ListBox x:Name="Addons" d:DataContext="{Binding Addons}"
-             BorderBrush="#FFCCCCCC"
-             Margin="6,69,0,0"
-             Width="210" Height="228"
-             HorizontalAlignment="Left" VerticalAlignment="Top"
-             BorderThickness="1">
+        <ListBox x:Name="Addons" d:DataContext="{Binding Addons}" BorderBrush="#FFCCCCCC" BorderThickness="1"
+             Margin="6,69,0,0" Width="210" Height="228" HorizontalAlignment="Left" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <HierarchicalDataTemplate>
                     <DockPanel Tag="{Binding DataContext, ElementName=Addons}">
@@ -51,9 +44,7 @@
 
         <Button x:Name="ButtonMoveUp" ToolTip="{x:Static resx:Strings.S_BTN_ADDONS_UP_TIP}" 
                 Style="{DynamicResource MetroCircleButtonStyle}" 
-                Margin="15,302,0,0"
-                Width="30" Height="30"
-                HorizontalAlignment="Left" VerticalAlignment="Top">
+                Margin="15,302,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Rectangle Width="10" Height="10" Fill="{DynamicResource AccentColorBrush}">
                 <Rectangle.OpacityMask>
                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_chevron_up}" />
@@ -63,9 +54,7 @@
 
         <Button x:Name="ButtonMoveDown" ToolTip="{x:Static resx:Strings.S_BTN_ADDONS_DOWN_TIP}" 
                 Style="{DynamicResource MetroCircleButtonStyle}"
-                Margin="60,302,0,0"
-                Width="30" Height="30"
-                HorizontalAlignment="Left"  VerticalAlignment="Top" >
+                Margin="60,302,0,0" Width="30" Height="30" HorizontalAlignment="Left"  VerticalAlignment="Top" >
             <Rectangle Width="10" Height="10" Fill="{DynamicResource AccentColorBrush}">
                 <Rectangle.OpacityMask>
                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_chevron_down}" />
@@ -73,10 +62,7 @@
             </Rectangle>
         </Button>
 
-        <Separator RenderTransformOrigin="0.5,0.5"
-                   Margin="95,312,0,0"
-                   Width="30" Height="10"
-                   HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Separator RenderTransformOrigin="0.5,0.5" Margin="95,312,0,0" Width="30" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Separator.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -87,11 +73,8 @@
             </Separator.RenderTransform>
         </Separator>
 
-        <Button x:Name="ButtonSelectAll" ToolTip="Seleccionar todos"
-                Style="{DynamicResource MetroCircleButtonStyle}" 
-                Width="30" Height="30"
-                Margin="130,302,0,0"
-                HorizontalAlignment="Left"  VerticalAlignment="Top" >
+        <Button x:Name="ButtonSelectAll" ToolTip="{x:Static resx:Strings.S_BUTTON_SELECT_ALL_TIP}" Style="{DynamicResource MetroCircleButtonStyle}" 
+                Width="30" Height="30" Margin="130,302,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" >
             <Rectangle Width="10" Height="10" Fill="{DynamicResource AccentColorBrush}">
                 <Rectangle.OpacityMask>
                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_check}" />
@@ -99,7 +82,7 @@
             </Rectangle>
         </Button>
 
-        <Button x:Name="ButtonSelectNone" ToolTip="Seleccionar ninguno"
+        <Button x:Name="ButtonSelectNone" ToolTip="{x:Static resx:Strings.S_BUTTON_SELECT_NONE_TIP}"
                 Style="{DynamicResource MetroCircleButtonStyle}"
                 Margin="175,302,0,0"
                 Width="30" Height="30"

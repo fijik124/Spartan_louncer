@@ -29,7 +29,10 @@ namespace _11thLauncher.Models
         public override void CopyStatus(LaunchParameter parameter)
         {
             base.CopyStatus(parameter);
-            _selectValueItem = Values.FirstOrDefault(p => p.Value.Equals(((SelectionParameter)parameter)?.SelectedValue?.Value)) ?? Values.FirstOrDefault();
+            if (Values != null && Values.Count != 0)
+            {
+                _selectValueItem = Values.FirstOrDefault(p => p.Value.Equals(((SelectionParameter)parameter)?.SelectedValue?.Value)) ?? Values.FirstOrDefault();
+            }
         }
 
         public override string LaunchString => SelectedValue != null ? Name + SelectedValue.Value : string.Empty;

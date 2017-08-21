@@ -14,13 +14,8 @@
             <TextBlock Text="{Binding StatusText}"/>
         </StatusBarItem>
         <StatusBarItem HorizontalAlignment="Right">
-            <controls:MetroProgressBar IsIndeterminate="{Binding TaskRunning}" 
-                                       Height="20" 
-                                       Width="113" 
-                                       Foreground="White" 
-                                       IsHitTestVisible="True" 
-                                       IsTabStop="False" 
-                                       Background="{x:Null}" />
+            <controls:MetroProgressBar IsIndeterminate="{Binding TaskRunning}" Height="20" Width="113" Background="{x:Null}"
+                                       Foreground="White" IsHitTestVisible="True" IsTabStop="False" />
         </StatusBarItem>
     </StatusBar>
 

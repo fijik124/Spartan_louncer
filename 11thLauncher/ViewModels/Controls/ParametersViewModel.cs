@@ -4,14 +4,12 @@ using System.Windows.Data;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
-using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class ParametersViewModel : PropertyChangedBase, IHandle<ProfileLoadedMessage>
+    public class ParametersViewModel : PropertyChangedBase, IHandle<ParametersInitializedMessage>, IHandle<ProfileLoadedMessage>
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly IParameterService _parameterService;
 
         private BindableCollection<LaunchParameter> _parameters;
         public BindableCollection<LaunchParameter> Parameters
@@ -24,20 +22,22 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public ParametersViewModel(IEventAggregator eventAggregator, IParameterService parameterService)
+        public ParametersViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
-            _parameterService = parameterService;
+        }
 
-            Parameters = _parameterService.Parameters;
+        #region Message handling
+
+        public void Handle(ParametersInitializedMessage message)
+        {
+            Parameters = message.Parameters;
             foreach (LaunchParameter parameter in Parameters)
             {
                 parameter.PropertyChanged += Parameter_StatusChanged;
             }
         }
-
-        #region Message handling
 
         public void Handle(ProfileLoadedMessage message)
         {

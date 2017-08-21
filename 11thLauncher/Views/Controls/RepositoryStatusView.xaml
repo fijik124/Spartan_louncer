@@ -15,9 +15,7 @@
     <Grid>
         <Expander Header="{x:Static resx:Strings.S_LABEL_REPOSITORIES}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="117" Width="185" IsExpanded="True" Margin="430,210,0,0" Padding="0">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:Name="Repositories" d:DataContext="{Binding Repositories}"
-                              BorderBrush="#FFCCCCCC"
-                              BorderThickness="0">
+                <ItemsControl x:Name="Repositories" d:DataContext="{Binding Repositories}" BorderBrush="#FFCCCCCC" BorderThickness="0">
                     <ItemsControl.ItemTemplate>
                         <HierarchicalDataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -25,8 +23,7 @@
                                            TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                                 <controls:Tile x:Name="RepositoryStatus" Content="{x:Static model:RepositoryStatus.Unknown}" 
                                                cal:Message.Attach="CheckRepositoryStatus($datacontext)"
-                                               HorizontalAlignment="Left" VerticalAlignment="Top" 
-                                               Height="18" Width="80" Margin="10,5,0,0"/>
+                                               HorizontalAlignment="Left" VerticalAlignment="Top" Height="18" Width="80" Margin="10,5,0,0"/>
                             </StackPanel>
                             <HierarchicalDataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Status}" Value="{x:Static model:RepositoryStatus.Unknown}">
@@ -55,15 +52,14 @@
                 </ItemsControl>
             </ScrollViewer>
         </Expander>
-        <Image Source="{Binding Arma3SyncIcon}"
-               HorizontalAlignment="Left" VerticalAlignment="Top" 
-               Height="20" Width="20" Margin="588,216,0,0" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action StartArma3Sync]">
+        <Image Source="{Binding Arma3SyncIcon}" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action StartArma3Sync]"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="20" Margin="588,216,0,0">
             <Image.Style>
                 <Style TargetType="Image">
                     <Setter Property="ToolTip" Value="{x:Static resx:Strings.S_A3S_DISABLED_TIP}"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Arma3SyncIcon}" Value="{x:Static main:Constants.Arma3SyncIconEnabled}">
-                            <Setter Property="ToolTip" Value="{x:Static resx:Strings.S_A3S_ENABLED_TIP}"></Setter>
+                            <Setter Property="ToolTip" Value="{x:Static resx:Strings.S_A3S_ENABLED_TIP}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

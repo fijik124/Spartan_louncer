@@ -9,15 +9,13 @@ namespace _11thLauncher.ViewModels.Controls
 {
     public class StatusbarViewModel : PropertyChangedBase, IHandle<UpdateStatusBarMessage>
     {
-        private readonly IEventAggregator _eventAggregator;
         private readonly Dictionary<AsyncAction, int> _actions;
         private string _statusText = Resources.Strings.S_STATUS_READY;
         private bool _taskRunning;
 
         public StatusbarViewModel(IEventAggregator eventAggregator) //TODO this functionality
         {
-            _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
+            eventAggregator.Subscribe(this);
             _actions = new Dictionary<AsyncAction, int>();
             foreach (AsyncAction type in Enum.GetValues(typeof(AsyncAction)))
             {

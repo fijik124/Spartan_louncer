@@ -245,8 +245,9 @@ namespace _11thLauncher.ViewModels
             var accent = _settingsService.ApplicationSettings.AccentColor;
             _eventAggregator.PublishOnCurrentThread(new ThemeChangedMessage(style, accent));
 
-            //Read memory allocators
-            _parameterService.ReadAllocators(_settingsService.ApplicationSettings.Arma3Path);
+            //Initialize startup parameters and read memory allocators from game folder
+            _parameterService.InitializeParameters(_settingsService.ApplicationSettings.Arma3Path);
+            _eventAggregator.PublishOnCurrentThread(new ParametersInitializedMessage(_parameterService.Parameters));
 
             //Read addons
             var addons = _addonService.ReadAddons(_settingsService.ApplicationSettings.Arma3Path);
