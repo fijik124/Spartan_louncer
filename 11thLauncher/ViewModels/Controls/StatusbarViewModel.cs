@@ -10,10 +10,10 @@ namespace _11thLauncher.ViewModels.Controls
     public class StatusbarViewModel : PropertyChangedBase, IHandle<UpdateStatusBarMessage>
     {
         private readonly Dictionary<AsyncAction, int> _actions;
-        private string _statusText = Resources.Strings.S_STATUS_READY;
+        private string _statusText;
         private bool _taskRunning;
 
-        public StatusbarViewModel(IEventAggregator eventAggregator) //TODO this functionality
+        public StatusbarViewModel(IEventAggregator eventAggregator)
         {
             eventAggregator.Subscribe(this);
             _actions = new Dictionary<AsyncAction, int>();
@@ -60,7 +60,7 @@ namespace _11thLauncher.ViewModels.Controls
             var statusText = "";
             foreach (KeyValuePair<AsyncAction, int> asyncAction in _actions)
             {
-                if (asyncAction.Value == 0) continue;
+                if (asyncAction.Value <= 0) continue;
                 running = true;
 
                 statusText += asyncAction.Key.GetDescription() +
