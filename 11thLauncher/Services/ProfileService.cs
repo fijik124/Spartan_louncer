@@ -26,8 +26,7 @@ namespace _11thLauncher.Services
             _securityService = securityService;
         }
 
-        public void Write(UserProfile profile, BindableCollection<Addon> addons, 
-            BindableCollection<LaunchParameter> parameters, LaunchSettings launchSettings)
+        public void Write(UserProfile profile, BindableCollection<Addon> addons, BindableCollection<LaunchParameter> parameters, LaunchSettings launchSettings)
         {
             _logger.LogDebug("ProfileService", "Writing profile to disk");
 

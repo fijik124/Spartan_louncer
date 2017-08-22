@@ -59,8 +59,9 @@ namespace _11thLauncher.ViewModels.Controls
             set
             {
                 _gameService.LaunchSettings.LaunchOption = value;
-                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
+                if (_loadingProfile) return;
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
         }
 
@@ -70,8 +71,8 @@ namespace _11thLauncher.ViewModels.Controls
             set
             {
                 _gameService.LaunchSettings.Platform = value;
-                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
         }
 
@@ -81,8 +82,8 @@ namespace _11thLauncher.ViewModels.Controls
             set
             {
                 _gameService.LaunchSettings.Server = value;
-                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
         }
 
@@ -92,8 +93,8 @@ namespace _11thLauncher.ViewModels.Controls
             set
             {
                 _gameService.LaunchSettings.Port = value;
-                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
                 NotifyOfPropertyChange();
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
         }
 
