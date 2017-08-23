@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
@@ -23,7 +22,6 @@ namespace _11thLauncher.ViewModels
         private readonly IProfileService _profileService;
         private readonly IAddonService _addonService;
         private readonly IParameterService _parameterService;
-        private readonly IServerQueryService _serverQueryService;
         private readonly IAddonSyncService _addonSyncService;
         private readonly IUpdaterService _updaterService;
         private readonly IGameService _launcherService;
@@ -37,8 +35,8 @@ namespace _11thLauncher.ViewModels
         private string _versionMismatchTooltip;
 
         public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager, ILogger logger,
-            ISettingsService settingsService, IAddonService addonService, IServerQueryService serverQueryService, IAddonSyncService addonSyncService,
-            IUpdaterService updaterService, IParameterService parameterService, IGameService launcherService, IProfileService profileService)
+            ISettingsService settingsService, IAddonService addonService, IAddonSyncService addonSyncService, IUpdaterService updaterService, 
+            IParameterService parameterService, IGameService launcherService, IProfileService profileService)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
@@ -51,7 +49,6 @@ namespace _11thLauncher.ViewModels
             _settingsService = settingsService;
             _profileService = profileService;
             _addonService = addonService;
-            _serverQueryService = serverQueryService;
             _addonSyncService = addonSyncService;
             _updaterService = updaterService;
             _parameterService = parameterService;
