@@ -1798,7 +1798,7 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your ArmA 3 version ({0}) doesn&apos;t match with the one on the 11th MEU servers ({1}).
+        ///   Looks up a localized string similar to Your ArmA 3 version ({0}) doesn&apos;t match with one or more servers ({1}).
         /// </summary>
         public static string S_VERSION_MISMATCH {
             get {

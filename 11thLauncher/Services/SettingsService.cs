@@ -20,6 +20,7 @@ namespace _11thLauncher.Services
         private readonly IFileAccessor _fileAccessor;
         private readonly IRegistryAccessor _registryAccessor;
         private readonly ILogger _logger;
+        private string _gameVersion;
 
         public SettingsService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor, ILogger logger)
         {
@@ -64,6 +65,8 @@ namespace _11thLauncher.Services
 
         public string GetGameVersion()
         {
+            if (!string.IsNullOrEmpty(_gameVersion)) return _gameVersion;
+
             string version = "";
             if (string.IsNullOrEmpty(ApplicationSettings.Arma3Path))
             {
@@ -73,6 +76,7 @@ namespace _11thLauncher.Services
 
             FileVersionInfo info = FileVersionInfo.GetVersionInfo(Path.Combine(ApplicationSettings.Arma3Path, Constants.GameExecutable32));
             version = info.FileVersion + "." + info.FileBuildPart + info.FilePrivatePart;
+            _gameVersion = version;
 
             _logger.LogDebug("SettingsService", "Local game version detected to be: " + version);
             return version;

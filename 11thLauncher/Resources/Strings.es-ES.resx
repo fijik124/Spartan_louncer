@@ -121,7 +121,7 @@
     <value>Opciones</value>
   </data>
   <data name="S_VERSION_MISMATCH" xml:space="preserve">
-    <value>Tu versión de ArmA 3 ({0}) no concuerda con la de los servidores de la 11th MEU ({1})</value>
+    <value>Tu versión de ArmA 3 ({0}) no concuerda con la uno o más servidores ({1})</value>
   </data>
   <data name="S_ADDON_PRESETS" xml:space="preserve">
     <value>Presets de addons</value>

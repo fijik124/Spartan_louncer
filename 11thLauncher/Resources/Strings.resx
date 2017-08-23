@@ -98,7 +98,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="S_VERSION_MISMATCH" xml:space="preserve">
-    <value>Your ArmA 3 version ({0}) doesn't match with the one on the 11th MEU servers ({1})</value>
+    <value>Your ArmA 3 version ({0}) doesn't match with one or more servers ({1})</value>
   </data>
   <data name="S_ADDON_PRESETS" xml:space="preserve">
     <value>Addon presets</value>

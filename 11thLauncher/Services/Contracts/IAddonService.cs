@@ -15,7 +15,7 @@ namespace _11thLauncher.Services.Contracts
         /// </summary>
         /// <param name="path">Path used to look for addons</param>
         /// <returns>Addons found</returns>
-        BindableCollection<Addon> ReadAddons(string path);
+        void ReadAddons(string path);
 
         /// <summary>
         /// Opens a browser window in the addon folder.

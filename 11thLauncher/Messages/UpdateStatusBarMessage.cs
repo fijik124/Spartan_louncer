@@ -4,8 +4,8 @@ namespace _11thLauncher.Messages
 {
     public class UpdateStatusBarMessage
     {
-        public AsyncAction Action;
-        public bool IsRunning;
+        public readonly AsyncAction Action;
+        public readonly bool IsRunning;
 
         public UpdateStatusBarMessage(AsyncAction action, bool isRunning)
         {

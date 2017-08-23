@@ -50,6 +50,7 @@ namespace _11thLauncher.ViewModels.Controls
                     _eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, true));
                     _serverQueryService.GetServerStatus(server);
                     _eventAggregator.PublishOnUIThread(new UpdateStatusBarMessage(AsyncAction.CheckServerStatus, false));
+                    _eventAggregator.PublishOnUIThread(new ServerQueryFinished(server));
                 });
             }
         }

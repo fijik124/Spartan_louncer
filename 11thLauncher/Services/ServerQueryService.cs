@@ -60,26 +60,6 @@ namespace _11thLauncher.Services
             }
         }
 
-        public string GetServerVersion(Server server)
-        {
-            string remoteVersion = null;
-
-            if (server.ServerInfo != null)
-            {
-                remoteVersion = server.ServerInfo.GameVersion;
-            }
-            else
-            {
-                GetServerStatus(server);
-                if (server.ServerInfo?.GameVersion != null)
-                {
-                    remoteVersion = server.ServerInfo.GameVersion;
-                }
-            }
-
-            return remoteVersion;
-        }
-
         /// <summary>
         /// Resolve and return the IPv4 address the given address
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 
 namespace _11thLauncher.Accessors.Contracts
 {
@@ -31,5 +32,7 @@ namespace _11thLauncher.Accessors.Contracts
         void CreateDirectory(string path);
 
         void DeleteDirectory(string path, bool recursive);
+
+        FileVersionInfo GetFileVersionInfo(string path);
     }
 }

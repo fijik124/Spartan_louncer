@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using _11thLauncher.Accessors.Contracts;
 
 namespace _11thLauncher.Accessors
@@ -73,6 +74,11 @@ namespace _11thLauncher.Accessors
         public void DeleteDirectory(string path, bool recursive)
         {
             Directory.Delete(path, recursive);
+        }
+
+        public FileVersionInfo GetFileVersionInfo(string path)
+        {
+            return FileVersionInfo.GetVersionInfo(path);
         }
     }
 }

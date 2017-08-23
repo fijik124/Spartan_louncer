@@ -12,7 +12,7 @@ using _11thLauncher.ViewModels.Controls;
 
 namespace _11thLauncher.ViewModels
 {
-    public class ShellViewModel : PropertyChangedBase, IHandle<ShowDialogMessage>, IHandle<ExceptionMessage>, IHandle<ThemeChangedMessage>
+    public class ShellViewModel : PropertyChangedBase, IHandle<ShowDialogMessage>, IHandle<ExceptionMessage>, IHandle<ThemeChangedMessage>, IHandle<ServerQueryFinished>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
@@ -273,8 +273,6 @@ namespace _11thLauncher.ViewModels
                 _eventAggregator.PublishOnUIThreadAsync(new RepositoriesLoadedMessage(repositories));
             });
 
-            //Check local game version against remote server
-            CompareServerVersion(); //TODO put this better
 
             if (_settingsService.ApplicationSettings.CheckUpdates)
             {
@@ -293,28 +291,6 @@ namespace _11thLauncher.ViewModels
             }
 
             _logger.LogDebug("ShellViewModel", "Finished Shell initialization");
-        }
-
-        private void CompareServerVersion()
-        {
-            var gameVersion = _settingsService.GetGameVersion();
-            GameVersion = gameVersion;
-            Task.Run(() =>
-            {
-                var serverVersion = _serverQueryService.GetServerVersion(_settingsService.Servers.First()); //TODO no servers? / first server can be offline
-                if (string.IsNullOrEmpty(serverVersion) || string.IsNullOrEmpty(GameVersion)) return;
-
-                var gameVersionInfo = GameVersion.Split('.');
-                var serverVersionInfo = serverVersion.Split('.');
-                if (gameVersionInfo.Length != 3 || serverVersionInfo.Length != 3) return;
-
-                int gameBuild = Convert.ToInt32(gameVersionInfo[2]);
-                int serverBuild = Convert.ToInt32(serverVersionInfo[2]);
-                if (gameBuild == serverBuild) return;
-
-                ShowVersionMismatch = Visibility.Visible;
-                VersionMismatchTooltip = string.Format(Resources.Strings.S_VERSION_MISMATCH, GameVersion, serverVersion);
-            });
         }
 
         private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
@@ -340,6 +316,30 @@ namespace _11thLauncher.ViewModels
         {
             _settingsService.UpdateThemeAndAccent(message.Theme, message.Accent);
             LogoImage = message.Theme == ThemeStyle.BaseLight ? Constants.LogoLight : Constants.LogoDark;
+        }
+
+        public void Handle(ServerQueryFinished message)
+        {
+            var gameVersion = _settingsService.GetGameVersion();
+            var serverVersion = message.Server.ServerInfo?.GameVersion;
+            if (string.IsNullOrEmpty(serverVersion) || string.IsNullOrEmpty(gameVersion)) return;
+
+            var gameVersionInfo = gameVersion.Split('.');
+            var serverVersionInfo = serverVersion.Split('.');
+            if (gameVersionInfo.Length != 3 || serverVersionInfo.Length != 3) return;
+
+            int gameBuild = Convert.ToInt32(gameVersionInfo[2]);
+            int serverBuild = Convert.ToInt32(serverVersionInfo[2]);
+            if (gameBuild == serverBuild)
+            {
+                ShowVersionMismatch = Visibility.Hidden;
+                VersionMismatchTooltip = string.Empty;
+            }
+            else
+            {
+                ShowVersionMismatch = Visibility.Visible;
+                VersionMismatchTooltip = string.Format(Resources.Strings.S_VERSION_MISMATCH, gameVersion, serverVersion);
+            }
         }
 
         #endregion

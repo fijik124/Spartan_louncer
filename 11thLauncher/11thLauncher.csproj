@@ -130,6 +130,7 @@
     <Compile Include="Messages\ProfileDeletedMessage.cs" />
     <Compile Include="Messages\LoadProfileMessage.cs" />
     <Compile Include="Messages\SaveProfileMessage.cs" />
+    <Compile Include="Messages\ServerQueryFinished.cs" />
     <Compile Include="Models\ConfigFile.cs" />
     <Compile Include="Models\Parameter\BooleanParameter.cs" />
     <Compile Include="Models\Parameter\NumericalParameter.cs" />

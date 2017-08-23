@@ -21,10 +21,9 @@ namespace _11thLauncher.Services
             Addons = new BindableCollection<Addon>();
         }
 
-        public BindableCollection<Addon> ReadAddons(string arma3Path)
+        public void ReadAddons(string arma3Path)
         {
-            if (string.IsNullOrEmpty(arma3Path)) return new BindableCollection<Addon>();
-            if (Addons.Count != 0) return Addons; //Already read
+            if (string.IsNullOrEmpty(arma3Path) || Addons.Count != 0) return;
 
             string[] directories = _fileAccessor.GetDirectories(arma3Path, Constants.AddonSubfolderName, SearchOption.AllDirectories);
             foreach (string directory in directories)
@@ -38,8 +37,6 @@ namespace _11thLauncher.Services
                 ReadMetaData(addon);
                 Addons.Add(addon);  
             }
-
-            return Addons;
         }
 
         public void BrowseAddonFolder(Addon addon)
