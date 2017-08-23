@@ -28,7 +28,6 @@ namespace _11thLauncher.ViewModels
         private string _javaVersion;
         private string _javaPath;
         private string _syncPath;
-        //TODO repository
 
         private ThemeStyle _theme;
         private AccentColor _accent;
@@ -185,6 +184,7 @@ namespace _11thLauncher.ViewModels
 
             //Game
             GamePath = _settingsService.ApplicationSettings.Arma3Path;
+            StartAction = _settingsService.ApplicationSettings.StartAction;
 
             //Repository
             JavaVersion = _settingsService.JavaVersion;
@@ -210,6 +210,7 @@ namespace _11thLauncher.ViewModels
 
             //Game
             _settingsService.ApplicationSettings.Arma3Path = GamePath;
+            _settingsService.ApplicationSettings.StartAction = StartAction;
 
             //Repository
             _settingsService.ApplicationSettings.JavaPath = JavaPath;

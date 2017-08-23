@@ -31,8 +31,7 @@
                 <Grid>
 
                     <Label Content="{x:Static resx:Strings.S_LABEL_STARTUP_OPTIONS}" FontWeight="Bold" 
-                           HorizontalAlignment="Left" VerticalAlignment="Top"
-                           Width="522" Margin="10,10,0,0"/>
+                           HorizontalAlignment="Left" VerticalAlignment="Top" Width="522" Margin="10,10,0,0"/>
                     <CheckBox x:Name="CheckUpdates" Content="{x:Static resx:Strings.S_CHECKBOX_CHECK_UPDATES}" 
                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,42,0,0" />
                     <CheckBox x:Name="CheckServers" Content="{x:Static resx:Strings.S_CHECKBOX_CHECK_SERVERS}" 
@@ -41,22 +40,19 @@
                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,88,0,0" />
 
                     <Label Content="{x:Static resx:Strings.S_LABEL_GAME_OPTIONS}" FontWeight="Bold"
-                           HorizontalAlignment="Left" VerticalAlignment="Top"
-                           Width="522" Margin="10,122,0,0"/>
+                           HorizontalAlignment="Left" VerticalAlignment="Top" Width="522" Margin="10,122,0,0"/>
                     <Label Content="{x:Static resx:Strings.S_LABEL_GAME_PATH}" 
                            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,148,0,0" />
-                    <TextBox x:Name="GamePath"  IsReadOnly="True"
-                             HorizontalAlignment="Left" VerticalAlignment="Top"
-                             Height="23" Width="308" Margin="119,149,0,0" />
-                    <Button x:Name="SelectGamePath" Content="{x:Static resx:Strings.S_BTN_BROWSE}"
-                            HorizontalAlignment="Left" VerticalAlignment="Top" 
-                            Width="100" Margin="432,149,0,0"  />
+                    <TextBox x:Name="GamePath"  IsReadOnly="True" HorizontalAlignment="Left" 
+                             VerticalAlignment="Top" Height="23" Width="308" Margin="119,149,0,0" />
+                    <Button x:Name="SelectGamePath" Content="{x:Static resx:Strings.S_BTN_BROWSE}" HorizontalAlignment="Left" 
+                            VerticalAlignment="Top"  Width="100" Margin="432,149,0,0"  />
                     <Label Content="{x:Static resx:Strings.S_LABEL_START_ACTION}" 
                            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,184,0,0" />
-                    <ComboBox x:Name="comboBox_startAction" 
+                    <ComboBox x:Name="StartAction" 
                         ItemsSource="{Binding Source={util:Enumeration {x:Type model:StartAction}}}" DisplayMemberPath="Description"
-                        HorizontalAlignment="Left" VerticalAlignment="Top" 
-                        Width="174"
+                        SelectedValue="{Binding StartAction}" SelectedValuePath="Value"
+                        HorizontalAlignment="Left" VerticalAlignment="Top"  Width="174"
                         Margin="119,185,0,0" SelectedIndex="0" />
                 </Grid>
             </TabItem>

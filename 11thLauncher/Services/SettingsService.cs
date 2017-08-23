@@ -252,12 +252,14 @@ namespace _11thLauncher.Services
                             case "startMinimize":
                                 reader.Read();
                                 value = reader.Value.Trim();
-                                configFile.ApplicationSettings.StartMinimize = bool.Parse(value);
+                                if (bool.Parse(value))
+                                    configFile.ApplicationSettings.StartAction = StartAction.Minimize;
                                 break;
                             case "startClose":
                                 reader.Read();
                                 value = reader.Value.Trim();
-                                configFile.ApplicationSettings.StartClose = bool.Parse(value);
+                                if (bool.Parse(value))
+                                    configFile.ApplicationSettings.StartAction = StartAction.Close;
                                 break;
                             case "accent":
                                 reader.Read();

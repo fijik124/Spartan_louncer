@@ -286,6 +286,8 @@ namespace _11thLauncher.ViewModels
                     }
                 });
             }
+            //Check local game version
+            GameVersion = _settingsService.GetGameVersion();
 
             _logger.LogDebug("ShellViewModel", "Finished Shell initialization");
         }

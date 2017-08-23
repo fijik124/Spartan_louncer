@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using System.Windows;
+using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
@@ -8,16 +10,21 @@ namespace _11thLauncher.ViewModels.Controls
     public class GameViewModel : PropertyChangedBase, IHandle<ProfileLoadedMessage>, IHandle<FillServerInfoMessage>
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IWindowManager _windowManager;
+        private readonly ISettingsService _settingsService;
         private readonly IGameService _gameService;
         private readonly ISecurityService _securityService;
 
         private bool _loadingProfile;
 
-        public GameViewModel(IEventAggregator eventAggregator, IGameService gameService, ISecurityService securityService)
+        public GameViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, ISettingsService settingsService, 
+            IGameService gameService, ISecurityService securityService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
+            _windowManager = windowManager;
 
+            _settingsService = settingsService;
             _gameService = gameService;
             _securityService = securityService;
         }
@@ -115,6 +122,20 @@ namespace _11thLauncher.ViewModels.Controls
         public void ButtonLaunch()
         {
             _gameService.StartGame();
+
+            switch (_settingsService.ApplicationSettings.StartAction)
+            {
+                case StartAction.Minimize:
+                    Application.Current.MainWindow.WindowState = WindowState.Minimized;
+                    break;
+                case StartAction.Close:
+                    Application.Current.Shutdown();
+                    break;
+                case StartAction.Nothing:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void ButtonCopyToClipboard()
