@@ -76,7 +76,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void Handle(SaveProfileMessage message)
         {
-            _profileService.Write(SelectedProfile, _addonService.GetAddons(), _parameterService.Parameters, _launcherService.LaunchSettings);
+            _profileService.Write(SelectedProfile, _addonService.Addons, _parameterService.Parameters, _launcherService.LaunchSettings);
         }
 
         public void Handle(LoadProfileMessage message)

@@ -59,7 +59,7 @@ namespace _11thLauncher.Services
 
         private string GetAddonArguments()
         {
-            string addonParams = string.Join(";", _addonService.GetAddons().Where(a => a.IsEnabled).Select(a => a.Name));
+            string addonParams = string.Join(";", _addonService.Addons.Where(a => a.IsEnabled).Select(a => a.Name));
 
             if (addonParams.Length > 0)
             {

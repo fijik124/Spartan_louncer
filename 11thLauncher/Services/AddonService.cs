@@ -13,23 +13,18 @@ namespace _11thLauncher.Services
     {
         private readonly IFileAccessor _fileAccessor;
 
-        private readonly BindableCollection<Addon> _addons;
+        public BindableCollection<Addon> Addons { get; set; }
 
         public AddonService(IFileAccessor fileAccessor)
         {
             _fileAccessor = fileAccessor;
-            _addons = new BindableCollection<Addon>();
-        }
-
-        public BindableCollection<Addon> GetAddons()
-        {
-            return _addons;
+            Addons = new BindableCollection<Addon>();
         }
 
         public BindableCollection<Addon> ReadAddons(string arma3Path)
         {
             if (string.IsNullOrEmpty(arma3Path)) return new BindableCollection<Addon>();
-            if (_addons.Count != 0) return _addons; //Already read
+            if (Addons.Count != 0) return Addons; //Already read
 
             string[] directories = _fileAccessor.GetDirectories(arma3Path, Constants.AddonSubfolderName, SearchOption.AllDirectories);
             foreach (string directory in directories)
@@ -41,10 +36,10 @@ namespace _11thLauncher.Services
 
                 var addon = new Addon(_fileAccessor.GetParent(directory).FullName, addonName);
                 ReadMetaData(addon);
-                _addons.Add(addon);  
+                Addons.Add(addon);  
             }
 
-            return _addons;
+            return Addons;
         }
 
         public void BrowseAddonFolder(Addon addon)

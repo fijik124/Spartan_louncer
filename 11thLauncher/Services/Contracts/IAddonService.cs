@@ -6,10 +6,9 @@ namespace _11thLauncher.Services.Contracts
     public interface IAddonService
     {
         /// <summary>
-        /// Returns the addons currently stored in the service.
+        /// Addons on the launcher.
         /// </summary>
-        /// <returns>Addons currently stored</returns>
-        BindableCollection<Addon> GetAddons();
+        BindableCollection<Addon> Addons { get; set; }
 
         /// <summary>
         /// Find addons on the specified path.

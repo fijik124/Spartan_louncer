@@ -235,7 +235,7 @@ namespace _11thLauncher.ViewModels
                 _settingsService.Write();
 
                 //Write default profile
-                _profileService.Write(defaultProfile, _addonService.GetAddons(), _parameterService.Parameters, _launcherService.LaunchSettings);
+                _profileService.Write(defaultProfile, _addonService.Addons, _parameterService.Parameters, _launcherService.LaunchSettings);
             }
 
             _eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
@@ -250,8 +250,8 @@ namespace _11thLauncher.ViewModels
             _eventAggregator.PublishOnCurrentThread(new ParametersInitializedMessage(_parameterService.Parameters));
 
             //Read addons
-            var addons = _addonService.ReadAddons(_settingsService.ApplicationSettings.Arma3Path);
-            _eventAggregator.PublishOnCurrentThread(new AddonsLoadedMessage(addons));
+            _addonService.ReadAddons(_settingsService.ApplicationSettings.Arma3Path);
+            _eventAggregator.PublishOnCurrentThread(new AddonsLoadedMessage());
 
             //Add profiles and load default
             _eventAggregator.PublishOnCurrentThread(new ProfileAddedMessage(_settingsService.UserProfiles));

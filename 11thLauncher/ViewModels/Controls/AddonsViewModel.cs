@@ -15,7 +15,6 @@ namespace _11thLauncher.ViewModels.Controls
 
         private BindableCollection<Preset> _presets;
         private Preset _selectedPreset;
-        private BindableCollection<Addon> _addons = new BindableCollection<Addon>();
         private Addon _selectedAddon;
 
         public AddonsViewModel(IEventAggregator eventAggregator, IAddonService addonService)
@@ -31,7 +30,6 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void Handle(AddonsLoadedMessage message)
         {
-            _addons.AddRange(message.Addons);
             foreach (Addon addon in Addons)
             {
                 addon.PropertyChanged += Addon_StatusChanged;
@@ -57,6 +55,7 @@ namespace _11thLauncher.ViewModels.Controls
                 }
             }
 
+            Addons = new BindableCollection<Addon>(Addons.OrderBy(a => message.Addons.IndexOf(a)));
             CollectionViewSource.GetDefaultView(Addons).Refresh();
         }
 
@@ -108,27 +107,23 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void ButtonMoveUp()
         {
-            if (SelectedAddon != null)
-            {
-                var index = Addons.IndexOf(SelectedAddon);
-                if (index != 0)
-                {
-                    Addons.Move(index, index - 1);
-                }
-                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
-            }
+            if (SelectedAddon == null) return;
+
+            var index = Addons.IndexOf(SelectedAddon);
+            if (index == 0) return;
+
+            Addons.Move(index, index - 1);
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
         }
 
         public void ButtonMoveDown()
         {
-            if (SelectedAddon != null)
-            {
-                int index = Addons.IndexOf(SelectedAddon);
-                if (index != Addons.Count - 1)
-                {
-                    Addons.Move(index, index + 1);
-                }
-            }
+            if (SelectedAddon == null) return;
+
+            int index = Addons.IndexOf(SelectedAddon);
+            if (index == Addons.Count - 1) return;
+
+            Addons.Move(index, index + 1);
             _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
         }
 
@@ -181,10 +176,10 @@ namespace _11thLauncher.ViewModels.Controls
 
         public BindableCollection<Addon> Addons
         {
-            get => _addons;
+            get => _addonService.Addons;
             set
             {
-                _addons = value;
+                _addonService.Addons = value;
                 NotifyOfPropertyChange();
             }
         }
