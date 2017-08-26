@@ -193,7 +193,14 @@ namespace _11thLauncher.Services
             ApplicationSettings = configFile.ApplicationSettings;
             Servers = configFile.Servers;
 
-            //Set language
+            //Set culture if no previous settings
+            if (loadResult != LoadSettingsResult.LoadedExistingSettings)
+            {
+                var installedCulture = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
+                var cultureMatch = Constants.Languages.FirstOrDefault(l => l.StartsWith(installedCulture));
+                if (cultureMatch != null)
+                    ApplicationSettings.Language = cultureMatch;
+            }
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Constants.Languages.Contains(ApplicationSettings.Language) 
                 ? ApplicationSettings.Language 
                 : Constants.Languages.First());
