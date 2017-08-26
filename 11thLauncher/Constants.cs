@@ -112,7 +112,7 @@ namespace _11thLauncher
         public const string GithubApiReleaseEndpoint = "https://api.github.com/repos/11thmeu/launcher/releases/latest";
         public const string GithubApiCurrentVersion = "application/vnd.github.v3+json";
         public const string GithubVersionTagFormat = "v{0}";
-        public static readonly string UpdaterPath = Path.Combine(Path.GetTempPath(), "11thLauncherUpdater.exe");
+        public static readonly string UpdaterPath = Path.Combine(Path.GetTempPath(), "11thLauncher.Updater.exe");
 
         //
         // Settings Service

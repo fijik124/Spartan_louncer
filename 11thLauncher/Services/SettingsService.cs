@@ -139,6 +139,8 @@ namespace _11thLauncher.Services
 
         public LoadSettingsResult Read()
         {
+            _logger.LogDebug("SettingsService", "Reading settings from disk");
+
             var loadResult = LoadSettingsResult.NoExistingSettings;
             var configFile = new ConfigFile();
 
@@ -202,6 +204,7 @@ namespace _11thLauncher.Services
         private ConfigFile ReadLegacy()
         {
             _logger.LogInfo("SettingsService", "Starting conversion of legacy settings");
+
             ConfigFile configFile = new ConfigFile();
             string defaultProfileName = "";
 
@@ -331,6 +334,8 @@ namespace _11thLauncher.Services
 
         public void Write()
         {
+            _logger.LogDebug("SettingsService", "Writing settings to disk");
+
             var profiles = UserProfiles.ToDictionary(profile => profile.Id, profile => profile.Name);
             var configFile = new ConfigFile
             {
@@ -340,13 +345,20 @@ namespace _11thLauncher.Services
                 Servers = Servers
             };
 
-            //If no config directory exists, create it
-            if (!_fileAccessor.DirectoryExists(Constants.ConfigPath))
+            try
             {
-                _fileAccessor.CreateDirectory(Constants.ConfigPath);
-            }
+                //If no config directory exists, create it
+                if (!_fileAccessor.DirectoryExists(Constants.ConfigPath))
+                {
+                    _fileAccessor.CreateDirectory(Constants.ConfigPath);
+                }
 
-            _fileAccessor.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(configFile, Constants.JsonFormatting));
+                _fileAccessor.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(configFile, Constants.JsonFormatting));
+            }
+            catch (Exception e)
+            {
+                _logger.LogException("SettingsService", "Error writing settings", e);
+            }
         }
 
         /// <summary>
