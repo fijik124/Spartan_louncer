@@ -96,6 +96,7 @@ namespace _11thLauncher.Accessors
 #endif
             try
             {
+                if (!Directory.Exists(Constants.ConfigPath)) return;
                 lock (_logFile)
                 {
                     RollLogFile();
