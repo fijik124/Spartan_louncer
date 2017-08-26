@@ -34,7 +34,7 @@ namespace _11thLauncher.Services
             {
                 StartInfo =
                 {
-                    FileName = "" + "\\" + GetGameExecutablePath(),
+                    FileName = GetGameExecutablePath(),
                     Verb = "runas"
                 }
             };
