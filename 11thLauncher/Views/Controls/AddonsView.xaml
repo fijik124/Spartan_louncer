@@ -24,11 +24,8 @@
             <ListBox.ItemTemplate>
                 <HierarchicalDataTemplate>
                     <DockPanel Tag="{Binding DataContext, ElementName=Addons}">
-                        <CheckBox IsChecked="{Binding IsEnabled}" ToolTip="{Binding MetaData.Name}" HorizontalContentAlignment="Stretch">
-                            <CheckBox.Content>
-                                <TextBlock Text="{Binding Name}" IsHitTestVisible="False"/>
-                            </CheckBox.Content>
-                        </CheckBox>
+                        <CheckBox IsChecked="{Binding IsEnabled}" HorizontalContentAlignment="Stretch"/>
+                        <TextBlock Text="{Binding Name}" ToolTip="{Binding MetaData.Name}"/>
                         <DockPanel.ContextMenu>
                             <ContextMenu cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
                                 <MenuItem Header="{x:Static resx:Strings.S_BTN_TOGGLE_ADDON}" cal:Message.Attach="[Event Click] = [Action ContextToggleAddon($dataContext)];"/>
