@@ -17,10 +17,12 @@ namespace _11thLauncher.Services
 
         public BindableCollection<Addon> Addons { get; set; }
 
-        public AddonService(IFileAccessor fileAccessor, ILogger logger)
+        public AddonService(IFileAccessor fileAccessor, IProcessAccessor processAccessor, ILogger logger)
         {
             _fileAccessor = fileAccessor;
+            _processAccessor = processAccessor;
             _logger = logger;
+
             Addons = new BindableCollection<Addon>();
         }
 
@@ -52,7 +54,7 @@ namespace _11thLauncher.Services
         {
             if (!_fileAccessor.DirectoryExists(addon.Path))
             {
-                _logger.LogDebug("AddonService", $"Unable to open addon folder for {addon.Path}");
+                _logger.LogDebug("AddonService", $"Unable to open addon folder for {addon.Name}");
                 return;
             }
 
@@ -62,10 +64,14 @@ namespace _11thLauncher.Services
 
         public void BrowseAddonWebsite(Addon addon)
         {
-            if (!string.IsNullOrEmpty(addon.MetaData?.Action))
+            if (string.IsNullOrEmpty(addon.MetaData?.Action))
             {
-                _processAccessor.StartProcess(addon.MetaData.Action);
+                _logger.LogDebug("AddonService", $"Unable to open addon website for {addon.Name}");
+                return;
             }
+
+            _processAccessor.StartProcess(addon.MetaData.Action);
+            _logger.LogDebug("AddonService", $"Opening addon website for {addon.Name}");
         }
 
         private void ReadMetaData(Addon addon)
@@ -114,9 +120,10 @@ namespace _11thLauncher.Services
                     
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 addon.MetaData = null;
+                _logger.LogException("AddonService", $"Error reading addon metadata for {addon.Name}", e);
             }
         }
     }
