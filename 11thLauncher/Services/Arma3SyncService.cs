@@ -227,7 +227,7 @@ namespace _11thLauncher.Services
             }
             else
             {
-                _logger.LogInfo("Arma3SyncService", $"Arma3Sync installation found in Windows Registry: {arma3SyncPath}");
+                _logger.LogInfo("Arma3SyncService", $"Arma3Sync installation found in Windows Registry: '{arma3SyncPath}'");
             }
 
             return arma3SyncPath;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace _11thLauncher.Util
         private readonly int _maxRolledFiles;
         private readonly long _maxSize;
         private readonly string _logFile;
+        private readonly List<string> _logCache;
 
         public Logger()
         {
@@ -20,6 +22,7 @@ namespace _11thLauncher.Util
             _maxRolledFiles = ApplicationConfig.LogRolledFiles;
             _maxSize = ApplicationConfig.LogSizeLimit;
             _logFile = Path.Combine(_logDirectory, string.Format(LogPattern, ""));
+            _logCache = new List<string>();
         }
 
         public void LogDebug(string component, string message)
@@ -95,9 +98,19 @@ namespace _11thLauncher.Util
 #endif
             try
             {
-                if (!Directory.Exists(ApplicationConfig.ConfigPath)) return;
                 lock (_logFile)
                 {
+                    if (!Directory.Exists(ApplicationConfig.ConfigPath))
+                    {
+                        AddToCache(content); //First initialization, keep info in cache
+                        return;
+                    }
+
+                    if (_logCache.Count != 0)
+                    {
+                        ProcessCache(); //Cache not empty, process it before continuing
+                    }
+
                     RollLogFile();
                     File.AppendAllText(_logFile, content, Encoding.UTF8);
                 }
@@ -105,6 +118,22 @@ namespace _11thLauncher.Util
             catch (Exception)
             {
                 // ignored
+            }
+        }
+
+        private void AddToCache(string content)
+        {
+            _logCache.Add(content);
+        }
+
+        private void ProcessCache()
+        {
+            var cache = new List<string>(_logCache);
+            _logCache.Clear();
+
+            foreach (var line in cache)
+            {
+                WriteToLog(line);
             }
         }
     }
