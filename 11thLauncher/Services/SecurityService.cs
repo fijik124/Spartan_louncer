@@ -22,6 +22,8 @@ namespace _11thLauncher.Services
 
             try
             {
+                _logger.LogDebug("SecurityService", "Encrypting password");
+
                 byte[] original = Encoding.Unicode.GetBytes(text);
                 byte[] encrypted = ProtectedData.Protect(original, GetEntropy(), DataProtectionScope.CurrentUser);
                 return Convert.ToBase64String(encrypted);
@@ -39,6 +41,8 @@ namespace _11thLauncher.Services
 
             try
             {
+                _logger.LogDebug("SecurityService", "Decrypting password");
+
                 byte[] encrypted = Convert.FromBase64String(text);
                 byte[] original = ProtectedData.Unprotect(encrypted, GetEntropy(), DataProtectionScope.CurrentUser);
                 return Encoding.Unicode.GetString(original);

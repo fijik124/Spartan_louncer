@@ -10,19 +10,16 @@ namespace _11thLauncher.ViewModels.Controls
     public class GameViewModel : PropertyChangedBase, IHandle<ProfileLoadedMessage>, IHandle<FillServerInfoMessage>
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly IWindowManager _windowManager;
         private readonly ISettingsService _settingsService;
         private readonly IGameService _gameService;
         private readonly ISecurityService _securityService;
 
         private bool _loadingProfile;
 
-        public GameViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, ISettingsService settingsService, 
-            IGameService gameService, ISecurityService securityService)
+        public GameViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IGameService gameService, ISecurityService securityService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
-            _windowManager = windowManager;
 
             _settingsService = settingsService;
             _gameService = gameService;
