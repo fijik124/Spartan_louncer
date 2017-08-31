@@ -85,10 +85,8 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -118,11 +116,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Accessors\Contracts\IFileAccessor.cs" />
-    <Compile Include="Accessors\Contracts\ILogger.cs" />
+    <Compile Include="Util\ILogger.cs" />
     <Compile Include="Accessors\Contracts\INetworkAccessor.cs" />
     <Compile Include="Accessors\Contracts\IRegistryAccessor.cs" />
     <Compile Include="Accessors\FileAccessor.cs" />
-    <Compile Include="Accessors\Logger.cs" />
+    <Compile Include="Util\Logger.cs" />
     <Compile Include="Accessors\NetworkAccessor.cs" />
     <Compile Include="Accessors\RegistryAccessor.cs" />
     <Compile Include="Messages\ParametersInitializedMessage.cs" />
@@ -155,7 +153,7 @@
     <Compile Include="Services\Contracts\IParameterService.cs" />
     <Compile Include="Services\Contracts\IProfileService.cs" />
     <Compile Include="Services\ParameterService.cs" />
-    <Compile Include="Util\GithubRelease.cs" />
+    <Compile Include="Models\GithubRelease.cs" />
     <Compile Include="Converters\JsonLaunchParameterConverter.cs" />
     <Compile Include="Util\ExtensionMethods.cs" />
     <Compile Include="Services\AddonService.cs" />

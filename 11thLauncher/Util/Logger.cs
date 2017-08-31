@@ -2,10 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
 
-namespace _11thLauncher.Accessors
+namespace _11thLauncher.Util
 {
     public class Logger : ILogger
     {

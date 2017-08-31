@@ -1,4 +1,4 @@
-﻿namespace _11thLauncher.Util
+﻿namespace _11thLauncher.Models
 {
     public class GithubRelease
     {

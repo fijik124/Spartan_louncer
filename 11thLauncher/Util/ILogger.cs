@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _11thLauncher.Accessors.Contracts
+namespace _11thLauncher.Util
 {
     public interface ILogger
     {

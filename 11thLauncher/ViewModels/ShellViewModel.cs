@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
-using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
+using _11thLauncher.Util;
 using _11thLauncher.ViewModels.Controls;
 
 namespace _11thLauncher.ViewModels
