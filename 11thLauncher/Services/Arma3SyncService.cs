@@ -15,12 +15,14 @@ namespace _11thLauncher.Services
         private readonly IFileAccessor _fileAccessor;
         private readonly IRegistryAccessor _registryAccessor;
         private readonly INetworkAccessor _networkAccessor;
+        private readonly IProcessAccessor _processAccessor;
 
-        public Arma3SyncService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor, INetworkAccessor networkAccessor)
+        public Arma3SyncService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor, INetworkAccessor networkAccessor, IProcessAccessor processAccessor)
         {
             _fileAccessor = fileAccessor;
             _registryAccessor = registryAccessor;
             _networkAccessor = networkAccessor;
+            _processAccessor = processAccessor;
         }
 
         public BindableCollection<Repository> ReadRepositories(string arma3SyncPath)
@@ -71,7 +73,7 @@ namespace _11thLauncher.Services
             }
         }
 
-        private static void DeserializeLocalRepository(string arma3SyncPath, string javaPath, Repository repository)
+        private void DeserializeLocalRepository(string arma3SyncPath, string javaPath, Repository repository)
         {
             string repositoryPath = Path.Combine(arma3SyncPath, ApplicationConfig.Arma3SyncConfigFolder, repository.Name + ApplicationConfig.Arma3SyncRepositoryExtension);
 
@@ -86,10 +88,10 @@ namespace _11thLauncher.Services
                     Arguments = " -jar " + ApplicationConfig.A3SdsPath + " -deserializeRepository \"" + repositoryPath + "\""
                 }
             };
-            p.Start();
-            string localRepository = p.StandardOutput.ReadToEnd();
+            _processAccessor.Start(p);
+            string localRepository = _processAccessor.GetStandardOutput(p).ReadToEnd();
             string[] localRepositoryInfo = localRepository.TrimEnd('\r', '\n').Split(',');
-            p.WaitForExit();
+            _processAccessor.WaitForExit(p);
 
             if (localRepositoryInfo.Length != 6) return;
 
@@ -126,10 +128,10 @@ namespace _11thLauncher.Services
                         Arguments = " -jar " + ApplicationConfig.A3SdsPath + " -deserializeServerInfo \"" + tempPath + "\""
                     }
                 };
-                p.Start();
-                string remoteRepository = p.StandardOutput.ReadToEnd();
+                _processAccessor.Start(p);
+                string remoteRepository = _processAccessor.GetStandardOutput(p).ReadToEnd();
                 string[] remoteRepositoryInfo = remoteRepository.TrimEnd('\r', '\n').Split(',');
-                p.WaitForExit();
+                _processAccessor.WaitForExit(p);
 
                 //Delete temp file
                 _fileAccessor.DeleteFile(tempPath);
@@ -160,10 +162,10 @@ namespace _11thLauncher.Services
                         Arguments = "-version"
                     }
                 };
-                p.Start();
-                javaVersion = p.StandardError.ReadLine();
-                p.StandardError.ReadToEnd();
-                p.WaitForExit();
+                _processAccessor.Start(p);
+                javaVersion = _processAccessor.GetStandardError(p).ReadLine();
+                _processAccessor.GetStandardError(p).ReadToEnd();
+                _processAccessor.WaitForExit(p);
             }
             catch (Exception) { }
 
@@ -212,7 +214,7 @@ namespace _11thLauncher.Services
                     FileName = Path.Combine(arma3SyncPath, ApplicationConfig.Arma3SyncExecutable)
                 }
             };
-            p.Start();
+            _processAccessor.Start(p);
         }
 
         private string SearchRegistryInstallations(RegistryKey key)

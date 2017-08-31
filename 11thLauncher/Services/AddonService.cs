@@ -1,29 +1,36 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Caliburn.Micro;
 using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
+using _11thLauncher.Util;
 
 namespace _11thLauncher.Services
 {
     public class AddonService : IAddonService
     {
         private readonly IFileAccessor _fileAccessor;
+        private readonly IProcessAccessor _processAccessor;
+        private readonly ILogger _logger;
 
         public BindableCollection<Addon> Addons { get; set; }
 
-        public AddonService(IFileAccessor fileAccessor)
+        public AddonService(IFileAccessor fileAccessor, ILogger logger)
         {
             _fileAccessor = fileAccessor;
+            _logger = logger;
             Addons = new BindableCollection<Addon>();
         }
 
         public void ReadAddons(string arma3Path)
         {
-            if (string.IsNullOrEmpty(arma3Path) || Addons.Count != 0) return;
+            if (string.IsNullOrEmpty(arma3Path) || Addons.Count != 0)
+            {
+                _logger.LogDebug("AddonService", "No game path defined or addons already read, skipping reading addons");
+                return;
+            };
 
             string[] directories = _fileAccessor.GetDirectories(arma3Path, ApplicationConfig.AddonSubfolderName, SearchOption.AllDirectories);
             foreach (string directory in directories)
@@ -37,21 +44,27 @@ namespace _11thLauncher.Services
                 ReadMetaData(addon);
                 Addons.Add(addon);  
             }
+
+            _logger.LogDebug("AddonService", $"Addons read from game path successfully, number found was: {Addons.Count}");
         }
 
         public void BrowseAddonFolder(Addon addon)
         {
-            if (_fileAccessor.DirectoryExists(addon.Path))
+            if (!_fileAccessor.DirectoryExists(addon.Path))
             {
-                Process.Start(addon.Path);
+                _logger.LogDebug("AddonService", $"Unable to open addon folder for {addon.Path}");
+                return;
             }
+
+            _processAccessor.StartProcess(addon.Path);
+            _logger.LogDebug("AddonService", $"Opening addon folder for '{addon.Name}'");
         }
 
         public void BrowseAddonWebsite(Addon addon)
         {
             if (!string.IsNullOrEmpty(addon.MetaData?.Action))
             {
-                Process.Start(addon.MetaData.Action);
+                _processAccessor.StartProcess(addon.MetaData.Action);
             }
         }
 

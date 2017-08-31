@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 
@@ -9,6 +10,9 @@ namespace _11thLauncher.Services
 {
     public class GameService: IGameService
     {
+        private readonly IProcessAccessor _processAccessor;
+        private readonly IClipboardAccessor _clipboardAccessor;
+
         private readonly ISettingsService _settingsService;
         private readonly IAddonService _addonService;
         private readonly IParameterService _parameterService;
@@ -16,8 +20,12 @@ namespace _11thLauncher.Services
 
         public LaunchSettings LaunchSettings { get; set; }
 
-        public GameService(ISettingsService settingsService, IAddonService addonService, IParameterService parameterService, ISecurityService securityService)
+        public GameService(IProcessAccessor processAccessor, IClipboardAccessor clipboardAccessor, ISettingsService settingsService,
+            IAddonService addonService, IParameterService parameterService, ISecurityService securityService)
         {
+            _processAccessor = processAccessor;
+            _clipboardAccessor = clipboardAccessor;
+
             _settingsService = settingsService;
             _addonService = addonService;
             _parameterService = parameterService;
@@ -43,8 +51,8 @@ namespace _11thLauncher.Services
             {
                 process.StartInfo.Arguments = gameParams;
             }
-            
-            process.Start();
+
+            _processAccessor.Start(process);
         }
 
         public void CopyLaunchShortcut()
@@ -54,7 +62,8 @@ namespace _11thLauncher.Services
                 GetParameterArguments(), 
                 GetAddonArguments(), 
                 GetConnectionArguments()).Trim();
-            Clipboard.SetText(shortcut);
+
+            _clipboardAccessor.SetText(shortcut);
         }
 
         private string GetAddonArguments()

@@ -55,9 +55,13 @@ namespace _11thLauncher
             _container.Singleton<ISecurityService, SecurityService>();
 
             //Accessors
+            _container.Singleton<IClipboardAccessor, ClipboardAccessor>();
             _container.Singleton<IFileAccessor, FileAccessor>();
             _container.Singleton<INetworkAccessor, NetworkAccessor>();
+            _container.Singleton<IProcessAccessor, ProcessAccessor>();
             _container.Singleton<IRegistryAccessor, RegistryAccessor>();
+
+            //Util
             _container.Singleton<ILogger, Logger>();
         }
 
