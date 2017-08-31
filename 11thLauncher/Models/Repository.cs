@@ -13,7 +13,6 @@ namespace _11thLauncher.Models
         private string _password;
         private string _localRevision;
         private string _remoteRevision;
-        private DateTime _remoteBuildDate;
 
         public Repository()
         {
@@ -96,16 +95,6 @@ namespace _11thLauncher.Models
             set
             {
                 _remoteRevision = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        public DateTime RemoteBuildDate
-        {
-            get => _remoteBuildDate;
-            set
-            {
-                _remoteBuildDate = value;
                 NotifyOfPropertyChange();
             }
         }
