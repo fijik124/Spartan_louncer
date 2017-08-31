@@ -206,7 +206,6 @@ namespace _11thLauncher.ViewModels
 
             if (loadResult.Equals(LoadSettingsResult.LoadedLegacySettings))
             {
-                //TODO trycatchhere?
                 _profileService.PortLegacyProfiles(_settingsService.UserProfiles);
             }
 

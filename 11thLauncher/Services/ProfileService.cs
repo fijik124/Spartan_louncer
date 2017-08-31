@@ -100,6 +100,8 @@ namespace _11thLauncher.Services
 
         public void PortLegacyProfiles(BindableCollection<UserProfile> profiles)
         {
+            _logger.LogInfo("ProfileService", "Porting legacy profiles");
+
             foreach (var profile in profiles)
             {
                 try
