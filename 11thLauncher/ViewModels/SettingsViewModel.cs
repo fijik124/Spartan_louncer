@@ -130,7 +130,7 @@ namespace _11thLauncher.ViewModels
             }
         }
 
-        public IEnumerable<string> Languages => Constants.Languages;
+        public IEnumerable<string> Languages => ApplicationConfig.Languages;
 
         public string SelectedLanguage
         {
@@ -192,7 +192,7 @@ namespace _11thLauncher.ViewModels
             SyncPath = _settingsService.ApplicationSettings.Arma3SyncPath;
 
             //Interface
-            SelectedLanguage = Languages.FirstOrDefault(x => x.Equals(_settingsService.ApplicationSettings.Language)) ?? Constants.Languages.First();
+            SelectedLanguage = Languages.FirstOrDefault(x => x.Equals(_settingsService.ApplicationSettings.Language)) ?? ApplicationConfig.Languages.First();
             SelectedTheme = _settingsService.ApplicationSettings.ThemeStyle;
             SelectedAccent = _settingsService.ApplicationSettings.AccentColor;
             MinimizeNotification = _settingsService.ApplicationSettings.MinimizeNotification;
@@ -254,7 +254,7 @@ namespace _11thLauncher.ViewModels
                 if (string.IsNullOrEmpty(selectedPath) || !_fileAccessor.DirectoryExists(selectedPath)) return;
 
                 //Check if selected folder contains game executable
-                if (!_fileAccessor.FileExists(Path.Combine(selectedPath, Constants.GameExecutable32)))
+                if (!_fileAccessor.FileExists(Path.Combine(selectedPath, ApplicationConfig.GameExecutable32)))
                 {
                     await _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_INCORRECT_PATH_TITLE,
                         Resources.Strings.S_MSG_INCORRECT_PATH_CONTENT, MessageDialogStyle.Affirmative, new MetroDialogSettings
@@ -285,13 +285,13 @@ namespace _11thLauncher.ViewModels
                 if (string.IsNullOrEmpty(selectedPath) || !_fileAccessor.DirectoryExists(selectedPath)) return;
 
                 //Check if selected folder contains java binary folder or executable
-                if (_fileAccessor.FileExists(Path.Combine(selectedPath, Constants.JavaExecutable)))
+                if (_fileAccessor.FileExists(Path.Combine(selectedPath, ApplicationConfig.JavaExecutable)))
                 {
                     JavaPath = selectedPath;
                 }
-                else if (_fileAccessor.FileExists(Path.Combine(selectedPath, Constants.JavaRuntimeBinaryFolder, Constants.JavaExecutable)))
+                else if (_fileAccessor.FileExists(Path.Combine(selectedPath, ApplicationConfig.JavaRuntimeBinaryFolder, ApplicationConfig.JavaExecutable)))
                 {
-                    JavaPath = Path.Combine(selectedPath, Constants.JavaRuntimeBinaryFolder);
+                    JavaPath = Path.Combine(selectedPath, ApplicationConfig.JavaRuntimeBinaryFolder);
                 }
                 else
                 {
@@ -320,7 +320,7 @@ namespace _11thLauncher.ViewModels
                 if (string.IsNullOrEmpty(selectedPath) || !_fileAccessor.DirectoryExists(selectedPath)) return;
 
                 //Check if selected folder contains arma3sync executable
-                if (!_fileAccessor.FileExists(Path.Combine(selectedPath, Constants.Arma3SyncExecutable)))
+                if (!_fileAccessor.FileExists(Path.Combine(selectedPath, ApplicationConfig.Arma3SyncExecutable)))
                 {
                     await _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_INCORRECT_ARMA3SYNC_PATH_TITLE,
                         Resources.Strings.S_MSG_INCORRECT_ARMA3SYNC_PATH_CONTENT, MessageDialogStyle.Affirmative, new MetroDialogSettings

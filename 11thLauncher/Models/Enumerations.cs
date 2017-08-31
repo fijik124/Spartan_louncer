@@ -177,9 +177,9 @@ namespace _11thLauncher.Models
 
     public enum LogLevel
     {
-        NONE,
-        ERROR,
-        INFO,
-        DEBUG
+        NONE = 0,
+        ERROR = 1,
+        INFO = 2,
+        DEBUG = 3
     }
 }

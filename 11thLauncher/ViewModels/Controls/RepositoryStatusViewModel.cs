@@ -13,7 +13,7 @@ namespace _11thLauncher.ViewModels.Controls
         private readonly IAddonSyncService _addonSyncService;
         private readonly ISettingsService _settingsService;
 
-        private string _arma3SyncIcon = Constants.Arma3SyncIconDisabled;
+        private string _arma3SyncIcon = ApplicationConfig.Arma3SyncIconDisabled;
         private BindableCollection<Repository> _repositories;
 
         public RepositoryStatusViewModel(IEventAggregator eventAggregator, IAddonSyncService addonSyncService, ISettingsService settingsService)
@@ -52,7 +52,7 @@ namespace _11thLauncher.ViewModels.Controls
         {
             if (string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath)) return;
 
-            Arma3SyncIcon = Constants.Arma3SyncIconEnabled;
+            Arma3SyncIcon = ApplicationConfig.Arma3SyncIconEnabled;
             Repositories = message.Repositories;
 
             if (!_settingsService.ApplicationSettings.CheckRepository) return; //Exit if startup check is disabled

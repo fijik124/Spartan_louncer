@@ -39,13 +39,13 @@ namespace _11thLauncher.Services
             using (WebClient client = new WebClient())
             {
                 client.UseDefaultCredentials = true;
-                client.Headers.Add(HttpRequestHeader.Accept, Constants.GithubApiCurrentVersion);
+                client.Headers.Add(HttpRequestHeader.Accept, ApplicationConfig.GithubApiCurrentVersion);
                 client.Headers.Add(HttpRequestHeader.IfNoneMatch, _lastEtag);
-                client.Headers.Add(HttpRequestHeader.UserAgent, Constants.UpdaterServiceUserAgent);
+                client.Headers.Add(HttpRequestHeader.UserAgent, ApplicationConfig.UpdaterServiceUserAgent);
 
                 try
                 {
-                    string releaseStr = _networkAccessor.DownloadString(client, Constants.GithubApiReleaseEndpoint);
+                    string releaseStr = _networkAccessor.DownloadString(client, ApplicationConfig.GithubApiReleaseEndpoint);
                     GithubRelease release = JsonConvert.DeserializeObject<GithubRelease>(releaseStr);
                     var updated = false;
 
@@ -55,7 +55,7 @@ namespace _11thLauncher.Services
 
                         if (latestVersion != null)
                         {
-                            updated = latestVersion.Equals(string.Format(Constants.GithubVersionTagFormat, _assemblyVersion));
+                            updated = latestVersion.Equals(string.Format(ApplicationConfig.GithubVersionTagFormat, _assemblyVersion));
                         }
                     }
 
@@ -99,7 +99,7 @@ namespace _11thLauncher.Services
         public void ExecuteUpdater()
         {
             //Extract updater
-            _fileAccessor.WriteAllBytes(Constants.UpdaterPath, Properties.Resources._11thLauncher_Updater);
+            _fileAccessor.WriteAllBytes(ApplicationConfig.UpdaterPath, Properties.Resources._11thLauncher_Updater);
 
             var appPath = Assembly.GetExecutingAssembly().Location;
             var fullPath = "";
@@ -113,10 +113,10 @@ namespace _11thLauncher.Services
             //{
                 //StartInfo =
                 //{
-                    //FileName = Constants.UpdaterPath,
+                    //FileName = ApplicationConfig.UpdaterPath,
                     //Arguments =
                         //$"\"{fullPath}\"" + " " +
-                        //(Constants.DownloadBaseUrl + "11thLauncher" + _latestVersion + ".zip")
+                        //(ApplicationConfig.DownloadBaseUrl + "11thLauncher" + _latestVersion + ".zip")
 
                 //}
             //};
@@ -127,7 +127,7 @@ namespace _11thLauncher.Services
 
         public void RemoveUpdater()
         {
-            _fileAccessor.DeleteFile(Constants.UpdaterPath);
+            _fileAccessor.DeleteFile(ApplicationConfig.UpdaterPath);
         }
     }
 }

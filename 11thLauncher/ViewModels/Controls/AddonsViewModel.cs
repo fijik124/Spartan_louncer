@@ -23,7 +23,7 @@ namespace _11thLauncher.ViewModels.Controls
             _eventAggregator.Subscribe(this);
             _addonService = addonService;
 
-            Presets = Constants.AddonPresets;
+            Presets = ApplicationConfig.AddonPresets;
         }
 
         #region Message handling

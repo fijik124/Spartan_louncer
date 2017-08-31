@@ -70,20 +70,20 @@ namespace _11thLauncher.Models
 
         //public void Write()
         //{
-            //if (!Directory.Exists(Constants.ProfilesPath))
+            //if (!Directory.Exists(ApplicationConfig.ProfilesPath))
             //{
-                //Directory.CreateDirectory(Constants.ProfilesPath);
+                //Directory.CreateDirectory(ApplicationConfig.ProfilesPath);
             //}
 
-            //File.WriteAllText(Path.Combine(Constants.ProfilesPath, Id + ".json"), JsonConvert.SerializeObject(this));
+            //File.WriteAllText(Path.Combine(ApplicationConfig.ProfilesPath, Id + ".json"), JsonConvert.SerializeObject(this));
         //}
 
         //[Obsolete]
         //public void Writes()
         //{
-            //if (!Directory.Exists(Constants.ProfilesPath))
+            //if (!Directory.Exists(ApplicationConfig.ProfilesPath))
             //{
-                //Directory.CreateDirectory(Constants.ProfilesPath);
+                //Directory.CreateDirectory(ApplicationConfig.ProfilesPath);
             //}
 
             //XmlWriterSettings settings = new XmlWriterSettings
@@ -92,7 +92,7 @@ namespace _11thLauncher.Models
                 //IndentChars = "\t"
             //};
 
-            //using (XmlWriter writer = XmlWriter.Create(Constants.ProfilesPath + "\\" + Name + ".xml", settings))
+            //using (XmlWriter writer = XmlWriter.Create(ApplicationConfig.ProfilesPath + "\\" + Name + ".xml", settings))
             //{
                 //writer.WriteStartDocument();
                 //writer.WriteStartElement("Profile");
@@ -152,7 +152,7 @@ namespace _11thLauncher.Models
             //ProfileParameters = parameters;
             //ProfileServerConfig = serverConfig;
 
-            //JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(Constants.ProfilesPath, Id + ".json")), this);
+            //JsonConvert.PopulateObject(File.ReadAllText(Path.Combine(ApplicationConfig.ProfilesPath, Id + ".json")), this);
             ////TODO
         //}
 
@@ -165,7 +165,7 @@ namespace _11thLauncher.Models
             //ProfileServerConfig = serverConfig;
 
             ////Read profile
-            //using (XmlReader reader = XmlReader.Create(Constants.ProfilesPath + "\\" + Name + ".xml"))
+            //using (XmlReader reader = XmlReader.Create(ApplicationConfig.ProfilesPath + "\\" + Name + ".xml"))
             //{
                 //while (reader.Read())
                 //{

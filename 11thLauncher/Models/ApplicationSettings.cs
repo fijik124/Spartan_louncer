@@ -1,7 +1,11 @@
-﻿namespace _11thLauncher.Models
+﻿using Newtonsoft.Json;
+
+namespace _11thLauncher.Models
 {
     public class ApplicationSettings
     {
+        private LogLevel? _logLevel;
+
         public bool CheckUpdates = true;
         public bool CheckServers = true;
         public bool CheckRepository = false;
@@ -13,5 +17,18 @@
         public AccentColor AccentColor = 0;
         public string JavaPath = "";
         public string Arma3SyncPath = "";
+
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public LogLevel? LogLevel
+        {
+            get => _logLevel;
+            set
+            {
+                _logLevel = value;
+                if (value != null)
+                    ApplicationConfig.MaxLogLevel = (LogLevel) value;
+            } 
+        }
     }
 }

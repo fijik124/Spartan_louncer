@@ -58,7 +58,7 @@
                 <Style TargetType="Image">
                     <Setter Property="ToolTip" Value="{x:Static resx:Strings.S_A3S_DISABLED_TIP}"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Arma3SyncIcon}" Value="{x:Static main:Constants.Arma3SyncIconEnabled}">
+                        <DataTrigger Binding="{Binding Arma3SyncIcon}" Value="{x:Static main:ApplicationConfig.Arma3SyncIconEnabled}">
                             <Setter Property="ToolTip" Value="{x:Static resx:Strings.S_A3S_ENABLED_TIP}"/>
                         </DataTrigger>
                     </Style.Triggers>

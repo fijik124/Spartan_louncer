@@ -9,7 +9,6 @@ namespace _11thLauncher.Util
     public class Logger : ILogger
     {
         private const string LogPattern = "log{0}.log";
-        private readonly LogLevel _maxLogLevel;
         private readonly string _logDirectory;
         private readonly int _maxRolledFiles;
         private readonly long _maxSize;
@@ -17,28 +16,27 @@ namespace _11thLauncher.Util
 
         public Logger()
         {
-            _maxLogLevel = Constants.MaxLogLevel;
-            _logDirectory = Constants.ConfigPath;
-            _maxRolledFiles = Constants.LogRolledFiles;
-            _maxSize = Constants.LogSizeLimit;
+            _logDirectory = ApplicationConfig.ConfigPath;
+            _maxRolledFiles = ApplicationConfig.LogRolledFiles;
+            _maxSize = ApplicationConfig.LogSizeLimit;
             _logFile = Path.Combine(_logDirectory, string.Format(LogPattern, ""));
         }
 
         public void LogDebug(string component, string message)
         {
-            if (_maxLogLevel.Equals(LogLevel.DEBUG))
+            if (ApplicationConfig.MaxLogLevel.Equals(LogLevel.DEBUG))
                 WriteMessageToLog(LogLevel.DEBUG, component, message);
         }
 
         public void LogInfo(string component, string message)
         {
-            if (_maxLogLevel >= LogLevel.INFO)
+            if (ApplicationConfig.MaxLogLevel >= LogLevel.INFO)
                 WriteMessageToLog(LogLevel.INFO, component, message);
         }
 
         public void LogException(string component, string message, Exception e)
         {
-            if (_maxLogLevel >= LogLevel.ERROR)
+            if (ApplicationConfig.MaxLogLevel >= LogLevel.ERROR)
                 WriteExceptionToLog(component, message, e);
         }
 
@@ -95,7 +93,7 @@ namespace _11thLauncher.Util
 #endif
             try
             {
-                if (!Directory.Exists(Constants.ConfigPath)) return;
+                if (!Directory.Exists(ApplicationConfig.ConfigPath)) return;
                 lock (_logFile)
                 {
                     RollLogFile();

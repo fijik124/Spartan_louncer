@@ -96,7 +96,7 @@ namespace _11thLauncher.Services
 
         private string GetGameExecutablePath()
         {
-            return Path.Combine(_settingsService.ApplicationSettings.Arma3Path, LaunchSettings.Platform == LaunchPlatform.X86 ? Constants.GameExecutable32 : Constants.GameExecutable64);
+            return Path.Combine(_settingsService.ApplicationSettings.Arma3Path, LaunchSettings.Platform == LaunchPlatform.X86 ? ApplicationConfig.GameExecutable32 : ApplicationConfig.GameExecutable64);
         }
     }
 }

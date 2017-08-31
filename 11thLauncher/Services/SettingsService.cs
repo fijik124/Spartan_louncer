@@ -55,9 +55,9 @@ namespace _11thLauncher.Services
         {
             var settingsExist = false;
 
-            if (_fileAccessor.DirectoryExists(Constants.ConfigPath))
+            if (_fileAccessor.DirectoryExists(ApplicationConfig.ConfigPath))
             {
-                settingsExist = _fileAccessor.FileExists(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName));
+                settingsExist = _fileAccessor.FileExists(Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ConfigFileName));
             }
 
             _logger.LogDebug("SettingsService", "Checked if settings exist, result is: " + settingsExist);
@@ -75,7 +75,7 @@ namespace _11thLauncher.Services
                 return version;
             }
 
-            FileVersionInfo info = FileVersionInfo.GetVersionInfo(Path.Combine(ApplicationSettings.Arma3Path, Constants.GameExecutable32));
+            FileVersionInfo info = FileVersionInfo.GetVersionInfo(Path.Combine(ApplicationSettings.Arma3Path, ApplicationConfig.GameExecutable32));
             version = info.FileVersion + "." + info.FileBuildPart + info.FilePrivatePart;
             _gameVersion = version;
 
@@ -92,11 +92,11 @@ namespace _11thLauncher.Services
                 //First try to get the path using ArmA 3 registry entry
                 if (Environment.Is64BitOperatingSystem)
                 {
-                    arma3RegPath = (string)_registryAccessor.GetValue(Constants.Arma3RegPath64[0], Constants.Arma3RegPath64[1], Constants.Arma3RegPath64[2]);
+                    arma3RegPath = (string)_registryAccessor.GetValue(ApplicationConfig.Arma3RegPath64[0], ApplicationConfig.Arma3RegPath64[1], ApplicationConfig.Arma3RegPath64[2]);
                 }
                 else
                 {
-                    arma3RegPath = (string)_registryAccessor.GetValue(Constants.Arma3RegPath32[0], Constants.Arma3RegPath32[1], Constants.Arma3RegPath32[2]);
+                    arma3RegPath = (string)_registryAccessor.GetValue(ApplicationConfig.Arma3RegPath32[0], ApplicationConfig.Arma3RegPath32[1], ApplicationConfig.Arma3RegPath32[2]);
                 }
                 if (!_fileAccessor.DirectoryExists(arma3RegPath))
                 {
@@ -109,13 +109,13 @@ namespace _11thLauncher.Services
                     string steamPath;
                     if (Environment.Is64BitOperatingSystem)
                     {
-                        steamPath = (string)_registryAccessor.GetValue(Constants.SteamRegPath64[0], Constants.SteamRegPath64[1], Constants.SteamRegPath64[2]);
-                        arma3RegPath = Path.Combine(steamPath, Constants.DefaultArma3SteamPath);
+                        steamPath = (string)_registryAccessor.GetValue(ApplicationConfig.SteamRegPath64[0], ApplicationConfig.SteamRegPath64[1], ApplicationConfig.SteamRegPath64[2]);
+                        arma3RegPath = Path.Combine(steamPath, ApplicationConfig.DefaultArma3SteamPath);
                     }
                     else
                     {
-                        steamPath = (string)_registryAccessor.GetValue(Constants.SteamRegPath32[0], Constants.SteamRegPath32[1], Constants.SteamRegPath32[2]);
-                        arma3RegPath = Path.Combine(steamPath, Constants.DefaultArma3SteamPath);
+                        steamPath = (string)_registryAccessor.GetValue(ApplicationConfig.SteamRegPath32[0], ApplicationConfig.SteamRegPath32[1], ApplicationConfig.SteamRegPath32[2]);
+                        arma3RegPath = Path.Combine(steamPath, ApplicationConfig.DefaultArma3SteamPath);
                     }
                 }
             }
@@ -171,7 +171,7 @@ namespace _11thLauncher.Services
                 {
                     try
                     {
-                        JsonConvert.PopulateObject(_fileAccessor.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName)), configFile);
+                        JsonConvert.PopulateObject(_fileAccessor.ReadAllText(Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ConfigFileName)), configFile);
                         loadResult = LoadSettingsResult.LoadedExistingSettings;
                     }
                     catch (Exception)
@@ -182,7 +182,7 @@ namespace _11thLauncher.Services
                 }
             }
 
-            configFile.Servers = new BindableCollection<Server>(configFile.Servers.Union(Constants.DefaultServers)); //Add default servers if they are not present
+            configFile.Servers = new BindableCollection<Server>(configFile.Servers.Union(ApplicationConfig.DefaultServers)); //Add default servers if they are not present
 
             DefaultProfileId = configFile.DefaultProfileId;
 
@@ -198,13 +198,13 @@ namespace _11thLauncher.Services
             if (loadResult != LoadSettingsResult.LoadedExistingSettings)
             {
                 var installedCulture = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
-                var cultureMatch = Constants.Languages.FirstOrDefault(l => l.StartsWith(installedCulture));
+                var cultureMatch = ApplicationConfig.Languages.FirstOrDefault(l => l.StartsWith(installedCulture));
                 if (cultureMatch != null)
                     ApplicationSettings.Language = cultureMatch;
             }
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Constants.Languages.Contains(ApplicationSettings.Language) 
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(ApplicationConfig.Languages.Contains(ApplicationSettings.Language) 
                 ? ApplicationSettings.Language 
-                : Constants.Languages.First());
+                : ApplicationConfig.Languages.First());
 
             return loadResult;
         }
@@ -216,7 +216,7 @@ namespace _11thLauncher.Services
             ConfigFile configFile = new ConfigFile();
             string defaultProfileName = "";
 
-            var legacyConfigFile = Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName);
+            var legacyConfigFile = Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.LegacyConfigFileName);
             var legacyConfigFileContent = _fileAccessor.ReadAllText(legacyConfigFile);
 
             using (StringReader stringReader = new StringReader(legacyConfigFileContent))
@@ -330,7 +330,7 @@ namespace _11thLauncher.Services
         /// <returns>True if a legacy configuration is present</returns>
         private bool LegacyConfigExists()
         {
-            bool fileExists = _fileAccessor.FileExists(Path.Combine(Constants.ConfigPath, Constants.LegacyConfigFileName));
+            bool fileExists = _fileAccessor.FileExists(Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.LegacyConfigFileName));
 
             if (fileExists)
             {
@@ -356,12 +356,12 @@ namespace _11thLauncher.Services
             try
             {
                 //If no config directory exists, create it
-                if (!_fileAccessor.DirectoryExists(Constants.ConfigPath))
+                if (!_fileAccessor.DirectoryExists(ApplicationConfig.ConfigPath))
                 {
-                    _fileAccessor.CreateDirectory(Constants.ConfigPath);
+                    _fileAccessor.CreateDirectory(ApplicationConfig.ConfigPath);
                 }
 
-                _fileAccessor.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ConfigFileName), JsonConvert.SerializeObject(configFile, Constants.JsonFormatting));
+                _fileAccessor.WriteAllText(Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ConfigFileName), JsonConvert.SerializeObject(configFile, ApplicationConfig.JsonFormatting));
             }
             catch (Exception e)
             {
@@ -374,9 +374,9 @@ namespace _11thLauncher.Services
         /// </summary>
         public void Delete()
         {
-            if (_fileAccessor.DirectoryExists(Constants.ConfigPath))
+            if (_fileAccessor.DirectoryExists(ApplicationConfig.ConfigPath))
             {
-                _fileAccessor.DeleteDirectory(Constants.ConfigPath, true);
+                _fileAccessor.DeleteDirectory(ApplicationConfig.ConfigPath, true);
             }
         }
 

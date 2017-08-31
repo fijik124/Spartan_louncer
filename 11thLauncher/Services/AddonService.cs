@@ -25,13 +25,13 @@ namespace _11thLauncher.Services
         {
             if (string.IsNullOrEmpty(arma3Path) || Addons.Count != 0) return;
 
-            string[] directories = _fileAccessor.GetDirectories(arma3Path, Constants.AddonSubfolderName, SearchOption.AllDirectories);
+            string[] directories = _fileAccessor.GetDirectories(arma3Path, ApplicationConfig.AddonSubfolderName, SearchOption.AllDirectories);
             foreach (string directory in directories)
             {
-                if (Constants.VanillaAddons.Contains(_fileAccessor.GetParent(directory).Name.ToLower())) continue;
-                if (_fileAccessor.GetFiles(directory, Constants.AddonFilePattern).Length == 0) continue;
+                if (ApplicationConfig.VanillaAddons.Contains(_fileAccessor.GetParent(directory).Name.ToLower())) continue;
+                if (_fileAccessor.GetFiles(directory, ApplicationConfig.AddonFilePattern).Length == 0) continue;
                 int pathindex = directory.IndexOf(arma3Path, StringComparison.Ordinal) + arma3Path.Length + 1;
-                string addonName = directory.Substring(pathindex, (directory.Length - pathindex) - (Constants.AddonSubfolderName.Length + 1));
+                string addonName = directory.Substring(pathindex, (directory.Length - pathindex) - (ApplicationConfig.AddonSubfolderName.Length + 1));
 
                 var addon = new Addon(_fileAccessor.GetParent(directory).FullName, addonName);
                 ReadMetaData(addon);
@@ -57,7 +57,7 @@ namespace _11thLauncher.Services
 
         private void ReadMetaData(Addon addon)
         {
-            var metaFile = Path.Combine(addon.Path, Constants.AddonMetaDataFile);
+            var metaFile = Path.Combine(addon.Path, ApplicationConfig.AddonMetaDataFile);
             if (!_fileAccessor.FileExists(metaFile)) return;
 
             addon.MetaData = new AddonMetaData();

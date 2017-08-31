@@ -28,7 +28,7 @@ namespace _11thLauncher.Services
             BindableCollection<Repository> repositories = new BindableCollection<Repository>();
             if (!_fileAccessor.DirectoryExists(arma3SyncPath)) return repositories;
 
-            string[] files = _fileAccessor.GetFiles(Path.Combine(arma3SyncPath, Constants.Arma3SyncConfigFolder));
+            string[] files = _fileAccessor.GetFiles(Path.Combine(arma3SyncPath, ApplicationConfig.Arma3SyncConfigFolder));
             foreach (string file in files)
             {
                 string fileName = Path.GetFileName(file);
@@ -47,13 +47,13 @@ namespace _11thLauncher.Services
             repository.Status = RepositoryStatus.Checking;
 
             //Extract A3SDS
-            _fileAccessor.WriteAllBytes(Constants.A3SdsPath, Properties.Resources.A3SDS);
+            _fileAccessor.WriteAllBytes(ApplicationConfig.A3SdsPath, Properties.Resources.A3SDS);
 
             DeserializeLocalRepository(arma3SyncPath, javaPath, repository);
             DeserializeRemoteRepository(javaPath, repository);
 
             //Delete A3SDS
-            _fileAccessor.DeleteFile(Constants.A3SdsPath);
+            _fileAccessor.DeleteFile(ApplicationConfig.A3SdsPath);
 
             if (repository.LocalRevision != null)
             {
@@ -73,7 +73,7 @@ namespace _11thLauncher.Services
 
         private static void DeserializeLocalRepository(string arma3SyncPath, string javaPath, Repository repository)
         {
-            string repositoryPath = Path.Combine(arma3SyncPath, Constants.Arma3SyncConfigFolder, repository.Name + Constants.Arma3SyncRepositoryExtension);
+            string repositoryPath = Path.Combine(arma3SyncPath, ApplicationConfig.Arma3SyncConfigFolder, repository.Name + ApplicationConfig.Arma3SyncRepositoryExtension);
 
             Process p = new Process
             {
@@ -82,8 +82,8 @@ namespace _11thLauncher.Services
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true,
-                    FileName = !string.IsNullOrEmpty(javaPath) ? javaPath : Constants.JavaPathCommand,
-                    Arguments = " -jar " + Constants.A3SdsPath + " -deserializeRepository \"" + repositoryPath + "\""
+                    FileName = !string.IsNullOrEmpty(javaPath) ? javaPath : ApplicationConfig.JavaPathCommand,
+                    Arguments = " -jar " + ApplicationConfig.A3SdsPath + " -deserializeRepository \"" + repositoryPath + "\""
                 }
             };
             p.Start();
@@ -104,7 +104,7 @@ namespace _11thLauncher.Services
             try
             {
                 string tempPath = Path.GetTempPath() + repository.Name + "repoInfo";
-                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(string.Format(Constants.Arma3SyncRemoteServerInfo, repository.Address));
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(string.Format(ApplicationConfig.Arma3SyncRemoteServerInfo, repository.Address));
                 request.Method = WebRequestMethods.Ftp.DownloadFile;
                 request.Credentials = new NetworkCredential(repository.Login, repository.Password);
 
@@ -122,8 +122,8 @@ namespace _11thLauncher.Services
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
                         CreateNoWindow = true,
-                        FileName = !string.IsNullOrEmpty(javaPath) ? javaPath : Constants.JavaPathCommand,
-                        Arguments = " -jar " + Constants.A3SdsPath + " -deserializeServerInfo \"" + tempPath + "\""
+                        FileName = !string.IsNullOrEmpty(javaPath) ? javaPath : ApplicationConfig.JavaPathCommand,
+                        Arguments = " -jar " + ApplicationConfig.A3SdsPath + " -deserializeServerInfo \"" + tempPath + "\""
                     }
                 };
                 p.Start();
@@ -176,14 +176,14 @@ namespace _11thLauncher.Services
 
             if (Environment.Is64BitOperatingSystem)
             {
-                using (RegistryKey key = _registryAccessor.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(Constants.Arma3SyncBaseRegistryPath64))
+                using (RegistryKey key = _registryAccessor.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(ApplicationConfig.Arma3SyncBaseRegistryPath64))
                 {
                     arma3SyncPath = SearchRegistryInstallations(key);
                 }
             }
             else
             {
-                using (RegistryKey key = _registryAccessor.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(Constants.Arma3SyncBaseRegistryPath32))
+                using (RegistryKey key = _registryAccessor.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(ApplicationConfig.Arma3SyncBaseRegistryPath32))
                 {
                     arma3SyncPath = SearchRegistryInstallations(key);
                 }
@@ -199,7 +199,7 @@ namespace _11thLauncher.Services
 
         public bool AddonSyncPathIsValid(string path)
         {
-            return !string.IsNullOrEmpty(path) && _fileAccessor.DirectoryExists(path) && _fileAccessor.FileExists(Path.Combine(path, Constants.Arma3SyncExecutable));
+            return !string.IsNullOrEmpty(path) && _fileAccessor.DirectoryExists(path) && _fileAccessor.FileExists(Path.Combine(path, ApplicationConfig.Arma3SyncExecutable));
         }
 
         public void StartAddonSync(string arma3SyncPath)
@@ -209,7 +209,7 @@ namespace _11thLauncher.Services
                 StartInfo =
                 {
                     WorkingDirectory = arma3SyncPath,
-                    FileName = Path.Combine(arma3SyncPath, Constants.Arma3SyncExecutable)
+                    FileName = Path.Combine(arma3SyncPath, ApplicationConfig.Arma3SyncExecutable)
                 }
             };
             p.Start();
@@ -225,9 +225,9 @@ namespace _11thLauncher.Services
                 using (RegistryKey subkey = _registryAccessor.OpenSubKey(key, subKeyName))
                 {
                     if (subkey == null) continue;
-                    var displayName = (string)_registryAccessor.GetKeyValue(subkey, Constants.Arma3SyncRegDisplayNameEntry, "");
-                    if (!displayName.StartsWith(Constants.Arma3SyncRegDisplayNameValue)) continue;
-                    arma3SyncPath = (string)_registryAccessor.GetKeyValue(subkey, Constants.Arma3SyncRegLocationEntry, "");
+                    var displayName = (string)_registryAccessor.GetKeyValue(subkey, ApplicationConfig.Arma3SyncRegDisplayNameEntry, "");
+                    if (!displayName.StartsWith(ApplicationConfig.Arma3SyncRegDisplayNameValue)) continue;
+                    arma3SyncPath = (string)_registryAccessor.GetKeyValue(subkey, ApplicationConfig.Arma3SyncRegLocationEntry, "");
                     break;
                 }
             }

@@ -41,13 +41,13 @@ namespace _11thLauncher.Services
                     LaunchSettings = launchSettings ?? new LaunchSettings()
                 };
 
-                if (!_fileAccessor.DirectoryExists(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder)))
+                if (!_fileAccessor.DirectoryExists(Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ProfilesFolder)))
                 {
-                    _fileAccessor.CreateDirectory(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder));
+                    _fileAccessor.CreateDirectory(Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ProfilesFolder));
                 }
 
-                _fileAccessor.WriteAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.ProfileNameFormat, profile.Id)),
-                    JsonConvert.SerializeObject(profileFile, Constants.JsonFormatting));
+                _fileAccessor.WriteAllText(Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ProfilesFolder, string.Format(ApplicationConfig.ProfileNameFormat, profile.Id)),
+                    JsonConvert.SerializeObject(profileFile, ApplicationConfig.JsonFormatting));
             }
             catch (Exception e)
             {
@@ -64,8 +64,8 @@ namespace _11thLauncher.Services
                 ProfileFile profileFile = new ProfileFile { Profile = profile };
 
                 var settings = new JsonSerializerSettings { Converters = { new JsonLaunchParameterConverter() } };
-                JsonConvert.PopulateObject(_fileAccessor.ReadAllText(Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder,
-                    string.Format(Constants.ProfileNameFormat, profile.Id))), profileFile, settings); //TODO TRYCTACH
+                JsonConvert.PopulateObject(_fileAccessor.ReadAllText(Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ProfilesFolder,
+                    string.Format(ApplicationConfig.ProfileNameFormat, profile.Id))), profileFile, settings); //TODO TRYCTACH
 
                 addons = profileFile.Addons;
                 parameters = profileFile.Parameters;
@@ -84,7 +84,7 @@ namespace _11thLauncher.Services
         {
             _logger.LogDebug("ProfileService", "Deleting profile from disk");
 
-            var profileFile = Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.ProfileNameFormat, profile.Id));
+            var profileFile = Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ProfilesFolder, string.Format(ApplicationConfig.ProfileNameFormat, profile.Id));
             try
             {
                 if (_fileAccessor.DirectoryExists(profileFile))
@@ -104,7 +104,7 @@ namespace _11thLauncher.Services
             {
                 try
                 {
-                    var profileFile = Path.Combine(Constants.ConfigPath, Constants.ProfilesFolder, string.Format(Constants.LegacyProfileNameFormat, profile.Name));
+                    var profileFile = Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ProfilesFolder, string.Format(ApplicationConfig.LegacyProfileNameFormat, profile.Name));
                     var profileContent = _fileAccessor.ReadAllText(profileFile);
 
                     BindableCollection<Addon> addons = new BindableCollection<Addon>();

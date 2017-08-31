@@ -147,7 +147,7 @@
     <Compile Include="Models\Addon\Addon.cs" />
     <Compile Include="Models\Addon\AddonMetaData.cs" />
     <Compile Include="Models\Addon\Preset.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="ApplicationConfig.cs" />
     <Compile Include="LauncherBootstraper.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Services\Contracts\IParameterService.cs" />

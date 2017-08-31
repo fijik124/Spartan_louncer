@@ -29,7 +29,7 @@ namespace _11thLauncher.ViewModels
         private WindowState _windowState;
         private Visibility _showTrayIcon = Visibility.Hidden;
         private bool _showInTaskbar = true;
-        private string _logoImage = Constants.LogoLight;
+        private string _logoImage = ApplicationConfig.LogoLight;
         private string _gameVersion;
         private Visibility _showVersionMismatch = Visibility.Hidden;
         private string _versionMismatchTooltip;
@@ -314,7 +314,7 @@ namespace _11thLauncher.ViewModels
         public void Handle(ThemeChangedMessage message)
         {
             _settingsService.UpdateThemeAndAccent(message.Theme, message.Accent);
-            LogoImage = message.Theme == ThemeStyle.BaseLight ? Constants.LogoLight : Constants.LogoDark;
+            LogoImage = message.Theme == ThemeStyle.BaseLight ? ApplicationConfig.LogoLight : ApplicationConfig.LogoDark;
         }
 
         public void Handle(ServerQueryFinished message)

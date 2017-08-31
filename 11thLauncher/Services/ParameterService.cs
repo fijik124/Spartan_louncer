@@ -213,15 +213,15 @@ namespace _11thLauncher.Services
             {
                 _logger.LogDebug("ParameterService", "Starting reading memory allocators");
 
-                string[] files = _fileAccessor.GetFiles(Path.Combine(arma3Path, Constants.AllocatorsFolder), $"*{Constants.AllocatorsPattern32}");
+                string[] files = _fileAccessor.GetFiles(Path.Combine(arma3Path, ApplicationConfig.AllocatorsFolder), $"*{ApplicationConfig.AllocatorsPattern32}");
                 foreach (string file in files)
                 {
-                    if (file.EndsWith(Constants.AllocatorsPattern64)) continue;
+                    if (file.EndsWith(ApplicationConfig.AllocatorsPattern64)) continue;
                     var name = Path.GetFileNameWithoutExtension(file);
                     allocators32.Add(new ValueItem(name, name + " (x32)"));
                 }
 
-                string[] filesX64 = _fileAccessor.GetFiles(Path.Combine(arma3Path, Constants.AllocatorsFolder), $"*{Constants.AllocatorsPattern64}");
+                string[] filesX64 = _fileAccessor.GetFiles(Path.Combine(arma3Path, ApplicationConfig.AllocatorsFolder), $"*{ApplicationConfig.AllocatorsPattern64}");
                 foreach (string file in filesX64)
                 {
                     var name = Path.GetFileNameWithoutExtension(file);

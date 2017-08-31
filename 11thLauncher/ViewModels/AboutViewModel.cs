@@ -24,10 +24,10 @@ namespace _11thLauncher.ViewModels
             _assemblyVersion = string.Join(".", version.Major, version.Minor, version.Build);
         }
 
-        public string Author => string.Format(Resources.Strings.S_LABEL_APP_AUTHOR, Constants.Author);
+        public string Author => string.Format(Resources.Strings.S_LABEL_APP_AUTHOR, ApplicationConfig.Author);
 
         public string Build => string.Format(Resources.Strings.S_LABEL_BUILD, _assemblyVersion, 
-            Constants.BuildCodeName, Constants.BuildDate.ToShortDateString());
+            ApplicationConfig.BuildCodeName, ApplicationConfig.BuildDate.ToShortDateString());
 
         #region UI Actions
 

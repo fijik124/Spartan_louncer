@@ -6,7 +6,7 @@ using _11thLauncher.Models;
 
 namespace _11thLauncher
 {
-    public static class Constants
+    public static class ApplicationConfig
     {
         //
         // Addon Service
@@ -145,9 +145,9 @@ namespace _11thLauncher
         // Logging
         //
 #if DEBUG
-        public const LogLevel MaxLogLevel = LogLevel.DEBUG;
+        public static LogLevel MaxLogLevel = LogLevel.DEBUG;
 #else
-        public const LogLevel MaxLogLevel = LogLevel.INFO;
+        public static LogLevel MaxLogLevel = LogLevel.INFO;
 #endif
         public const int LogRolledFiles = 2;
         public const long LogSizeLimit = 5242880; //5MB
