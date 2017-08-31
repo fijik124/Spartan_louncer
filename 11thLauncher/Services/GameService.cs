@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows;
 using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
+using _11thLauncher.Util;
 
 namespace _11thLauncher.Services
 {
@@ -12,6 +12,7 @@ namespace _11thLauncher.Services
     {
         private readonly IProcessAccessor _processAccessor;
         private readonly IClipboardAccessor _clipboardAccessor;
+        private readonly ILogger _logger;
 
         private readonly ISettingsService _settingsService;
         private readonly IAddonService _addonService;
@@ -20,11 +21,12 @@ namespace _11thLauncher.Services
 
         public LaunchSettings LaunchSettings { get; set; }
 
-        public GameService(IProcessAccessor processAccessor, IClipboardAccessor clipboardAccessor, ISettingsService settingsService,
+        public GameService(IProcessAccessor processAccessor, IClipboardAccessor clipboardAccessor, ILogger logger, ISettingsService settingsService, 
             IAddonService addonService, IParameterService parameterService, ISecurityService securityService)
         {
             _processAccessor = processAccessor;
             _clipboardAccessor = clipboardAccessor;
+            _logger = logger;
 
             _settingsService = settingsService;
             _addonService = addonService;
@@ -53,6 +55,7 @@ namespace _11thLauncher.Services
             }
 
             _processAccessor.Start(process);
+            _logger.LogInfo("GameService", $"Starting ArmA 3 in {LaunchSettings.Platform}");
         }
 
         public void CopyLaunchShortcut()
@@ -64,6 +67,7 @@ namespace _11thLauncher.Services
                 GetConnectionArguments()).Trim();
 
             _clipboardAccessor.SetText(shortcut);
+            _logger.LogInfo("GameService", "Launch shortcut copied to clipboard");
         }
 
         private string GetAddonArguments()
@@ -75,14 +79,18 @@ namespace _11thLauncher.Services
                 addonParams = "-mod=" + addonParams;
             }
 
+            _logger.LogDebug("GameService", $"Addon arguments: {addonParams}");
             return addonParams;
         }
 
         private string GetParameterArguments()
         {
-            return string.Join(" ", _parameterService.Parameters
+            var gameParams = string.Join(" ", _parameterService.Parameters
                 .Where(p => p.IsEnabled && (p.Platform == ParameterPlatform.Any || (int)p.Platform == (int)LaunchSettings.Platform))
                 .Select(p => p.LaunchString));
+
+            _logger.LogDebug("GameService", $"Parameter arguments: {gameParams}");
+            return gameParams;
         }
 
         private string GetConnectionArguments()
@@ -96,6 +104,9 @@ namespace _11thLauncher.Services
 
                 if (LaunchSettings.Port.Length > 0)
                     serverParams += " -port=" + LaunchSettings.Port;
+
+                _logger.LogDebug("GameService", $"Connection arguments: {serverParams}");
+
                 if (LaunchSettings.Password.Length > 0)
                     serverParams += " -password=" + _securityService.DecryptPassword(LaunchSettings.Password);
             }
@@ -105,7 +116,9 @@ namespace _11thLauncher.Services
 
         private string GetGameExecutablePath()
         {
-            return Path.Combine(_settingsService.ApplicationSettings.Arma3Path, LaunchSettings.Platform == LaunchPlatform.X86 ? ApplicationConfig.GameExecutable32 : ApplicationConfig.GameExecutable64);
+            return Path.Combine(_settingsService.ApplicationSettings.Arma3Path, LaunchSettings.Platform == LaunchPlatform.X86 ? 
+                ApplicationConfig.GameExecutable32 :
+                ApplicationConfig.GameExecutable64);
         }
     }
 }
