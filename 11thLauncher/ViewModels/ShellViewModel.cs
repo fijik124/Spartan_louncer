@@ -38,8 +38,6 @@ namespace _11thLauncher.ViewModels
             ISettingsService settingsService, IAddonService addonService, IAddonSyncService addonSyncService, IUpdaterService updaterService, 
             IParameterService parameterService, IGameService launcherService, IProfileService profileService)
         {
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
             _dialogCoordinator = DialogCoordinator.Instance;
@@ -289,12 +287,6 @@ namespace _11thLauncher.ViewModels
             GameVersion = _settingsService.GetGameVersion();
 
             _logger.LogDebug("ShellViewModel", "Finished Shell initialization");
-        }
-
-        private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
-        {
-            _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_GENERIC_DOMAIN_EXCEPTION,
-                unhandledExceptionEventArgs.ExceptionObject.ToString());
         }
 
         #region Message handling
