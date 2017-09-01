@@ -51,8 +51,14 @@ namespace _11thLauncher.ViewModels.Controls
         public void Handle(FillServerInfoMessage message)
         {
             if (message.Server == null) return;
-            Server = message.Server.Address;
-            Port = message.Server.Port.ToString();
+
+            _gameService.LaunchSettings.Server = message.Server.Address;
+            NotifyOfPropertyChange(() => Server);
+
+            _gameService.LaunchSettings.Port = message.Server.Port.ToString();
+            NotifyOfPropertyChange(() => Port);
+
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
         }
 
         #endregion
