@@ -36,6 +36,8 @@ namespace _11thLauncher.Services
         /// <returns>Result of the update check</returns>
         public UpdateCheckResult CheckUpdates()
         {
+            _logger.LogDebug("UpdaterService", "Checking application updates");
+
             using (WebClient client = new WebClient())
             {
                 client.UseDefaultCredentials = true;
@@ -80,14 +82,15 @@ namespace _11thLauncher.Services
                             break;
 
                         default:
-                            _logger.LogException("UpdaterService", "Unexpected HTTP response received", new ArgumentOutOfRangeException());
+                            _logger.LogException("UpdaterService", "Unexpected HTTP response received", new ArgumentOutOfRangeException(nameof(webException.StatusCode)));
                             break;
                     }
 
                     return UpdateCheckResult.ErrorCheckingUpdates;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    _logger.LogException("UpdaterService", "Exception checking updates", e);
                     return UpdateCheckResult.ErrorCheckingUpdates;
                 }
             }
@@ -98,6 +101,8 @@ namespace _11thLauncher.Services
         /// </summary>
         public void ExecuteUpdater()
         {
+            _logger.LogDebug("UpdaterService", "Preparing to run updater");
+
             //Extract updater
             _fileAccessor.WriteAllBytes(ApplicationConfig.UpdaterPath, Properties.Resources._11thLauncher_Updater);
 
@@ -122,11 +127,14 @@ namespace _11thLauncher.Services
             //};
             //p.Start();
 
+            _logger.LogDebug("UpdaterService", "Updater started, shutting down...");
+
             Application.Current.Shutdown();
         }
 
         public void RemoveUpdater()
         {
+            _logger.LogDebug("UpdaterService", "Deleting updater file");
             _fileAccessor.DeleteFile(ApplicationConfig.UpdaterPath);
         }
     }

@@ -174,10 +174,11 @@ namespace _11thLauncher.Services
                         JsonConvert.PopulateObject(_fileAccessor.ReadAllText(Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ConfigFileName)), configFile);
                         loadResult = LoadSettingsResult.LoadedExistingSettings;
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
                         configFile = new ConfigFile();
                         loadResult = LoadSettingsResult.ErrorLoadingSettings;
+                        _logger.LogException("SettingsService", "Exception reading settings", e);
                     }
                 }
             }
@@ -205,6 +206,8 @@ namespace _11thLauncher.Services
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(ApplicationConfig.Languages.Contains(ApplicationSettings.Language) 
                 ? ApplicationSettings.Language 
                 : ApplicationConfig.Languages.First());
+
+            _logger.LogDebug("SettingsService", $"Finished reading settings, result was: {loadResult}");
 
             return loadResult;
         }
@@ -377,6 +380,7 @@ namespace _11thLauncher.Services
             if (_fileAccessor.DirectoryExists(ApplicationConfig.ConfigPath))
             {
                 _fileAccessor.DeleteDirectory(ApplicationConfig.ConfigPath, true);
+                _logger.LogInfo("SettingsService", "Application settings deleted");
             }
         }
 
