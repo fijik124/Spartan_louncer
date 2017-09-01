@@ -13,7 +13,9 @@
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance Type=vm:ShellViewModel}"
                       Title="{x:Static resx:Strings.S_APP_NAME}" TitleCharacterCasing="Normal" 
+                      TitleAlignment="Left"
                       Icon="/11thLauncher;component/Resources/icon.ico" 
+                      Style="{DynamicResource CleanWindowStyleKey}"
                       WindowStartupLocation="CenterScreen" 
                       Height="517" Width="644"
                       ResizeMode="CanMinimize" 
@@ -35,7 +37,7 @@
             <Button cal:Message.Attach="ButtonSettings" 
                     ToolTip="{x:Static resx:Strings.S_BTN_SETTINGS_TIP}" >
                 <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="15" Height="15" Margin="0,0,5,0" Fill="{DynamicResource MenuItemBackgroundBrush}">
+                    <Rectangle Width="15" Height="15" Margin="0,0,5,0" Fill="{DynamicResource AccentBaseColorBrush}">
                         <Rectangle.OpacityMask>
                             <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
                         </Rectangle.OpacityMask>
@@ -43,9 +45,11 @@
                     <TextBlock Margin="0,1,0,0"><Run Text="{x:Static resx:Strings.S_BTN_SETTINGS}"/></TextBlock>
                 </StackPanel>
             </Button>
-            <Button cal:Message.Attach="ButtonAbout" 
-                    Content="{x:Static resx:Strings.S_BTN_ABOUT}"
-                    ToolTip="{x:Static resx:Strings.S_BTN_ABOUT_TIP}" />
+            <Button cal:Message.Attach="ButtonAbout" ToolTip="{x:Static resx:Strings.S_BTN_ABOUT_TIP}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,1,0,0" Text="{x:Static resx:Strings.S_BTN_ABOUT}"/>
+                </StackPanel>
+            </Button>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
 
