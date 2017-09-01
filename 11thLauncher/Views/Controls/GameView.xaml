@@ -45,8 +45,8 @@
             </Rectangle>
         </Button>
 
-        <ToggleButton IsEnabled="False" ToolTip="{Binding UacTooltip}" ToolTipService.ShowOnDisabled="True"
-                      Width="48" Height="48" Margin="229,146,338,143" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleToggleButtonStyle}" >
+        <ToggleButton IsEnabled="False" ToolTip="{Binding UacTooltip}" ToolTipService.ShowOnDisabled="True" Width="48" Height="48" Margin="229,146,338,143" 
+                      Style="{DynamicResource MahApps.Metro.Styles.MetroCircleToggleButtonStyle}" Background="{DynamicResource AccentColorBrush4}">
             <Rectangle Width="30" Height="30">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{Binding UacIcon}"/>
