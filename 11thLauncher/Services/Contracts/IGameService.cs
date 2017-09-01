@@ -4,10 +4,12 @@ namespace _11thLauncher.Services.Contracts
 {
     public interface IGameService
     {
-        LaunchSettings LaunchSettings { get; set; }
+        LaunchSettings LaunchSettings { get; }
 
         void StartGame();
 
         void CopyLaunchShortcut();
+
+        bool RunningAsAdmin();
     }
 }

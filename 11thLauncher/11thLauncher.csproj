@@ -349,6 +349,12 @@
   <ItemGroup>
     <None Include="lib\11thLauncher.Updater.exe" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\uac.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\uacDisabled.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

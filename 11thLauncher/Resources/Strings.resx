@@ -679,4 +679,10 @@
   <data name="S_PROFILES" xml:space="preserve">
     <value>Profiles</value>
   </data>
+  <data name="S_BTN_UAC_ENABLED_TIP" xml:space="preserve">
+    <value>The game will be launched with administrator privileges</value>
+  </data>
+  <data name="S_BTN_UAC_DISABLED_TIP" xml:space="preserve">
+    <value>Running without admin privileges. The game may fail to start</value>
+  </data>
 </root>

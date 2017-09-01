@@ -15,6 +15,8 @@ namespace _11thLauncher.ViewModels.Controls
         private readonly ISecurityService _securityService;
 
         private bool _loadingProfile;
+        private string _uacIcon;
+        private string _uacTooltip;
 
         public GameViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IGameService gameService, ISecurityService securityService)
         {
@@ -46,6 +48,8 @@ namespace _11thLauncher.ViewModels.Controls
 
             _gameService.LaunchSettings.Password = message.LaunchSettings.Password;
             NotifyOfPropertyChange(() => Password);
+
+            CheckElevation();
         }
 
         public void Handle(FillServerInfoMessage message)
@@ -120,6 +124,26 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
+        public string UacIcon
+        {
+            get => _uacIcon;
+            set
+            {
+                _uacIcon = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string UacTooltip
+        {
+            get => _uacTooltip;
+            set
+            {
+                _uacTooltip = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         #region UI Actions
 
         public void ButtonLaunch()
@@ -147,5 +171,16 @@ namespace _11thLauncher.ViewModels.Controls
         }
 
         #endregion
+
+        private void CheckElevation()
+        {
+            UacIcon = _gameService.RunningAsAdmin()
+                ? ApplicationConfig.UacIconEnabled
+                : ApplicationConfig.UacIconDisabled;
+
+            UacTooltip = _gameService.RunningAsAdmin()
+                ? Resources.Strings.S_BTN_UAC_ENABLED_TIP
+                : Resources.Strings.S_BTN_UAC_DISABLED_TIP;
+        }
     }
 }

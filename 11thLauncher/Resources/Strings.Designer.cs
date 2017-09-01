@@ -574,6 +574,24 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Running without admin privileges. The game may fail to start.
+        /// </summary>
+        public static string S_BTN_UAC_DISABLED_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_UAC_DISABLED_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The game will be launched with administrator privileges.
+        /// </summary>
+        public static string S_BTN_UAC_ENABLED_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_UAC_ENABLED_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update.
         /// </summary>
         public static string S_BTN_UPDATE {

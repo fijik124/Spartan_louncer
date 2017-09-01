@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Principal;
 using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
@@ -19,7 +21,9 @@ namespace _11thLauncher.Services
         private readonly IParameterService _parameterService;
         private readonly ISecurityService _securityService;
 
-        public LaunchSettings LaunchSettings { get; set; }
+        private bool? _runningAsAdmin;
+
+        public LaunchSettings LaunchSettings { get; }
 
         public GameService(IProcessAccessor processAccessor, IClipboardAccessor clipboardAccessor, ILogger logger, ISettingsService settingsService, 
             IAddonService addonService, IParameterService parameterService, ISecurityService securityService)
@@ -45,7 +49,7 @@ namespace _11thLauncher.Services
                 StartInfo =
                 {
                     FileName = GetGameExecutablePath(),
-                    Verb = "runas"
+                    Verb = RunningAsAdmin() ? "runas" : string.Empty
                 }
             };
             
@@ -68,6 +72,25 @@ namespace _11thLauncher.Services
 
             _clipboardAccessor.SetText(shortcut);
             _logger.LogInfo("GameService", "Launch shortcut copied to clipboard");
+        }
+
+        public bool RunningAsAdmin()
+        {
+            if (_runningAsAdmin != null) return _runningAsAdmin.Value;
+
+            try
+            {
+                _runningAsAdmin = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+            }
+            catch (Exception e)
+            {
+                _runningAsAdmin = false;
+                _logger.LogException("GameService", "Error checking user elevation", e);
+            }
+            
+            _logger.LogDebug("GameService", $"Checked if the program is running with elevation: {_runningAsAdmin}");
+
+            return _runningAsAdmin.Value;
         }
 
         private string GetAddonArguments()

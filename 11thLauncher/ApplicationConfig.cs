@@ -153,12 +153,14 @@ namespace _11thLauncher
         public const long LogSizeLimit = 5242880; //5MB
 
         //
-        // Program Settings
+        // Resources
         //
         public const string LogoLight = "pack://application:,,,/Resources/a3logo.png";
         public const string LogoDark = "pack://application:,,,/Resources/a3logo_inverted.png";
         public const string Arma3SyncIconEnabled = "pack://application:,,,/Resources/a3sEnabled.png";
         public const string Arma3SyncIconDisabled = "pack://application:,,,/Resources/a3sDisabled.png";
+        public const string UacIconEnabled = "pack://application:,,,/Resources/uac.png";
+        public const string UacIconDisabled = "pack://application:,,,/Resources/uacDisabled.png";
 
         //
         // Build info
