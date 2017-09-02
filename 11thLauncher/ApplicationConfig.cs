@@ -9,6 +9,12 @@ namespace _11thLauncher
     public static class ApplicationConfig
     {
         //
+        // Game Service
+        //
+        public const string GameExecutable64 = "arma3_x64.exe";
+        public const string SteamProcess = "Steam";
+
+        //
         // Addon Service
         //
         public static readonly string[] VanillaAddons = { "arma 3", "expansion", "curator", "kart", "heli", "mark", "jets", "orange", "argo", "tacops", "tanks", "dlcbundle" };
@@ -127,7 +133,6 @@ namespace _11thLauncher
         public static readonly string[] SteamRegPath64 = { @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Valve\Steam", "InstallPath", "" };
         public const string DefaultArma3SteamPath = @"SteamApps\common\ArmA 3";
         public const string GameExecutable32 = "arma3.exe";
-        public const string GameExecutable64 = "arma3_x64.exe";
 #if DEBUG 
         public const Formatting JsonFormatting = Formatting.Indented;
 #else
@@ -161,6 +166,8 @@ namespace _11thLauncher
         public const string Arma3SyncIconDisabled = "pack://application:,,,/Resources/a3sDisabled.png";
         public const string UacIconEnabled = "pack://application:,,,/Resources/uac.png";
         public const string UacIconDisabled = "pack://application:,,,/Resources/uacDisabled.png";
+        public const string SteamIconEnabled = "pack://application:,,,/Resources/steam.png";
+        public const string SteamIconDisabled = "pack://application:,,,/Resources/steamDisabled.png";
 
         //
         // Build info

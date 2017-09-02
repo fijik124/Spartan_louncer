@@ -11,5 +11,7 @@ namespace _11thLauncher.Services.Contracts
         void CopyLaunchShortcut();
 
         bool RunningAsAdmin();
+
+        bool SteamRunning();
     }
 }

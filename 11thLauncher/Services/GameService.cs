@@ -93,6 +93,25 @@ namespace _11thLauncher.Services
             return _runningAsAdmin.Value;
         }
 
+        public bool SteamRunning()
+        {
+            bool result;
+
+            try
+            {
+                result = _processAccessor.GetProcessesByName(ApplicationConfig.SteamProcess).Length != 0;
+            }
+            catch (Exception e)
+            {
+                result = false;
+                _logger.LogException("GameService", "Error checking if steam is running", e);
+            }
+
+            _logger.LogDebug("GameService", $"Checked if steam is running: {result}");
+
+            return result;
+        }
+
         private string GetAddonArguments()
         {
             string addonParams = string.Join(";", _addonService.Addons.Where(a => a.IsEnabled).Select(a => a.Name));

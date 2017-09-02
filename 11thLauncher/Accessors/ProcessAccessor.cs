@@ -30,5 +30,10 @@ namespace _11thLauncher.Accessors
         {
             return process.StandardError;
         }
+
+        public Process[] GetProcessesByName(string name)
+        {
+            return Process.GetProcessesByName(name);
+        }
     }
 }

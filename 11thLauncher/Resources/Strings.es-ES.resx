@@ -705,4 +705,10 @@
   <data name="S_BTN_UAC_DISABLED_TIP" xml:space="preserve">
     <value>Ejecutando sin permisos de administrador. El juego puede fallar al iniciar</value>
   </data>
+  <data name="S_BTN_STEAM_DISABLED_TIP" xml:space="preserve">
+    <value>Steam no se está ejecutando. Steam es necesario para lanzar ArmA 3</value>
+  </data>
+  <data name="S_BTN_STEAM_ENABLED_TIP" xml:space="preserve">
+    <value>Steam está en ejecución</value>
+  </data>
 </root>

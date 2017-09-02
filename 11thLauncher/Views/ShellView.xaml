@@ -16,6 +16,7 @@
                       TitleAlignment="Left"
                       Icon="/11thLauncher;component/Resources/icon.ico" 
                       Style="{DynamicResource CleanWindowStyleKey}"
+                      UseLayoutRounding="True"
                       WindowStartupLocation="CenterScreen" 
                       Height="517" Width="644"
                       ResizeMode="CanMinimize" 

@@ -565,6 +565,24 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Steam is not running. Steam is required to launch ArmA 3.
+        /// </summary>
+        public static string S_BTN_STEAM_DISABLED_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_STEAM_DISABLED_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steam is running.
+        /// </summary>
+        public static string S_BTN_STEAM_ENABLED_TIP {
+            get {
+                return ResourceManager.GetString("S_BTN_STEAM_ENABLED_TIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toggle status.
         /// </summary>
         public static string S_BTN_TOGGLE_ADDON {

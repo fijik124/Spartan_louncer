@@ -353,6 +353,7 @@ namespace _11thLauncher.ViewModels
 
         public void OnClose(ConsoleCancelEventArgs e)
         {
+            _eventAggregator.PublishOnCurrentThread(new ApplicationClosingMessage());
             _logger.LogDebug("ShellViewModel", "Close event detected. Terminating all processes");
             Environment.Exit(Environment.ExitCode); //Close background thread on shell closed
         }

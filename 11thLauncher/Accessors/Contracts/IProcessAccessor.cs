@@ -14,5 +14,7 @@ namespace _11thLauncher.Accessors.Contracts
         StreamReader GetStandardOutput(Process process);
 
         StreamReader GetStandardError(Process process);
+
+        Process[] GetProcessesByName(string name);
     }
 }
