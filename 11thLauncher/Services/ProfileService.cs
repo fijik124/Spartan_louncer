@@ -69,7 +69,7 @@ namespace _11thLauncher.Services
 
                 var settings = new JsonSerializerSettings { Converters = { new JsonLaunchParameterConverter() } };
                 JsonConvert.PopulateObject(_fileAccessor.ReadAllText(Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ProfilesFolder,
-                    string.Format(ApplicationConfig.ProfileNameFormat, profile.Id))), profileFile, settings); //TODO TRYCTACH
+                    string.Format(ApplicationConfig.ProfileNameFormat, profile.Id))), profileFile, settings);
 
                 addons = profileFile.Addons;
                 parameters = profileFile.Parameters;

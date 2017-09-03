@@ -92,9 +92,8 @@ namespace _11thLauncher.ViewModels
                 _logger.LogInfo("ShellViewModel", "A failed update to the program was detected");
             }
 
-            //TODO LEGACY CONVERT 
+            //Read settings
             var loadResult = _settingsService.Read();
-
             if (loadResult.Equals(LoadSettingsResult.LoadedLegacySettings))
             {
                 _profileService.PortLegacyProfiles(_settingsService.UserProfiles);

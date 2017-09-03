@@ -68,10 +68,9 @@ namespace _11thLauncher.ViewModels.Controls
         {
             bool initialLoad = Profiles.Count == 0;
             Profiles.AddRange(message.Profiles);
-            if (!initialLoad) return;
 
+            if (!initialLoad) return;
             SelectedProfile = Profiles.FirstOrDefault(p => p.IsDefault);
-            //Profiles_SelectionChanged(); TODO check this is not needed
         }
 
         public void Handle(ProfileDeletedMessage message)
