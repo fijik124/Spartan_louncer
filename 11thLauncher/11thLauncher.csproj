@@ -186,7 +186,6 @@
     <Compile Include="Converters\CultureDisplayConverter.cs" />
     <Compile Include="Util\EnumerationExtension.cs" />
     <Compile Include="Models\Enumerations.cs" />
-    <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Models\LaunchSettings.cs" />
     <Compile Include="Models\Parameter\LaunchParameter.cs" />
     <Compile Include="Models\Server\Server.cs" />

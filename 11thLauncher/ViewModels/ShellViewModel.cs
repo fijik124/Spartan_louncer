@@ -11,7 +11,7 @@ using _11thLauncher.ViewModels.Controls;
 
 namespace _11thLauncher.ViewModels
 {
-    public class ShellViewModel : PropertyChangedBase, IHandle<ShowDialogMessage>, IHandle<ExceptionMessage>, IHandle<ThemeChangedMessage>, IHandle<ServerQueryFinished>
+    public class ShellViewModel : PropertyChangedBase, IHandle<ShowDialogMessage>, IHandle<ThemeChangedMessage>, IHandle<ServerQueryFinished>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
@@ -294,12 +294,6 @@ namespace _11thLauncher.ViewModels
         public void Handle(ShowDialogMessage message)
         {
             _dialogCoordinator.ShowMessageAsync(this, message.Title, message.Content);
-        }
-
-        public void Handle(ExceptionMessage exceptionMessage)
-        {
-            _dialogCoordinator.ShowMessageAsync(this, Resources.Strings.S_MSG_GENERIC_EXCEPTION,
-                exceptionMessage.Exception.ToString());
         }
 
         public void Handle(ThemeChangedMessage message)
