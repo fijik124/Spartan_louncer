@@ -11,7 +11,9 @@ namespace _11thLauncher.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var launchOption = (LaunchOption?) value ?? 0;
+            LaunchOption launchOption = LaunchOption.Normal;
+            if (value != null)
+                launchOption = (LaunchOption) value;
             return new EnumerationMember(launchOption, launchOption.GetDescription());
         }
 
