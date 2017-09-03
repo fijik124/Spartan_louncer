@@ -10,11 +10,10 @@ using _11thLauncher.Util;
 
 namespace _11thLauncher.Services
 {
-    public class GameService: IGameService
+    public class GameService: AbstractService, IGameService
     {
         private readonly IProcessAccessor _processAccessor;
         private readonly IClipboardAccessor _clipboardAccessor;
-        private readonly ILogger _logger;
 
         private readonly ISettingsService _settingsService;
         private readonly IAddonService _addonService;
@@ -26,11 +25,10 @@ namespace _11thLauncher.Services
         public LaunchSettings LaunchSettings { get; }
 
         public GameService(IProcessAccessor processAccessor, IClipboardAccessor clipboardAccessor, ILogger logger, ISettingsService settingsService, 
-            IAddonService addonService, IParameterService parameterService, ISecurityService securityService)
+            IAddonService addonService, IParameterService parameterService, ISecurityService securityService) : base(logger)
         {
             _processAccessor = processAccessor;
             _clipboardAccessor = clipboardAccessor;
-            _logger = logger;
 
             _settingsService = settingsService;
             _addonService = addonService;
@@ -69,11 +67,11 @@ namespace _11thLauncher.Services
             if (!result.HasFlag(LaunchGameResult.NoElevation) && !result.HasFlag(LaunchGameResult.NoSteam))
             {
                 _processAccessor.Start(process);
-                _logger.LogInfo("GameService", $"Starting ArmA 3 in {LaunchSettings.Platform}");
+                Logger.LogInfo("GameService", $"Starting ArmA 3 in {LaunchSettings.Platform}");
             }
             else
             {
-                _logger.LogInfo("GameService", $"Unable to launch game: {result}");
+                Logger.LogInfo("GameService", $"Unable to launch game: {result}");
             }
 
             return result;
@@ -88,7 +86,7 @@ namespace _11thLauncher.Services
                 GetConnectionArguments()).Trim();
 
             _clipboardAccessor.SetText(shortcut);
-            _logger.LogInfo("GameService", "Launch shortcut copied to clipboard");
+            Logger.LogInfo("GameService", "Launch shortcut copied to clipboard");
         }
 
         public bool RunningAsAdmin()
@@ -102,10 +100,10 @@ namespace _11thLauncher.Services
             catch (Exception e)
             {
                 _runningAsAdmin = false;
-                _logger.LogException("GameService", "Error checking user elevation", e);
+                Logger.LogException("GameService", "Error checking user elevation", e);
             }
             
-            _logger.LogDebug("GameService", $"Checked if the program is running with elevation: {_runningAsAdmin}");
+            Logger.LogDebug("GameService", $"Checked if the program is running with elevation: {_runningAsAdmin}");
 
             return _runningAsAdmin.Value;
         }
@@ -121,10 +119,10 @@ namespace _11thLauncher.Services
             catch (Exception e)
             {
                 result = false;
-                _logger.LogException("GameService", "Error checking if steam is running", e);
+                Logger.LogException("GameService", "Error checking if steam is running", e);
             }
 
-            _logger.LogDebug("GameService", $"Checked if steam is running: {result}");
+            Logger.LogDebug("GameService", $"Checked if steam is running: {result}");
 
             return result;
         }
@@ -138,7 +136,7 @@ namespace _11thLauncher.Services
                 addonParams = "-mod=" + addonParams;
             }
 
-            _logger.LogDebug("GameService", $"Addon arguments: {addonParams}");
+            Logger.LogDebug("GameService", $"Addon arguments: {addonParams}");
             return addonParams;
         }
 
@@ -148,7 +146,7 @@ namespace _11thLauncher.Services
                 .Where(p => p.IsEnabled && (p.Platform == ParameterPlatform.Any || (int)p.Platform == (int)LaunchSettings.Platform))
                 .Select(p => p.LaunchString));
 
-            _logger.LogDebug("GameService", $"Parameter arguments: {gameParams}");
+            Logger.LogDebug("GameService", $"Parameter arguments: {gameParams}");
             return gameParams;
         }
 
@@ -164,7 +162,7 @@ namespace _11thLauncher.Services
                 if (LaunchSettings.Port.Length > 0)
                     serverParams += " -port=" + LaunchSettings.Port;
 
-                _logger.LogDebug("GameService", $"Connection arguments: {serverParams}");
+                Logger.LogDebug("GameService", $"Connection arguments: {serverParams}");
 
                 if (LaunchSettings.Password.Length > 0)
                     serverParams += " -password=" + _securityService.DecryptPassword(LaunchSettings.Password);

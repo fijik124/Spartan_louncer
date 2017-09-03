@@ -7,14 +7,9 @@ using _11thLauncher.Util;
 
 namespace _11thLauncher.Services
 {
-    public class SecurityService : ISecurityService
+    public class SecurityService : AbstractService, ISecurityService
     {
-        private readonly ILogger _logger;
-
-        public SecurityService(ILogger logger)
-        {
-            _logger = logger;
-        }
+        public SecurityService(ILogger logger) : base(logger) {}
 
         public string EncryptPassword(string text)
         {
@@ -22,7 +17,7 @@ namespace _11thLauncher.Services
 
             try
             {
-                _logger.LogDebug("SecurityService", "Encrypting password");
+                Logger.LogDebug("SecurityService", "Encrypting password");
 
                 byte[] original = Encoding.Unicode.GetBytes(text);
                 byte[] encrypted = ProtectedData.Protect(original, GetEntropy(), DataProtectionScope.CurrentUser);
@@ -30,7 +25,7 @@ namespace _11thLauncher.Services
             }
             catch (Exception e)
             {
-                _logger.LogException("SecurityService", "Error encrypting password", e);
+                Logger.LogException("SecurityService", "Error encrypting password", e);
                 return string.Empty;
             }
         }
@@ -41,7 +36,7 @@ namespace _11thLauncher.Services
 
             try
             {
-                _logger.LogDebug("SecurityService", "Decrypting password");
+                Logger.LogDebug("SecurityService", "Decrypting password");
 
                 byte[] encrypted = Convert.FromBase64String(text);
                 byte[] original = ProtectedData.Unprotect(encrypted, GetEntropy(), DataProtectionScope.CurrentUser);
@@ -49,7 +44,7 @@ namespace _11thLauncher.Services
             }
             catch (Exception e)
             {
-                _logger.LogException("SecurityService", "Error decrypting password", e);
+                Logger.LogException("SecurityService", "Error decrypting password", e);
                 return string.Empty;
             }
         }

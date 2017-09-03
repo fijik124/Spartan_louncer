@@ -16,18 +16,16 @@ using _11thLauncher.Util;
 
 namespace _11thLauncher.Services
 {
-    public class SettingsService : ISettingsService
+    public class SettingsService : AbstractService, ISettingsService
     {
         private readonly IFileAccessor _fileAccessor;
         private readonly IRegistryAccessor _registryAccessor;
-        private readonly ILogger _logger;
         private string _gameVersion;
 
-        public SettingsService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor, ILogger logger)
+        public SettingsService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor, ILogger logger) : base(logger)
         {
             _fileAccessor = fileAccessor;
             _registryAccessor = registryAccessor;
-            _logger = logger;
 
             UserProfiles = new BindableCollection<UserProfile>();
             ApplicationSettings = new ApplicationSettings();
@@ -60,7 +58,7 @@ namespace _11thLauncher.Services
                 settingsExist = _fileAccessor.FileExists(Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ConfigFileName));
             }
 
-            _logger.LogDebug("SettingsService", "Checked if settings exist, result is: " + settingsExist);
+            Logger.LogDebug("SettingsService", "Checked if settings exist, result is: " + settingsExist);
             return settingsExist;
         }
 
@@ -71,7 +69,7 @@ namespace _11thLauncher.Services
             string version = "";
             if (string.IsNullOrEmpty(ApplicationSettings.Arma3Path))
             {
-                _logger.LogDebug("SettingsService", "Unable to detect game version, path is not set");
+                Logger.LogDebug("SettingsService", "Unable to detect game version, path is not set");
                 return version;
             }
 
@@ -79,7 +77,7 @@ namespace _11thLauncher.Services
             version = info.FileVersion + "." + info.FileBuildPart + info.FilePrivatePart;
             _gameVersion = version;
 
-            _logger.LogDebug("SettingsService", "Local game version detected to be: " + version);
+            Logger.LogDebug("SettingsService", "Local game version detected to be: " + version);
             return version;
         }
 
@@ -121,26 +119,26 @@ namespace _11thLauncher.Services
             }
             catch (Exception e)
             {
-                _logger.LogException("SettingsService", "Exception trying to read game path from registry", e);
+                Logger.LogException("SettingsService", "Exception trying to read game path from registry", e);
             }
 
             if (!_fileAccessor.DirectoryExists(arma3RegPath))
             {
-                _logger.LogDebug("SettingsService", $"Unable to detect game path from registry, the directory '{arma3RegPath}' doesn't exist");
+                Logger.LogDebug("SettingsService", $"Unable to detect game path from registry, the directory '{arma3RegPath}' doesn't exist");
                 arma3RegPath = null;
             }
 
             //If the path is found and exists, set to config and return that a valid path was found
             if (!string.IsNullOrEmpty(arma3RegPath))
             {
-                _logger.LogInfo("SettingsService", $"Game path successfully read from registry: '{arma3RegPath}'");
+                Logger.LogInfo("SettingsService", $"Game path successfully read from registry: '{arma3RegPath}'");
                 ApplicationSettings.Arma3Path = arma3RegPath;
             }
         }
 
         public LoadSettingsResult Read()
         {
-            _logger.LogDebug("SettingsService", "Reading settings from disk");
+            Logger.LogDebug("SettingsService", "Reading settings from disk");
 
             var loadResult = LoadSettingsResult.NoExistingSettings;
             var configFile = new ConfigFile();
@@ -161,7 +159,7 @@ namespace _11thLauncher.Services
                 {
                     configFile = new ConfigFile();
                     loadResult = LoadSettingsResult.ErrorLoadingLegacySettings;
-                    _logger.LogException("SettingsService", "Exception reading legacy settings", e);
+                    Logger.LogException("SettingsService", "Exception reading legacy settings", e);
                 }
             }
             else
@@ -178,7 +176,7 @@ namespace _11thLauncher.Services
                     {
                         configFile = new ConfigFile();
                         loadResult = LoadSettingsResult.ErrorLoadingSettings;
-                        _logger.LogException("SettingsService", "Exception reading settings", e);
+                        Logger.LogException("SettingsService", "Exception reading settings", e);
                     }
                 }
             }
@@ -207,14 +205,14 @@ namespace _11thLauncher.Services
                 ? ApplicationSettings.Language 
                 : ApplicationConfig.Languages.First());
 
-            _logger.LogDebug("SettingsService", $"Finished reading settings, result was: {loadResult}");
+            Logger.LogDebug("SettingsService", $"Finished reading settings, result was: {loadResult}");
 
             return loadResult;
         }
 
         private ConfigFile ReadLegacy()
         {
-            _logger.LogInfo("SettingsService", "Starting conversion of legacy settings");
+            Logger.LogInfo("SettingsService", "Starting conversion of legacy settings");
 
             ConfigFile configFile = new ConfigFile();
             string defaultProfileName = "";
@@ -299,7 +297,7 @@ namespace _11thLauncher.Services
                     }
                     catch (Exception e)
                     {
-                        _logger.LogException("SettingsService", "Error reading a legacy setting", e);
+                        Logger.LogException("SettingsService", "Error reading a legacy setting", e);
                     }
                     
                 }
@@ -316,14 +314,14 @@ namespace _11thLauncher.Services
             try
             {
                 _fileAccessor.DeleteFile(legacyConfigFile);
-                _logger.LogInfo("SettingsService", "Legacy config file deleted");
+                Logger.LogInfo("SettingsService", "Legacy config file deleted");
             }
             catch (Exception e)
             {
-                _logger.LogException("SettingsService", "Error deleting legacy config file", e);
+                Logger.LogException("SettingsService", "Error deleting legacy config file", e);
             }
 
-            _logger.LogInfo("SettingsService", "Finished conversion of legacy settings");
+            Logger.LogInfo("SettingsService", "Finished conversion of legacy settings");
             return configFile;
         }
 
@@ -337,7 +335,7 @@ namespace _11thLauncher.Services
 
             if (fileExists)
             {
-                _logger.LogInfo("SettingsService", "Legacy config file detected");
+                Logger.LogInfo("SettingsService", "Legacy config file detected");
             }
 
             return fileExists;
@@ -345,7 +343,7 @@ namespace _11thLauncher.Services
 
         public void Write()
         {
-            _logger.LogDebug("SettingsService", "Writing settings to disk");
+            Logger.LogDebug("SettingsService", "Writing settings to disk");
 
             var profiles = UserProfiles.ToDictionary(profile => profile.Id, profile => profile.Name);
             var configFile = new ConfigFile
@@ -368,7 +366,7 @@ namespace _11thLauncher.Services
             }
             catch (Exception e)
             {
-                _logger.LogException("SettingsService", "Error writing settings", e);
+                Logger.LogException("SettingsService", "Error writing settings", e);
             }
         }
 
@@ -380,7 +378,7 @@ namespace _11thLauncher.Services
             if (_fileAccessor.DirectoryExists(ApplicationConfig.ConfigPath))
             {
                 _fileAccessor.DeleteDirectory(ApplicationConfig.ConfigPath, true);
-                _logger.LogInfo("SettingsService", "Application settings deleted");
+                Logger.LogInfo("SettingsService", "Application settings deleted");
             }
         }
 

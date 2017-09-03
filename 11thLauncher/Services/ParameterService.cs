@@ -8,26 +8,24 @@ using _11thLauncher.Util;
 
 namespace _11thLauncher.Services
 {
-    class ParameterService : IParameterService
+    class ParameterService : AbstractService, IParameterService
     {
         #region Fields
 
         private readonly IFileAccessor _fileAccessor;
-        private readonly ILogger _logger;
 
         #endregion
 
-        public ParameterService(IFileAccessor fileAccessor, ILogger logger)
+        public ParameterService(IFileAccessor fileAccessor, ILogger logger) : base(logger)
         {
             _fileAccessor = fileAccessor;
-            _logger = logger;
         }
 
         public BindableCollection<LaunchParameter> Parameters { get; private set; }
 
         public void InitializeParameters(string arma3Path)
         {
-            _logger.LogDebug("ParameterService", "Starting parameter initialization");
+            Logger.LogDebug("ParameterService", "Starting parameter initialization");
 
             BooleanParameter skipIntro = new BooleanParameter
             {
@@ -198,7 +196,7 @@ namespace _11thLauncher.Services
                 additional
             };
 
-            _logger.LogDebug("ParameterService", "Finished parameter initialization");
+            Logger.LogDebug("ParameterService", "Finished parameter initialization");
 
             //Read allocators
             BindableCollection<ValueItem> allocators32 = new BindableCollection<ValueItem>();
@@ -211,7 +209,7 @@ namespace _11thLauncher.Services
 
             try
             {
-                _logger.LogDebug("ParameterService", "Starting reading memory allocators");
+                Logger.LogDebug("ParameterService", "Starting reading memory allocators");
 
                 string[] files = _fileAccessor.GetFiles(Path.Combine(arma3Path, ApplicationConfig.AllocatorsFolder), $"*{ApplicationConfig.AllocatorsPattern32}");
                 foreach (string file in files)
@@ -231,11 +229,11 @@ namespace _11thLauncher.Services
                 malloc32.Values = allocators32;
                 malloc64.Values = allocators64;
 
-                _logger.LogDebug("ParameterService", "Finished reading memory allocators");
+                Logger.LogDebug("ParameterService", "Finished reading memory allocators");
             }
             catch (Exception e)
             {
-                _logger.LogException("ParameterService", "Error reading memory allocators", e);
+                Logger.LogException("ParameterService", "Error reading memory allocators", e);
             }
         } 
     }

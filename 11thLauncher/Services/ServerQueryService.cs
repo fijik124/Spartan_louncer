@@ -5,13 +5,16 @@ using QueryMaster;
 using QueryMaster.GameServer;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
+using _11thLauncher.Util;
 using Server = _11thLauncher.Models.Server;
 using ServerInfo = _11thLauncher.Models.ServerInfo;
 
 namespace _11thLauncher.Services
 {
-    public class ServerQueryService : IServerQueryService
+    public class ServerQueryService : AbstractService, IServerQueryService
     {
+        public ServerQueryService(ILogger logger) : base(logger) { }
+
         public void GetServerStatus(Server server)
         {
             server.ServerStatus = ServerStatus.Checking;
@@ -45,18 +48,21 @@ namespace _11thLauncher.Services
 
                     server.ServerStatus = ServerStatus.Online;
                     server.ServerInfo = serverInfo;
+                    Logger.LogDebug("ServerQueryService", $"Server '{server.Name}' queried succesfully");
                 }
                 else
                 {
                     server.ServerStatus = ServerStatus.Offline;
                     server.ServerInfo = null;
+                    Logger.LogDebug("ServerQueryService", $"Unable to query server '{server.Name}'");
                 }
                 gameServer.Dispose();
             }
-            catch (SocketException)
+            catch (SocketException e)
             {
                 server.ServerStatus = ServerStatus.Offline;
                 server.ServerInfo = null;
+                Logger.LogException("ServerQueryService", "Error checking server status", e);
             }
         }
 
@@ -65,7 +71,7 @@ namespace _11thLauncher.Services
         /// </summary>
         /// <param name="url">Address of the server</param>
         /// <returns>IPv4 address of the server</returns>
-        private static string GetServerIp(string url)
+        private string GetServerIp(string url)
         {
             IPAddress address = null;
             IPHostEntry ipHostInfo = Dns.GetHostEntry(url);
@@ -84,6 +90,7 @@ namespace _11thLauncher.Services
                 throw new SocketException();
             }
 
+            Logger.LogDebug("ServerQueryService", $"Resolved IP address of {address}");
             return address.ToString();
         }
     }

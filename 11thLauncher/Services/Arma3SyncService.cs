@@ -11,21 +11,20 @@ using _11thLauncher.Util;
 
 namespace _11thLauncher.Services
 {
-    public class Arma3SyncService : IAddonSyncService
+    public class Arma3SyncService : AbstractService, IAddonSyncService
     {
         private readonly IFileAccessor _fileAccessor;
         private readonly IRegistryAccessor _registryAccessor;
         private readonly INetworkAccessor _networkAccessor;
         private readonly IProcessAccessor _processAccessor;
-        private readonly ILogger _logger;
 
         public Arma3SyncService(IFileAccessor fileAccessor, IRegistryAccessor registryAccessor, INetworkAccessor networkAccessor, IProcessAccessor processAccessor, ILogger logger)
+            : base(logger)
         {
             _fileAccessor = fileAccessor;
             _registryAccessor = registryAccessor;
             _networkAccessor = networkAccessor;
             _processAccessor = processAccessor;
-            _logger = logger;
         }
 
         public BindableCollection<Repository> ReadRepositories(string arma3SyncPath)
@@ -33,7 +32,7 @@ namespace _11thLauncher.Services
             BindableCollection<Repository> repositories = new BindableCollection<Repository>();
             if (!_fileAccessor.DirectoryExists(arma3SyncPath))
             {
-                _logger.LogDebug("Arma3SyncService", "No valid Arma3Sync path defined, skipping reading repositories");
+                Logger.LogDebug("Arma3SyncService", "No valid Arma3Sync path defined, skipping reading repositories");
                 return repositories;
             };
             
@@ -48,7 +47,7 @@ namespace _11thLauncher.Services
                 });
             }
 
-            _logger.LogDebug("Arma3SyncService", $"Finished reading repositories, found {repositories.Count}");
+            Logger.LogDebug("Arma3SyncService", $"Finished reading repositories, found {repositories.Count}");
 
             return repositories;
         }
@@ -58,17 +57,17 @@ namespace _11thLauncher.Services
             repository.Status = RepositoryStatus.Checking;
 
             //Extract A3SDS
-            _logger.LogDebug("Arma3SyncService", "Extracting deserializer");
+            Logger.LogDebug("Arma3SyncService", "Extracting deserializer");
             _fileAccessor.WriteAllBytes(ApplicationConfig.A3SdsPath, Properties.Resources.A3SDS);
 
-            _logger.LogDebug("Arma3SyncService", "Deserializing local repository");
+            Logger.LogDebug("Arma3SyncService", "Deserializing local repository");
             DeserializeLocalRepository(arma3SyncPath, javaPath, repository);
 
-            _logger.LogDebug("Arma3SyncService", "Deserializing remote repository");
+            Logger.LogDebug("Arma3SyncService", "Deserializing remote repository");
             DeserializeRemoteRepository(javaPath, repository);
 
             //Delete A3SDS
-            _logger.LogDebug("Arma3SyncService", "Cleaning up deserializer");
+            Logger.LogDebug("Arma3SyncService", "Cleaning up deserializer");
             _fileAccessor.DeleteFile(ApplicationConfig.A3SdsPath);
 
             if (repository.LocalRevision != null && repository.RemoteRevision != null)
@@ -82,7 +81,7 @@ namespace _11thLauncher.Services
                 repository.Status = RepositoryStatus.Unknown;
             }
 
-            _logger.LogDebug("Arma3SyncService", $"Finished checking repository status, status is {repository.Status}");
+            Logger.LogDebug("Arma3SyncService", $"Finished checking repository status, status is {repository.Status}");
         }
 
         private void DeserializeLocalRepository(string arma3SyncPath, string javaPath, Repository repository)
@@ -107,7 +106,7 @@ namespace _11thLauncher.Services
 
             if (localRepositoryInfo.Length != 6)
             {
-                _logger.LogDebug("Arma3SyncService", "Unable to read local repository info");
+                Logger.LogDebug("Arma3SyncService", "Unable to read local repository info");
                 return;
             };
 
@@ -159,7 +158,7 @@ namespace _11thLauncher.Services
             }
             catch (WebException e)
             {
-                _logger.LogException("Arma3SyncService", "Error deserializing remote repository", e);
+                Logger.LogException("Arma3SyncService", "Error deserializing remote repository", e);
             }
         }
 
@@ -184,11 +183,11 @@ namespace _11thLauncher.Services
                 javaVersion = _processAccessor.GetStandardError(p).ReadLine();
                 _processAccessor.GetStandardError(p).ReadToEnd();
                 _processAccessor.WaitForExit(p);
-                _logger.LogDebug("Arma3SyncService", $"Java version in system detected: {javaVersion}");
+                Logger.LogDebug("Arma3SyncService", $"Java version in system detected: {javaVersion}");
             }
             catch (Exception e)
             {
-                _logger.LogException("Arma3SyncService", "Error detecting Java version", e);
+                Logger.LogException("Arma3SyncService", "Error detecting Java version", e);
             }
 
             return javaVersion;
@@ -217,17 +216,17 @@ namespace _11thLauncher.Services
             }
             catch (Exception e)
             {
-                _logger.LogException("Arma3SyncService", "Error searching the Windows registry for a valid installation", e);
+                Logger.LogException("Arma3SyncService", "Error searching the Windows registry for a valid installation", e);
             }
 
             if (string.IsNullOrWhiteSpace(arma3SyncPath) || !_fileAccessor.DirectoryExists(arma3SyncPath))
             {
                 arma3SyncPath = "";
-                _logger.LogInfo("Arma3SyncService", "No valid Arma3Sync installations found in Windows Registry");
+                Logger.LogInfo("Arma3SyncService", "No valid Arma3Sync installations found in Windows Registry");
             }
             else
             {
-                _logger.LogInfo("Arma3SyncService", $"Arma3Sync installation found in Windows Registry: '{arma3SyncPath}'");
+                Logger.LogInfo("Arma3SyncService", $"Arma3Sync installation found in Windows Registry: '{arma3SyncPath}'");
             }
 
             return arma3SyncPath;
@@ -249,7 +248,7 @@ namespace _11thLauncher.Services
                 }
             };
             _processAccessor.Start(p);
-            _logger.LogInfo("Arma3SyncService", "Starting Arma3Sync");
+            Logger.LogInfo("Arma3SyncService", "Starting Arma3Sync");
         }
 
         private string SearchRegistryInstallations(RegistryKey key)
@@ -257,7 +256,7 @@ namespace _11thLauncher.Services
             string arma3SyncPath = "";
             if (key == null) return arma3SyncPath;
 
-            _logger.LogInfo("Arma3SyncService", "Searching the Windows Registry for Arma3Sync installations");
+            Logger.LogInfo("Arma3SyncService", "Searching the Windows Registry for Arma3Sync installations");
 
             foreach (string subKeyName in key.GetSubKeyNames())
             {

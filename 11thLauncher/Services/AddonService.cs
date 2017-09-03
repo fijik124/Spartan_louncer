@@ -9,19 +9,17 @@ using _11thLauncher.Util;
 
 namespace _11thLauncher.Services
 {
-    public class AddonService : IAddonService
+    public class AddonService : AbstractService, IAddonService
     {
         private readonly IFileAccessor _fileAccessor;
         private readonly IProcessAccessor _processAccessor;
-        private readonly ILogger _logger;
 
         public BindableCollection<Addon> Addons { get; set; }
 
-        public AddonService(IFileAccessor fileAccessor, IProcessAccessor processAccessor, ILogger logger)
+        public AddonService(IFileAccessor fileAccessor, IProcessAccessor processAccessor, ILogger logger) : base(logger)
         {
             _fileAccessor = fileAccessor;
             _processAccessor = processAccessor;
-            _logger = logger;
 
             Addons = new BindableCollection<Addon>();
         }
@@ -30,7 +28,7 @@ namespace _11thLauncher.Services
         {
             if (string.IsNullOrEmpty(arma3Path) || Addons.Count != 0)
             {
-                _logger.LogDebug("AddonService", "No game path defined or addons already read, skipping reading addons");
+                Logger.LogDebug("AddonService", "No game path defined or addons already read, skipping reading addons");
                 return;
             };
 
@@ -47,31 +45,31 @@ namespace _11thLauncher.Services
                 Addons.Add(addon);  
             }
 
-            _logger.LogDebug("AddonService", $"Addons read from game path successfully, number found was: {Addons.Count}");
+            Logger.LogDebug("AddonService", $"Addons read from game path successfully, number found was: {Addons.Count}");
         }
 
         public void BrowseAddonFolder(Addon addon)
         {
             if (!_fileAccessor.DirectoryExists(addon.Path))
             {
-                _logger.LogDebug("AddonService", $"Unable to open addon folder for {addon.Name}");
+                Logger.LogDebug("AddonService", $"Unable to open addon folder for {addon.Name}");
                 return;
             }
 
             _processAccessor.StartProcess(addon.Path);
-            _logger.LogDebug("AddonService", $"Opening addon folder for '{addon.Name}'");
+            Logger.LogDebug("AddonService", $"Opening addon folder for '{addon.Name}'");
         }
 
         public void BrowseAddonWebsite(Addon addon)
         {
             if (string.IsNullOrEmpty(addon.MetaData?.Action))
             {
-                _logger.LogDebug("AddonService", $"Unable to open addon website for {addon.Name}");
+                Logger.LogDebug("AddonService", $"Unable to open addon website for {addon.Name}");
                 return;
             }
 
             _processAccessor.StartProcess(addon.MetaData.Action);
-            _logger.LogDebug("AddonService", $"Opening addon website for {addon.Name}");
+            Logger.LogDebug("AddonService", $"Opening addon website for {addon.Name}");
         }
 
         private void ReadMetaData(Addon addon)
@@ -123,7 +121,7 @@ namespace _11thLauncher.Services
             catch (Exception e)
             {
                 addon.MetaData = null;
-                _logger.LogException("AddonService", $"Error reading addon metadata for {addon.Name}", e);
+                Logger.LogException("AddonService", $"Error reading addon metadata for {addon.Name}", e);
             }
         }
     }

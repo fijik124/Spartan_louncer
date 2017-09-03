@@ -11,20 +11,18 @@ using _11thLauncher.Util;
 
 namespace _11thLauncher.Services
 {
-    public class UpdaterService : IUpdaterService
+    public class UpdaterService : AbstractService, IUpdaterService
     {
         private readonly IFileAccessor _fileAccessor;
         private readonly INetworkAccessor _networkAccessor;
-        private readonly ILogger _logger;
 
         private readonly string _assemblyVersion;
         private string _lastEtag = ""; //Latest entity tag for caching
 
-        public UpdaterService(IFileAccessor fileAccessor, INetworkAccessor networkAccessor, ILogger logger)
+        public UpdaterService(IFileAccessor fileAccessor, INetworkAccessor networkAccessor, ILogger logger) : base(logger)
         {
             _fileAccessor = fileAccessor;
             _networkAccessor = networkAccessor;
-            _logger = logger;
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             _assemblyVersion = string.Join(".", version.Major, version.Minor, version.Build);
@@ -36,7 +34,7 @@ namespace _11thLauncher.Services
         /// <returns>Result of the update check</returns>
         public UpdateCheckResult CheckUpdates()
         {
-            _logger.LogDebug("UpdaterService", "Checking application updates");
+            Logger.LogDebug("UpdaterService", "Checking application updates");
 
             using (WebClient client = new WebClient())
             {
@@ -82,7 +80,7 @@ namespace _11thLauncher.Services
                             break;
 
                         default:
-                            _logger.LogException("UpdaterService", "Unexpected HTTP response received", new ArgumentOutOfRangeException(nameof(webException.StatusCode)));
+                            Logger.LogException("UpdaterService", "Unexpected HTTP response received", new ArgumentOutOfRangeException(nameof(webException.StatusCode)));
                             break;
                     }
 
@@ -90,7 +88,7 @@ namespace _11thLauncher.Services
                 }
                 catch (Exception e)
                 {
-                    _logger.LogException("UpdaterService", "Exception checking updates", e);
+                    Logger.LogException("UpdaterService", "Exception checking updates", e);
                     return UpdateCheckResult.ErrorCheckingUpdates;
                 }
             }
@@ -101,7 +99,7 @@ namespace _11thLauncher.Services
         /// </summary>
         public void ExecuteUpdater()
         {
-            _logger.LogDebug("UpdaterService", "Preparing to run updater");
+            Logger.LogDebug("UpdaterService", "Preparing to run updater");
 
             //Extract updater
             _fileAccessor.WriteAllBytes(ApplicationConfig.UpdaterPath, Properties.Resources._11thLauncher_Updater);
@@ -127,14 +125,14 @@ namespace _11thLauncher.Services
             //};
             //p.Start();
 
-            _logger.LogDebug("UpdaterService", "Updater started, shutting down...");
+            Logger.LogDebug("UpdaterService", "Updater started, shutting down...");
 
             Application.Current.Shutdown();
         }
 
         public void RemoveUpdater()
         {
-            _logger.LogDebug("UpdaterService", "Deleting updater file");
+            Logger.LogDebug("UpdaterService", "Deleting updater file");
             _fileAccessor.DeleteFile(ApplicationConfig.UpdaterPath);
         }
     }

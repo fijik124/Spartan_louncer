@@ -12,24 +12,22 @@ using _11thLauncher.Util;
 
 namespace _11thLauncher.Services
 {
-    public class ProfileService : IProfileService
+    public class ProfileService : AbstractService, IProfileService
     {
         private readonly IFileAccessor _fileAccessor;
-        private readonly ILogger _logger;
         private readonly IParameterService _parameterService;
         private readonly ISecurityService _securityService;
 
-        public ProfileService(IFileAccessor fileAccessor, ILogger logger, IParameterService parameterService, ISecurityService securityService)
+        public ProfileService(IFileAccessor fileAccessor, ILogger logger, IParameterService parameterService, ISecurityService securityService) : base(logger)
         {
             _fileAccessor = fileAccessor;
-            _logger = logger;
             _parameterService = parameterService;
             _securityService = securityService;
         }
 
         public void Write(UserProfile profile, BindableCollection<Addon> addons, BindableCollection<LaunchParameter> parameters, LaunchSettings launchSettings)
         {
-            _logger.LogDebug("ProfileService", "Writing profile to disk");
+            Logger.LogDebug("ProfileService", "Writing profile to disk");
 
             try
             {
@@ -51,13 +49,13 @@ namespace _11thLauncher.Services
             }
             catch (Exception e)
             {
-                _logger.LogException("ProfileService", "Error writing profile", e);
+                Logger.LogException("ProfileService", "Error writing profile", e);
             }
         }
 
         public void Read(UserProfile profile, out BindableCollection<Addon> addons, out BindableCollection<LaunchParameter> parameters, out LaunchSettings launchSettings)
         {
-            _logger.LogDebug("ProfileService", "Reading profile from disk");
+            Logger.LogDebug("ProfileService", "Reading profile from disk");
 
             try
             {
@@ -73,7 +71,7 @@ namespace _11thLauncher.Services
             }
             catch (Exception e)
             {
-                _logger.LogException("ProfileService", "Error reading profile", e);
+                Logger.LogException("ProfileService", "Error reading profile", e);
                 addons = new BindableCollection<Addon>();
                 parameters = new BindableCollection<LaunchParameter>();
                 launchSettings = new LaunchSettings();
@@ -82,7 +80,7 @@ namespace _11thLauncher.Services
 
         public void DeleteProfile(UserProfile profile)
         {
-            _logger.LogDebug("ProfileService", "Deleting profile from disk");
+            Logger.LogDebug("ProfileService", "Deleting profile from disk");
 
             var profileFile = Path.Combine(ApplicationConfig.ConfigPath, ApplicationConfig.ProfilesFolder, string.Format(ApplicationConfig.ProfileNameFormat, profile.Id));
             try
@@ -94,13 +92,13 @@ namespace _11thLauncher.Services
             }
             catch (Exception e)
             {
-                _logger.LogException("ProfileService", "Error deleting profile", e);
+                Logger.LogException("ProfileService", "Error deleting profile", e);
             }
         }
 
         public void PortLegacyProfiles(BindableCollection<UserProfile> profiles)
         {
-            _logger.LogInfo("ProfileService", "Porting legacy profiles");
+            Logger.LogInfo("ProfileService", "Porting legacy profiles");
 
             foreach (var profile in profiles)
             {
@@ -151,7 +149,7 @@ namespace _11thLauncher.Services
                                                     t.SetStatus(true, value);
                                                     break;
                                                 default:
-                                                    _logger.LogException("ProfileService", "Matching parameter type not found", new ArgumentOutOfRangeException());
+                                                    Logger.LogException("ProfileService", "Matching parameter type not found", new ArgumentOutOfRangeException());
                                                     break;
                                             }
                                             parameters.Add(matchingParameter);
@@ -209,7 +207,7 @@ namespace _11thLauncher.Services
                 }
                 catch (Exception e)
                 {
-                    _logger.LogException("ProfileService", "Error porting legacy profile", e);
+                    Logger.LogException("ProfileService", "Error porting legacy profile", e);
                 }
             }
         }
