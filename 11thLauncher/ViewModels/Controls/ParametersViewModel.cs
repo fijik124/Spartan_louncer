@@ -9,9 +9,20 @@ namespace _11thLauncher.ViewModels.Controls
 {
     public class ParametersViewModel : PropertyChangedBase, IHandle<ParametersInitializedMessage>, IHandle<ProfileLoadedMessage>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
 
         private BindableCollection<LaunchParameter> _parameters;
+
+        #endregion
+
+        public ParametersViewModel(IEventAggregator eventAggregator)
+        {
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
+        }
+
         public BindableCollection<LaunchParameter> Parameters
         {
             get => _parameters;
@@ -20,12 +31,6 @@ namespace _11thLauncher.ViewModels.Controls
                 _parameters = value;
                 NotifyOfPropertyChange();
             }
-        }
-
-        public ParametersViewModel(IEventAggregator eventAggregator)
-        {
-            _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
         }
 
         #region Message handling

@@ -8,12 +8,16 @@ namespace _11thLauncher.ViewModels.Controls
 {
     public class ProfileManagerViewModel : PropertyChangedBase, IHandle<ProfileAddedMessage>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
         private readonly ISettingsService _settingsService;
         private readonly IProfileService _profileService;
         private BindableCollection<UserProfile> _profiles = new BindableCollection<UserProfile>();
         private UserProfile _selectedProfile;
         private UserProfile _managedProfile;
+
+        #endregion
 
         public ProfileManagerViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IProfileService profileService)
         {
@@ -22,6 +26,52 @@ namespace _11thLauncher.ViewModels.Controls
             _settingsService = settingsService;
             _profileService = profileService;
         }
+
+        #region Properties
+
+        public BindableCollection<UserProfile> Profiles
+        {
+            get => _profiles;
+            set
+            {
+                _profiles = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public UserProfile SelectedProfile
+        {
+            get => _selectedProfile;
+            set
+            {
+                _selectedProfile = value;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(() => AllowFavoriteProfile);
+                NotifyOfPropertyChange(() => AllowDeleteProfile);
+            }
+        }
+
+        public UserProfile ManagedProfile
+        {
+            get => _managedProfile;
+            set
+            {
+                _managedProfile = value;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(() => AllowCreateProfile);
+                NotifyOfPropertyChange(() => AllowSaveProfile);
+            }
+        }
+
+        public bool AllowCreateProfile => ManagedProfile == null;
+
+        public bool AllowSaveProfile => ManagedProfile != null;
+
+        public bool AllowFavoriteProfile => ManagedProfile == null && SelectedProfile != null && !SelectedProfile.IsDefault;
+
+        public bool AllowDeleteProfile => AllowFavoriteProfile;
+
+        #endregion
 
         #region Message handling
 
@@ -83,47 +133,5 @@ namespace _11thLauncher.ViewModels.Controls
         }
 
         #endregion
-
-        public BindableCollection<UserProfile> Profiles
-        {
-            get => _profiles;
-            set
-            {
-                _profiles = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        public UserProfile SelectedProfile
-        {
-            get => _selectedProfile;
-            set
-            {
-                _selectedProfile = value;
-                NotifyOfPropertyChange();
-                NotifyOfPropertyChange(() => AllowFavoriteProfile);
-                NotifyOfPropertyChange(() => AllowDeleteProfile);
-            }
-        }
-
-        public UserProfile ManagedProfile
-        {
-            get => _managedProfile;
-            set
-            {
-                _managedProfile = value;
-                NotifyOfPropertyChange();
-                NotifyOfPropertyChange(() => AllowCreateProfile);
-                NotifyOfPropertyChange(() => AllowSaveProfile);
-            }
-        }
-
-        public bool AllowCreateProfile => ManagedProfile == null;
-
-        public bool AllowSaveProfile => ManagedProfile != null;
-
-        public bool AllowFavoriteProfile => ManagedProfile == null && SelectedProfile != null && !SelectedProfile.IsDefault;
-
-        public bool AllowDeleteProfile => AllowFavoriteProfile;
     }
 }

@@ -21,7 +21,7 @@ namespace _11thLauncher.Util
             _logDirectory = ApplicationConfig.ConfigPath;
             _maxRolledFiles = ApplicationConfig.LogRolledFiles;
             _maxSize = ApplicationConfig.LogSizeLimit;
-            _logFile = Path.Combine(_logDirectory, string.Format(LogPattern, ""));
+            _logFile = Path.Combine(_logDirectory, string.Format(LogPattern, string.Empty));
             _logCache = new List<string>();
         }
 

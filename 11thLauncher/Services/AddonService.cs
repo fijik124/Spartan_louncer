@@ -11,10 +11,12 @@ namespace _11thLauncher.Services
 {
     public class AddonService : AbstractService, IAddonService
     {
+        #region Fields
+
         private readonly IFileAccessor _fileAccessor;
         private readonly IProcessAccessor _processAccessor;
 
-        public BindableCollection<Addon> Addons { get; set; }
+        #endregion
 
         public AddonService(IFileAccessor fileAccessor, IProcessAccessor processAccessor, ILogger logger) : base(logger)
         {
@@ -23,6 +25,10 @@ namespace _11thLauncher.Services
 
             Addons = new BindableCollection<Addon>();
         }
+
+        public BindableCollection<Addon> Addons { get; set; }
+
+        #region Methods
 
         public void ReadAddons(string arma3Path)
         {
@@ -42,7 +48,7 @@ namespace _11thLauncher.Services
 
                 var addon = new Addon(_fileAccessor.GetParent(directory).FullName, addonName);
                 ReadMetaData(addon);
-                Addons.Add(addon);  
+                Addons.Add(addon);
             }
 
             Logger.LogDebug("AddonService", $"Addons read from game path successfully, number found was: {Addons.Count}");
@@ -115,7 +121,7 @@ namespace _11thLauncher.Services
                     {
                         // continue
                     }
-                    
+
                 }
             }
             catch (Exception e)
@@ -124,5 +130,7 @@ namespace _11thLauncher.Services
                 Logger.LogException("AddonService", $"Error reading addon metadata for {addon.Name}", e);
             }
         }
+
+        #endregion
     }
 }

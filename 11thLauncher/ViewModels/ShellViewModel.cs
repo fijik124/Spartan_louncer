@@ -13,10 +13,12 @@ namespace _11thLauncher.ViewModels
 {
     public class ShellViewModel : PropertyChangedBase, IHandle<ShowDialogMessage>, IHandle<ThemeChangedMessage>, IHandle<ServerQueryFinished>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IWindowManager _windowManager;
-   
+
         private readonly ILogger _logger;
         private readonly ISettingsService _settingsService;
         private readonly IProfileService _profileService;
@@ -33,6 +35,8 @@ namespace _11thLauncher.ViewModels
         private string _gameVersion;
         private Visibility _showVersionMismatch = Visibility.Hidden;
         private string _versionMismatchTooltip;
+
+        #endregion
 
         public ShellViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager, ILogger logger,
             ISettingsService settingsService, IAddonService addonService, IAddonSyncService addonSyncService, IUpdaterService updaterService, 
@@ -62,117 +66,6 @@ namespace _11thLauncher.ViewModels
             ServerQueryControl = IoC.Get<ServerQueryViewModel>();
             ProfileManagerControl = IoC.Get<ProfileManagerViewModel>();
 
-            Init();
-        }
-
-        #region Properties
-
-        public StatusbarViewModel StatusbarControl { get; set; }
-
-        public ProfileSelectorViewModel ProfileSelectorControl { get; set; }
-
-        public AddonsViewModel AddonsControl { get; set; }
-
-        public GameViewModel GameControl { get; set; }
-
-        public ServerStatusViewModel ServerStatusControl { get; set; }
-
-        public RepositoryStatusViewModel RepositoryStatusControl { get; set; }
-
-        public ParametersViewModel ParametersControl { get; set; }
-
-        public ServerQueryViewModel ServerQueryControl { get; set; }
-
-        public ProfileManagerViewModel ProfileManagerControl { get; set; }
-
-        public WindowState WindowState
-        {
-            get => _windowState;
-            set
-            {
-                _windowState = value;
-                NotifyOfPropertyChange(() => WindowState);
-
-                if (!_settingsService.ApplicationSettings.MinimizeNotification) return;
-
-                if (value == WindowState.Minimized)
-                {
-                    ShowInTaskbar = false;
-                    ShowTrayIcon = Visibility.Visible;
-                }
-                else
-                {
-                    ShowInTaskbar = true;
-                    ShowTrayIcon = Visibility.Hidden;
-                }
-            }
-        }
-
-        public Visibility ShowTrayIcon
-        {
-            get => _showTrayIcon;
-            set
-            {
-                _showTrayIcon = value;
-                NotifyOfPropertyChange(() => ShowTrayIcon);
-            }
-        }
-
-        public bool ShowInTaskbar
-        {
-            get => _showInTaskbar;
-            set
-            {
-                _showInTaskbar = value;
-                NotifyOfPropertyChange(() => ShowInTaskbar);
-            }
-        }
-
-        public string GameVersion
-        {
-            get => _gameVersion;
-
-            set
-            {
-                _gameVersion = value;
-                NotifyOfPropertyChange(() => GameVersion);
-            }
-        }
-
-        public Visibility ShowVersionMismatch
-        {
-            get => _showVersionMismatch;
-            set
-            {
-                _showVersionMismatch = value;
-                NotifyOfPropertyChange(() => ShowVersionMismatch);
-            }
-        }
-
-        public string VersionMismatchTooltip
-        {
-            get => _versionMismatchTooltip;
-            set
-            {
-                _versionMismatchTooltip = value;
-                NotifyOfPropertyChange(() => VersionMismatchTooltip);
-            }
-        }
-
-        public string LogoImage
-        {
-            get => _logoImage;
-            set
-            {
-                _logoImage = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        #endregion
-
-        private void Init()
-        {
             _logger.LogDebug("ShellViewModel", "Starting Shell initialization");
 
             //If just updated, remove updater and show notification
@@ -288,6 +181,112 @@ namespace _11thLauncher.ViewModels
 
             _logger.LogDebug("ShellViewModel", "Finished Shell initialization");
         }
+
+        #region Properties
+
+        public StatusbarViewModel StatusbarControl { get; set; }
+
+        public ProfileSelectorViewModel ProfileSelectorControl { get; set; }
+
+        public AddonsViewModel AddonsControl { get; set; }
+
+        public GameViewModel GameControl { get; set; }
+
+        public ServerStatusViewModel ServerStatusControl { get; set; }
+
+        public RepositoryStatusViewModel RepositoryStatusControl { get; set; }
+
+        public ParametersViewModel ParametersControl { get; set; }
+
+        public ServerQueryViewModel ServerQueryControl { get; set; }
+
+        public ProfileManagerViewModel ProfileManagerControl { get; set; }
+
+        public WindowState WindowState
+        {
+            get => _windowState;
+            set
+            {
+                _windowState = value;
+                NotifyOfPropertyChange(() => WindowState);
+
+                if (!_settingsService.ApplicationSettings.MinimizeNotification) return;
+
+                if (value == WindowState.Minimized)
+                {
+                    ShowInTaskbar = false;
+                    ShowTrayIcon = Visibility.Visible;
+                }
+                else
+                {
+                    ShowInTaskbar = true;
+                    ShowTrayIcon = Visibility.Hidden;
+                }
+            }
+        }
+
+        public Visibility ShowTrayIcon
+        {
+            get => _showTrayIcon;
+            set
+            {
+                _showTrayIcon = value;
+                NotifyOfPropertyChange(() => ShowTrayIcon);
+            }
+        }
+
+        public bool ShowInTaskbar
+        {
+            get => _showInTaskbar;
+            set
+            {
+                _showInTaskbar = value;
+                NotifyOfPropertyChange(() => ShowInTaskbar);
+            }
+        }
+
+        public string GameVersion
+        {
+            get => _gameVersion;
+
+            set
+            {
+                _gameVersion = value;
+                NotifyOfPropertyChange(() => GameVersion);
+            }
+        }
+
+        public Visibility ShowVersionMismatch
+        {
+            get => _showVersionMismatch;
+            set
+            {
+                _showVersionMismatch = value;
+                NotifyOfPropertyChange(() => ShowVersionMismatch);
+            }
+        }
+
+        public string VersionMismatchTooltip
+        {
+            get => _versionMismatchTooltip;
+            set
+            {
+                _versionMismatchTooltip = value;
+                NotifyOfPropertyChange(() => VersionMismatchTooltip);
+            }
+        }
+
+        public string LogoImage
+        {
+            get => _logoImage;
+            set
+            {
+                _logoImage = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        #endregion
 
         #region Message handling
 

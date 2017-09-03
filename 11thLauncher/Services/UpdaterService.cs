@@ -13,11 +13,15 @@ namespace _11thLauncher.Services
 {
     public class UpdaterService : AbstractService, IUpdaterService
     {
+        #region Fields
+
         private readonly IFileAccessor _fileAccessor;
         private readonly INetworkAccessor _networkAccessor;
 
         private readonly string _assemblyVersion;
-        private string _lastEtag = ""; //Latest entity tag for caching
+        private string _lastEtag = string.Empty; //Latest entity tag for caching
+
+        #endregion
 
         public UpdaterService(IFileAccessor fileAccessor, INetworkAccessor networkAccessor, ILogger logger) : base(logger)
         {
@@ -27,6 +31,8 @@ namespace _11thLauncher.Services
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             _assemblyVersion = string.Join(".", version.Major, version.Minor, version.Build);
         }
+
+        #region Methods
 
         /// <summary>
         /// Use the GitHub API to check if there is a new release
@@ -105,7 +111,7 @@ namespace _11thLauncher.Services
             _fileAccessor.WriteAllBytes(ApplicationConfig.UpdaterPath, Properties.Resources._11thLauncher_Updater);
 
             var appPath = Assembly.GetExecutingAssembly().Location;
-            var fullPath = "";
+            var fullPath = string.Empty;
             if (appPath != null)
             {
                 fullPath = Path.GetFullPath(appPath);
@@ -114,14 +120,14 @@ namespace _11thLauncher.Services
             //Execute updater
             //var p = new Process
             //{
-                //StartInfo =
-                //{
-                    //FileName = ApplicationConfig.UpdaterPath,
-                    //Arguments =
-                        //$"\"{fullPath}\"" + " " +
-                        //(ApplicationConfig.DownloadBaseUrl + "11thLauncher" + _latestVersion + ".zip")
+            //StartInfo =
+            //{
+            //FileName = ApplicationConfig.UpdaterPath,
+            //Arguments =
+            //$"\"{fullPath}\"" + " " +
+            //(ApplicationConfig.DownloadBaseUrl + "11thLauncher" + _latestVersion + ".zip")
 
-                //}
+            //}
             //};
             //p.Start();
 
@@ -135,5 +141,7 @@ namespace _11thLauncher.Services
             Logger.LogDebug("UpdaterService", "Deleting updater file");
             _fileAccessor.DeleteFile(ApplicationConfig.UpdaterPath);
         }
+
+        #endregion
     }
 }

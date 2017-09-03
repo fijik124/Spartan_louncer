@@ -6,6 +6,8 @@ namespace _11thLauncher.Models
     {
         private LogLevel? _logLevel;
 
+        #region Properties
+
         public bool CheckUpdates = true;
         public bool CheckServers = true;
         public bool CheckRepository = false;
@@ -15,9 +17,8 @@ namespace _11thLauncher.Models
         public bool MinimizeNotification = false;
         public ThemeStyle ThemeStyle = 0;
         public AccentColor AccentColor = 0;
-        public string JavaPath = "";
-        public string Arma3SyncPath = "";
-
+        public string JavaPath = string.Empty;
+        public string Arma3SyncPath = string.Empty;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public LogLevel? LogLevel
@@ -27,8 +28,10 @@ namespace _11thLauncher.Models
             {
                 _logLevel = value;
                 if (value != null)
-                    ApplicationConfig.MaxLogLevel = (LogLevel) value;
-            } 
+                    ApplicationConfig.MaxLogLevel = (LogLevel)value;
+            }
         }
+
+        #endregion
     }
 }

@@ -9,9 +9,13 @@ namespace _11thLauncher.ViewModels.Controls
 {
     public class StatusbarViewModel : PropertyChangedBase, IHandle<UpdateStatusBarMessage>
     {
+        #region Fields
+
         private readonly Dictionary<AsyncAction, int> _actions;
         private string _statusText;
         private bool _taskRunning;
+
+        #endregion
 
         public StatusbarViewModel(IEventAggregator eventAggregator)
         {
@@ -22,6 +26,8 @@ namespace _11thLauncher.ViewModels.Controls
                 _actions[type] = 0;
             }
         }
+
+        #region Properties
 
         public string StatusText
         {
@@ -43,6 +49,8 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
+        #endregion
+
         #region Message handling
 
         public void Handle(UpdateStatusBarMessage message)
@@ -57,14 +65,14 @@ namespace _11thLauncher.ViewModels.Controls
             }
 
             bool running = false;
-            var statusText = "";
+            var statusText = string.Empty;
             foreach (KeyValuePair<AsyncAction, int> asyncAction in _actions)
             {
                 if (asyncAction.Value <= 0) continue;
                 running = true;
 
                 statusText += asyncAction.Key.GetDescription() +
-                              (asyncAction.Value > 1 ? " (x" + asyncAction.Value + ")" : "") + 
+                              (asyncAction.Value > 1 ? " (x" + asyncAction.Value + ")" : string.Empty) + 
                               ", ";
             }
 

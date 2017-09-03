@@ -9,12 +9,16 @@ namespace _11thLauncher.ViewModels.Controls
 {
     public class GameViewModel : PropertyChangedBase, IHandle<ProfileLoadedMessage>, IHandle<FillServerInfoMessage>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
         private readonly ISettingsService _settingsService;
         private readonly IGameService _gameService;
         private readonly ISecurityService _securityService;
 
         private bool _loadingProfile;
+
+        #endregion
 
         public GameViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IGameService gameService, ISecurityService securityService)
         {
@@ -26,42 +30,7 @@ namespace _11thLauncher.ViewModels.Controls
             _securityService = securityService;
         }
 
-        #region Message handling
-
-        public void Handle(ProfileLoadedMessage message)
-        {
-            _loadingProfile = true;
-
-            _gameService.LaunchSettings.LaunchOption = message.LaunchSettings.LaunchOption;
-            NotifyOfPropertyChange(() => LaunchOption);
-
-            _gameService.LaunchSettings.Platform = message.LaunchSettings.Platform;
-            NotifyOfPropertyChange(() => Platform);
-
-            _gameService.LaunchSettings.Server = message.LaunchSettings.Server;
-            NotifyOfPropertyChange(() => Server);
-
-            _gameService.LaunchSettings.Port = message.LaunchSettings.Port;
-            NotifyOfPropertyChange(() => Port);
-
-            _gameService.LaunchSettings.Password = message.LaunchSettings.Password;
-            NotifyOfPropertyChange(() => Password);
-        }
-
-        public void Handle(FillServerInfoMessage message)
-        {
-            if (message.Server == null) return;
-
-            _gameService.LaunchSettings.Server = message.Server.Address;
-            NotifyOfPropertyChange(() => Server);
-
-            _gameService.LaunchSettings.Port = message.Server.Port.ToString();
-            NotifyOfPropertyChange(() => Port);
-
-            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
-        }
-
-        #endregion
+        #region Properties
 
         public LaunchOption LaunchOption
         {
@@ -119,6 +88,45 @@ namespace _11thLauncher.ViewModels.Controls
                 _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
         }
+
+        #endregion
+
+        #region Message handling
+
+        public void Handle(ProfileLoadedMessage message)
+        {
+            _loadingProfile = true;
+
+            _gameService.LaunchSettings.LaunchOption = message.LaunchSettings.LaunchOption;
+            NotifyOfPropertyChange(() => LaunchOption);
+
+            _gameService.LaunchSettings.Platform = message.LaunchSettings.Platform;
+            NotifyOfPropertyChange(() => Platform);
+
+            _gameService.LaunchSettings.Server = message.LaunchSettings.Server;
+            NotifyOfPropertyChange(() => Server);
+
+            _gameService.LaunchSettings.Port = message.LaunchSettings.Port;
+            NotifyOfPropertyChange(() => Port);
+
+            _gameService.LaunchSettings.Password = message.LaunchSettings.Password;
+            NotifyOfPropertyChange(() => Password);
+        }
+
+        public void Handle(FillServerInfoMessage message)
+        {
+            if (message.Server == null) return;
+
+            _gameService.LaunchSettings.Server = message.Server.Address;
+            NotifyOfPropertyChange(() => Server);
+
+            _gameService.LaunchSettings.Port = message.Server.Port.ToString();
+            NotifyOfPropertyChange(() => Port);
+
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
+        }
+
+        #endregion
 
         #region UI Actions
 

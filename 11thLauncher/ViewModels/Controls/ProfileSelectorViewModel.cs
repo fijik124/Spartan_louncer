@@ -9,6 +9,8 @@ namespace _11thLauncher.ViewModels.Controls
     public class ProfileSelectorViewModel : PropertyChangedBase, IHandle<ProfileAddedMessage>, IHandle<ProfileDeletedMessage>, 
         IHandle<LoadProfileMessage>, IHandle<SaveProfileMessage>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
         private readonly IAddonService _addonService;
         private readonly IProfileService _profileService;
@@ -16,6 +18,24 @@ namespace _11thLauncher.ViewModels.Controls
         private readonly IParameterService _parameterService;
 
         private BindableCollection<UserProfile> _profiles = new BindableCollection<UserProfile>();
+        private UserProfile _selectedProfile;
+
+        #endregion
+
+        public ProfileSelectorViewModel(IEventAggregator eventAggregator, IAddonService addonService,
+            IProfileService profileService, IGameService launcherService, IParameterService parameterService)
+        {
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
+
+            _addonService = addonService;
+            _profileService = profileService;
+            _launcherService = launcherService;
+            _parameterService = parameterService;
+        }
+
+        #region Properties
+
         public BindableCollection<UserProfile> Profiles
         {
             get => _profiles;
@@ -26,7 +46,7 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        private UserProfile _selectedProfile;
+
         public UserProfile SelectedProfile
         {
             get => _selectedProfile;
@@ -40,17 +60,7 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public ProfileSelectorViewModel(IEventAggregator eventAggregator, IAddonService addonService,
-            IProfileService profileService, IGameService launcherService, IParameterService parameterService)
-        {
-            _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
-
-            _addonService = addonService;
-            _profileService = profileService;
-            _launcherService = launcherService;
-            _parameterService = parameterService;
-        }
+        #endregion
 
         #region Message handling
 

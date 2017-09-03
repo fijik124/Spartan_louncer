@@ -7,12 +7,6 @@ namespace _11thLauncher.Models
 {
     public class ConfigFile
     {
-        public ApplicationSettings ApplicationSettings;
-        public Guid DefaultProfileId;
-        public Dictionary<Guid, string> Profiles;
-        [JsonIgnore]
-        public BindableCollection<Server> Servers; //Custom servers disabled for now, so don't save
-
         public ConfigFile()
         {
             ApplicationSettings = new ApplicationSettings();
@@ -20,5 +14,15 @@ namespace _11thLauncher.Models
             Profiles = new Dictionary<Guid, string>();
             Servers = new BindableCollection<Server>();
         }
+
+        #region Properties
+
+        public ApplicationSettings ApplicationSettings;
+        public Guid DefaultProfileId;
+        public Dictionary<Guid, string> Profiles;
+        [JsonIgnore]
+        public BindableCollection<Server> Servers; //Custom servers disabled for now, so don't save
+
+        #endregion
     }
 }

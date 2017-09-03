@@ -8,10 +8,14 @@ namespace _11thLauncher.ViewModels.Controls
 {
     public class ServerStatusViewModel : PropertyChangedBase, IHandle<SettingsLoadedMessage>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
         private readonly ISettingsService _settingsService;
         private readonly IServerQueryService _serverQueryService;
         private BindableCollection<Server> _servers;
+
+        #endregion
 
         public ServerStatusViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IServerQueryService serverQueryService)
         {
@@ -21,6 +25,16 @@ namespace _11thLauncher.ViewModels.Controls
             _serverQueryService = serverQueryService;
 
             Servers = new BindableCollection<Server>();
+        }
+
+        public BindableCollection<Server> Servers
+        {
+            get => _servers;
+            set
+            {
+                _servers = value;
+                NotifyOfPropertyChange();
+            }
         }
 
         #region Message handling
@@ -61,15 +75,5 @@ namespace _11thLauncher.ViewModels.Controls
         }
 
         #endregion
-
-        public BindableCollection<Server> Servers
-        {
-            get => _servers;
-            set
-            {
-                _servers = value;
-                NotifyOfPropertyChange();
-            }
-        }
     }
 }

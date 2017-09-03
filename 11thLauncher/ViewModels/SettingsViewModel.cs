@@ -14,6 +14,8 @@ namespace _11thLauncher.ViewModels
 {
     public class SettingsViewModel : PropertyChangedBase
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IFileAccessor _fileAccessor;
@@ -37,6 +39,8 @@ namespace _11thLauncher.ViewModels
 
         private bool _restarting;
 
+        #endregion
+
         public SettingsViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IFileAccessor fileAccessor, ISettingsService settingsService)
         {
             _eventAggregator = eventAggregator;
@@ -47,6 +51,8 @@ namespace _11thLauncher.ViewModels
 
             Load();
         }
+
+        #region Properties
 
         public bool CheckUpdates
         {
@@ -172,68 +178,7 @@ namespace _11thLauncher.ViewModels
             }
         }
 
-        /// <summary>
-        /// Load the application settings from the settings service
-        /// </summary>
-        private void Load()
-        {
-            //Startup
-            CheckUpdates = _settingsService.ApplicationSettings.CheckUpdates;
-            CheckServers = _settingsService.ApplicationSettings.CheckServers;
-            CheckRepository = _settingsService.ApplicationSettings.CheckRepository;
-
-            //Game
-            GamePath = _settingsService.ApplicationSettings.Arma3Path;
-            StartAction = _settingsService.ApplicationSettings.StartAction;
-
-            //Repository
-            JavaVersion = _settingsService.JavaVersion;
-            JavaPath = _settingsService.ApplicationSettings.JavaPath;
-            SyncPath = _settingsService.ApplicationSettings.Arma3SyncPath;
-
-            //Interface
-            SelectedLanguage = Languages.FirstOrDefault(x => x.Equals(_settingsService.ApplicationSettings.Language)) ?? ApplicationConfig.Languages.First();
-            SelectedTheme = _settingsService.ApplicationSettings.ThemeStyle;
-            SelectedAccent = _settingsService.ApplicationSettings.AccentColor;
-            MinimizeNotification = _settingsService.ApplicationSettings.MinimizeNotification;
-        }
-
-        /// <summary>
-        /// Save the application settings to the settings service and write to disk
-        /// </summary>
-        private void Save()
-        {
-            //Startup
-            _settingsService.ApplicationSettings.CheckUpdates = CheckUpdates;
-            _settingsService.ApplicationSettings.CheckServers = CheckServers;
-            _settingsService.ApplicationSettings.CheckRepository = CheckRepository;
-
-            //Game
-            _settingsService.ApplicationSettings.Arma3Path = GamePath;
-            _settingsService.ApplicationSettings.StartAction = StartAction;
-
-            //Repository
-            _settingsService.ApplicationSettings.JavaPath = JavaPath;
-            _settingsService.ApplicationSettings.Arma3SyncPath = SyncPath;
-
-            //Interface
-            _settingsService.ApplicationSettings.Language = SelectedLanguage;
-            _settingsService.ApplicationSettings.ThemeStyle = SelectedTheme;
-            _settingsService.ApplicationSettings.AccentColor = SelectedAccent;
-            _settingsService.ApplicationSettings.MinimizeNotification = MinimizeNotification;
-
-            _settingsService.Write();
-        }
-
-        /// <summary>
-        /// Shut down the launcher and start it again.
-        /// </summary>
-        private void RestartApplication()
-        {
-            _restarting = true;
-            Application.Restart();
-            System.Windows.Application.Current.Shutdown();
-        }
+        #endregion
 
         #region UI Actions
 
@@ -379,6 +324,73 @@ namespace _11thLauncher.ViewModels
         {
             if (_restarting) return;
             Save();
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Load the application settings from the settings service
+        /// </summary>
+        private void Load()
+        {
+            //Startup
+            CheckUpdates = _settingsService.ApplicationSettings.CheckUpdates;
+            CheckServers = _settingsService.ApplicationSettings.CheckServers;
+            CheckRepository = _settingsService.ApplicationSettings.CheckRepository;
+
+            //Game
+            GamePath = _settingsService.ApplicationSettings.Arma3Path;
+            StartAction = _settingsService.ApplicationSettings.StartAction;
+
+            //Repository
+            JavaVersion = _settingsService.JavaVersion;
+            JavaPath = _settingsService.ApplicationSettings.JavaPath;
+            SyncPath = _settingsService.ApplicationSettings.Arma3SyncPath;
+
+            //Interface
+            SelectedLanguage = Languages.FirstOrDefault(x => x.Equals(_settingsService.ApplicationSettings.Language)) ?? ApplicationConfig.Languages.First();
+            SelectedTheme = _settingsService.ApplicationSettings.ThemeStyle;
+            SelectedAccent = _settingsService.ApplicationSettings.AccentColor;
+            MinimizeNotification = _settingsService.ApplicationSettings.MinimizeNotification;
+        }
+
+        /// <summary>
+        /// Save the application settings to the settings service and write to disk
+        /// </summary>
+        private void Save()
+        {
+            //Startup
+            _settingsService.ApplicationSettings.CheckUpdates = CheckUpdates;
+            _settingsService.ApplicationSettings.CheckServers = CheckServers;
+            _settingsService.ApplicationSettings.CheckRepository = CheckRepository;
+
+            //Game
+            _settingsService.ApplicationSettings.Arma3Path = GamePath;
+            _settingsService.ApplicationSettings.StartAction = StartAction;
+
+            //Repository
+            _settingsService.ApplicationSettings.JavaPath = JavaPath;
+            _settingsService.ApplicationSettings.Arma3SyncPath = SyncPath;
+
+            //Interface
+            _settingsService.ApplicationSettings.Language = SelectedLanguage;
+            _settingsService.ApplicationSettings.ThemeStyle = SelectedTheme;
+            _settingsService.ApplicationSettings.AccentColor = SelectedAccent;
+            _settingsService.ApplicationSettings.MinimizeNotification = MinimizeNotification;
+
+            _settingsService.Write();
+        }
+
+        /// <summary>
+        /// Shut down the launcher and start it again.
+        /// </summary>
+        private void RestartApplication()
+        {
+            _restarting = true;
+            Application.Restart();
+            System.Windows.Application.Current.Shutdown();
         }
 
         #endregion

@@ -11,6 +11,8 @@ namespace _11thLauncher.Models
             Type = ParameterType.Text;
         }
 
+        #region Properties
+
         [DataMember(Order = 4)]
         public string Value
         {
@@ -23,6 +25,8 @@ namespace _11thLauncher.Models
         }
 
         public override string LaunchString => Value.Trim();
+
+        #endregion
 
         public void SetStatus(bool enabled, string value)
         {

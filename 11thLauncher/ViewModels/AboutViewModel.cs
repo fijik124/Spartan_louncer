@@ -10,10 +10,15 @@ namespace _11thLauncher.ViewModels
 {
     public class AboutViewModel
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
         private readonly IUpdaterService _updaterService;
 
         private readonly string _assemblyVersion;
+
+        #endregion
+
 
         public AboutViewModel(IEventAggregator eventAggregator, IUpdaterService updaterService)
         {
@@ -24,10 +29,14 @@ namespace _11thLauncher.ViewModels
             _assemblyVersion = string.Join(".", version.Major, version.Minor, version.Build);
         }
 
+        #region Properties
+
         public string Author => string.Format(Resources.Strings.S_LABEL_APP_AUTHOR, ApplicationConfig.Author);
 
-        public string Build => string.Format(Resources.Strings.S_LABEL_BUILD, _assemblyVersion, 
+        public string Build => string.Format(Resources.Strings.S_LABEL_BUILD, _assemblyVersion,
             ApplicationConfig.BuildCodeName, ApplicationConfig.BuildDate.ToShortDateString());
+
+        #endregion
 
         #region UI Actions
 

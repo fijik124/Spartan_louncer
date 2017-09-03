@@ -11,6 +11,8 @@ namespace _11thLauncher.Services
     {
         public SecurityService(ILogger logger) : base(logger) {}
 
+        #region Methods 
+
         public string EncryptPassword(string text)
         {
             if (string.IsNullOrEmpty(text)) return string.Empty;
@@ -61,5 +63,7 @@ namespace _11thLauncher.Services
 
             return hash;
         }
+
+        #endregion
     }
 }

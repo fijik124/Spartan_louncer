@@ -10,11 +10,7 @@ namespace _11thLauncher.Services
 {
     class ParameterService : AbstractService, IParameterService
     {
-        #region Fields
-
         private readonly IFileAccessor _fileAccessor;
-
-        #endregion
 
         public ParameterService(IFileAccessor fileAccessor, ILogger logger) : base(logger)
         {
@@ -205,7 +201,7 @@ namespace _11thLauncher.Services
             allocators32.Add(new ValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
             allocators64.Add(new ValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
 
-            if (arma3Path == "") return;
+            if (arma3Path == string.Empty) return;
 
             try
             {

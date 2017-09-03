@@ -4,14 +4,20 @@ namespace _11thLauncher.Models
 {
     public class NumericalParameter : LaunchParameter
     {
+        #region Fields
+
         private int? _minValue;
         private int? _maxValue;
         private int _value;
+
+        #endregion
 
         public NumericalParameter()
         {
             Type = ParameterType.Numerical;
         }
+
+        #region Properties
 
         public int MinValue
         {
@@ -36,12 +42,14 @@ namespace _11thLauncher.Models
             }
         }
 
+        public override string LaunchString => Name + Value;
+
+        #endregion
+
         public override void CopyStatus(LaunchParameter parameter)
         {
             base.CopyStatus(parameter);
             _value = ((NumericalParameter) parameter)?.Value ?? MinValue;
         }
-
-        public override string LaunchString => Name + Value;
     }
 }

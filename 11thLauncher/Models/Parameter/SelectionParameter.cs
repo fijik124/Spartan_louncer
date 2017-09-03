@@ -13,6 +13,8 @@ namespace _11thLauncher.Models
             Type = ParameterType.Selection;
         }
 
+        #region Properties
+
         public BindableCollection<ValueItem> Values { get; set; }
 
         [DataMember(Order = 4)]
@@ -26,6 +28,10 @@ namespace _11thLauncher.Models
             }
         }
 
+        public override string LaunchString => SelectedValue != null ? Name + SelectedValue.Value : string.Empty;
+
+        #endregion
+
         public override void CopyStatus(LaunchParameter parameter)
         {
             base.CopyStatus(parameter);
@@ -34,7 +40,5 @@ namespace _11thLauncher.Models
                 _selectValueItem = Values.FirstOrDefault(p => p.Value.Equals(((SelectionParameter)parameter)?.SelectedValue?.Value)) ?? Values.FirstOrDefault();
             }
         }
-
-        public override string LaunchString => SelectedValue != null ? Name + SelectedValue.Value : string.Empty;
     }
 }

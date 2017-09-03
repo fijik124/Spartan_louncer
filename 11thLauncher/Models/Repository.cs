@@ -1,23 +1,23 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 
 namespace _11thLauncher.Models
 {
     public class Repository : PropertyChangedBase
     {
+        #region Fields
+
         private string _name;
         private string _path;
-        private RepositoryStatus _status;
+        private RepositoryStatus _status = RepositoryStatus.Unknown;
         private string _address;
         private string _login;
         private string _password;
         private string _localRevision;
         private string _remoteRevision;
 
-        public Repository()
-        {
-            _status = RepositoryStatus.Unknown;
-        }
+        #endregion
+
+        #region Properties
 
         public string Name
         {
@@ -98,5 +98,7 @@ namespace _11thLauncher.Models
                 NotifyOfPropertyChange();
             }
         }
+
+        #endregion
     }
 }

@@ -76,7 +76,7 @@ namespace _11thLauncher.Updater
                 File.Delete(_zipFile);
 
                 //Download version file to check hash
-                string expectedHash = "";
+                string expectedHash = string.Empty;
                 WebClient client = new WebClient();
                 using (Stream stream = client.OpenRead(VersionUri))
                     if (stream != null)

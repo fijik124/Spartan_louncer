@@ -2,16 +2,14 @@
 {
     public class LaunchSettings
     {
-        public LaunchOption LaunchOption;
-        public LaunchPlatform Platform;
-        public string Server = "";
-        public string Port = "";
-        public string Password = "";
+        #region Properties
 
-        public LaunchSettings()
-        {
-            LaunchOption = LaunchOption.Normal;
-            Platform = LaunchPlatform.X86;
-        }
+        public LaunchOption LaunchOption = LaunchOption.Normal; 
+        public LaunchPlatform Platform = LaunchPlatform.X86;
+        public string Server = string.Empty;
+        public string Port = string.Empty;
+        public string Password = string.Empty;
+
+        #endregion
     }
 }

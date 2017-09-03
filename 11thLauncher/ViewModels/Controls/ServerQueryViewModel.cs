@@ -8,11 +8,15 @@ namespace _11thLauncher.ViewModels.Controls
 {
     public class ServerQueryViewModel : PropertyChangedBase, IHandle<SettingsLoadedMessage>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
         private readonly ISettingsService _settingsService;
         private readonly IServerQueryService _serverQueryService;
         private BindableCollection<Server> _servers;
         private Server _selectedServer;
+
+        #endregion
 
         public ServerQueryViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IServerQueryService serverQueryService)
         {
@@ -24,15 +28,35 @@ namespace _11thLauncher.ViewModels.Controls
             Servers = new BindableCollection<Server>();
         }
 
+        #region Properties
+
+        public BindableCollection<Server> Servers
+        {
+            get => _servers;
+            set
+            {
+                _servers = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public Server SelectedServer
+        {
+            get => _selectedServer;
+            set
+            {
+                _selectedServer = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        #endregion
+
         #region Message handling
 
         public void Handle(SettingsLoadedMessage message)
         {
             Servers = _settingsService.Servers;
-            //foreach (Server server in Servers)
-            //{
-            //    CheckServerStatus(server);
-            //}
         }
 
         #endregion
@@ -55,25 +79,5 @@ namespace _11thLauncher.ViewModels.Controls
         }
 
         #endregion
-
-        public BindableCollection<Server> Servers
-        {
-            get => _servers;
-            set
-            {
-                _servers = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        public Server SelectedServer
-        {
-            get => _selectedServer;
-            set
-            {
-                _selectedServer = value;
-                NotifyOfPropertyChange();
-            }
-        }
     }
 }

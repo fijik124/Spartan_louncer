@@ -12,6 +12,8 @@ namespace _11thLauncher.Services
 {
     public class GameService: AbstractService, IGameService
     {
+        #region Fields
+
         private readonly IProcessAccessor _processAccessor;
         private readonly IClipboardAccessor _clipboardAccessor;
 
@@ -22,7 +24,7 @@ namespace _11thLauncher.Services
 
         private bool? _runningAsAdmin;
 
-        public LaunchSettings LaunchSettings { get; }
+        #endregion
 
         public GameService(IProcessAccessor processAccessor, IClipboardAccessor clipboardAccessor, ILogger logger, ISettingsService settingsService, 
             IAddonService addonService, IParameterService parameterService, ISecurityService securityService) : base(logger)
@@ -37,6 +39,10 @@ namespace _11thLauncher.Services
 
             LaunchSettings = new LaunchSettings();
         }
+
+        public LaunchSettings LaunchSettings { get; }
+
+        #region Methods
 
         public LaunchGameResult StartGame()
         {
@@ -53,7 +59,7 @@ namespace _11thLauncher.Services
                     Verb = RunningAsAdmin() ? "runas" : string.Empty
                 }
             };
-            
+
             if (gameParams.Length > 0)
             {
                 process.StartInfo.Arguments = gameParams;
@@ -62,7 +68,7 @@ namespace _11thLauncher.Services
             if (!elevation)
                 result = LaunchGameResult.NoElevation;
             if (!steamRunning)
-                result  = result | LaunchGameResult.NoSteam;
+                result = result | LaunchGameResult.NoSteam;
 
             if (!result.HasFlag(LaunchGameResult.NoElevation) && !result.HasFlag(LaunchGameResult.NoSteam))
             {
@@ -79,17 +85,17 @@ namespace _11thLauncher.Services
 
         public void CopyLaunchShortcut()
         {
-            var shortcut = string.Join(" ", 
-                GetGameExecutablePath(), 
-                GetParameterArguments(), 
-                GetAddonArguments(), 
+            var shortcut = string.Join(" ",
+                GetGameExecutablePath(),
+                GetParameterArguments(),
+                GetAddonArguments(),
                 GetConnectionArguments()).Trim();
 
             _clipboardAccessor.SetText(shortcut);
             Logger.LogInfo("GameService", "Launch shortcut copied to clipboard");
         }
 
-        public bool RunningAsAdmin()
+        private bool RunningAsAdmin()
         {
             if (_runningAsAdmin != null) return _runningAsAdmin.Value;
 
@@ -102,13 +108,13 @@ namespace _11thLauncher.Services
                 _runningAsAdmin = false;
                 Logger.LogException("GameService", "Error checking user elevation", e);
             }
-            
+
             Logger.LogDebug("GameService", $"Checked if the program is running with elevation: {_runningAsAdmin}");
 
             return _runningAsAdmin.Value;
         }
 
-        public bool SteamRunning()
+        private bool SteamRunning()
         {
             bool result;
 
@@ -152,7 +158,7 @@ namespace _11thLauncher.Services
 
         private string GetConnectionArguments()
         {
-            var serverParams = "";
+            var serverParams = string.Empty;
             if (LaunchSettings.LaunchOption != LaunchOption.JoinServer) return serverParams;
 
             if (LaunchSettings.Server.Length > 0)
@@ -173,9 +179,11 @@ namespace _11thLauncher.Services
 
         private string GetGameExecutablePath()
         {
-            return Path.Combine(_settingsService.ApplicationSettings.Arma3Path, LaunchSettings.Platform == LaunchPlatform.X86 ? 
+            return Path.Combine(_settingsService.ApplicationSettings.Arma3Path, LaunchSettings.Platform == LaunchPlatform.X86 ?
                 ApplicationConfig.GameExecutable32 :
                 ApplicationConfig.GameExecutable64);
         }
+
+        #endregion
     }
 }

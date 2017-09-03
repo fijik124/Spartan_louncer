@@ -10,10 +10,14 @@ namespace _11thLauncher.Models
     [DataContract]
     public class Addon : PropertyChangedBase
     {
+        #region Fields
+
         private string _path;
         private string _name;
         private bool _isEnabled;
         private AddonMetaData _metaData;
+
+        #endregion
 
         public Addon() {}
 
@@ -26,6 +30,8 @@ namespace _11thLauncher.Models
             Name = name;
             IsEnabled = enabled;
         }
+
+        #region Properties
 
         /// <summary>
         /// Location of the addon in the file system.
@@ -89,6 +95,11 @@ namespace _11thLauncher.Models
         [JsonIgnore]
         public bool IsLinkAvailable => !string.IsNullOrEmpty(MetaData?.Action);
 
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Set the status of the addon without triggering an event.
         /// </summary>
@@ -109,5 +120,7 @@ namespace _11thLauncher.Models
         {
             return Name.GetHashCode();
         }
+
+        #endregion
     }
 }

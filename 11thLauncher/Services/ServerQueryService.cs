@@ -15,6 +15,8 @@ namespace _11thLauncher.Services
     {
         public ServerQueryService(ILogger logger) : base(logger) { }
 
+        #region Methods
+
         public void GetServerStatus(Server server)
         {
             server.ServerStatus = ServerStatus.Checking;
@@ -93,5 +95,7 @@ namespace _11thLauncher.Services
             Logger.LogDebug("ServerQueryService", $"Resolved IP address of {address}");
             return address.ToString();
         }
+
+        #endregion
     }
 }

@@ -14,9 +14,13 @@ namespace _11thLauncher.Services
 {
     public class ProfileService : AbstractService, IProfileService
     {
+        #region Fields
+
         private readonly IFileAccessor _fileAccessor;
         private readonly IParameterService _parameterService;
         private readonly ISecurityService _securityService;
+
+        #endregion
 
         public ProfileService(IFileAccessor fileAccessor, ILogger logger, IParameterService parameterService, ISecurityService securityService) : base(logger)
         {
@@ -24,6 +28,8 @@ namespace _11thLauncher.Services
             _parameterService = parameterService;
             _securityService = securityService;
         }
+
+        #region Methods
 
         public void Write(UserProfile profile, BindableCollection<Addon> addons, BindableCollection<LaunchParameter> parameters, LaunchSettings launchSettings)
         {
@@ -211,5 +217,7 @@ namespace _11thLauncher.Services
                 }
             }
         }
+
+        #endregion
     }
 }

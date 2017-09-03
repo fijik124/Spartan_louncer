@@ -10,21 +10,73 @@ namespace _11thLauncher.ViewModels.Controls
 {
     public class AddonsViewModel : PropertyChangedBase, IHandle<AddonsLoadedMessage>, IHandle<ProfileLoadedMessage>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
         private readonly IAddonService _addonService;
 
-        private BindableCollection<Preset> _presets;
+        private BindableCollection<Preset> _presets = ApplicationConfig.AddonPresets; 
         private Preset _selectedPreset;
         private Addon _selectedAddon;
+
+        #endregion
 
         public AddonsViewModel(IEventAggregator eventAggregator, IAddonService addonService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
             _addonService = addonService;
-
-            Presets = ApplicationConfig.AddonPresets;
         }
+
+        #region Properties
+
+        public BindableCollection<Preset> Presets
+        {
+            get => _presets;
+            set
+            {
+                _presets = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public Preset SelectedPreset
+        {
+            get => _selectedPreset;
+            set
+            {
+                if (!Equals(_selectedPreset, value))
+                {
+                    _selectedPreset = value;
+                    NotifyOfPropertyChange();
+                }
+            }
+        }
+
+        public BindableCollection<Addon> Addons
+        {
+            get => _addonService.Addons;
+            set
+            {
+                _addonService.Addons = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public Addon SelectedAddon
+        {
+            get => _selectedAddon;
+            set
+            {
+                if (!Equals(_selectedAddon, value))
+                {
+                    _selectedAddon = value;
+                    NotifyOfPropertyChange();
+                }
+            }
+        }
+
+        #endregion
 
         #region Message handling
 
@@ -150,51 +202,5 @@ namespace _11thLauncher.ViewModels.Controls
         }
 
         #endregion
-
-        public BindableCollection<Preset> Presets
-        {
-            get => _presets;
-            set
-            {
-                _presets = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        public Preset SelectedPreset
-        {
-            get => _selectedPreset;
-            set
-            {
-                if (!Equals(_selectedPreset, value))
-                {
-                    _selectedPreset = value;
-                    NotifyOfPropertyChange();
-                }
-            }
-        }
-
-        public BindableCollection<Addon> Addons
-        {
-            get => _addonService.Addons;
-            set
-            {
-                _addonService.Addons = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        public Addon SelectedAddon
-        {
-            get => _selectedAddon;
-            set
-            {
-                if (!Equals(_selectedAddon, value))
-                {
-                    _selectedAddon = value;
-                    NotifyOfPropertyChange();
-                }
-            }
-        }
     }
 }

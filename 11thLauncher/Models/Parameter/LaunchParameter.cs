@@ -6,14 +6,20 @@ namespace _11thLauncher.Models
     [DataContract]
     public class LaunchParameter : PropertyChangedBase
     {
+        #region Fields
+
         private string _name;
         private ParameterPlatform _platform;
         private bool _isEnabled;
+
+        #endregion
 
         public LaunchParameter()
         {
             Platform = ParameterPlatform.Any;
         }
+
+        #region Properties
 
         /// <summary>
         /// Name of the launch parameter.
@@ -65,6 +71,11 @@ namespace _11thLauncher.Models
 
         public virtual string LaunchString => Name;
 
+
+        #endregion
+
+        #region Methods
+
         public virtual void SetStatus(bool enabled)
         {
             _isEnabled = enabled;
@@ -86,5 +97,8 @@ namespace _11thLauncher.Models
         {
             return Name.GetHashCode() * Platform.GetHashCode();
         }
+
+        #endregion
+
     }
 }

@@ -9,12 +9,16 @@ namespace _11thLauncher.ViewModels.Controls
 {
     public class RepositoryStatusViewModel : PropertyChangedBase, IHandle<RepositoriesLoadedMessage>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
         private readonly IAddonSyncService _addonSyncService;
         private readonly ISettingsService _settingsService;
 
         private string _arma3SyncIcon = ApplicationConfig.Arma3SyncIconDisabled;
         private BindableCollection<Repository> _repositories;
+
+        #endregion
 
         public RepositoryStatusViewModel(IEventAggregator eventAggregator, IAddonSyncService addonSyncService, ISettingsService settingsService)
         {
@@ -25,6 +29,8 @@ namespace _11thLauncher.ViewModels.Controls
 
             _repositories = new BindableCollection<Repository>();
         }
+
+        #region Properties
 
         public string Arma3SyncIcon
         {
@@ -48,6 +54,10 @@ namespace _11thLauncher.ViewModels.Controls
 
         public bool Arma3SyncConfigured => !string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath);
 
+        #endregion
+
+        #region Message handling
+
         public void Handle(RepositoriesLoadedMessage message)
         {
             if (string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath)) return;
@@ -66,6 +76,10 @@ namespace _11thLauncher.ViewModels.Controls
             });
         }
 
+        #endregion
+
+        #region UI Actions
+
         public void StartArma3Sync()
         {
             if (string.IsNullOrEmpty(_settingsService.ApplicationSettings.Arma3SyncPath)) return;
@@ -83,6 +97,8 @@ namespace _11thLauncher.ViewModels.Controls
                 });
             }
         }
+
+        #endregion
 
         private void CheckRepository(Repository repository)
         {

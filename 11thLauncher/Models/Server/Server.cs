@@ -5,6 +5,8 @@ namespace _11thLauncher.Models
 {
     public class Server : PropertyChangedBase
     {
+        #region Fields
+
         private string _name;
         private string _address;
         private ushort _port;
@@ -12,6 +14,10 @@ namespace _11thLauncher.Models
         private bool _isEnabled;
         private ServerStatus _serverStatus = ServerStatus.Unknown;
         private ServerInfo _serverInfo;
+
+        #endregion
+
+        #region Properties
 
         [JsonProperty]
         public string Name
@@ -97,7 +103,11 @@ namespace _11thLauncher.Models
                 NotifyOfPropertyChange();
             }
         }
-        
+
+        #endregion
+
+        #region Methods
+
         public override bool Equals(object obj)
         {
             var item = obj as Server;
@@ -109,5 +119,7 @@ namespace _11thLauncher.Models
         {
             return Name.GetHashCode() * Address.GetHashCode() * Port.GetHashCode();
         }
+
+        #endregion
     }
 }
