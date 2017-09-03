@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Timers;
 using System.Windows;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
-using Timer = System.Timers.Timer;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class GameViewModel : PropertyChangedBase, IHandle<ProfileLoadedMessage>, IHandle<FillServerInfoMessage>, IHandle<ApplicationClosingMessage>
+    public class GameViewModel : PropertyChangedBase, IHandle<ProfileLoadedMessage>, IHandle<FillServerInfoMessage>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly ISettingsService _settingsService;
@@ -17,11 +15,6 @@ namespace _11thLauncher.ViewModels.Controls
         private readonly ISecurityService _securityService;
 
         private bool _loadingProfile;
-        private Timer _timer;
-        private string _uacIcon;
-        private string _uacTooltip;
-        private string _steamIcon;
-        private string _steamTooltip;
 
         public GameViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IGameService gameService, ISecurityService securityService)
         {
@@ -31,11 +24,6 @@ namespace _11thLauncher.ViewModels.Controls
             _settingsService = settingsService;
             _gameService = gameService;
             _securityService = securityService;
-
-            _timer = new Timer(30000);
-            _timer.Elapsed += CheckSteam;
-            _timer.AutoReset = true;
-            _timer.Enabled = true;
         }
 
         #region Message handling
@@ -58,9 +46,6 @@ namespace _11thLauncher.ViewModels.Controls
 
             _gameService.LaunchSettings.Password = message.LaunchSettings.Password;
             NotifyOfPropertyChange(() => Password);
-
-            CheckElevation();
-            CheckSteam(null, null);
         }
 
         public void Handle(FillServerInfoMessage message)
@@ -74,13 +59,6 @@ namespace _11thLauncher.ViewModels.Controls
             NotifyOfPropertyChange(() => Port);
 
             _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
-        }
-
-        public void Handle(ApplicationClosingMessage message)
-        {
-            _timer?.Stop();
-            _timer?.Dispose();
-            _timer = null;
         }
 
         #endregion
@@ -142,51 +120,28 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public string UacIcon
-        {
-            get => _uacIcon;
-            set
-            {
-                _uacIcon = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        public string UacTooltip
-        {
-            get => _uacTooltip;
-            set
-            {
-                _uacTooltip = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        public string SteamIcon
-        {
-            get => _steamIcon;
-            set
-            {
-                _steamIcon = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        public string SteamTooltip
-        {
-            get => _steamTooltip;
-            set
-            {
-                _steamTooltip = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
         #region UI Actions
 
         public void ButtonLaunch()
         {
-            _gameService.StartGame();
+            var result = _gameService.StartGame();
+
+            if (result != LaunchGameResult.GameLaunched)
+            {
+                _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                {
+                    Title = Resources.Strings.S_MSG_LAUNCH_ERROR_TITLE,
+                    Content = string.Concat(
+                            result.HasFlag(LaunchGameResult.NoElevation) 
+                            ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION
+                            : string.Empty, 
+                            result.HasFlag(LaunchGameResult.NoSteam)
+                            ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_STEAM
+                            : string.Empty
+                        )
+                });
+                return;
+            }
 
             switch (_settingsService.ApplicationSettings.StartAction)
             {
@@ -209,31 +164,5 @@ namespace _11thLauncher.ViewModels.Controls
         }
 
         #endregion
-
-        private void CheckElevation()
-        {
-            var runningAsAdmin = _gameService.RunningAsAdmin();
-
-            UacIcon = runningAsAdmin
-                ? ApplicationConfig.UacIconEnabled
-                : ApplicationConfig.UacIconDisabled;
-
-            UacTooltip = runningAsAdmin
-                ? Resources.Strings.S_BTN_UAC_ENABLED_TIP
-                : Resources.Strings.S_BTN_UAC_DISABLED_TIP;
-        }
-
-        private void CheckSteam(object source, ElapsedEventArgs e)
-        {
-            var steamRunning = _gameService.SteamRunning();
-
-            SteamIcon = steamRunning
-                ? ApplicationConfig.SteamIconEnabled
-                : ApplicationConfig.SteamIconDisabled;
-
-            SteamTooltip = steamRunning
-                ? Resources.Strings.S_BTN_STEAM_ENABLED_TIP
-                : Resources.Strings.S_BTN_STEAM_DISABLED_TIP;
-        }
     }
 }

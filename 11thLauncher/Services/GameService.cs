@@ -40,9 +40,12 @@ namespace _11thLauncher.Services
             LaunchSettings = new LaunchSettings();
         }
 
-        public void StartGame()
+        public LaunchGameResult StartGame()
         {
+            var result = LaunchGameResult.GameLaunched;
             var gameParams = string.Join(" ", GetParameterArguments(), GetAddonArguments(), GetConnectionArguments()).Trim();
+            var elevation = RunningAsAdmin();
+            var steamRunning = SteamRunning();
 
             Process process = new Process
             {
@@ -58,8 +61,22 @@ namespace _11thLauncher.Services
                 process.StartInfo.Arguments = gameParams;
             }
 
-            _processAccessor.Start(process);
-            _logger.LogInfo("GameService", $"Starting ArmA 3 in {LaunchSettings.Platform}");
+            if (!elevation)
+                result = LaunchGameResult.NoElevation;
+            if (!steamRunning)
+                result  = result | LaunchGameResult.NoSteam;
+
+            if (!result.HasFlag(LaunchGameResult.NoElevation) && !result.HasFlag(LaunchGameResult.NoSteam))
+            {
+                _processAccessor.Start(process);
+                _logger.LogInfo("GameService", $"Starting ArmA 3 in {LaunchSettings.Platform}");
+            }
+            else
+            {
+                _logger.LogInfo("GameService", $"Unable to launch game: {result}");
+            }
+
+            return result;
         }
 
         public void CopyLaunchShortcut()

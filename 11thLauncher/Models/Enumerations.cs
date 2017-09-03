@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace _11thLauncher.Models
 {
@@ -8,6 +9,14 @@ namespace _11thLauncher.Models
         Checking,
         Outdated,
         Updated
+    }
+
+    [Flags]
+    public enum LaunchGameResult
+    {
+        GameLaunched = 1,
+        NoElevation = 2,
+        NoSteam = 4
     }
 
     public enum UpdateCheckResult

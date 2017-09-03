@@ -679,16 +679,13 @@
   <data name="S_PROFILES" xml:space="preserve">
     <value>Profiles</value>
   </data>
-  <data name="S_BTN_UAC_ENABLED_TIP" xml:space="preserve">
-    <value>The game will be launched with administrator privileges</value>
+  <data name="S_MSG_LAUNCH_ERROR_TITLE" xml:space="preserve">
+    <value>Unable to launch game</value>
   </data>
-  <data name="S_BTN_UAC_DISABLED_TIP" xml:space="preserve">
-    <value>Running without admin privileges. The game may fail to start</value>
+  <data name="S_MSG_LAUNCH_ERROR_CONTENT_STEAM" xml:space="preserve">
+    <value>Steam has to be running to launch ArmA 3.</value>
   </data>
-  <data name="S_BTN_STEAM_ENABLED_TIP" xml:space="preserve">
-    <value>Steam is running</value>
-  </data>
-  <data name="S_BTN_STEAM_DISABLED_TIP" xml:space="preserve">
-    <value>Steam is not running. Steam is required to launch ArmA 3</value>
+  <data name="S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION" xml:space="preserve">
+    <value>The launcher has to be run with admin privileges to start ArmA 3. </value>
   </data>
 </root>

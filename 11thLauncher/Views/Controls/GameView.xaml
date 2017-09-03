@@ -45,24 +45,6 @@
             </Rectangle>
         </Button>
 
-        <ToggleButton IsEnabled="False" ToolTip="{Binding UacTooltip}" ToolTipService.ShowOnDisabled="True" Width="40" Height="40" Margin="249,145,318,144" 
-                      Style="{DynamicResource MahApps.Metro.Styles.MetroCircleToggleButtonStyle}" Background="{DynamicResource ControlBorderBrush}">
-            <Rectangle Width="30" Height="30">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="{Binding UacIcon}"/>
-                </Rectangle.Fill>
-            </Rectangle>
-        </ToggleButton>
-
-        <ToggleButton IsEnabled="False" ToolTip="{Binding SteamTooltip}" ToolTipService.ShowOnDisabled="True" Width="40" Height="40" Margin="340,145,227,144" 
-                      Style="{DynamicResource MahApps.Metro.Styles.MetroCircleToggleButtonStyle}" Background="{DynamicResource ControlBorderBrush}">
-            <Rectangle Width="30" Height="30">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="{Binding SteamIcon}"/>
-                </Rectangle.Fill>
-            </Rectangle>
-        </ToggleButton>
-
         <TextBox Text="{Binding Server, Delay=1000}" controls:TextBoxHelper.Watermark="{x:Static resx:Strings.S_SERVER}" controls:TextBoxHelper.UseFloatingWatermark="True"
                  HorizontalAlignment="Left" Width="188" Margin="227,214,0,0" VerticalAlignment="Top" />
 

@@ -699,16 +699,13 @@
   <data name="S_PROFILES" xml:space="preserve">
     <value>Perfiles</value>
   </data>
-  <data name="S_BTN_UAC_ENABLED_TIP" xml:space="preserve">
-    <value>El juego será lanzado con permisos de administrador</value>
+  <data name="S_MSG_LAUNCH_ERROR_TITLE" xml:space="preserve">
+    <value>Imposible lanzar juego</value>
   </data>
-  <data name="S_BTN_UAC_DISABLED_TIP" xml:space="preserve">
-    <value>Ejecutando sin permisos de administrador. El juego puede fallar al iniciar</value>
+  <data name="S_MSG_LAUNCH_ERROR_CONTENT_STEAM" xml:space="preserve">
+    <value>Steam tiene que estar en ejecución para iniciar ArmA 3.</value>
   </data>
-  <data name="S_BTN_STEAM_DISABLED_TIP" xml:space="preserve">
-    <value>Steam no se está ejecutando. Steam es necesario para lanzar ArmA 3</value>
-  </data>
-  <data name="S_BTN_STEAM_ENABLED_TIP" xml:space="preserve">
-    <value>Steam está en ejecución</value>
+  <data name="S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION" xml:space="preserve">
+    <value>El luncher tiene que ser iniciado con permisos de administrador para iniciar ArmA 3. </value>
   </data>
 </root>

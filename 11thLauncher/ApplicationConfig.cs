@@ -164,10 +164,6 @@ namespace _11thLauncher
         public const string LogoDark = "pack://application:,,,/Resources/a3logo_inverted.png";
         public const string Arma3SyncIconEnabled = "pack://application:,,,/Resources/a3sEnabled.png";
         public const string Arma3SyncIconDisabled = "pack://application:,,,/Resources/a3sDisabled.png";
-        public const string UacIconEnabled = "pack://application:,,,/Resources/uac.png";
-        public const string UacIconDisabled = "pack://application:,,,/Resources/uacDisabled.png";
-        public const string SteamIconEnabled = "pack://application:,,,/Resources/steam.png";
-        public const string SteamIconDisabled = "pack://application:,,,/Resources/steamDisabled.png";
 
         //
         // Build info

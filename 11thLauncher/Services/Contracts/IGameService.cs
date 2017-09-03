@@ -6,12 +6,8 @@ namespace _11thLauncher.Services.Contracts
     {
         LaunchSettings LaunchSettings { get; }
 
-        void StartGame();
+        LaunchGameResult StartGame();
 
         void CopyLaunchShortcut();
-
-        bool RunningAsAdmin();
-
-        bool SteamRunning();
     }
 }

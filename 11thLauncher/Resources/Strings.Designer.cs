@@ -565,47 +565,11 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Steam is not running. Steam is required to launch ArmA 3.
-        /// </summary>
-        public static string S_BTN_STEAM_DISABLED_TIP {
-            get {
-                return ResourceManager.GetString("S_BTN_STEAM_DISABLED_TIP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Steam is running.
-        /// </summary>
-        public static string S_BTN_STEAM_ENABLED_TIP {
-            get {
-                return ResourceManager.GetString("S_BTN_STEAM_ENABLED_TIP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toggle status.
         /// </summary>
         public static string S_BTN_TOGGLE_ADDON {
             get {
                 return ResourceManager.GetString("S_BTN_TOGGLE_ADDON", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Running without admin privileges. The game may fail to start.
-        /// </summary>
-        public static string S_BTN_UAC_DISABLED_TIP {
-            get {
-                return ResourceManager.GetString("S_BTN_UAC_DISABLED_TIP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The game will be launched with administrator privileges.
-        /// </summary>
-        public static string S_BTN_UAC_ENABLED_TIP {
-            get {
-                return ResourceManager.GetString("S_BTN_UAC_ENABLED_TIP", resourceCulture);
             }
         }
         
@@ -1164,6 +1128,33 @@ namespace _11thLauncher.Resources {
         public static string S_MSG_INCORRECT_PATH_TITLE {
             get {
                 return ResourceManager.GetString("S_MSG_INCORRECT_PATH_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The launcher has to be run with admin privileges to start ArmA 3. .
+        /// </summary>
+        public static string S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION {
+            get {
+                return ResourceManager.GetString("S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steam has to be running to launch ArmA 3..
+        /// </summary>
+        public static string S_MSG_LAUNCH_ERROR_CONTENT_STEAM {
+            get {
+                return ResourceManager.GetString("S_MSG_LAUNCH_ERROR_CONTENT_STEAM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to launch game.
+        /// </summary>
+        public static string S_MSG_LAUNCH_ERROR_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_LAUNCH_ERROR_TITLE", resourceCulture);
             }
         }
         

@@ -120,7 +120,6 @@
     <Compile Include="Accessors\Contracts\IFileAccessor.cs" />
     <Compile Include="Accessors\Contracts\IProcessAccessor.cs" />
     <Compile Include="Accessors\ProcessAccessor.cs" />
-    <Compile Include="Messages\ApplicationClosingMessage.cs" />
     <Compile Include="Util\ILogger.cs" />
     <Compile Include="Accessors\Contracts\INetworkAccessor.cs" />
     <Compile Include="Accessors\Contracts\IRegistryAccessor.cs" />
@@ -349,18 +348,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\11thLauncher.Updater.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\uac.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\uacDisabled.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\steam.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\steamDisabled.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
