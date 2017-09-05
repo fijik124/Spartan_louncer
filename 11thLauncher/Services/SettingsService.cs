@@ -21,7 +21,6 @@ namespace _11thLauncher.Services
 
         private readonly IFileAccessor _fileAccessor;
         private readonly IRegistryAccessor _registryAccessor;
-        private string _gameVersion;
 
         #endregion
 
@@ -68,20 +67,34 @@ namespace _11thLauncher.Services
 
         public string GetGameVersion()
         {
-            if (!string.IsNullOrEmpty(_gameVersion)) return _gameVersion;
-
             string version = string.Empty;
+            var gamePath = Path.Combine(ApplicationSettings.Arma3Path, ApplicationConfig.GameExecutable32);
+
             if (string.IsNullOrEmpty(ApplicationSettings.Arma3Path))
             {
                 Logger.LogDebug("SettingsService", "Unable to detect game version, path is not set");
                 return version;
             }
 
-            FileVersionInfo info = FileVersionInfo.GetVersionInfo(Path.Combine(ApplicationSettings.Arma3Path, ApplicationConfig.GameExecutable32));
-            version = info.FileVersion + "." + info.FileBuildPart + info.FilePrivatePart;
-            _gameVersion = version;
+            if (!_fileAccessor.FileExists(gamePath))
+            {
+                Logger.LogException("SettingsService", "Unable to detect game version, game executable not found");
+                return version;
+            }
 
-            Logger.LogDebug("SettingsService", "Local game version detected to be: " + version);
+            try
+            {
+                FileVersionInfo info = _fileAccessor.GetFileVersionInfo(Path.Combine(ApplicationSettings.Arma3Path, ApplicationConfig.GameExecutable32));
+                version = info.FileVersion + "." + info.FileBuildPart + info.FilePrivatePart;
+
+                Logger.LogDebug("SettingsService", $"Local game version detected to be: {version}");
+            }
+            catch (Exception e)
+            {
+                version = string.Empty;
+                Logger.LogException("SettingsService", "Error detecting game version", e);
+            }
+
             return version;
         }
 
