@@ -68,7 +68,6 @@ namespace _11thLauncher.Services
         public string GetGameVersion()
         {
             string version = string.Empty;
-            var gamePath = Path.Combine(ApplicationSettings.Arma3Path, ApplicationConfig.GameExecutable32);
 
             if (string.IsNullOrEmpty(ApplicationSettings.Arma3Path))
             {
@@ -76,6 +75,7 @@ namespace _11thLauncher.Services
                 return version;
             }
 
+            var gamePath = Path.Combine(ApplicationSettings.Arma3Path, ApplicationConfig.GameExecutable32);
             if (!_fileAccessor.FileExists(gamePath))
             {
                 Logger.LogException("SettingsService", "Unable to detect game version, game executable not found");
