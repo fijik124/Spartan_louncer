@@ -17,7 +17,8 @@ namespace _11thLauncher.Models
         GameLaunched = 1,
         NoElevation = 2,
         NoSteam = 4,
-        UndefinedPath = 8
+        UndefinedPath = 8,
+        LaunchError = 16
     }
 
     public enum UpdateCheckResult

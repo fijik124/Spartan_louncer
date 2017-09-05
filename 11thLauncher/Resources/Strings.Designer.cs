@@ -1159,6 +1159,15 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unexpected error launching ArmA 3. Check the application log for more details..
+        /// </summary>
+        public static string S_MSG_LAUNCH_ERROR_CONTENT_UNKNOWN {
+            get {
+                return ResourceManager.GetString("S_MSG_LAUNCH_ERROR_CONTENT_UNKNOWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to launch game.
         /// </summary>
         public static string S_MSG_LAUNCH_ERROR_TITLE {

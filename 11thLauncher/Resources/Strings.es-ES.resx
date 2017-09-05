@@ -711,4 +711,7 @@
   <data name="S_MSG_LAUNCH_ERROR_CONTENT_PATH" xml:space="preserve">
     <value>- La ruta del ejecutable de ArmA 3 no está definida.</value>
   </data>
+  <data name="S_MSG_LAUNCH_ERROR_CONTENT_UNKNOWN" xml:space="preserve">
+    <value>Error inesperado lanzando ArmA 3. Comprueba el log de la aplicación para más detalles.</value>
+  </data>
 </root>

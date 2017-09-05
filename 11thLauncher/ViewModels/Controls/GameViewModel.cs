@@ -136,21 +136,36 @@ namespace _11thLauncher.ViewModels.Controls
 
             if (result != LaunchGameResult.GameLaunched)
             {
-                _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                ShowDialogMessage message;
+
+                if (result == LaunchGameResult.LaunchError)
                 {
-                    Title = Resources.Strings.S_MSG_LAUNCH_ERROR_TITLE,
-                    Content = string.Concat(
+                    message = new ShowDialogMessage
+                    {
+                        Title = Resources.Strings.S_MSG_LAUNCH_ERROR_TITLE,
+                        Content = Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_UNKNOWN
+                    };
+                }
+                else
+                {
+                    message = new ShowDialogMessage
+                    {
+                        Title = Resources.Strings.S_MSG_LAUNCH_ERROR_TITLE,
+                        Content = string.Concat(
                             result.HasFlag(LaunchGameResult.UndefinedPath)
-                            ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_PATH + Environment.NewLine
-                            : string.Empty,
-                            result.HasFlag(LaunchGameResult.NoElevation) 
-                            ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION + Environment.NewLine
-                            : string.Empty, 
+                                ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_PATH + Environment.NewLine
+                                : string.Empty,
+                            result.HasFlag(LaunchGameResult.NoElevation)
+                                ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION + Environment.NewLine
+                                : string.Empty,
                             result.HasFlag(LaunchGameResult.NoSteam)
-                            ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_STEAM + Environment.NewLine
-                            : string.Empty
+                                ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_STEAM + Environment.NewLine
+                                : string.Empty
                         )
-                });
+                    };
+                }
+
+                _eventAggregator.PublishOnUIThreadAsync(message);
                 return;
             }
 

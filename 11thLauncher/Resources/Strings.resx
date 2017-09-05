@@ -691,4 +691,7 @@
   <data name="S_MSG_LAUNCH_ERROR_CONTENT_PATH" xml:space="preserve">
     <value>- The ArmA 3 executable path is not defined.</value>
   </data>
+  <data name="S_MSG_LAUNCH_ERROR_CONTENT_UNKNOWN" xml:space="preserve">
+    <value>Unexpected error launching ArmA 3. Check the application log for more details.</value>
+  </data>
 </root>

@@ -74,8 +74,16 @@ namespace _11thLauncher.Services
 
             if (result == LaunchGameResult.GameLaunched) 
             {
-                _processAccessor.Start(process);
-                Logger.LogInfo("GameService", $"Starting ArmA 3 in {LaunchSettings.Platform}");
+                try
+                {
+                    _processAccessor.Start(process);
+                    Logger.LogInfo("GameService", $"Starting ArmA 3 in {LaunchSettings.Platform}");
+                }
+                catch (Exception e)
+                {
+                    result = LaunchGameResult.LaunchError;
+                    Logger.LogException("GameService", "Error starting ArmA 3", e);
+                }
             }
             else
             {
