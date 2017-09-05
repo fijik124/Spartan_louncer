@@ -117,7 +117,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void Presets_SelectionChanged()
         {
-            if (SelectedPreset == null) return;
+            if (SelectedPreset == null || Addons.Count == 0) return;
 
             foreach (var addon in Addons)
             {
