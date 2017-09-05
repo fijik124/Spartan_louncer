@@ -181,6 +181,8 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void ButtonSelectAll()
         {
+            if (Addons.Count == 0) return;
+
             foreach (var addon in Addons)
             {
                 addon.SetStatus(true);
@@ -192,6 +194,8 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void ButtonSelectNone()
         {
+            if (Addons.Count == 0) return;
+
             foreach (var addon in Addons)
             {
                 addon.SetStatus(false);
