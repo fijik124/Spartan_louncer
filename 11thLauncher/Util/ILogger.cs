@@ -6,6 +6,6 @@ namespace _11thLauncher.Util
     {
         void LogDebug(string component, string message);
         void LogInfo(string component, string message);
-        void LogException(string component, string message, Exception e);
+        void LogException(string component, string message, Exception e = null);
     }
 }

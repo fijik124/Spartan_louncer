@@ -37,7 +37,7 @@ namespace _11thLauncher.Util
                 WriteMessageToLog(LogLevel.INFO, component, message);
         }
 
-        public void LogException(string component, string message, Exception e)
+        public void LogException(string component, string message, Exception e = null)
         {
             if (ApplicationConfig.MaxLogLevel >= LogLevel.ERROR)
                 WriteExceptionToLog(component, message, e);
@@ -60,13 +60,11 @@ namespace _11thLauncher.Util
         {
             string logLevelStr = $"[{LogLevel.ERROR}]".PadRight(7);
             string componentStr = component.PadRight(16);
-            string content = string.Format("{1} - {2} {3} - {4} {0}{5}{0}",
-                Environment.NewLine,
-                DateTime.Now,
-                logLevelStr,
-                componentStr,
-                message,
-                e);
+            string content = $"{DateTime.Now} - {logLevelStr} {componentStr} - {message} {Environment.NewLine}";
+
+            if (e != null)
+                content += Environment.NewLine + e;
+
             WriteToLog(content);
         }
 
