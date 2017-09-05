@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Reflection;
+using QueryMaster;
+using QueryMaster.GameServer;
 using _11thLauncher.Accessors.Contracts;
 
 namespace _11thLauncher.Accessors
@@ -20,6 +22,21 @@ namespace _11thLauncher.Accessors
         public string DownloadString(WebClient webClient, string uri)
         {
             return webClient.DownloadString(uri);
+        }
+
+        public Server QueryServerInstance(EngineType type, string ip, ushort port)
+        {
+            return ServerQuery.GetServerInstance(type, ip, port);
+        }
+
+        public ServerInfo GetServerInfo(Server server)
+        {
+            return server.GetInfo();
+        }
+
+        public QueryMasterCollection<PlayerInfo> GetServerPlayers(Server server)
+        {
+            return server.GetPlayers();
         }
 
         //Set allow unsafe header parsing to ignore server protocol violations 

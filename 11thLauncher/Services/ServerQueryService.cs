@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using QueryMaster;
 using QueryMaster.GameServer;
+using _11thLauncher.Accessors.Contracts;
 using _11thLauncher.Models;
 using _11thLauncher.Services.Contracts;
 using _11thLauncher.Util;
@@ -13,7 +14,12 @@ namespace _11thLauncher.Services
 {
     public class ServerQueryService : AbstractService, IServerQueryService
     {
-        public ServerQueryService(ILogger logger) : base(logger) { }
+        private readonly INetworkAccessor _networkAccessor;
+
+        public ServerQueryService(ILogger logger, INetworkAccessor networkAccessor) : base(logger)
+        {
+            _networkAccessor = networkAccessor;
+        }
 
         #region Methods
 
@@ -23,8 +29,8 @@ namespace _11thLauncher.Services
 
             try
             {
-                QueryMaster.GameServer.Server gameServer = ServerQuery.GetServerInstance(EngineType.Source, GetServerIp(server.Address), server.QueryPort);
-                QueryMaster.GameServer.ServerInfo info = gameServer.GetInfo();
+                QueryMaster.GameServer.Server gameServer = _networkAccessor.QueryServerInstance(EngineType.Source, GetServerIp(server.Address), server.QueryPort);
+                QueryMaster.GameServer.ServerInfo info = _networkAccessor.GetServerInfo(gameServer);
                 if (info != null)
                 {
                     ServerInfo serverInfo = new ServerInfo
@@ -39,7 +45,7 @@ namespace _11thLauncher.Services
                         PlayerList = new List<string>()
                     };
 
-                    var players = gameServer.GetPlayers();
+                    var players = _networkAccessor.GetServerPlayers(gameServer);
                     if (players != null)
                     {
                         foreach (PlayerInfo p in players)
@@ -89,10 +95,11 @@ namespace _11thLauncher.Services
 
             if (address == null)
             {
+                Logger.LogException("ServerQueryService", "Error resolving server address");
                 throw new SocketException();
             }
 
-            Logger.LogDebug("ServerQueryService", $"Resolved IP address of {address}");
+            Logger.LogDebug("ServerQueryService", $"Resolved IP address of {url} as {address}");
             return address.ToString();
         }
 
