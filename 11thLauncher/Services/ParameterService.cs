@@ -236,7 +236,7 @@ namespace _11thLauncher.Services
                 }
                 else
                 {
-                    Logger.LogInfo("ParameterService", "Unable to read memory allocators, no \\Dll folder found in the game folder");
+                    Logger.LogException("ParameterService", "Unable to read memory allocators, no \\Dll folder found in the game folder");
                 }
 
                 _malloc32.Values = allocators32;
