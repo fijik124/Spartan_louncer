@@ -63,7 +63,7 @@ namespace _11thLauncher.Util
             string content = $"{DateTime.Now} - {logLevelStr} {componentStr} - {message} {Environment.NewLine}";
 
             if (e != null)
-                content += Environment.NewLine + e;
+                content += e + Environment.NewLine;
 
             WriteToLog(content);
         }
