@@ -20,6 +20,8 @@ namespace _11thLauncher.ViewModels
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IFileAccessor _fileAccessor;
         private readonly ISettingsService _settingsService;
+        private readonly IAddonService _addonService;
+        private readonly IParameterService _parameterService;
 
         private bool _checkUpdates = true;
         private bool _checkServers = true;
@@ -41,13 +43,16 @@ namespace _11thLauncher.ViewModels
 
         #endregion
 
-        public SettingsViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IFileAccessor fileAccessor, ISettingsService settingsService)
+        public SettingsViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IFileAccessor fileAccessor, ISettingsService settingsService,
+            IAddonService addonService, IParameterService parameterService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
             _dialogCoordinator = dialogCoordinator;
             _fileAccessor = fileAccessor;
             _settingsService = settingsService;
+            _addonService = addonService;
+            _parameterService = parameterService;
 
             Load();
         }
@@ -208,7 +213,14 @@ namespace _11thLauncher.ViewModels
                         });
                     return;
                 }
-                
+
+                //Read addons on new path
+                _addonService.ReadAddons(selectedPath);
+                _eventAggregator.PublishOnCurrentThread(new AddonsLoadedMessage());
+
+                //Read memory allocators on new path
+                _parameterService.ReadMemoryAllocators(selectedPath);
+
                 GamePath = selectedPath;
             }
         }
@@ -248,6 +260,7 @@ namespace _11thLauncher.ViewModels
                 }
             }
         }
+
         public async void SelectArma3SyncPath()
         {
             using (var dialog = new FolderBrowserDialog())

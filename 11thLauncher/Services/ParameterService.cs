@@ -10,7 +10,13 @@ namespace _11thLauncher.Services
 {
     class ParameterService : AbstractService, IParameterService
     {
+        #region Fields
+
         private readonly IFileAccessor _fileAccessor;
+        private SelectionParameter _malloc32;
+        private SelectionParameter _malloc64;
+
+        #endregion
 
         public ParameterService(IFileAccessor fileAccessor, ILogger logger) : base(logger)
         {
@@ -100,7 +106,7 @@ namespace _11thLauncher.Services
                 DisplayName = Resources.Strings.S_PARAMETER_HUGE_PAGES,
                 Tooltip = Resources.Strings.S_PARAMETER_HUGE_PAGES_DESC
             };
-            SelectionParameter malloc32 = new SelectionParameter
+            _malloc32 = new SelectionParameter
             {
                 Name = "-malloc=",
                 LegacyName = string.Empty,
@@ -108,7 +114,7 @@ namespace _11thLauncher.Services
                 Tooltip = Resources.Strings.S_PARAMETER_MALLOC_32_DESC,
                 Platform = ParameterPlatform.X86
             };
-            SelectionParameter malloc64 = new SelectionParameter
+            _malloc64 = new SelectionParameter
             {
                 Name = "-malloc=",
                 LegacyName = string.Empty,
@@ -183,8 +189,8 @@ namespace _11thLauncher.Services
                 noLogs,
                 enableHt,
                 hugePages,
-                malloc32,
-                malloc64,
+                _malloc32,
+                _malloc64,
                 memory,
                 videoMemory,
                 cpuCount,
@@ -194,43 +200,57 @@ namespace _11thLauncher.Services
 
             Logger.LogDebug("ParameterService", "Finished parameter initialization");
 
-            //Read allocators
-            BindableCollection<ValueItem> allocators32 = new BindableCollection<ValueItem>();
-            BindableCollection<ValueItem> allocators64 = new BindableCollection<ValueItem>();
+            //Read memory allocators
+            if (!string.IsNullOrEmpty(arma3Path))
+                ReadMemoryAllocators(arma3Path);
+        }
 
-            allocators32.Add(new ValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
-            allocators64.Add(new ValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
-
-            if (string.IsNullOrEmpty(arma3Path)) return;
-
+        public void ReadMemoryAllocators(string arma3Path)
+        {
             try
-            {
+            {                   
                 Logger.LogDebug("ParameterService", "Starting reading memory allocators");
 
-                string[] files = _fileAccessor.GetFiles(Path.Combine(arma3Path, ApplicationConfig.AllocatorsFolder), $"*{ApplicationConfig.AllocatorsPattern32}");
-                foreach (string file in files)
+                BindableCollection<ValueItem> allocators32 = new BindableCollection<ValueItem>();
+                BindableCollection<ValueItem> allocators64 = new BindableCollection<ValueItem>();
+
+                if (_fileAccessor.DirectoryExists(Path.Combine(arma3Path, ApplicationConfig.AllocatorsFolder)))
                 {
-                    if (file.EndsWith(ApplicationConfig.AllocatorsPattern64)) continue;
-                    var name = Path.GetFileNameWithoutExtension(file);
-                    allocators32.Add(new ValueItem(name, name + " (x32)"));
+                    allocators32.Add(new ValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
+                    allocators64.Add(new ValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
+
+                    string[] files = _fileAccessor.GetFiles(Path.Combine(arma3Path, ApplicationConfig.AllocatorsFolder), $"*{ApplicationConfig.AllocatorsPattern32}");
+                    foreach (string file in files)
+                    {
+                        if (file.EndsWith(ApplicationConfig.AllocatorsPattern64)) continue;
+                        var name = Path.GetFileNameWithoutExtension(file);
+                        allocators32.Add(new ValueItem(name, name + " (x32)"));
+                    }
+
+                    string[] filesX64 = _fileAccessor.GetFiles(Path.Combine(arma3Path, ApplicationConfig.AllocatorsFolder), $"*{ApplicationConfig.AllocatorsPattern64}");
+                    foreach (string file in filesX64)
+                    {
+                        var name = Path.GetFileNameWithoutExtension(file);
+                        allocators64.Add(new ValueItem(name, name + " (x64)"));
+                    }
+                }
+                else
+                {
+                    Logger.LogInfo("ParameterService", "Unable to read memory allocators, no \\Dll folder found in the game folder");
                 }
 
-                string[] filesX64 = _fileAccessor.GetFiles(Path.Combine(arma3Path, ApplicationConfig.AllocatorsFolder), $"*{ApplicationConfig.AllocatorsPattern64}");
-                foreach (string file in filesX64)
-                {
-                    var name = Path.GetFileNameWithoutExtension(file);
-                    allocators64.Add(new ValueItem(name, name + " (x64)"));
-                }
-
-                malloc32.Values = allocators32;
-                malloc64.Values = allocators64;
+                _malloc32.Values = allocators32;
+                _malloc64.Values = allocators64;
 
                 Logger.LogDebug("ParameterService", "Finished reading memory allocators");
             }
             catch (Exception e)
             {
+                _malloc32.Values = new BindableCollection<ValueItem>();
+                _malloc64.Values = new BindableCollection<ValueItem>();
+
                 Logger.LogException("ParameterService", "Error reading memory allocators", e);
             }
-        } 
+        }
     }
 }

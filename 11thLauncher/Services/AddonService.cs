@@ -32,11 +32,13 @@ namespace _11thLauncher.Services
 
         public void ReadAddons(string arma3Path)
         {
-            if (string.IsNullOrEmpty(arma3Path) || Addons.Count != 0)
+            if (string.IsNullOrEmpty(arma3Path))
             {
-                Logger.LogDebug("AddonService", "No game path defined or addons already read, skipping reading addons");
+                Logger.LogDebug("AddonService", "No game path defined, skipping reading addons");
                 return;
             };
+
+            Addons.Clear();
 
             string[] directories = _fileAccessor.GetDirectories(arma3Path, ApplicationConfig.AddonSubfolderName, SearchOption.AllDirectories);
             foreach (string directory in directories)

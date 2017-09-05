@@ -6,7 +6,12 @@ namespace _11thLauncher.Models
 {
     public class SelectionParameter : LaunchParameter
     {
+        #region Fields
+
+        private BindableCollection<ValueItem> _values;
         private ValueItem _selectValueItem;
+
+        #endregion
 
         public SelectionParameter()
         {
@@ -15,7 +20,15 @@ namespace _11thLauncher.Models
 
         #region Properties
 
-        public BindableCollection<ValueItem> Values { get; set; }
+        public BindableCollection<ValueItem> Values
+        {
+            get => _values;
+            set
+            {
+                _values = value;
+                NotifyOfPropertyChange();
+            }
+        }
 
         [DataMember(Order = 4)]
         public ValueItem SelectedValue
