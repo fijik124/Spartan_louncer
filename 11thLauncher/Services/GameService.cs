@@ -64,13 +64,15 @@ namespace _11thLauncher.Services
             {
                 process.StartInfo.Arguments = gameParams;
             }
-
+            
+            if (string.IsNullOrEmpty(process.StartInfo.FileName))
+                result = LaunchGameResult.UndefinedPath;
             if (!elevation)
-                result = LaunchGameResult.NoElevation;
+                result = result | LaunchGameResult.NoElevation;
             if (!steamRunning)
                 result = result | LaunchGameResult.NoSteam;
 
-            if (!result.HasFlag(LaunchGameResult.NoElevation) && !result.HasFlag(LaunchGameResult.NoSteam))
+            if (result == LaunchGameResult.GameLaunched) 
             {
                 _processAccessor.Start(process);
                 Logger.LogInfo("GameService", $"Starting ArmA 3 in {LaunchSettings.Platform}");
@@ -179,9 +181,13 @@ namespace _11thLauncher.Services
 
         private string GetGameExecutablePath()
         {
-            return Path.Combine(_settingsService.ApplicationSettings.Arma3Path, LaunchSettings.Platform == LaunchPlatform.X86 ?
-                ApplicationConfig.GameExecutable32 :
-                ApplicationConfig.GameExecutable64);
+            var path = _settingsService.ApplicationSettings.Arma3Path;
+            if (string.IsNullOrEmpty(path)) return string.Empty;
+
+            return Path.Combine(path,
+                LaunchSettings.Platform == LaunchPlatform.X86
+                    ? ApplicationConfig.GameExecutable32
+                    : ApplicationConfig.GameExecutable64);
         }
 
         #endregion

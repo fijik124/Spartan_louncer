@@ -140,11 +140,14 @@ namespace _11thLauncher.ViewModels.Controls
                 {
                     Title = Resources.Strings.S_MSG_LAUNCH_ERROR_TITLE,
                     Content = string.Concat(
+                            result.HasFlag(LaunchGameResult.UndefinedPath)
+                            ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_PATH + Environment.NewLine
+                            : string.Empty,
                             result.HasFlag(LaunchGameResult.NoElevation) 
-                            ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION
+                            ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION + Environment.NewLine
                             : string.Empty, 
                             result.HasFlag(LaunchGameResult.NoSteam)
-                            ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_STEAM
+                            ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_STEAM + Environment.NewLine
                             : string.Empty
                         )
                 });

@@ -703,9 +703,12 @@
     <value>Imposible lanzar juego</value>
   </data>
   <data name="S_MSG_LAUNCH_ERROR_CONTENT_STEAM" xml:space="preserve">
-    <value>Steam tiene que estar en ejecución para iniciar ArmA 3.</value>
+    <value>- Steam tiene que estar en ejecución para iniciar ArmA 3.</value>
   </data>
   <data name="S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION" xml:space="preserve">
-    <value>El luncher tiene que ser iniciado con permisos de administrador para iniciar ArmA 3. </value>
+    <value>- El luncher tiene que ser iniciado con permisos de administrador para iniciar ArmA 3.</value>
+  </data>
+  <data name="S_MSG_LAUNCH_ERROR_CONTENT_PATH" xml:space="preserve">
+    <value>- La ruta del ejecutable de ArmA 3 no está definida.</value>
   </data>
 </root>

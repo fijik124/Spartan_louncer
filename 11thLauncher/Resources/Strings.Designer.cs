@@ -1132,7 +1132,7 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The launcher has to be run with admin privileges to start ArmA 3. .
+        ///   Looks up a localized string similar to - The launcher has to be run with admin privileges to start ArmA 3..
         /// </summary>
         public static string S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION {
             get {
@@ -1141,7 +1141,16 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Steam has to be running to launch ArmA 3..
+        ///   Looks up a localized string similar to - The ArmA 3 executable path is not defined..
+        /// </summary>
+        public static string S_MSG_LAUNCH_ERROR_CONTENT_PATH {
+            get {
+                return ResourceManager.GetString("S_MSG_LAUNCH_ERROR_CONTENT_PATH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Steam has to be running to launch ArmA 3..
         /// </summary>
         public static string S_MSG_LAUNCH_ERROR_CONTENT_STEAM {
             get {

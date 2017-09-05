@@ -201,7 +201,7 @@ namespace _11thLauncher.Services
             allocators32.Add(new ValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
             allocators64.Add(new ValueItem("system", Resources.Strings.S_PARAMETER_MALLOC_SYSTEM));
 
-            if (arma3Path == string.Empty) return;
+            if (string.IsNullOrEmpty(arma3Path)) return;
 
             try
             {
