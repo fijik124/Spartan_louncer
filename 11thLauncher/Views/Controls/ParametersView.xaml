@@ -88,7 +88,7 @@
         <DataTemplate x:Key="ParameterNumericalTemplate" DataType="model:NumericalParameter">
             <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,3">
                 <controls:NumericUpDown Value="{Binding Value, Mode=TwoWay}" IsEnabled="{Binding IsEnabled}" Width="280" Margin="20,0,0,0" FlowDirection="LeftToRight" 
-                                        Minimum="{Binding MinValue}" Maximum="{Binding MaxValue}" HasDecimals="False" />
+                                        Minimum="{Binding MinValue}" Maximum="{Binding MaxValue}" />
                 <CheckBox IsChecked="{Binding IsEnabled}" Margin="10,0,0,0" />
                 <Label Content="{Binding Path=DisplayName}" ContentStringFormat=":{0}" Width="260">
                     <Label.ToolTip>
