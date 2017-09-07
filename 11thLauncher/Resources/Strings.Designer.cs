@@ -1060,24 +1060,6 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unhandled domain exception.
-        /// </summary>
-        public static string S_MSG_GENERIC_DOMAIN_EXCEPTION {
-            get {
-                return ResourceManager.GetString("S_MSG_GENERIC_DOMAIN_EXCEPTION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unhandled exception.
-        /// </summary>
-        public static string S_MSG_GENERIC_EXCEPTION {
-            get {
-                return ResourceManager.GetString("S_MSG_GENERIC_EXCEPTION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The selected folder does not contain a valid Arma3Sync installation.
         /// </summary>
         public static string S_MSG_INCORRECT_ARMA3SYNC_PATH_CONTENT {
@@ -1695,15 +1677,6 @@ namespace _11thLauncher.Resources {
         public static string S_PLATFORM_64 {
             get {
                 return ResourceManager.GetString("S_PLATFORM_64", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default (32).
-        /// </summary>
-        public static string S_PLATFORM_ANY {
-            get {
-                return ResourceManager.GetString("S_PLATFORM_ANY", resourceCulture);
             }
         }
         

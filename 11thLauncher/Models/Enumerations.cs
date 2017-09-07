@@ -67,13 +67,8 @@ namespace _11thLauncher.Models
 
     public enum ParameterPlatform
     {
-        [Description("S_PLATFORM_32")]
         X86,
-
-        [Description("S_PLATFORM_64")]
         X64,
-
-        [Description("S_PLATFORM_ANY")]
         Any
     }
 

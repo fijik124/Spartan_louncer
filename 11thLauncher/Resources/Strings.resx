@@ -151,12 +151,6 @@
   <data name="S_LAUNCH_NORMAL" xml:space="preserve">
     <value>Start ArmA 3</value>
   </data>
-  <data name="S_MSG_GENERIC_DOMAIN_EXCEPTION" xml:space="preserve">
-    <value>Unhandled domain exception</value>
-  </data>
-  <data name="S_MSG_GENERIC_EXCEPTION" xml:space="preserve">
-    <value>Unhandled exception</value>
-  </data>
   <data name="S_MSG_PATH_CONTENT" xml:space="preserve">
     <value>The execution path has not been auto-detected, select it manually on the settings window before using the application</value>
   </data>
@@ -267,9 +261,6 @@
   </data>
   <data name="S_PLATFORM_64" xml:space="preserve">
     <value>64 bits</value>
-  </data>
-  <data name="S_PLATFORM_ANY" xml:space="preserve">
-    <value>Default (32)</value>
   </data>
   <data name="S_PLATFORM_TIP" xml:space="preserve">
     <value>Type of ArmA 3 executable to launch</value>

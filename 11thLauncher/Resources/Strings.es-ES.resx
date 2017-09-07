@@ -177,9 +177,6 @@
   <data name="S_PLATFORM_64" xml:space="preserve">
     <value>64 bits</value>
   </data>
-  <data name="S_PLATFORM_ANY" xml:space="preserve">
-    <value>Por defecto (32)</value>
-  </data>
   <data name="S_PLATFORM_TIP" xml:space="preserve">
     <value>Tipo de ejecutable de ArmA 3 a lanzar</value>
   </data>
@@ -233,12 +230,6 @@
   </data>
   <data name="S_PARAMETER_ADDITIONAL_DESC" xml:space="preserve">
     <value>Otros parámetros a utilizar</value>
-  </data>
-  <data name="S_MSG_GENERIC_DOMAIN_EXCEPTION" xml:space="preserve">
-    <value>Excepción global no controlada</value>
-  </data>
-  <data name="S_MSG_GENERIC_EXCEPTION" xml:space="preserve">
-    <value>Excepción no controlada</value>
   </data>
   <data name="S_MSG_PATH_CONTENT" xml:space="preserve">
     <value>La ruta de ejecución no ha sido autodetectada, indicala manualmente en la ventana de opciones antes de empezar a utilizar la aplicación</value>
