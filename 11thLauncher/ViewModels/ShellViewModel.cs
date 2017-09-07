@@ -333,6 +333,38 @@ namespace _11thLauncher.ViewModels
             _windowManager.ShowDialog(IoC.Get<SettingsViewModel>());
         }
 
+        public void ButtonUpdate()
+        {
+            Task.Run(() =>
+            {
+                var updateCheckResult = _updaterService.CheckUpdates();
+                if (updateCheckResult.Equals(UpdateCheckResult.UpdateAvailable))
+                {
+                    _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                    {
+                        Title = Resources.Strings.S_MSG_UPDATE_TITLE,
+                        Content = Resources.Strings.S_MSG_UPDATE_CONTENT
+                    });
+                }
+                else if (updateCheckResult.Equals(UpdateCheckResult.NoUpdateAvailable))
+                {
+                    _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                    {
+                        Title = Resources.Strings.S_MSG_NO_UPDATES_TITLE,
+                        Content = Resources.Strings.S_MSG_NO_UPDATES_CONTENT
+                    });
+                }
+                else
+                {
+                    _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                    {
+                        Title = Resources.Strings.S_MSG_UPDATE_ERROR_TITLE,
+                        Content = Resources.Strings.S_MSG_UPDATE_ERROR_CONTENT
+                    });
+                }
+            });
+        }
+
         public void ButtonAbout()
         {
             _windowManager.ShowDialog(IoC.Get<AboutViewModel>());

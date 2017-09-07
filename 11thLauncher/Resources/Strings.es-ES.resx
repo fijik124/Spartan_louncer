@@ -714,4 +714,16 @@
   <data name="S_MSG_LAUNCH_ERROR_CONTENT_UNKNOWN" xml:space="preserve">
     <value>Error inesperado lanzando ArmA 3. Comprueba el log de la aplicación para más detalles.</value>
   </data>
+  <data name="S_MSG_NO_UPDATES_TITLE" xml:space="preserve">
+    <value>No hay actualizaciones disponibles</value>
+  </data>
+  <data name="S_MSG_NO_UPDATES_CONTENT" xml:space="preserve">
+    <value>Dispones de la última versión disponible del programa</value>
+  </data>
+  <data name="S_MSG_UPDATE_ERROR_TITLE" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="S_MSG_UPDATE_ERROR_CONTENT" xml:space="preserve">
+    <value>Se ha producido un error comprobando actualizaciones. Inténtalo de nuevo más tarde</value>
+  </data>
 </root>

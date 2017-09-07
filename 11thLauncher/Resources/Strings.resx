@@ -694,4 +694,16 @@
   <data name="S_MSG_LAUNCH_ERROR_CONTENT_UNKNOWN" xml:space="preserve">
     <value>Unexpected error launching ArmA 3. Check the application log for more details.</value>
   </data>
+  <data name="S_MSG_NO_UPDATES_TITLE" xml:space="preserve">
+    <value>No updates available</value>
+  </data>
+  <data name="S_MSG_NO_UPDATES_CONTENT" xml:space="preserve">
+    <value>You have the latest available version of the program</value>
+  </data>
+  <data name="S_MSG_UPDATE_ERROR_TITLE" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="S_MSG_UPDATE_ERROR_CONTENT" xml:space="preserve">
+    <value>There has been an error checking updates. Try again later</value>
+  </data>
 </root>

@@ -1177,6 +1177,24 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have the latest available version of the program.
+        /// </summary>
+        public static string S_MSG_NO_UPDATES_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_NO_UPDATES_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No updates available.
+        /// </summary>
+        public static string S_MSG_NO_UPDATES_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_NO_UPDATES_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The execution path has not been auto-detected, select it manually on the settings window before using the application.
         /// </summary>
         public static string S_MSG_PATH_CONTENT {
@@ -1218,6 +1236,24 @@ namespace _11thLauncher.Resources {
         public static string S_MSG_UPDATE_CONTENT {
             get {
                 return ResourceManager.GetString("S_MSG_UPDATE_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There has been an error checking updates. Try again later.
+        /// </summary>
+        public static string S_MSG_UPDATE_ERROR_CONTENT {
+            get {
+                return ResourceManager.GetString("S_MSG_UPDATE_ERROR_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string S_MSG_UPDATE_ERROR_TITLE {
+            get {
+                return ResourceManager.GetString("S_MSG_UPDATE_ERROR_TITLE", resourceCulture);
             }
         }
         

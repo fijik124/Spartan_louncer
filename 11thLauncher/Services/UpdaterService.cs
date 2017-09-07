@@ -19,7 +19,11 @@ namespace _11thLauncher.Services
         private readonly INetworkAccessor _networkAccessor;
 
         private readonly string _assemblyVersion;
+
+        //Request caching
         private string _lastEtag = string.Empty; //Latest entity tag for caching
+        private GithubRelease _release;
+        private bool _updated;
 
         #endregion
 
@@ -52,22 +56,22 @@ namespace _11thLauncher.Services
                 try
                 {
                     string releaseStr = _networkAccessor.DownloadString(client, ApplicationConfig.GithubApiReleaseEndpoint);
-                    GithubRelease release = JsonConvert.DeserializeObject<GithubRelease>(releaseStr);
-                    var updated = false;
+                    _release = JsonConvert.DeserializeObject<GithubRelease>(releaseStr);
+                    _updated = false;
 
-                    if (!string.IsNullOrEmpty(release.tag_name))
+                    if (!string.IsNullOrEmpty(_release.tag_name))
                     {
-                        var latestVersion = release.tag_name;
+                        var latestVersion = _release.tag_name;
 
                         if (latestVersion != null)
                         {
-                            updated = latestVersion.Equals(string.Format(ApplicationConfig.GithubVersionTagFormat, _assemblyVersion));
+                            _updated = latestVersion.Equals(string.Format(ApplicationConfig.GithubVersionTagFormat, _assemblyVersion));
                         }
                     }
 
                     _lastEtag = client.ResponseHeaders[HttpResponseHeader.ETag];
 
-                    return updated ? UpdateCheckResult.UpdateAvailable : UpdateCheckResult.NoUpdateAvailable;
+                    return _updated ? UpdateCheckResult.UpdateAvailable : UpdateCheckResult.NoUpdateAvailable;
                 }
                 catch (WebException e)
                 {
@@ -81,9 +85,13 @@ namespace _11thLauncher.Services
                             var rateHeader = int.TryParse(e.Response.Headers["X-RateLimit-Remaining"], out rateRemaining);
                             if (rateHeader && rateRemaining == 0)
                             {
+                                Logger.LogInfo("UpdaterService", "The rate limit for the GitHub API has been reached");
                                 return UpdateCheckResult.ErrorRateExceeded;
                             }
                             break;
+
+                        case HttpStatusCode.NotModified:
+                            return _updated ? UpdateCheckResult.UpdateAvailable : UpdateCheckResult.NoUpdateAvailable;
 
                         default:
                             Logger.LogException("UpdaterService", "Unexpected HTTP response received", new ArgumentOutOfRangeException(nameof(webException.StatusCode)));

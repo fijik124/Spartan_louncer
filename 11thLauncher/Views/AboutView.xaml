@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:resx="clr-namespace:_11thLauncher.Resources"
-        xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
         Title="{x:Static resx:Strings.S_APP_ABOUT}" TitleCharacterCasing="Normal" 
         Height="282" Width="375"
@@ -14,21 +13,6 @@
         ResizeMode="NoResize"
         BorderThickness="0" GlowBrush="Black" 
         WindowStartupLocation="CenterOwner">
-    <controls:MetroWindow.RightWindowCommands>
-        <controls:WindowCommands ShowLastSeparator="False">
-            <Button cal:Message.Attach="ButtonUpdate" 
-                    ToolTip="{x:Static resx:Strings.S_BTN_UPDATE_TIP}" >
-                <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="18" Height="18" Margin="0,0,5,0" Fill="{DynamicResource MenuItemBackgroundBrush}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_refresh}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBlock Margin="0,1,0,0"><Run Text="{x:Static resx:Strings.S_BTN_UPDATE}"/></TextBlock>
-                </StackPanel>
-            </Button>
-        </controls:WindowCommands>
-    </controls:MetroWindow.RightWindowCommands>
 
     <Grid>
         <Label Content="{x:Static resx:Strings.S_APP_NAME}" 
