@@ -82,8 +82,11 @@ namespace _11thLauncher.ViewModels.Controls
             get => _securityService.DecryptPassword(_gameService.LaunchSettings.Password);
             set
             {
+                if (_securityService.DecryptPassword(_gameService.LaunchSettings.Password) == value) return; //Skip event if no change in value
+
                 _gameService.LaunchSettings.Password = _securityService.EncryptPassword(value);
                 NotifyOfPropertyChange();
+
                 if (_loadingProfile) { _loadingProfile = false; return; } //Avoid profile write when loading profile
                 _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
