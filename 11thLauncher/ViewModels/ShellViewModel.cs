@@ -310,8 +310,8 @@ namespace _11thLauncher.ViewModels
             var serverVersionInfo = serverVersion.Split('.');
             if (gameVersionInfo.Length != 3 || serverVersionInfo.Length != 3) return;
 
-            int gameBuild = Convert.ToInt32(gameVersionInfo[2]);
-            int serverBuild = Convert.ToInt32(serverVersionInfo[2]);
+            int gameBuild = Convert.ToInt32(gameVersionInfo[1]);
+            int serverBuild = Convert.ToInt32(serverVersionInfo[1]);
             if (gameBuild == serverBuild)
             {
                 ShowVersionMismatch = Visibility.Hidden;
