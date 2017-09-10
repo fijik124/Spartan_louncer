@@ -26,17 +26,22 @@ namespace _11thLauncher
             new Preset
             {
                 Name = "Guerra Moderna",
-                Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@meu_fleet", "@rhsafrf", "@rhsgref", "@rhsusaf" }
+                Addons = new[] { "@cba_a3", "@ace", "@acex", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@meu_fleet", "@rhsafrf", "@rhsgref", "@rhsusaf" }
             },
             new Preset
             {
                 Name = "Guerra Moderna [ALiVE]",
-                Addons = new[] { "@cba_a3", "@ace", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@meu_fleet", "@rhsafrf", "@rhsgref", "@rhsusaf", "@alive" }
+                Addons = new[] { "@cba_a3", "@ace", "@acex", "@acre2", "@cup_terrains", "@meu", "@meu_maps", "@meu_rhs", "@meu_fleet", "@rhsafrf", "@rhsgref", "@rhsusaf", "@alive" }
             },
             new Preset
             {
                 Name = "Vietnam [Unsung]",
-                Addons = new[] { "@cba_a3", "@ace", "@acre2", "@meu", "@unsung" }
+                Addons = new[] { "@cba_a3", "@ace", "@acex", "@acre2", "@meu", "@unsung" }
+            },
+            new Preset
+            {
+                Name = "WW2 [IFA/FOW]",
+                Addons = new[] { "@cba_a3", "@ace", "@acex", "@acre2", "@cup_terrains", "@ifa3_aio_lite", "@faces_of_war", "@ifa3_fow_compat" }
             }
         };
 
