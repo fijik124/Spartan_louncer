@@ -83,17 +83,25 @@ namespace _11thLauncher
             },
             new Server
             {
-                Name = "Test",
+                Name = "Vietnam",
                 Address = "11thmeu.es",
-                Port = 2342,
+                Port = 2352,
                 IsDefault = true,
                 IsEnabled = true
             },
             new Server
             {
-                Name = "Vietnam",
+                Name = "WW2",
                 Address = "11thmeu.es",
-                Port = 2352,
+                Port = 2362,
+                IsDefault = true,
+                IsEnabled = true
+            },
+            new Server
+            {
+                Name = "Test",
+                Address = "11thmeu.es",
+                Port = 2342,
                 IsDefault = true,
                 IsEnabled = true
             }
