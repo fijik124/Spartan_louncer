@@ -122,8 +122,16 @@ namespace _11thLauncher.Services
 
         public void RemoveUpdater()
         {
-            Logger.LogDebug("UpdaterService", "Deleting updater file");
-            _fileAccessor.DeleteFile(ApplicationConfig.UpdaterPath);
+            if (_fileAccessor.FileExists(ApplicationConfig.LegacyUpdaterPath))
+            {
+                Logger.LogInfo("UpdaterService", "Deleting legacy updater file");
+                _fileAccessor.DeleteFile(ApplicationConfig.LegacyUpdaterPath);
+            }
+            else
+            {
+                Logger.LogDebug("UpdaterService", "Deleting updater file");
+                _fileAccessor.DeleteFile(ApplicationConfig.UpdaterPath);
+            }
         }
 
         private void NotifyUpdates(UpdateCheckResult updateCheckResult, bool manual)
