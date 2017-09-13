@@ -84,6 +84,8 @@ namespace _11thLauncher.ViewModels
             var loadResult = _settingsService.Read();
             if (loadResult.Equals(LoadSettingsResult.LoadedLegacySettings))
             {
+                parameterService.InitializeParameters(_settingsService.ApplicationSettings.Arma3Path);
+                eventAggregator.PublishOnCurrentThread(new ParametersInitializedMessage(parameterService.Parameters));
                 profileService.PortLegacyProfiles(_settingsService.UserProfiles);
             }
 
@@ -120,8 +122,11 @@ namespace _11thLauncher.ViewModels
             eventAggregator.PublishOnCurrentThread(new ThemeChangedMessage(style, accent));
 
             //Initialize startup parameters and read memory allocators from game folder
-            parameterService.InitializeParameters(_settingsService.ApplicationSettings.Arma3Path);
-            eventAggregator.PublishOnCurrentThread(new ParametersInitializedMessage(parameterService.Parameters));
+            if (loadResult != LoadSettingsResult.LoadedLegacySettings)
+            {
+                parameterService.InitializeParameters(_settingsService.ApplicationSettings.Arma3Path);
+                eventAggregator.PublishOnCurrentThread(new ParametersInitializedMessage(parameterService.Parameters));
+            }
 
             //Read addons
             addonService.ReadAddons(_settingsService.ApplicationSettings.Arma3Path);
