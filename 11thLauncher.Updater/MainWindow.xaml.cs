@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Diagnostics;
+using System.Linq;
 
 namespace _11thLauncher.Updater
 {
@@ -18,19 +19,22 @@ namespace _11thLauncher.Updater
         private readonly string _executionPath;
         private readonly string _zipFile = Path.GetTempPath() + "11thLauncher.zip";
         private readonly string _exeFile = Path.GetTempPath() + "11thLauncher.exe";
+        private readonly string _md5File = Path.GetTempPath() + "11thLauncher.zip.md5";
         private readonly Uri _downloadUri;
-        private const string VersionUri = "http://raw.githubusercontent.com/11thmeu/launcher/master/bin/version";
+        private readonly Uri _hashDownloadUri;
 
-        public MainWindow(string executionPath, string downloadUri)
+        public MainWindow(string executionPath, string downloadUri, string hashUri)
         {
             InitializeComponent();
 
             _executionPath = executionPath;
             _downloadUri = new Uri(downloadUri);
+            _hashDownloadUri = new Uri(hashUri);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            DownloadHashFile();
             DownloadUpdate();
         }
 
@@ -42,7 +46,7 @@ namespace _11thLauncher.Updater
                 client.DownloadProgressChanged += (s, e) =>
                 {
                     //Update download status
-                    label_status.Content = "Descargando actualización: " + (e.BytesReceived / 1000) + "KB de " + (e.TotalBytesToReceive / 1000) + "KB (" + e.ProgressPercentage + "%)";
+                    label_status.Content = (e.BytesReceived / 1000) + "KB / " + (e.TotalBytesToReceive / 1000) + "KB (" + e.ProgressPercentage + "%)";
                     progressBar.Value = e.ProgressPercentage;
                 };
                 client.DownloadFileCompleted += (s, e) =>
@@ -71,29 +75,15 @@ namespace _11thLauncher.Updater
                 //Wait to make sure the launcher has closed
                 Thread.Sleep(1000);
 
-                //Extract zip file and delete it
-                ZipFile.ExtractToDirectory(_zipFile, Path.GetTempPath());
-                File.Delete(_zipFile);
-
-                //Download version file to check hash
-                string expectedHash = string.Empty;
-                WebClient client = new WebClient();
-                using (Stream stream = client.OpenRead(VersionUri))
-                    if (stream != null)
-                    {
-                        using (StreamReader reader = new StreamReader(stream))
-                        {
-                            string versionRaw = reader.ReadToEnd();
-                            string[] versionData = versionRaw.Split('\n');
-                            expectedHash = versionData[5];
-                        }
-                    }
+                //Get hash from downloaded hash file
+                string expectedHash = File.ReadAllLines(_md5File).First().Split(' ').First();
+                File.Delete(_md5File);
 
                 //Verify hash
                 string hexHash;
                 using (var md5 = MD5.Create())
                 {
-                    using (var stream = File.OpenRead(_exeFile))
+                    using (var stream = File.OpenRead(_zipFile))
                     {
                         byte[] rawHash = md5.ComputeHash(stream);
 
@@ -109,6 +99,10 @@ namespace _11thLauncher.Updater
 
                 //If hash doesn't match throw exception
                 if (hexHash != expectedHash) throw new InvalidDataException();
+
+                //Extract zip file and delete it
+                ZipFile.ExtractToDirectory(_zipFile, Path.GetTempPath());
+                File.Delete(_zipFile);
 
                 //Delete original launcher and move new one
                 File.Delete(_executionPath);
@@ -137,9 +131,28 @@ namespace _11thLauncher.Updater
             }
         }
 
+        private void DownloadHashFile()
+        {
+            try
+            {
+                WebClient client = new WebClient();
+
+                //Delete previous temp file if it exists
+                File.Delete(_md5File);
+
+                //Download file
+                client.DownloadFile(_hashDownloadUri, _md5File);
+            }
+            catch (Exception)
+            {
+                CleanUp();
+            }
+        }
+
         private void CleanUp()
         {
             //Cleanup, delete temp files
+            File.Delete(_md5File);
             File.Delete(_zipFile);
             File.Delete(_exeFile);
 
