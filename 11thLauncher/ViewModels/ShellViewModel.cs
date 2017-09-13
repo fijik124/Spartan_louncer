@@ -11,7 +11,7 @@ using _11thLauncher.ViewModels.Controls;
 
 namespace _11thLauncher.ViewModels
 {
-    public class ShellViewModel : PropertyChangedBase, IHandle<ShowDialogMessage>, IHandle<ThemeChangedMessage>, IHandle<ServerQueryFinished>
+    public class ShellViewModel : PropertyChangedBase, IHandle<ShowDialogMessage>, IHandle<ShowQuestionDialogMessage>, IHandle<ThemeChangedMessage>, IHandle<ServerQueryFinished>
     {
         #region Fields
 
@@ -159,22 +159,12 @@ namespace _11thLauncher.ViewModels
                 _eventAggregator.PublishOnUIThreadAsync(new RepositoriesLoadedMessage(repositories));
             });
 
-
+            //Check program updates
             if (_settingsService.ApplicationSettings.CheckUpdates)
             {
-                Task.Run(() =>
-                {
-                    var updateCheckResult = _updaterService.CheckUpdates();
-                    if (updateCheckResult.Equals(UpdateCheckResult.UpdateAvailable))
-                    {
-                        _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
-                        {
-                            Title = Resources.Strings.S_MSG_UPDATE_TITLE,
-                            Content = Resources.Strings.S_MSG_UPDATE_CONTENT
-                        });
-                    }
-                });
+                Task.Run(() => { _updaterService.CheckUpdates(false); });
             }
+
             //Check local game version
             GameVersion = _settingsService.GetGameVersion();
 
@@ -294,6 +284,17 @@ namespace _11thLauncher.ViewModels
             _dialogCoordinator.ShowMessageAsync(this, message.Title, message.Content);
         }
 
+        public async void Handle(ShowQuestionDialogMessage message)
+        {
+            MessageDialogResult result = await _dialogCoordinator.ShowMessageAsync(this, message.Title, message.Content,
+                MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings
+                {
+                    AffirmativeButtonText = Resources.Strings.S_MSG_OPTION_YES,
+                    NegativeButtonText = Resources.Strings.S_MSG_OPTION_NO
+                });
+            message.Callback(result);
+        }
+
         public void Handle(ThemeChangedMessage message)
         {
             _settingsService.UpdateThemeAndAccent(message.Theme, message.Accent);
@@ -335,34 +336,7 @@ namespace _11thLauncher.ViewModels
 
         public void ButtonUpdate()
         {
-            Task.Run(() =>
-            {
-                var updateCheckResult = _updaterService.CheckUpdates();
-                if (updateCheckResult.Equals(UpdateCheckResult.UpdateAvailable))
-                {
-                    _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
-                    {
-                        Title = Resources.Strings.S_MSG_UPDATE_TITLE,
-                        Content = Resources.Strings.S_MSG_UPDATE_CONTENT
-                    });
-                }
-                else if (updateCheckResult.Equals(UpdateCheckResult.NoUpdateAvailable))
-                {
-                    _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
-                    {
-                        Title = Resources.Strings.S_MSG_NO_UPDATES_TITLE,
-                        Content = Resources.Strings.S_MSG_NO_UPDATES_CONTENT
-                    });
-                }
-                else
-                {
-                    _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
-                    {
-                        Title = Resources.Strings.S_MSG_UPDATE_ERROR_TITLE,
-                        Content = Resources.Strings.S_MSG_UPDATE_ERROR_CONTENT
-                    });
-                }
-            });
+            Task.Run(() => { _updaterService.CheckUpdates(true); });
         }
 
         public void ButtonAbout()

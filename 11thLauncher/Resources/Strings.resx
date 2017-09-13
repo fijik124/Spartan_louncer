@@ -632,7 +632,7 @@
     <value>Update available</value>
   </data>
   <data name="S_MSG_UPDATE_CONTENT" xml:space="preserve">
-    <value>There is a new update available</value>
+    <value>There is a new update available. Do you want to update now?</value>
   </data>
   <data name="S_BTN_UPDATE_TIP" xml:space="preserve">
     <value>Check for updates</value>
@@ -696,5 +696,11 @@
   </data>
   <data name="S_MSG_UPDATE_ERROR_CONTENT" xml:space="preserve">
     <value>There has been an error checking updates. Try again later</value>
+  </data>
+  <data name="S_MSG_OPTION_YES" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="S_MSG_OPTION_NO" xml:space="preserve">
+    <value>No</value>
   </data>
 </root>

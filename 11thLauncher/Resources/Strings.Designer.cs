@@ -1177,6 +1177,24 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string S_MSG_OPTION_NO {
+            get {
+                return ResourceManager.GetString("S_MSG_OPTION_NO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string S_MSG_OPTION_YES {
+            get {
+                return ResourceManager.GetString("S_MSG_OPTION_YES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The execution path has not been auto-detected, select it manually on the settings window before using the application.
         /// </summary>
         public static string S_MSG_PATH_CONTENT {
@@ -1213,7 +1231,7 @@ namespace _11thLauncher.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is a new update available.
+        ///   Looks up a localized string similar to There is a new update available. Do you want to update now?.
         /// </summary>
         public static string S_MSG_UPDATE_CONTENT {
             get {

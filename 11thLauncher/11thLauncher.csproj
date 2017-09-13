@@ -120,6 +120,7 @@
     <Compile Include="Accessors\Contracts\IFileAccessor.cs" />
     <Compile Include="Accessors\Contracts\IProcessAccessor.cs" />
     <Compile Include="Accessors\ProcessAccessor.cs" />
+    <Compile Include="Messages\ShowQuestionDialogMessage.cs" />
     <Compile Include="Services\AbstractService.cs" />
     <Compile Include="Services\LegacySettingsService.cs" />
     <Compile Include="Util\ILogger.cs" />

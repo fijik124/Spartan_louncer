@@ -9,6 +9,6 @@ namespace _11thLauncher.Services.Contracts
         /// </summary>
         void RemoveUpdater();
 
-        UpdateCheckResult CheckUpdates();
+        void CheckUpdates(bool manual);
     }
 }
