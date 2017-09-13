@@ -5,7 +5,7 @@
 
 <p align="center">
     <a href="https://github.com/11thmeu/launcher/releases/latest">
-        <img src="https://img.shields.io/badge/Release-Delta|2.1.0-blue.svg" alt="Latest Release">
+        <img src="https://img.shields.io/badge/Release-Echo|3.0.0-blue.svg" alt="Latest Release">
     </a>
     <a href="https://raw.githubusercontent.com/11thmeu/launcher/master/LICENSE">
         <img src="https://img.shields.io/badge/license-GPLv2-blue.svg" alt="GitHub License">
