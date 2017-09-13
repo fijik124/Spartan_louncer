@@ -15,18 +15,12 @@ namespace _11thLauncher.ViewModels
     {
         #region Fields
 
-        private readonly IEventAggregator _eventAggregator;
         private readonly IDialogCoordinator _dialogCoordinator;
         private readonly IWindowManager _windowManager;
 
         private readonly ILogger _logger;
         private readonly ISettingsService _settingsService;
-        private readonly IProfileService _profileService;
-        private readonly IAddonService _addonService;
-        private readonly IParameterService _parameterService;
-        private readonly IAddonSyncService _addonSyncService;
         private readonly IUpdaterService _updaterService;
-        private readonly IGameService _launcherService;
 
         private WindowState _windowState;
         private Visibility _showTrayIcon = Visibility.Hidden;
@@ -42,19 +36,13 @@ namespace _11thLauncher.ViewModels
             ISettingsService settingsService, IAddonService addonService, IAddonSyncService addonSyncService, IUpdaterService updaterService, 
             IParameterService parameterService, IGameService launcherService, IProfileService profileService)
         {
-            _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
+            eventAggregator.Subscribe(this);
             _dialogCoordinator = DialogCoordinator.Instance;
             _windowManager = windowManager;
 
             _logger = logger;
             _settingsService = settingsService;
-            _profileService = profileService;
-            _addonService = addonService;
-            _addonSyncService = addonSyncService;
             _updaterService = updaterService;
-            _parameterService = parameterService;
-            _launcherService = launcherService;
 
             StatusbarControl = IoC.Get<StatusbarViewModel>();
             ProfileSelectorControl = IoC.Get<ProfileSelectorViewModel>();
@@ -72,7 +60,7 @@ namespace _11thLauncher.ViewModels
             if (Program.Updated)
             {
                 _updaterService.RemoveUpdater();
-                _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
                 {
                     Title = Resources.Strings.S_MSG_UPDATE_SUCCESS_TITLE,
                     Content = Resources.Strings.S_MSG_UPDATE_SUCCESS_CONTENT
@@ -84,7 +72,7 @@ namespace _11thLauncher.ViewModels
             if (Program.UpdateFailed)
             {
                 _updaterService.RemoveUpdater();
-                _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
                 {
                     Title = Resources.Strings.S_MSG_UPDATE_FAIL_TITLE,
                     Content = Resources.Strings.S_MSG_UPDATE_FAIL_CONTENT
@@ -96,7 +84,7 @@ namespace _11thLauncher.ViewModels
             var loadResult = _settingsService.Read();
             if (loadResult.Equals(LoadSettingsResult.LoadedLegacySettings))
             {
-                _profileService.PortLegacyProfiles(_settingsService.UserProfiles);
+                profileService.PortLegacyProfiles(_settingsService.UserProfiles);
             }
 
             //If there were no existing settings or failed to load, start first time load process
@@ -105,7 +93,7 @@ namespace _11thLauncher.ViewModels
                 _settingsService.ReadPath();
                 if (string.IsNullOrWhiteSpace(_settingsService.ApplicationSettings.Arma3Path))
                 {
-                    _eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
+                    eventAggregator.PublishOnUIThreadAsync(new ShowDialogMessage
                     {
                         Title = Resources.Strings.S_MSG_PATH_TITLE,
                         Content = Resources.Strings.S_MSG_PATH_CONTENT
@@ -121,42 +109,42 @@ namespace _11thLauncher.ViewModels
                 _settingsService.Write();
 
                 //Write default profile
-                _profileService.Write(defaultProfile, _addonService.Addons, _parameterService.Parameters, _launcherService.LaunchSettings);
+                profileService.Write(defaultProfile, addonService.Addons, parameterService.Parameters, launcherService.LaunchSettings);
             }
 
-            _eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
+            eventAggregator.PublishOnCurrentThread(new SettingsLoadedMessage());
 
             //Set application style
             var style = _settingsService.ApplicationSettings.ThemeStyle;
             var accent = _settingsService.ApplicationSettings.AccentColor;
-            _eventAggregator.PublishOnCurrentThread(new ThemeChangedMessage(style, accent));
+            eventAggregator.PublishOnCurrentThread(new ThemeChangedMessage(style, accent));
 
             //Initialize startup parameters and read memory allocators from game folder
-            _parameterService.InitializeParameters(_settingsService.ApplicationSettings.Arma3Path);
-            _eventAggregator.PublishOnCurrentThread(new ParametersInitializedMessage(_parameterService.Parameters));
+            parameterService.InitializeParameters(_settingsService.ApplicationSettings.Arma3Path);
+            eventAggregator.PublishOnCurrentThread(new ParametersInitializedMessage(parameterService.Parameters));
 
             //Read addons
-            _addonService.ReadAddons(_settingsService.ApplicationSettings.Arma3Path);
-            _eventAggregator.PublishOnCurrentThread(new AddonsLoadedMessage());
+            addonService.ReadAddons(_settingsService.ApplicationSettings.Arma3Path);
+            eventAggregator.PublishOnCurrentThread(new AddonsLoadedMessage());
 
             //Add profiles and load default
-            _eventAggregator.PublishOnCurrentThread(new ProfileAddedMessage(_settingsService.UserProfiles));
-            _eventAggregator.PublishOnCurrentThread(new LoadProfileMessage(_settingsService.DefaultProfile));
+            eventAggregator.PublishOnCurrentThread(new ProfileAddedMessage(_settingsService.UserProfiles));
+            eventAggregator.PublishOnCurrentThread(new LoadProfileMessage(_settingsService.DefaultProfile));
 
             //Read repository settings
             Task.Run(() =>
             {
-                _settingsService.JavaVersion = _addonSyncService.GetJavaInSystem();
+                _settingsService.JavaVersion = addonSyncService.GetJavaInSystem();
 
-                if (!_addonSyncService.AddonSyncPathIsValid(_settingsService.ApplicationSettings.Arma3SyncPath))
+                if (!addonSyncService.AddonSyncPathIsValid(_settingsService.ApplicationSettings.Arma3SyncPath))
                 {
                     //If Arma3Sync path not valid try to get from registry
-                    _settingsService.ApplicationSettings.Arma3SyncPath = _addonSyncService.GetAddonSyncPath();
+                    _settingsService.ApplicationSettings.Arma3SyncPath = addonSyncService.GetAddonSyncPath();
                     _settingsService.Write();
                 }
 
-                var repositories = _addonSyncService.ReadRepositories(_settingsService.ApplicationSettings.Arma3SyncPath);
-                _eventAggregator.PublishOnUIThreadAsync(new RepositoriesLoadedMessage(repositories));
+                var repositories = addonSyncService.ReadRepositories(_settingsService.ApplicationSettings.Arma3SyncPath);
+                eventAggregator.PublishOnUIThreadAsync(new RepositoriesLoadedMessage(repositories));
             });
 
             //Check program updates
