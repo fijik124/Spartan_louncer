@@ -1,132 +1,195 @@
 ﻿using System;
-using System.Windows.Controls;
+using System.Windows;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
-using _11thLauncher.Model;
-using _11thLauncher.Model.Addon;
-using _11thLauncher.Model.Game;
-using _11thLauncher.Model.Parameter;
-using _11thLauncher.Model.Settings;
-using _11thLauncher.Properties;
+using _11thLauncher.Models;
+using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class GameViewModel : PropertyChangedBase
+    public class GameViewModel : PropertyChangedBase, IHandle<ProfileLoadedMessage>, IHandle<FillServerInfoMessage>
     {
-        private readonly IEventAggregator _eventAggregator;
-        private readonly LaunchManager _launchManager;
-        private readonly AddonManager _addonManager;
-        private readonly ParameterManager _parameterManager;
-        private readonly SettingsManager _settingsManager;
-        private LaunchOption _launchOption;
-        private Platform _platform;
-        private Priority _priority;
-        private string _server;
-        private string _port;
+        #region Fields
 
-        public GameViewModel(IEventAggregator eventAggregator, LaunchManager launchManager, 
-            AddonManager addonManager, ParameterManager parameterManager, SettingsManager settingsManager)
+        private readonly IEventAggregator _eventAggregator;
+        private readonly ISettingsService _settingsService;
+        private readonly IGameService _gameService;
+        private readonly ISecurityService _securityService;
+
+        private bool _loadingProfile;
+
+        #endregion
+
+        public GameViewModel(IEventAggregator eventAggregator, ISettingsService settingsService, IGameService gameService, ISecurityService securityService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
 
-            _launchManager = launchManager;
-            _addonManager = addonManager;
-            _parameterManager = parameterManager;
-            _settingsManager = settingsManager;
+            _settingsService = settingsService;
+            _gameService = gameService;
+            _securityService = securityService;
         }
+
+        #region Properties
 
         public LaunchOption LaunchOption
         {
-            get { return _launchOption; }
+            get => _gameService.LaunchSettings.LaunchOption;
             set
             {
-                _launchOption = value;
+                _gameService.LaunchSettings.LaunchOption = value;
                 NotifyOfPropertyChange();
+                if (_loadingProfile) return;
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
         }
 
-        public Platform Platform
+        public LaunchPlatform Platform
         {
-            get { return _platform; }
+            get => _gameService.LaunchSettings.Platform;
             set
             {
-                _platform = value;
+                _gameService.LaunchSettings.Platform = value;
                 NotifyOfPropertyChange();
-            }
-        }
-
-        public Priority Priority
-        {
-            get { return _priority; }
-            set
-            {
-                _priority = value;
-                NotifyOfPropertyChange();
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
         }
 
         public string Server
         {
-            get { return _server; }
+            get => _gameService.LaunchSettings.Server;
             set
             {
-                _server = value;
+                _gameService.LaunchSettings.Server = value;
                 NotifyOfPropertyChange();
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
         }
 
         public string Port
         {
-            get { return _port; }
+            get => _gameService.LaunchSettings.Port;
             set
             {
-                _port = value;
+                _gameService.LaunchSettings.Port = value;
                 NotifyOfPropertyChange();
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
             }
         }
 
+        public string Password
+        {
+            get => _securityService.DecryptPassword(_gameService.LaunchSettings.Password);
+            set
+            {
+                if (_securityService.DecryptPassword(_gameService.LaunchSettings.Password) == value) return; //Skip event if no change in value
+
+                _gameService.LaunchSettings.Password = _securityService.EncryptPassword(value);
+                NotifyOfPropertyChange();
+
+                if (_loadingProfile) { _loadingProfile = false; return; } //Avoid profile write when loading profile
+                _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
+            }
+        }
+
+        #endregion
+
+        #region Message handling
+
+        public void Handle(ProfileLoadedMessage message)
+        {
+            _loadingProfile = true;
+
+            _gameService.LaunchSettings.LaunchOption = message.LaunchSettings.LaunchOption;
+            NotifyOfPropertyChange(() => LaunchOption);
+
+            _gameService.LaunchSettings.Platform = message.LaunchSettings.Platform;
+            NotifyOfPropertyChange(() => Platform);
+
+            _gameService.LaunchSettings.Server = message.LaunchSettings.Server;
+            NotifyOfPropertyChange(() => Server);
+
+            _gameService.LaunchSettings.Port = message.LaunchSettings.Port;
+            NotifyOfPropertyChange(() => Port);
+
+            _gameService.LaunchSettings.Password = message.LaunchSettings.Password;
+            NotifyOfPropertyChange(() => Password);
+        }
+
+        public void Handle(FillServerInfoMessage message)
+        {
+            if (message.Server == null) return;
+
+            _gameService.LaunchSettings.Server = message.Server.Address;
+            NotifyOfPropertyChange(() => Server);
+
+            _gameService.LaunchSettings.Port = message.Server.Port.ToString();
+            NotifyOfPropertyChange(() => Port);
+
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
+        }
+
+        #endregion
+
         #region UI Actions
 
-        public void ButtonLaunch(PasswordBox passwordBox)
+        public void ButtonLaunch()
         {
-            var error = _launchManager.StartGame(_settingsManager.Arma3Path, _addonManager.Addons, _parameterManager.Parameters,
-                LaunchOption, Platform, Priority, 
-                Server, Port, passwordBox.Password);
+            var result = _gameService.StartGame();
 
-            switch (error)
+            if (result != LaunchGameResult.GameLaunched)
             {
-                case LaunchError.NoSteam:
-                    _eventAggregator.PublishOnUIThread(new ShowDialogMessage
+                ShowDialogMessage message;
+
+                if (result == LaunchGameResult.LaunchError)
+                {
+                    message = new ShowDialogMessage
                     {
-                        Title = Resources.S_MSG_NO_STEAM_TITLE,
-                        Content = Resources.S_MSG_NO_STEAM_CONTENT
-                    });
-                    break;
-
-                case LaunchError.NoGamePath:
-                    _eventAggregator.PublishOnUIThread(new ShowDialogMessage
+                        Title = Resources.Strings.S_MSG_LAUNCH_ERROR_TITLE,
+                        Content = Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_UNKNOWN
+                    };
+                }
+                else
+                {
+                    message = new ShowDialogMessage
                     {
-                        Title = Resources.S_MSG_PATH_TITLE,
-                        Content = Resources.S_MSG_PATH_CONTENT
-                    });
-                    break;
+                        Title = Resources.Strings.S_MSG_LAUNCH_ERROR_TITLE,
+                        Content = string.Concat(
+                            result.HasFlag(LaunchGameResult.UndefinedPath)
+                                ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_PATH + Environment.NewLine
+                                : string.Empty,
+                            result.HasFlag(LaunchGameResult.NoElevation)
+                                ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION + Environment.NewLine
+                                : string.Empty,
+                            result.HasFlag(LaunchGameResult.NoSteam)
+                                ? Resources.Strings.S_MSG_LAUNCH_ERROR_CONTENT_STEAM + Environment.NewLine
+                                : string.Empty
+                        )
+                    };
+                }
 
-                case LaunchError.NoElevation:
-                    _eventAggregator.PublishOnUIThread(new ShowDialogMessage
-                    {
-                        Title = Resources.S_MSG_ELEVATION_TITLE,
-                        Content = Resources.S_MSG_ELEVATION_CONTENT
-                    });
-                    break;
-
-                case LaunchError.None:
-                    break;
-
-                default:
-                    _eventAggregator.PublishOnUIThread(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(error)), GetType().Name));
-                    break;
+                _eventAggregator.PublishOnUIThreadAsync(message);
+                return;
             }
+
+            switch (_settingsService.ApplicationSettings.StartAction)
+            {
+                case StartAction.Minimize:
+                    Application.Current.MainWindow.WindowState = WindowState.Minimized;
+                    break;
+                case StartAction.Close:
+                    Application.Current.Shutdown();
+                    break;
+                case StartAction.Nothing:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void ButtonCopyToClipboard()
+        {
+            _gameService.CopyLaunchShortcut();
         }
 
         #endregion

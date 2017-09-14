@@ -1,17 +1,31 @@
-﻿using _11thLauncher.Model.Parameter;
+﻿using System.ComponentModel;
+using System.Linq;
+using System.Windows.Data;
 using Caliburn.Micro;
+using _11thLauncher.Messages;
+using _11thLauncher.Models;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class ParametersViewModel : PropertyChangedBase
+    public class ParametersViewModel : PropertyChangedBase, IHandle<ParametersInitializedMessage>, IHandle<ProfileLoadedMessage>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
-        private readonly ParameterManager _parameterManager;
 
         private BindableCollection<LaunchParameter> _parameters;
+
+        #endregion
+
+        public ParametersViewModel(IEventAggregator eventAggregator)
+        {
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
+        }
+
         public BindableCollection<LaunchParameter> Parameters
         {
-            get { return _parameters; }
+            get => _parameters;
             set
             {
                 _parameters = value;
@@ -19,13 +33,43 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public ParametersViewModel(IEventAggregator eventAggregator, ParameterManager parameterManager)
-        {
-            _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
-            _parameterManager = parameterManager;
+        #region Message handling
 
-            Parameters = _parameterManager.Parameters;
+        public void Handle(ParametersInitializedMessage message)
+        {
+            Parameters = message.Parameters;
+            foreach (LaunchParameter parameter in Parameters)
+            {
+                parameter.PropertyChanged += Parameter_StatusChanged;
+            }
         }
+
+        public void Handle(ProfileLoadedMessage message)
+        {
+            //Reset all parameters before loading
+            foreach (LaunchParameter parameter in Parameters)
+            {
+                parameter.SetStatus(false);
+            }
+
+            foreach (var parameter in Parameters)
+            {
+                var profileParameter = message.Parameters.FirstOrDefault(parameter.Equals);
+                parameter.CopyStatus(profileParameter);
+            }
+
+            CollectionViewSource.GetDefaultView(Parameters).Refresh();
+        }
+
+        #endregion
+
+        #region UI Actions
+
+        private void Parameter_StatusChanged(object sender, PropertyChangedEventArgs e)
+        {
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
+        }
+
+        #endregion
     }
 }

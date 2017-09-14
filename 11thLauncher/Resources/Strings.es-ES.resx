@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="S_BTN_SETTINGS" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="S_VERSION_MISMATCH" xml:space="preserve">
+    <value>Tu versión de ArmA 3 ({0}) no concuerda con la uno o más servidores ({1})</value>
+  </data>
+  <data name="S_ADDON_PRESETS" xml:space="preserve">
+    <value>Presets de addons</value>
+  </data>
+  <data name="S_APP_ABOUT" xml:space="preserve">
+    <value>Acerca de 11th MEU Launcher</value>
+  </data>
+  <data name="S_APP_NAME" xml:space="preserve">
+    <value>11th MEU Launcher</value>
+  </data>
+  <data name="S_APP_SETTINGS" xml:space="preserve">
+    <value>Opciones 11th MEU Launcher</value>
+  </data>
+  <data name="S_BTN_ABOUT" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="S_BTN_ABOUT_TIP" xml:space="preserve">
+    <value>Acerca del launcher</value>
+  </data>
+  <data name="S_BTN_ADDONS_DOWN_TIP" xml:space="preserve">
+    <value>Mover abajo seleccionado</value>
+  </data>
+  <data name="S_BTN_ADDONS_UP_TIP" xml:space="preserve">
+    <value>Mover arriba seleccionado</value>
+  </data>
+  <data name="S_BTN_SETTINGS_TIP" xml:space="preserve">
+    <value>Abrir ventana de opciones</value>
+  </data>
+  <data name="S_DEFAULT_PROFILE_NAME" xml:space="preserve">
+    <value>Predeterminado</value>
+  </data>
+  <data name="S_GAME_NAME" xml:space="preserve">
+    <value>ArmA 3</value>
+  </data>
+  <data name="S_LABEL_BUILD" xml:space="preserve">
+    <value>Build {0} [{1}] - {2}</value>
+  </data>
+  <data name="S_LABEL_APP_AUTHOR" xml:space="preserve">
+    <value>Creado por {0}</value>
+  </data>
+  <data name="S_LABEL_LICENSE" xml:space="preserve">
+    <value>Este programa está distribuido bajo licencia GNU GPL v2. El programa utiliza código de las siguientes librerias externas:</value>
+  </data>
+  <data name="S_LAUNCH_JOIN_SERVER" xml:space="preserve">
+    <value>Conectar al servidor</value>
+  </data>
+  <data name="S_LAUNCH_NORMAL" xml:space="preserve">
+    <value>Iniciar ArmA 3</value>
+  </data>
+  <data name="S_PLATFORM_32" xml:space="preserve">
+    <value>32 bits</value>
+  </data>
+  <data name="S_PLATFORM_64" xml:space="preserve">
+    <value>64 bits</value>
+  </data>
+  <data name="S_PLATFORM_TIP" xml:space="preserve">
+    <value>Tipo de ejecutable de ArmA 3 a lanzar</value>
+  </data>
+  <data name="S_PORT" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="S_PRIORITY" xml:space="preserve">
+    <value>Prioridad:</value>
+  </data>
+  <data name="S_PRIORITY_ABOVENORMAL" xml:space="preserve">
+    <value>Encima de lo normal</value>
+  </data>
+  <data name="S_PRIORITY_HIGH" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="S_PRIORITY_NORMAL" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="S_PRIORITY_TIP" xml:space="preserve">
+    <value>Prioridad del proceso de ArmA 3 en Windows</value>
+  </data>
+  <data name="S_SERVER" xml:space="preserve">
+    <value>Servidor</value>
+  </data>
+  <data name="S_SETTINGS_GENERAL" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="S_START_ACTION_CLOSE" xml:space="preserve">
+    <value>Cerrar la aplicación</value>
+  </data>
+  <data name="S_START_ACTION_MINIMIZE" xml:space="preserve">
+    <value>Minimizar la aplicación</value>
+  </data>
+  <data name="S_START_ACTION_NONE" xml:space="preserve">
+    <value>No hacer nada</value>
+  </data>
+  <data name="S_STATUS_READY" xml:space="preserve">
+    <value>Listo</value>
+  </data>
+  <data name="S_PASSWORD" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="S_PLATFORM" xml:space="preserve">
+    <value>Plataforma:</value>
+  </data>
+  <data name="S_MSG_PATH_TITLE" xml:space="preserve">
+    <value>Ruta de ejecución</value>
+  </data>
+  <data name="S_PARAMETER_ADDITIONAL" xml:space="preserve">
+    <value>Parámetros adicionales</value>
+  </data>
+  <data name="S_PARAMETER_ADDITIONAL_DESC" xml:space="preserve">
+    <value>Otros parámetros a utilizar</value>
+  </data>
+  <data name="S_MSG_PATH_CONTENT" xml:space="preserve">
+    <value>La ruta de ejecución no ha sido autodetectada, indicala manualmente en la ventana de opciones antes de empezar a utilizar la aplicación</value>
+  </data>
+  <data name="S_PARAMETER_EMPTY_WORLD" xml:space="preserve">
+    <value>Mundo vacío</value>
+  </data>
+  <data name="S_PARAMETER_COMMAND" xml:space="preserve">
+    <value>Parametro de linea de comandos</value>
+  </data>
+  <data name="S_PARAMETER_EMPTY_WORLD_DESC" xml:space="preserve">
+    <value>No cargar ningún mapa por defecto</value>
+  </data>
+  <data name="S_PARAMETER_FILE_PATCHING" xml:space="preserve">
+    <value>Activar parcheo de archivos</value>
+  </data>
+  <data name="S_PARAMETER_FILE_PATCHING_DESC" xml:space="preserve">
+    <value>Permite cargar datos no empaquetados</value>
+  </data>
+  <data name="S_PARAMETER_HUGE_PAGES" xml:space="preserve">
+    <value>Soporte para páginas grandes de memoria</value>
+  </data>
+  <data name="S_PARAMETER_HUGE_PAGES_DESC" xml:space="preserve">
+    <value>Activa el soporte para páginas grandes en la memoria</value>
+  </data>
+  <data name="S_PARAMETER_HYPERTHREADING" xml:space="preserve">
+    <value>Activar Hyper-Threading</value>
+  </data>
+  <data name="S_PARAMETER_WINDOW_DESC" xml:space="preserve">
+    <value>Ejecuta el juego en modo ventana</value>
+  </data>
+  <data name="S_PARAMETERS" xml:space="preserve">
+    <value>Parámetros</value>
+  </data>
+  <data name="S_PARAMETER_WINDOW" xml:space="preserve">
+    <value>Forzar modo ventana</value>
+  </data>
+  <data name="S_PARAMETER_SKIP_INTRO_DESC" xml:space="preserve">
+    <value>Desactiva la escena en el menú principal</value>
+  </data>
+  <data name="S_PARAMETER_SKIP_INTRO" xml:space="preserve">
+    <value>Fondo estático en menú</value>
+  </data>
+  <data name="S_PARAMETER_SHOW_ERRORS_DESC" xml:space="preserve">
+    <value>Muestra los errores de scripts en pantalla</value>
+  </data>
+  <data name="S_PARAMETER_SHOW_ERRORS" xml:space="preserve">
+    <value>Mostrar errores de script</value>
+  </data>
+  <data name="S_PARAMETER_NO_SPLASH" xml:space="preserve">
+    <value>Desactivar logos al iniciar</value>
+  </data>
+  <data name="S_PARAMETER_NO_SPLASH_DESC" xml:space="preserve">
+    <value>Desactiva las pantallas de inicio</value>
+  </data>
+  <data name="S_PARAMETER_NO_PAUSE_DESC" xml:space="preserve">
+    <value>Permite seguir ejecutando el juego incluso cuando la ventana no está activa</value>
+  </data>
+  <data name="S_PARAMETER_NO_PAUSE" xml:space="preserve">
+    <value>No pausar</value>
+  </data>
+  <data name="S_PARAMETER_NO_MULTICORE_DESC" xml:space="preserve">
+    <value>Desactiva el uso de múltiples núcleos</value>
+  </data>
+  <data name="S_PARAMETER_NO_MULTICORE" xml:space="preserve">
+    <value>Desactivar multinúcleo</value>
+  </data>
+  <data name="S_PARAMETER_NO_LOGS_DESC" xml:space="preserve">
+    <value>No guardar errores al log .RPT</value>
+  </data>
+  <data name="S_PARAMETER_NO_LOGS" xml:space="preserve">
+    <value>No logs</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_SYSTEM" xml:space="preserve">
+    <value>Sistema (Windows)</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_64_DESC" xml:space="preserve">
+    <value>Selecciona el asignador de memoria a utilizar</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_64" xml:space="preserve">
+    <value>Asignador de memoria - 64-bit</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_32_DESC" xml:space="preserve">
+    <value>Selecciona el asignador de memoria a utilizar</value>
+  </data>
+  <data name="S_PARAMETER_MALLOC_32" xml:space="preserve">
+    <value>Asignador de memoria - 32-bit</value>
+  </data>
+  <data name="S_PARAMETER_HYPERTHREADING_DESC" xml:space="preserve">
+    <value>Activa la utilización de núcleos de CPU con Hyper-Threading</value>
+  </data>
+  <data name="S_LABEL_STARTUP_OPTIONS" xml:space="preserve">
+    <value>Opciones de inicio</value>
+  </data>
+  <data name="S_CHECKBOX_CHECK_UPDATES" xml:space="preserve">
+    <value>Comprobar actualizaciones al iniciar la aplicación</value>
+  </data>
+  <data name="S_CHECKBOX_CHECK_REPOSITORY" xml:space="preserve">
+    <value>Comprobar repositorio al iniciar la aplicación (requiere Java y Arma3Sync configurados)</value>
+  </data>
+  <data name="S_CHECKBOX_CHECK_SERVERS" xml:space="preserve">
+    <value>Comprobar estado de los servidores al iniciar la aplicación</value>
+  </data>
+  <data name="S_ACCENT_RED" xml:space="preserve">
+    <value>Rojo</value>
+  </data>
+  <data name="S_ACCENT_GREEN" xml:space="preserve">
+    <value>Verde</value>
+  </data>
+  <data name="S_ACCENT_BLUE" xml:space="preserve">
+    <value>Azul</value>
+  </data>
+  <data name="S_ACCENT_PURPLE" xml:space="preserve">
+    <value>Morado</value>
+  </data>
+  <data name="S_ACCENT_ORANGE" xml:space="preserve">
+    <value>Naranja</value>
+  </data>
+  <data name="S_ACCENT_LIME" xml:space="preserve">
+    <value>Lima</value>
+  </data>
+  <data name="S_ACCENT_EMERALD" xml:space="preserve">
+    <value>Esmeralda</value>
+  </data>
+  <data name="S_ACCENT_TEAL" xml:space="preserve">
+    <value>Teja</value>
+  </data>
+  <data name="S_ACCENT_CYAN" xml:space="preserve">
+    <value>Cian</value>
+  </data>
+  <data name="S_ACCENT_COBALT" xml:space="preserve">
+    <value>Cobalto</value>
+  </data>
+  <data name="S_ACCENT_INDIGO" xml:space="preserve">
+    <value>Añil</value>
+  </data>
+  <data name="S_ACCENT_VIOLET" xml:space="preserve">
+    <value>Violeta</value>
+  </data>
+  <data name="S_ACCENT_PINK" xml:space="preserve">
+    <value>Rosa</value>
+  </data>
+  <data name="S_ACCENT_MAGENTA" xml:space="preserve">
+    <value>Magenta</value>
+  </data>
+  <data name="S_ACCENT_CRIMSON" xml:space="preserve">
+    <value>Carmesí</value>
+  </data>
+  <data name="S_ACCENT_AMBER" xml:space="preserve">
+    <value>Ambar</value>
+  </data>
+  <data name="S_ACCENT_YELLOW" xml:space="preserve">
+    <value>Amarillo</value>
+  </data>
+  <data name="S_ACCENT_BROWN" xml:space="preserve">
+    <value>Marrón</value>
+  </data>
+  <data name="S_ACCENT_OLIVE" xml:space="preserve">
+    <value>Oliva</value>
+  </data>
+  <data name="S_ACCENT_STEEL" xml:space="preserve">
+    <value>Metal</value>
+  </data>
+  <data name="S_ACCENT_MAUVE" xml:space="preserve">
+    <value>Malva</value>
+  </data>
+  <data name="S_ACCENT_TAUPE" xml:space="preserve">
+    <value>Gris</value>
+  </data>
+  <data name="S_ACCENT_SIENNA" xml:space="preserve">
+    <value>Siena</value>
+  </data>
+  <data name="S_LABEL_GAME_PATH" xml:space="preserve">
+    <value>Ruta de ArmA 3:</value>
+  </data>
+  <data name="S_LABEL_GAME_OPTIONS" xml:space="preserve">
+    <value>Opciones de juego</value>
+  </data>
+  <data name="S_LABEL_START_ACTION" xml:space="preserve">
+    <value>Al iniciar el juego:</value>
+  </data>
+  <data name="S_THEME_LIGHT" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="S_THEME_DARK" xml:space="preserve">
+    <value>Oscuro</value>
+  </data>
+  <data name="S_BTN_CHECK_SERVER_STATUS_TIP" xml:space="preserve">
+    <value>Click para comprobar el estado del servidor</value>
+  </data>
+  <data name="S_ACTION_CHECK_SERVER_STATUS" xml:space="preserve">
+    <value>Comprobando estado de servidor</value>
+  </data>
+  <data name="S_SERVERS" xml:space="preserve">
+    <value>Servidores</value>
+  </data>
+  <data name="S_LABEL_SERVER" xml:space="preserve">
+    <value>Servidor:</value>
+  </data>
+  <data name="S_BTN_CHECK_SERVER_STATUS" xml:space="preserve">
+    <value>Comprobar estado del servidor</value>
+  </data>
+  <data name="S_LABEL_SERVER_NAME" xml:space="preserve">
+    <value>Nombre:</value>
+  </data>
+  <data name="S_LABEL_SERVER_MISSION" xml:space="preserve">
+    <value>Misión:</value>
+  </data>
+  <data name="S_LABEL_SERVER_MAP" xml:space="preserve">
+    <value>Mapa:</value>
+  </data>
+  <data name="S_LABEL_SERVER_PING" xml:space="preserve">
+    <value>Ping:</value>
+  </data>
+  <data name="S_LABEL_SERVER_VERSION" xml:space="preserve">
+    <value>Versión:</value>
+  </data>
+  <data name="S_LABEL_SERVER_PLAYERS" xml:space="preserve">
+    <value>Jugadores:</value>
+  </data>
+  <data name="S_LABEL_PROFILE_LIST" xml:space="preserve">
+    <value>Lista de perfiles</value>
+  </data>
+  <data name="S_NEW_PROFILE_NAME" xml:space="preserve">
+    <value>Nombre de nuevo perfil</value>
+  </data>
+  <data name="S_LABEL_SAVE_PROFILE" xml:space="preserve">
+    <value>Guardar perfil</value>
+  </data>
+  <data name="S_BTN_PROFILE_FAVORITE" xml:space="preserve">
+    <value>Marcar como favorito</value>
+  </data>
+  <data name="S_BTN_PROFILE_CREATE" xml:space="preserve">
+    <value>Crear nuevo perfil</value>
+  </data>
+  <data name="S_BTN_PROFILE_DELETE" xml:space="preserve">
+    <value>Borrar perfil</value>
+  </data>
+  <data name="S_LABEL_PROFILE_NAME" xml:space="preserve">
+    <value>Nombre del perfil</value>
+  </data>
+  <data name="S_MSG_UPDATE_SUCCESS_CONTENT" xml:space="preserve">
+    <value>La aplicación ha sido actualizada con éxito</value>
+  </data>
+  <data name="S_MSG_UPDATE_SUCCESS_TITLE" xml:space="preserve">
+    <value>Aplicación actualizada</value>
+  </data>
+  <data name="S_MSG_UPDATE_FAIL_TITLE" xml:space="preserve">
+    <value>Error al actualizar</value>
+  </data>
+  <data name="S_MSG_UPDATE_FAIL_CONTENT" xml:space="preserve">
+    <value>Se ha producido un error al actualizar la aplicación, vuelve a intentarlo más tarde</value>
+  </data>
+  <data name="S_LABEL_LANGUAGE" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="S_LABEL_INTERFACE_SETTINGS" xml:space="preserve">
+    <value>Opciones de Interfaz</value>
+  </data>
+  <data name="S_LABEL_THEME" xml:space="preserve">
+    <value>Tema: </value>
+  </data>
+  <data name="S_LABEL_ACCENT" xml:space="preserve">
+    <value>Estilo: </value>
+  </data>
+  <data name="S_LABEL_MINIMIZE_NOTIFICATION" xml:space="preserve">
+    <value>Minimizar al área de notificación: </value>
+  </data>
+  <data name="S_MSG_RESET_TITLE" xml:space="preserve">
+    <value>Confirmar borrado</value>
+  </data>
+  <data name="S_MSG_RESET_CONTENT" xml:space="preserve">
+    <value>¿Estás seguro de que quieres borrar toda la información y perfiles guardados?</value>
+  </data>
+  <data name="S_LABEL_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="S_LABEL_CANCEL" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="S_LABEL_ADVANCED_SETTINGS" xml:space="preserve">
+    <value>Opciones avanzadas</value>
+  </data>
+  <data name="S_LABEL_ADVANCED" xml:space="preserve">
+    <value>Avanzado</value>
+  </data>
+  <data name="S_LABEL_RESET_SETTINGS" xml:space="preserve">
+    <value>Borrar configuración y perfiles: </value>
+  </data>
+  <data name="S_BTN_RESET_SETTINGS" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="S_LABEL_RESET_DISCLAIMER" xml:space="preserve">
+    <value>NOTA: Esto borrará todas tus parámetros, configuraciones y perfiles.</value>
+  </data>
+  <data name="S_SETTINGS_REPOSITORY" xml:space="preserve">
+    <value>Repositorio</value>
+  </data>
+  <data name="S_SETTINGS_INTERFACE" xml:space="preserve">
+    <value>Interfaz</value>
+  </data>
+  <data name="S_LABEL_YES" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="S_LABEL_NO" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="S_MSG_CHANGE_LANGUAGE_TITLE" xml:space="preserve">
+    <value>Cambiar idioma</value>
+  </data>
+  <data name="S_MSG_CHANGE_LANGUAGE_CONTENT" xml:space="preserve">
+    <value>Es necesario reiniciar el launcher para cambiar el idioma ¿Quieres reiniciarlo ahora?</value>
+  </data>
+  <data name="S_BROWSE_GAME_FOLDER" xml:space="preserve">
+    <value>Carpeta de juego de Arma 3</value>
+  </data>
+  <data name="S_MSG_INCORRECT_PATH_TITLE" xml:space="preserve">
+    <value>Ruta incorrecta</value>
+  </data>
+  <data name="S_MSG_INCORRECT_PATH_CONTENT" xml:space="preserve">
+    <value>La carpeta seleccionada no contiene una instalación válida de Arma 3</value>
+  </data>
+  <data name="S_LABEL_JAVA_DETECTED" xml:space="preserve">
+    <value>Detectado</value>
+  </data>
+  <data name="S_LABEL_JAVA_UNDETECTED" xml:space="preserve">
+    <value>No detectado</value>
+  </data>
+  <data name="S_LABEL_JAVA_UNDETECTED_TIP" xml:space="preserve">
+    <value>No se ha detectado Java en PATH</value>
+  </data>
+  <data name="S_BTN_BROWSE" xml:space="preserve">
+    <value>Explorar...</value>
+  </data>
+  <data name="S_BROWSE_JAVA_FOLDER" xml:space="preserve">
+    <value>Carpeta de Entorno de ejecución de Java</value>
+  </data>
+  <data name="S_MSG_INCORRECT_JAVA_PATH_TITLE" xml:space="preserve">
+    <value>Ruta incorrecta</value>
+  </data>
+  <data name="S_MSG_INCORRECT_JAVA_PATH_CONTENT" xml:space="preserve">
+    <value>La carpeta seleccionada no contiene un entorno de ejecución de Java (JRE) válido</value>
+  </data>
+  <data name="S_BTN_BROWSE_ADDON" xml:space="preserve">
+    <value>Explorar carpeta</value>
+  </data>
+  <data name="S_BTN_TOGGLE_ADDON" xml:space="preserve">
+    <value>Cambiar estado</value>
+  </data>
+  <data name="S_BTN_ADDON_LINK" xml:space="preserve">
+    <value>Abrir página web del addon</value>
+  </data>
+  <data name="S_LABEL_REPOSITORIES" xml:space="preserve">
+    <value>Repositorios</value>
+  </data>
+  <data name="S_A3S_DISABLED_TIP" xml:space="preserve">
+    <value>Arma3Sync no está configurado, configuralo en la ventana de opciones</value>
+  </data>
+  <data name="S_A3S_ENABLED_TIP" xml:space="preserve">
+    <value>Haz click para iniciar Arma3Sync</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_UNKNOWN" xml:space="preserve">
+    <value>Desconocido</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_UPDATED" xml:space="preserve">
+    <value>Actualizado</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_OUTDATED" xml:space="preserve">
+    <value>Desactualizado</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_UPDATED_TIP" xml:space="preserve">
+    <value>Tienes la última versión del repositorio. Click para volver a comprobar.</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_OUTDATED_TIP" xml:space="preserve">
+    <value>Hay una nueva versión del repositorio. Click para volver a comprobar</value>
+  </data>
+  <data name="S_BTN_REPOSITORY_UNKNOWN_TIP" xml:space="preserve">
+    <value>Click para comprobar el estado del repositorio</value>
+  </data>
+  <data name="S_ACTION_CHECK_REPOSITORY_STATUS" xml:space="preserve">
+    <value>Comprobando estado de repositorio</value>
+  </data>
+  <data name="S_BROWSE_ARMA3SYNC_FOLDER" xml:space="preserve">
+    <value>Carpeta de instalación de Arma3Sync</value>
+  </data>
+  <data name="S_MSG_INCORRECT_ARMA3SYNC_PATH_TITLE" xml:space="preserve">
+    <value>Incorrect path</value>
+  </data>
+  <data name="S_MSG_INCORRECT_ARMA3SYNC_PATH_CONTENT" xml:space="preserve">
+    <value>La carpeta seleccionada no contiene una instalación válida de Arma3Sync</value>
+  </data>
+  <data name="S_PARAMETER_MAX_MEMORY" xml:space="preserve">
+    <value>Límite de memoria RAM</value>
+  </data>
+  <data name="S_PARAMETER_MAX_MEMORY_DESC" xml:space="preserve">
+    <value>Cantidad de memoria RAM disponible</value>
+  </data>
+  <data name="S_PARAMETER_MAX_VMEMORY" xml:space="preserve">
+    <value>Límite de memoria de video</value>
+  </data>
+  <data name="S_PARAMETER_MAX_VMEMORY_DESC" xml:space="preserve">
+    <value>Cantidad de memoria de video disponible</value>
+  </data>
+  <data name="S_PARAMETER_CPU_COUNT" xml:space="preserve">
+    <value>Núcleos de CPU</value>
+  </data>
+  <data name="S_PARAMETER_CPU_COUNT_DESC" xml:space="preserve">
+    <value>Número de núcleos a utilizar (menor o igual al número de núcleos del procesador)</value>
+  </data>
+  <data name="S_PARAMETER_EXTHREADS" xml:space="preserve">
+    <value>Hilos adicionales</value>
+  </data>
+  <data name="S_PARAMETER_EX_THREADS_DESC" xml:space="preserve">
+    <value>Número de hilos adicionales a utilizar</value>
+  </data>
+  <data name="S_BTN_COPY_TO_CLIPBOARD" xml:space="preserve">
+    <value>Copiar linea de inicio al portapapeles</value>
+  </data>
+  <data name="S_MSG_UPDATE_TITLE" xml:space="preserve">
+    <value>Actualización disponible</value>
+  </data>
+  <data name="S_MSG_UPDATE_CONTENT" xml:space="preserve">
+    <value>Hay una nueva actualización disponible. ¿Deseas actualizar ahora?</value>
+  </data>
+  <data name="S_BTN_UPDATE_TIP" xml:space="preserve">
+    <value>Comprobar actualizaciones</value>
+  </data>
+  <data name="S_BTN_UPDATE" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="S_LABEL_JAVA_OPTIONS" xml:space="preserve">
+    <value>Opciones de Java</value>
+  </data>
+  <data name="S_LABEL_JAVA_PATH" xml:space="preserve">
+    <value>Ruta de Java:</value>
+  </data>
+  <data name="S_LABEL_JAVA_PATH_VAR" xml:space="preserve">
+    <value>Java en PATH:</value>
+  </data>
+  <data name="S_LABEL_JAVA_DISCLAIMER" xml:space="preserve">
+    <value>NOTA: Solamente indicar la ruta de Java si no se ha detectado en PATH o si se quiere utilizar una versión distinta. JRE's compatibles: 7 y 8.</value>
+  </data>
+  <data name="S_LABEL_ARMA3SYNC_PATH" xml:space="preserve">
+    <value>Ruta de Arma3Sync:</value>
+  </data>
+  <data name="S_LABEL_ARMA3SYNC_OPTIONS" xml:space="preserve">
+    <value>Opciones de Arma3Sync</value>
+  </data>
+  <data name="S_BUTTON_SELECT_ALL_TIP" xml:space="preserve">
+    <value>Seleccionar todos</value>
+  </data>
+  <data name="S_BUTTON_SELECT_NONE_TIP" xml:space="preserve">
+    <value>Seleccionar ninguno</value>
+  </data>
+  <data name="S_BUTTON_FILL_SERVER_TIP" xml:space="preserve">
+    <value>Rellenar información del servidor</value>
+  </data>
+  <data name="S_PROFILES" xml:space="preserve">
+    <value>Perfiles</value>
+  </data>
+  <data name="S_MSG_LAUNCH_ERROR_TITLE" xml:space="preserve">
+    <value>Imposible lanzar juego</value>
+  </data>
+  <data name="S_MSG_LAUNCH_ERROR_CONTENT_STEAM" xml:space="preserve">
+    <value>- Steam tiene que estar en ejecución para iniciar ArmA 3.</value>
+  </data>
+  <data name="S_MSG_LAUNCH_ERROR_CONTENT_ELEVATION" xml:space="preserve">
+    <value>- El luncher tiene que ser iniciado con permisos de administrador para iniciar ArmA 3.</value>
+  </data>
+  <data name="S_MSG_LAUNCH_ERROR_CONTENT_PATH" xml:space="preserve">
+    <value>- La ruta del ejecutable de ArmA 3 no está definida.</value>
+  </data>
+  <data name="S_MSG_LAUNCH_ERROR_CONTENT_UNKNOWN" xml:space="preserve">
+    <value>Error inesperado lanzando ArmA 3. Comprueba el log de la aplicación para más detalles.</value>
+  </data>
+  <data name="S_MSG_NO_UPDATES_TITLE" xml:space="preserve">
+    <value>No hay actualizaciones disponibles</value>
+  </data>
+  <data name="S_MSG_NO_UPDATES_CONTENT" xml:space="preserve">
+    <value>Dispones de la última versión disponible del programa</value>
+  </data>
+  <data name="S_MSG_UPDATE_ERROR_TITLE" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="S_MSG_UPDATE_ERROR_CONTENT" xml:space="preserve">
+    <value>Se ha producido un error comprobando actualizaciones. Inténtalo de nuevo más tarde</value>
+  </data>
+  <data name="S_MSG_OPTION_NO" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="S_MSG_OPTION_YES" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+</root>

@@ -8,12 +8,8 @@
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=vm:ProfileSelectorViewModel}" d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ComboBox x:Name="Profiles" d:DataContext="{Binding Profiles}"
-                  DisplayMemberPath="DisplayName"
-                  Width="147" 
-                  HorizontalAlignment="Left" 
-                  VerticalAlignment="Top" 
-                  Margin="25,51,0,0" 
+        <ComboBox x:Name="Profiles" d:DataContext="{Binding Profiles}" DisplayMemberPath="DisplayName"
+                  Width="147" Margin="25,51,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
                   cal:Message.Attach="[Event SelectionChanged] = [Action Profiles_SelectionChanged];"/>
     </Grid>
 

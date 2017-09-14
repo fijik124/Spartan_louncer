@@ -9,18 +9,13 @@
              d:DataContext="{d:DesignInstance Type=vm:StatusbarViewModel}"
              d:DesignHeight="20" d:DesignWidth="644">
 
-    <StatusBar DockPanel.Dock="Bottom">
+    <StatusBar DockPanel.Dock="Bottom" Background="{DynamicResource AccentColorBrush}">
         <StatusBarItem>
-            <TextBlock Text="{Binding StatusText}"/>
+            <TextBlock Text="{Binding StatusText}" Foreground="White"/>
         </StatusBarItem>
         <StatusBarItem HorizontalAlignment="Right">
-            <controls:MetroProgressBar IsIndeterminate="{Binding TaskRunning}" 
-                                       Height="20" 
-                                       Width="113" 
-                                       Foreground="White" 
-                                       IsHitTestVisible="True" 
-                                       IsTabStop="False" 
-                                       Background="{x:Null}" />
+            <controls:MetroProgressBar IsIndeterminate="{Binding TaskRunning}" Height="20" Width="113" Background="{x:Null}"
+                                       Foreground="White" IsHitTestVisible="True" IsTabStop="False" />
         </StatusBarItem>
     </StatusBar>
 

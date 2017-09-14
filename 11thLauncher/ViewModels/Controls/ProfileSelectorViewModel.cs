@@ -1,22 +1,44 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
-using _11thLauncher.Model;
-using _11thLauncher.Model.Addon;
-using _11thLauncher.Model.Profile;
+using _11thLauncher.Models;
+using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class ProfileSelectorViewModel : PropertyChangedBase, IHandle<ProfilesMessage>, IHandle<ProfileMessage>
+    public class ProfileSelectorViewModel : PropertyChangedBase, IHandle<ProfileAddedMessage>, IHandle<ProfileDeletedMessage>, 
+        IHandle<LoadProfileMessage>, IHandle<SaveProfileMessage>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
-        private readonly AddonManager _addonManager;
+        private readonly IAddonService _addonService;
+        private readonly IProfileService _profileService;
+        private readonly IGameService _launcherService;
+        private readonly IParameterService _parameterService;
 
         private BindableCollection<UserProfile> _profiles = new BindableCollection<UserProfile>();
+        private UserProfile _selectedProfile;
+
+        #endregion
+
+        public ProfileSelectorViewModel(IEventAggregator eventAggregator, IAddonService addonService,
+            IProfileService profileService, IGameService launcherService, IParameterService parameterService)
+        {
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
+
+            _addonService = addonService;
+            _profileService = profileService;
+            _launcherService = launcherService;
+            _parameterService = parameterService;
+        }
+
+        #region Properties
+
         public BindableCollection<UserProfile> Profiles
         {
-            get { return _profiles; }
+            get => _profiles;
             set
             {
                 _profiles = value;
@@ -24,10 +46,10 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        private UserProfile _selectedProfile;
+
         public UserProfile SelectedProfile
         {
-            get { return _selectedProfile; }
+            get => _selectedProfile;
             set
             {
                 if (!Equals(_selectedProfile, value))
@@ -38,53 +60,39 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public ProfileSelectorViewModel(IEventAggregator eventAggregator, AddonManager addonManager)
-        {
-            _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
-
-            _addonManager = addonManager;
-        }
+        #endregion
 
         #region Message handling
 
-        public void Handle(ProfilesMessage message)
+        public void Handle(ProfileAddedMessage message)
         {
-            switch (message.Action)
-            {
-                case ProfilesAction.Added:
-                    bool initialLoad = Profiles.Count == 0;
-                    Profiles.AddRange(message.Profiles);
-                    if (initialLoad)
-                    {
-                        SelectedProfile = Profiles.First(p => p.IsDefault);
-                        Profiles_SelectionChanged();
-                    }
-                    break;
+            bool initialLoad = Profiles.Count == 0;
+            Profiles.AddRange(message.Profiles);
 
-                case ProfilesAction.Deleted:
-                    Profiles.RemoveRange(message.Profiles);
-                    break;
-
-                default:
-                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message.Action)), GetType().Name));
-                    break;
-            }
+            if (!initialLoad) return;
+            SelectedProfile = Profiles.FirstOrDefault(p => p.IsDefault);
         }
 
-        public void Handle(ProfileMessage message)
+        public void Handle(ProfileDeletedMessage message)
         {
-            switch (message.Action)
+            if (SelectedProfile.Equals(message.Profile))
             {
-                case ProfileAction.Loaded:
-                    break;
-                case ProfileAction.Updated:
-                    SelectedProfile.Write();
-                    break;
-                default:
-                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message.Action)), GetType().Name));
-                    break;
+                SelectedProfile = Profiles.FirstOrDefault(p => !p.Equals(message.Profile));
             }
+
+            Profiles.Remove(message.Profile);
+        }
+
+        public void Handle(SaveProfileMessage message)
+        {
+            _profileService.Write(SelectedProfile, _addonService.Addons, _parameterService.Parameters, _launcherService.LaunchSettings);
+        }
+
+        public void Handle(LoadProfileMessage message)
+        {
+            _selectedProfile = message.Profile;
+            NotifyOfPropertyChange(() => SelectedProfile);
+            LoadProfile(message.Profile);
         }
 
         #endregion
@@ -93,17 +101,18 @@ namespace _11thLauncher.ViewModels.Controls
 
         public void Profiles_SelectionChanged()
         {
-            //TODO
             if (SelectedProfile == null) return;
-
-            SelectedProfile.Read(_addonManager.Addons, null, null); //TODO params,servinfo
-
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Loaded, SelectedProfile));
-
-            ////Update the display with the profile
-            //UpdateForProfile(); TODO
+            LoadProfile(SelectedProfile);
         }
 
         #endregion
+
+        private void LoadProfile(UserProfile profile)
+        {
+            _profileService.Read(profile, out BindableCollection<Addon> addons,
+                out BindableCollection<LaunchParameter> parameters, out LaunchSettings launchSettings);
+
+            _eventAggregator.PublishOnCurrentThread(new ProfileLoadedMessage(profile, addons, parameters, launchSettings));
+        }
     }
 }

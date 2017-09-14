@@ -1,13 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11thLauncher", "11thLauncher\11thLauncher.csproj", "{0F56EDA9-CF7F-4C49-A67B-3FCD434D4902}"
+	ProjectSection(ProjectDependencies) = postProject
+		{50C8B672-8A4F-486A-B9CB-07C969142D00} = {50C8B672-8A4F-486A-B9CB-07C969142D00}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11thLauncherUpdater", "11thLauncherUpdater\11thLauncherUpdater.csproj", "{50C8B672-8A4F-486A-B9CB-07C969142D00}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11thLauncher.Tests", "11thLauncher.Tests\11thLauncher.Tests.csproj", "{20169CA8-FECE-4599-99C3-0ED408D082D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11thLauncher.Updater", "11thLauncher.Updater\11thLauncher.Updater.csproj", "{50C8B672-8A4F-486A-B9CB-07C969142D00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +24,11 @@ Global
 		{50C8B672-8A4F-486A-B9CB-07C969142D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50C8B672-8A4F-486A-B9CB-07C969142D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50C8B672-8A4F-486A-B9CB-07C969142D00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{20169CA8-FECE-4599-99C3-0ED408D082D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20169CA8-FECE-4599-99C3-0ED408D082D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{20169CA8-FECE-4599-99C3-0ED408D082D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20169CA8-FECE-4599-99C3-0ED408D082D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38A8D8ED-B441-448E-B629-1AAF5F11812D}
 	EndGlobalSection
 EndGlobal

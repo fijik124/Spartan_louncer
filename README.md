@@ -5,7 +5,7 @@
 
 <p align="center">
     <a href="https://github.com/11thmeu/launcher/releases/latest">
-        <img src="https://img.shields.io/badge/Release-Delta|2.1.0-blue.svg" alt="Latest Release">
+        <img src="https://img.shields.io/badge/Release-Echo|3.0.0-blue.svg" alt="Latest Release">
     </a>
     <a href="https://raw.githubusercontent.com/11thmeu/launcher/master/LICENSE">
         <img src="https://img.shields.io/badge/license-GPLv2-blue.svg" alt="GitHub License">
@@ -51,46 +51,6 @@ This is the 11th Marine Expeditionary Unit launcher. A custom launcher for the g
 
 
 ## Download
-2.1.0 Stable Version - [Download](https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher210.zip) 
-<p><b>Zip MD5</b>: 57ab6a95438493e54a364de1f2abe541</p>
-<p><b>Executable MD5</b>: 9b105fcee9c5d58483c120e55915b442</p>
-
-## Changelog
-##### Version 2.1.0
- * New: Label to show the ArmA 3 executable version
- * New: Startup check to compare the ArmA 3 version for the client and the 11th MEU servers
- * New: Changed -noFilePatching command to -filePatching
- * New: Added malloc parameter with automatic detection of current allocators
- * New: Added MD5 hash verification to auto updater (Updated auto-updater to version 1.0.1)
- * New: Added starting profile indicator to profile list
- * Changed: Translated to spanish the game parameter names
- * Changed: Reorganized application code
- * Changed: Removed dev build and build types
- * Changed: Modified some font sizes and styles to be clearer
- * Fixed: Added check to disable game launch if path is not enabled
-
-##### Version 2.0.0
- * New: Now the launcher detects all the addon folders at any subfolder depth inside the game directory
- * New: Program update notifications for both branches (stable and dev)
- * New: Auto-updater, automatically download, unzip, replace and launch the latest version
- * New: Call to dispose server query resources
- * New: More memory and video memory values over soft/hard-coded limits
- * New: Method to check again each server by clicking on the status icon
- * New: Now the external libraries are loaded in runtime from resources using reflection instead of being merged with ILMerge
- * New: Menu bar
- * New: Status bar
- * New: Java library to check repository using Arma3Sync code (requires manual configuration)
- * New: Added new method of game path detection using Steam registry entry
- * Changed: Application rewritten with WPF+XAML (without using MVVM)
- * Changed: Changed GUI library from MetroFramework(WinForms) to MahApps.Metro(WPF)
- * Changed: Moved application configuration settings to a separate window
- * Changed: Moved about information to a separate window
- * Changed: Modified server check functions to only resolve the server IP once
- * Fixed: Error when closing the launcher before the server check has finished
- * Fixed: Some messages were shown before the form finished loading
- * Fixed: Typo in process priority parameter tooltip
- * Fixed: Errors when checking servers without having internet connection
- * Removed: Unhandled exception handlers
-
-##### Version 1.2.0
- * Initial public release
+3.0.0 Stable Version - [Download](https://raw.githubusercontent.com/11thmeu/launcher/master/bin/11thLauncher300.zip) 
+<p><b>Zip MD5</b>: 80ca9b07fd668f7addfef4e9bf1e89c7</p>
+<p><b>Executable MD5</b>: 11c00e120a4336039bbaba6bdd4814a3</p>

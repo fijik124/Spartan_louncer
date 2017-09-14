@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Windows;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
-using _11thLauncher.Model.Addon;
-using _11thLauncher.Model.Game;
-using _11thLauncher.Model.Parameter;
-using _11thLauncher.Model.Profile;
-using _11thLauncher.Model.Server;
-using _11thLauncher.Model.Settings;
+using _11thLauncher.Accessors;
+using _11thLauncher.Accessors.Contracts;
+using _11thLauncher.Services;
+using _11thLauncher.Services.Contracts;
+using _11thLauncher.Util;
 using _11thLauncher.ViewModels;
+using _11thLauncher.ViewModels.Controls;
 
 namespace _11thLauncher
 {
@@ -24,18 +24,45 @@ namespace _11thLauncher
 
         protected override void Configure()
         {
+            //Application managers
             _container.Singleton<IWindowManager, WindowManager>();
             _container.Singleton<IEventAggregator, EventAggregator>();
             _container.Singleton<IDialogCoordinator, DialogCoordinator>();
 
-            _container.PerRequest<ShellViewModel>();
-            _container.Singleton<SettingsManager>();
-            _container.Singleton<ProfileManager>();
-            _container.Singleton<AddonManager>();
-            _container.Singleton<ParameterManager>();
-            _container.Singleton<LaunchManager>();
+            //ViewModels
+            _container.Singleton<ShellViewModel>();
+            _container.Singleton<StatusbarViewModel>();
+            _container.Singleton<ProfileSelectorViewModel>();
+            _container.Singleton<AddonsViewModel>();
+            _container.Singleton<GameViewModel>();
+            _container.Singleton<ServerStatusViewModel>();
+            _container.Singleton<RepositoryStatusViewModel>();
+            _container.Singleton<ParametersViewModel>();
+            _container.Singleton<ServerQueryViewModel>();
+            _container.Singleton<ProfileManagerViewModel>();
+            _container.Singleton<SettingsViewModel>();
+            _container.Singleton<AboutViewModel>();
 
-            _container.Singleton<ServerManager>();
+            //Services
+            _container.Singleton<ISettingsService, SettingsService>();
+            _container.Singleton<IProfileService, ProfileService>();
+            _container.Singleton<IServerQueryService, ServerQueryService>();
+            _container.Singleton<IAddonService, AddonService>();
+            _container.Singleton<IParameterService, ParameterService>();
+            _container.Singleton<IAddonSyncService, Arma3SyncService>();
+            _container.Singleton<IGameService, GameService>();
+            _container.Singleton<IUpdaterService, UpdaterService>();
+            _container.Singleton<ISecurityService, SecurityService>();
+
+            //Accessors
+            _container.Singleton<IClipboardAccessor, ClipboardAccessor>();
+            _container.Singleton<IFileAccessor, FileAccessor>();
+            _container.Singleton<INetworkAccessor, NetworkAccessor>();
+            _container.Singleton<IProcessAccessor, ProcessAccessor>();
+            _container.Singleton<IRegistryAccessor, RegistryAccessor>();
+
+            //Util
+            _container.Singleton<ILogger, Logger>();
         }
 
         protected override object GetInstance(Type service, string key)

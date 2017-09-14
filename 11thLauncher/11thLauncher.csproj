@@ -13,6 +13,9 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -23,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +36,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
@@ -41,19 +46,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.Core.3.0.3\lib\net45\Caliburn.Micro.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Caliburn.Micro.Core.3.1.0\lib\net45\Caliburn.Micro.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Caliburn.Micro.Platform, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
+      <HintPath>..\packages\Caliburn.Micro.3.1.0\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform.Core, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.3.1.0\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net45\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="MahApps.Metro">
-      <HintPath>lib\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="QueryMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -65,16 +78,15 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Caliburn.Micro.3.1.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -84,41 +96,126 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\packages\Caliburn.Micro.Core.3.1.0\lib\net45\Caliburn.Micro.dll" InProject="False" />
+    <EmbeddedResource Include="..\packages\Caliburn.Micro.3.1.0\lib\net45\Caliburn.Micro.Platform.dll" InProject="False" />
+    <EmbeddedResource Include="..\packages\Caliburn.Micro.3.1.0\lib\net45\Caliburn.Micro.Platform.Core.dll" InProject="False" />
+    <EmbeddedResource Include="..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll" InProject="False" />
+    <EmbeddedResource Include="..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll" InProject="False" />
+    <EmbeddedResource Include="..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll" InProject="False" />
+    <EmbeddedResource Include="..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net45\Hardcodet.Wpf.TaskbarNotification.dll" InProject="False" />
+    <EmbeddedResource Include="Resources\Strings.es-ES.resx" />
+    <EmbeddedResource Include="Resources\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Configuration\Settings.cs" />
-    <Compile Include="Messages\AddonsMessage.cs" />
-    <Compile Include="Messages\ProfileMessage.cs" />
-    <Compile Include="Messages\ProfilesMessage.cs" />
+    <Compile Include="Accessors\ClipboardAccessor.cs" />
+    <Compile Include="Accessors\Contracts\IClipboardAccessor.cs" />
+    <Compile Include="Accessors\Contracts\IFileAccessor.cs" />
+    <Compile Include="Accessors\Contracts\IProcessAccessor.cs" />
+    <Compile Include="Accessors\ProcessAccessor.cs" />
+    <Compile Include="Messages\ShowQuestionDialogMessage.cs" />
+    <Compile Include="Services\AbstractService.cs" />
+    <Compile Include="Services\LegacySettingsService.cs" />
+    <Compile Include="Util\ILogger.cs" />
+    <Compile Include="Accessors\Contracts\INetworkAccessor.cs" />
+    <Compile Include="Accessors\Contracts\IRegistryAccessor.cs" />
+    <Compile Include="Accessors\FileAccessor.cs" />
+    <Compile Include="Util\Logger.cs" />
+    <Compile Include="Accessors\NetworkAccessor.cs" />
+    <Compile Include="Accessors\RegistryAccessor.cs" />
+    <Compile Include="Messages\ParametersInitializedMessage.cs" />
+    <Compile Include="Messages\ProfileAddedMessage.cs" />
+    <Compile Include="Messages\ProfileDeletedMessage.cs" />
+    <Compile Include="Messages\LoadProfileMessage.cs" />
+    <Compile Include="Messages\SaveProfileMessage.cs" />
+    <Compile Include="Messages\ServerQueryFinished.cs" />
+    <Compile Include="Models\ConfigFile.cs" />
+    <Compile Include="Models\Parameter\BooleanParameter.cs" />
+    <Compile Include="Models\Parameter\NumericalParameter.cs" />
+    <Compile Include="Models\Parameter\SelectionParameter.cs" />
+    <Compile Include="Models\Parameter\TextParameter.cs" />
+    <Compile Include="Models\Parameter\ValueItem.cs" />
+    <Compile Include="Models\Profile\ProfileFile.cs" />
+    <Compile Include="Messages\AddonsLoadedMessage.cs" />
+    <Compile Include="Messages\FillServerInfoMessage.cs" />
+    <Compile Include="Messages\ProfileLoadedMessage.cs" />
+    <Compile Include="Messages\RepositoriesLoadedMessage.cs" />
+    <Compile Include="Messages\SettingsLoadedMessage.cs" />
     <Compile Include="Messages\ShowDialogMessage.cs" />
-    <Compile Include="Messages\StatusbarMessage.cs" />
-    <Compile Include="Model\Addon\Addon.cs" />
-    <Compile Include="Model\Addon\AddonManager.cs" />
-    <Compile Include="Model\Addon\Preset.cs" />
-    <Compile Include="Model\Constants.cs" />
+    <Compile Include="Messages\ThemeChangedMessage.cs" />
+    <Compile Include="Messages\UpdateStatusBarMessage.cs" />
+    <Compile Include="Models\Addon\Addon.cs" />
+    <Compile Include="Models\Addon\AddonMetaData.cs" />
+    <Compile Include="Models\Addon\Preset.cs" />
+    <Compile Include="ApplicationConfig.cs" />
     <Compile Include="LauncherBootstraper.cs" />
-    <Compile Include="Model\EnumerationExtension.cs" />
-    <Compile Include="Model\ExceptionMessage.cs" />
-    <Compile Include="Model\Game\LaunchManager.cs" />
-    <Compile Include="Model\Game\LaunchOption.cs" />
-    <Compile Include="Model\Game\Priority.cs" />
-    <Compile Include="Model\ObservableModel.cs" />
-    <Compile Include="Model\Parameter\LaunchError.cs" />
-    <Compile Include="Model\Parameter\LaunchParameter.cs" />
-    <Compile Include="Model\Parameter\ParameterManager.cs" />
-    <Compile Include="Views\Util\ParameterTemplateSelector.cs" />
-    <Compile Include="Model\Parameter\ParameterType.cs" />
-    <Compile Include="Model\Parameter\ParameterValueItem.cs" />
-    <Compile Include="Model\Game\Platform.cs" />
-    <Compile Include="Model\Profile\UserProfile.cs" />
-    <Compile Include="Model\Profile\ProfileManager.cs" />
-    <Compile Include="Model\Server\ServerConfig.cs" />
-    <Compile Include="Model\Server\ServerManager.cs" />
-    <Compile Include="Messages\ServerVersionMessage.cs" />
-    <Compile Include="Model\Settings\SettingsManager.cs" />
-    <Compile Include="Processes\Util.cs" />
+    <Compile Include="Models\Repository.cs" />
+    <Compile Include="Services\Contracts\IParameterService.cs" />
+    <Compile Include="Services\Contracts\IProfileService.cs" />
+    <Compile Include="Services\ParameterService.cs" />
+    <Compile Include="Models\GithubRelease.cs" />
+    <Compile Include="Converters\JsonLaunchParameterConverter.cs" />
+    <Compile Include="Util\ExtensionMethods.cs" />
+    <Compile Include="Services\AddonService.cs" />
+    <Compile Include="Services\Arma3SyncService.cs" />
+    <Compile Include="Services\Contracts\ISecurityService.cs" />
+    <Compile Include="Services\GameService.cs" />
+    <Compile Include="Services\Contracts\IAddonService.cs" />
+    <Compile Include="Services\Contracts\IAddonSyncService.cs" />
+    <Compile Include="Services\Contracts\IGameService.cs" />
+    <Compile Include="Services\Contracts\ISettingsService.cs" />
+    <Compile Include="Services\Contracts\IUpdaterService.cs" />
+    <Compile Include="Services\SecurityService.cs" />
+    <Compile Include="Services\ServerQueryService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\UpdaterService.cs" />
+    <Compile Include="Converters\LaunchOptionConverter.cs" />
+    <Compile Include="ViewModels\Controls\RepositoryStatusViewModel.cs" />
+    <Compile Include="ViewModels\Controls\ServerQueryViewModel.cs" />
+    <Compile Include="Views\Controls\ProfileManagerView.xaml.cs">
+      <DependentUpon>ProfileManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\RepositoryStatusView.xaml.cs">
+      <DependentUpon>RepositoryStatusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\CultureDisplayConverter.cs" />
+    <Compile Include="Util\EnumerationExtension.cs" />
+    <Compile Include="Models\Enumerations.cs" />
+    <Compile Include="Models\LaunchSettings.cs" />
+    <Compile Include="Models\Parameter\LaunchParameter.cs" />
+    <Compile Include="Models\Server\Server.cs" />
+    <Compile Include="Models\Server\ServerInfo.cs" />
+    <Compile Include="Models\ApplicationSettings.cs" />
+    <Compile Include="Resources\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\Controls\ServerStatusViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ServerQueryView.xaml.cs">
+      <DependentUpon>ServerQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ServerStatusView.xaml.cs">
+      <DependentUpon>ServerStatusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\ParameterTemplateSelector.cs" />
+    <Compile Include="Models\Profile\UserProfile.cs" />
+    <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -128,7 +225,7 @@
     <Compile Include="ViewModels\Controls\GameViewModel.cs" />
     <Compile Include="ViewModels\Controls\ParametersViewModel.cs" />
     <Compile Include="ViewModels\Controls\ProfileSelectorViewModel.cs" />
-    <Compile Include="ViewModels\Controls\ProfilesViewModel.cs" />
+    <Compile Include="ViewModels\Controls\ProfileManagerViewModel.cs" />
     <Compile Include="ViewModels\Controls\StatusbarViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\Controls\AddonsView.xaml.cs">
@@ -146,13 +243,10 @@
     <Compile Include="Views\Controls\StatusbarView.xaml.cs">
       <DependentUpon>StatusbarView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\AboutWindow.xaml">
+    <Page Include="Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -168,7 +262,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\ProfileManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\ProfileSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\RepositoryStatusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ServerQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ServerStatusView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -176,23 +286,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="Views\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\Profiles.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Page Include="Resources\MahApps.Metro.Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SettingsWindow.xaml">
+    <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,9 +300,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Net\Repository.cs" />
-    <Compile Include="Net\Servers.cs" />
-    <Compile Include="Net\Updater.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -227,9 +322,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -239,24 +331,7 @@
     <Resource Include="Resources\a3logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\menu_settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\off.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\on.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\unknown.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="lib\MahApps.Metro.dll" />
     <EmbeddedResource Include="lib\QueryMaster.dll" />
-    <EmbeddedResource Include="lib\System.Windows.Interactivity.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="lib\11thLauncherUpdater.exe" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\a3sDisabled.png" />
@@ -265,12 +340,34 @@
     <Resource Include="Resources\a3sEnabled.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\warning.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\game.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\a3logo_inverted.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\Contracts\IServerQueryService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\11thLauncher.Updater.exe" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\Resource.Embedder.1.2.2\build\Resource.Embedder.targets" Condition="Exists('..\packages\Resource.Embedder.1.2.2\build\Resource.Embedder.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Resource.Embedder.1.2.2\build\Resource.Embedder.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Resource.Embedder.1.2.2\build\Resource.Embedder.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PreBuildEvent>echo Compiling Arma3Sync Deserializer
+ant -buildfile "$(SolutionDir)A3SDS\build.xml" compile jar
+exit 0</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

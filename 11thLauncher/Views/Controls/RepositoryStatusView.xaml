@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="_11thLauncher.Views.Controls.RepositoryStatusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:vm="clr-namespace:_11thLauncher.ViewModels.Controls"
+             xmlns:model="clr-namespace:_11thLauncher.Models"
+             xmlns:main="clr-namespace:_11thLauncher"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             xmlns:resx="clr-namespace:_11thLauncher.Resources"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:RepositoryStatusViewModel}" d:DesignHeight="337" d:DesignWidth="615">
+
+    <Grid>
+        <Expander Header="{x:Static resx:Strings.S_LABEL_REPOSITORIES}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="117" Width="185" IsExpanded="True" Margin="430,210,0,0" Padding="0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="Repositories" d:DataContext="{Binding Repositories}" BorderBrush="#FFCCCCCC" BorderThickness="0">
+                    <ItemsControl.ItemTemplate>
+                        <HierarchicalDataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" ToolTip="{Binding Name}" Width="75" Margin="5,5,0,0" 
+                                           TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                <controls:Tile x:Name="RepositoryStatus" Content="{x:Static model:RepositoryStatus.Unknown}" 
+                                               cal:Message.Attach="CheckRepositoryStatus($datacontext)"
+                                               HorizontalAlignment="Left" VerticalAlignment="Top" Height="18" Width="80" Margin="10,5,0,0"/>
+                            </StackPanel>
+                            <HierarchicalDataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static model:RepositoryStatus.Unknown}">
+                                    <Setter TargetName="RepositoryStatus" Property="controls:Tile.Background" Value="#888888"/>
+                                    <Setter TargetName="RepositoryStatus" Property="Content" Value="{x:Static resx:Strings.S_BTN_REPOSITORY_UNKNOWN}"/>
+                                    <Setter TargetName="RepositoryStatus" Property="controls:Tile.ToolTip" Value="{x:Static resx:Strings.S_BTN_REPOSITORY_UNKNOWN_TIP}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static model:RepositoryStatus.Checking}">
+                                    <Setter TargetName="RepositoryStatus" Property="controls:Tile.Background" Value="#888888"/>
+                                    <Setter TargetName="RepositoryStatus" Property="Content" Value="{x:Static resx:Strings.S_BTN_REPOSITORY_UNKNOWN}"/>
+                                    <Setter TargetName="RepositoryStatus" Property="controls:Tile.ToolTip" Value="{x:Static resx:Strings.S_BTN_REPOSITORY_UNKNOWN_TIP}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static model:RepositoryStatus.Updated}">
+                                    <Setter TargetName="RepositoryStatus" Property="controls:Tile.Background" Value="#56B812"/>
+                                    <Setter TargetName="RepositoryStatus" Property="Content" Value="{x:Static resx:Strings.S_BTN_REPOSITORY_UPDATED}"/>
+                                    <Setter TargetName="RepositoryStatus" Property="controls:Tile.ToolTip" Value="{x:Static resx:Strings.S_BTN_REPOSITORY_UPDATED_TIP}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static model:RepositoryStatus.Outdated}">
+                                    <Setter TargetName="RepositoryStatus" Property="controls:Tile.Background" Value="#BD3400"/>
+                                    <Setter TargetName="RepositoryStatus" Property="Content" Value="{x:Static resx:Strings.S_BTN_REPOSITORY_OUTDATED}"/>
+                                    <Setter TargetName="RepositoryStatus" Property="controls:Tile.ToolTip" Value="{x:Static resx:Strings.S_BTN_REPOSITORY_OUTDATED_TIP}"/>
+                                </DataTrigger>
+                            </HierarchicalDataTemplate.Triggers>
+                        </HierarchicalDataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Expander>
+        <Image Source="{Binding Arma3SyncIcon}" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action StartArma3Sync]"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="20" Margin="588,216,0,0">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Setter Property="ToolTip" Value="{x:Static resx:Strings.S_A3S_DISABLED_TIP}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Arma3SyncIcon}" Value="{x:Static main:ApplicationConfig.Arma3SyncIconEnabled}">
+                            <Setter Property="ToolTip" Value="{x:Static resx:Strings.S_A3S_ENABLED_TIP}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+    </Grid>
+    
+</UserControl>

@@ -1,138 +1,38 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using Caliburn.Micro;
 using _11thLauncher.Messages;
-using _11thLauncher.Model;
-using _11thLauncher.Model.Addon;
+using _11thLauncher.Models;
+using _11thLauncher.Services.Contracts;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class AddonsViewModel : PropertyChangedBase, IHandle<AddonsMessage>, IHandle<ProfileMessage>
+    public class AddonsViewModel : PropertyChangedBase, IHandle<AddonsLoadedMessage>, IHandle<ProfileLoadedMessage>
     {
+        #region Fields
+
         private readonly IEventAggregator _eventAggregator;
-        private BindableCollection<Preset> _presets;
+        private readonly IAddonService _addonService;
+
+        private BindableCollection<Preset> _presets = ApplicationConfig.AddonPresets; 
         private Preset _selectedPreset;
-        private BindableCollection<Addon> _addons = new BindableCollection<Addon>();
         private Addon _selectedAddon;
 
-        public AddonsViewModel(IEventAggregator eventAggregator)
+        #endregion
+
+        public AddonsViewModel(IEventAggregator eventAggregator, IAddonService addonService)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
-
-            Presets = Constants.AddonPresets;
+            _addonService = addonService;
         }
 
-        #region Message handling
-
-        public void Handle(AddonsMessage message)
-        {
-            switch (message.Action)
-            {
-                case AddonsAction.Added:
-                    _addons.AddRange(message.Addons);
-                    foreach (Addon addon in Addons)
-                    {
-                        addon.PropertyChanged += Addon_StatusChanged;
-                    }
-                    break;
-
-                default:
-                    _eventAggregator.PublishOnUIThreadAsync(new ExceptionMessage(new ArgumentOutOfRangeException(nameof(message)), GetType().Name));
-                    break;
-            }
-        }
-
-        public void Handle(ProfileMessage message)
-        {
-            if (message.Action != ProfileAction.Loaded) return;
-
-            SelectedPreset = null;
-
-            var profile = message.Profile;
-            if (profile != null)
-            {
-                Addons = profile.ProfileAddons;
-            }
-        }
-
-        #endregion
-
-        #region UI Actions
-
-        public void Presets_SelectionChanged()
-        {
-            if (SelectedPreset == null) return;
-
-            foreach (var addon in Addons)
-            {
-                addon.SetStatus(SelectedPreset.Addons.Contains(addon.Name));
-            }
-
-            CollectionViewSource.GetDefaultView(Addons).Refresh();
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
-        }
-
-        private void Addon_StatusChanged(object sender, PropertyChangedEventArgs e)
-        {
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
-        }
-
-        public void ButtonMoveUp()
-        {
-            if (SelectedAddon != null)
-            {
-                var index = Addons.IndexOf(SelectedAddon);
-                if (index != 0)
-                {
-                    Addons.Move(index, index - 1);
-                }
-                _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
-            }
-        }
-
-        public void ButtonMoveDown()
-        {
-            if (SelectedAddon != null)
-            {
-                int index = Addons.IndexOf(SelectedAddon);
-                if (index != Addons.Count - 1)
-                {
-                    Addons.Move(index, index + 1);
-                }
-            }
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
-        }
-
-        public void ButtonSelectAll()
-        {
-            foreach (var addon in Addons)
-            {
-                addon.SetStatus(true);
-            }
-
-            CollectionViewSource.GetDefaultView(Addons).Refresh();
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
-        }
-
-        public void ButtonSelectNone()
-        {
-            foreach (var addon in Addons)
-            {
-                addon.SetStatus(false);
-            }
-
-            CollectionViewSource.GetDefaultView(Addons).Refresh();
-            _eventAggregator.PublishOnCurrentThread(new ProfileMessage(ProfileAction.Updated));
-        }
-
-        #endregion
+        #region Properties
 
         public BindableCollection<Preset> Presets
         {
-            get { return _presets; }
+            get => _presets;
             set
             {
                 _presets = value;
@@ -142,7 +42,7 @@ namespace _11thLauncher.ViewModels.Controls
 
         public Preset SelectedPreset
         {
-            get { return _selectedPreset; }
+            get => _selectedPreset;
             set
             {
                 if (!Equals(_selectedPreset, value))
@@ -155,17 +55,17 @@ namespace _11thLauncher.ViewModels.Controls
 
         public BindableCollection<Addon> Addons
         {
-            get { return _addons; }
+            get => _addonService.Addons;
             set
             {
-                _addons = value;
+                _addonService.Addons = value;
                 NotifyOfPropertyChange();
             }
         }
 
         public Addon SelectedAddon
         {
-            get { return _selectedAddon; }
+            get => _selectedAddon;
             set
             {
                 if (!Equals(_selectedAddon, value))
@@ -175,5 +75,136 @@ namespace _11thLauncher.ViewModels.Controls
                 }
             }
         }
+
+        #endregion
+
+        #region Message handling
+
+        public void Handle(AddonsLoadedMessage message)
+        {
+            foreach (Addon addon in Addons)
+            {
+                addon.PropertyChanged += Addon_StatusChanged;
+            }
+        }
+
+        public void Handle(ProfileLoadedMessage message)
+        {
+            SelectedPreset = null;
+
+            //Reset all addons before loading
+            foreach (Addon addon in Addons)
+            {
+                addon.SetStatus(false);
+            }
+
+            foreach (var addon in Addons)
+            {
+                var profileAddon = message.Addons.FirstOrDefault(addon.Equals);
+                if (profileAddon != null)
+                {
+                    addon.SetStatus(profileAddon.IsEnabled);
+                }
+            }
+
+            Addons = new BindableCollection<Addon>(Addons.OrderBy(a => message.Addons.IndexOf(a)));
+            CollectionViewSource.GetDefaultView(Addons).Refresh();
+        }
+
+        #endregion
+
+        #region UI Actions
+
+        public void Presets_SelectionChanged()
+        {
+            if (SelectedPreset == null || Addons.Count == 0) return;
+
+            foreach (var addon in Addons)
+            {
+                addon.SetStatus(SelectedPreset.Addons.Contains(addon.Name));
+            }
+
+            CollectionViewSource.GetDefaultView(Addons).Refresh();
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
+        }
+
+        private void Addon_StatusChanged(object sender, PropertyChangedEventArgs e)
+        {
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
+        }
+
+        public void ContextToggleAddon(Addon addon)
+        {
+            if (addon != null)
+            {
+                addon.IsEnabled = !addon.IsEnabled;
+            }
+        }
+
+        public void ContextBrowseAddon(Addon addon)
+        {
+            if (addon != null)
+            {
+                _addonService.BrowseAddonFolder(addon);
+            }
+        }
+
+        public void ContextAddonLink(Addon addon)
+        {
+            if (addon != null)
+            {
+                _addonService.BrowseAddonWebsite(addon);
+            }
+        }
+
+        public void ButtonMoveUp()
+        {
+            if (SelectedAddon == null) return;
+
+            var index = Addons.IndexOf(SelectedAddon);
+            if (index == 0) return;
+
+            Addons.Move(index, index - 1);
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
+        }
+
+        public void ButtonMoveDown()
+        {
+            if (SelectedAddon == null) return;
+
+            int index = Addons.IndexOf(SelectedAddon);
+            if (index == Addons.Count - 1) return;
+
+            Addons.Move(index, index + 1);
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
+        }
+
+        public void ButtonSelectAll()
+        {
+            if (Addons.Count == 0) return;
+
+            foreach (var addon in Addons)
+            {
+                addon.SetStatus(true);
+            }
+
+            CollectionViewSource.GetDefaultView(Addons).Refresh();
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
+        }
+
+        public void ButtonSelectNone()
+        {
+            if (Addons.Count == 0) return;
+
+            foreach (var addon in Addons)
+            {
+                addon.SetStatus(false);
+            }
+
+            CollectionViewSource.GetDefaultView(Addons).Refresh();
+            _eventAggregator.PublishOnCurrentThread(new SaveProfileMessage());
+        }
+
+        #endregion
     }
 }

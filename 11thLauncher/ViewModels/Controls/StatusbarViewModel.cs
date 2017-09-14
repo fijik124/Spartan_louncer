@@ -1,19 +1,37 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using System.Collections.Generic;
+using Caliburn.Micro;
 using _11thLauncher.Messages;
+using _11thLauncher.Models;
+using _11thLauncher.Util;
 
 namespace _11thLauncher.ViewModels.Controls
 {
-    public class StatusbarViewModel : PropertyChangedBase, IHandle<StatusbarMessage>
+    public class StatusbarViewModel : PropertyChangedBase, IHandle<UpdateStatusBarMessage>
     {
-        private readonly IEventAggregator _eventAggregator;
+        #region Fields
 
+        private readonly Dictionary<AsyncAction, int> _actions;
         private string _statusText;
+        private bool _taskRunning;
+
+        #endregion
+
+        public StatusbarViewModel(IEventAggregator eventAggregator)
+        {
+            eventAggregator.Subscribe(this);
+            _actions = new Dictionary<AsyncAction, int>();
+            foreach (AsyncAction type in Enum.GetValues(typeof(AsyncAction)))
+            {
+                _actions[type] = 0;
+            }
+        }
+
+        #region Properties
+
         public string StatusText
         {
-            get
-            {
-                return _statusText;
-            }
+            get => _statusText;
             set
             {
                 _statusText = value;
@@ -21,13 +39,9 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        private bool _taskRunning;
         public bool TaskRunning
         {
-            get
-            {
-                return _taskRunning;
-            }
+            get => _taskRunning;
             set
             {
                 _taskRunning = value;
@@ -35,17 +49,45 @@ namespace _11thLauncher.ViewModels.Controls
             }
         }
 
-        public StatusbarViewModel(IEventAggregator eventAggregator)
+        #endregion
+
+        #region Message handling
+
+        public void Handle(UpdateStatusBarMessage message)
         {
-            _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
-            StatusText = Properties.Resources.S_STATUS_READY;
+            if (message.IsRunning)
+            {
+                _actions[message.Action]++;
+            }
+            else
+            {
+                _actions[message.Action]--;
+            }
+
+            bool running = false;
+            var statusText = string.Empty;
+            foreach (KeyValuePair<AsyncAction, int> asyncAction in _actions)
+            {
+                if (asyncAction.Value <= 0) continue;
+                running = true;
+
+                statusText += asyncAction.Key.GetDescription() +
+                              (asyncAction.Value > 1 ? " (x" + asyncAction.Value + ")" : string.Empty) + 
+                              ", ";
+            }
+
+            if (running)
+            {
+                StatusText = statusText.Remove(statusText.Length - 2);
+            }
+            else
+            {
+                StatusText = StatusText = Resources.Strings.S_STATUS_READY;
+            }
+
+            TaskRunning = running;
         }
 
-        public void Handle(StatusbarMessage message)
-        {
-            StatusText = message.Text;
-            TaskRunning = message.Running;
-        }
+        #endregion
     }
 }

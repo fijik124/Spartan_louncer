@@ -2,8 +2,8 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:cal="http://www.caliburnproject.org"
-                      xmlns:resx="clr-namespace:_11thLauncher.Properties"
+                      xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+                      xmlns:resx="clr-namespace:_11thLauncher.Resources"
                       xmlns:vm="clr-namespace:_11thLauncher.ViewModels"
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
@@ -12,18 +12,19 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance Type=vm:ShellViewModel}"
-                      Title="{x:Static resx:Resources.S_APP_NAME}"
-                      TitleCharacterCasing="Normal" 
+                      Title="{x:Static resx:Strings.S_APP_NAME}" TitleCharacterCasing="Normal" 
+                      TitleAlignment="Left"
                       Icon="/11thLauncher;component/Resources/icon.ico" 
+                      Style="{DynamicResource CleanWindowStyleKey}"
+                      UseLayoutRounding="True"
                       WindowStartupLocation="CenterScreen" 
-                      Height="517"
-                      Width="644"
+                      Height="517" Width="644"
                       ResizeMode="CanMinimize" 
-                      BorderThickness="0" 
-                      GlowBrush="Black"
+                      BorderThickness="0" GlowBrush="Black"
                       LeftWindowCommandsOverlayBehavior="HiddenTitleBar"
                       WindowState="{Binding WindowState, Mode=TwoWay}"
-                      ShowInTaskbar="{Binding ShowInTaskbar}">
+                      ShowInTaskbar="{Binding ShowInTaskbar}" 
+                      cal:Message.Attach="[Event Closing] = [Action OnClose($eventArgs)]">
 
     <controls:MetroWindow.Resources>
         <DataTemplate x:Key="TabTitle">
@@ -34,71 +35,113 @@
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands ShowLastSeparator="False">
-            <Button ToolTip="Abrir ventana de opciones" >
+            <Button cal:Message.Attach="ButtonSettings" 
+                    ToolTip="{x:Static resx:Strings.S_BTN_SETTINGS_TIP}" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Resources/menu_settings.png" Stretch="None" Margin="0,0,5,0"/>
-                    <TextBlock Margin="0,1,0,0"><Run Text="Opciones"/></TextBlock>
+                    <Rectangle Width="15" Height="15" Margin="0,0,5,0" Fill="{DynamicResource AccentBaseColorBrush}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="0,1,0,0"><Run Text="{x:Static resx:Strings.S_BTN_SETTINGS}"/></TextBlock>
                 </StackPanel>
             </Button>
-            <Button Content="Actualizar"
-                    ToolTip="Comprobar actualizaciones" />
-            <Button Content="Ayuda"
-                    ToolTip="Acerca del launcher" />
+            <Button cal:Message.Attach="ButtonUpdate" 
+                    ToolTip="{x:Static resx:Strings.S_BTN_UPDATE_TIP}" >
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="15" Height="15" Margin="0,0,5,0" Fill="{DynamicResource AccentBaseColorBrush}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_refresh}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="0,1,0,0"><Run Text="{x:Static resx:Strings.S_BTN_UPDATE}"/></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button cal:Message.Attach="ButtonAbout" ToolTip="{x:Static resx:Strings.S_BTN_ABOUT_TIP}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="10" Height="13" Margin="0,0,5,0" Fill="{DynamicResource AccentBaseColorBrush}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_question}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="0,1,0,0" Text="{x:Static resx:Strings.S_BTN_ABOUT}"/>
+                </StackPanel>
+            </Button>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
 
     <Grid>
         <!-- Tabs -->
-        <controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Height="372" Width="623" controls:TabControlHelper.IsUnderlined="False">
-            <TabItem Header="{x:Static resx:Resources.S_GAME_NAME}" HeaderTemplate="{StaticResource TabTitle}">
+        <controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Height="372" Width="623" controls:TabControlHelper.Underlined="None">
+            <TabItem Header="{x:Static resx:Strings.S_GAME_NAME}" HeaderTemplate="{StaticResource TabTitle}">
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
                     <!-- Addons -->
-                    <ContentControl x:Name="Addons" />
-                    <!-- Server config -->
-                    <ContentControl x:Name="Game" />
+                    <ContentControl x:Name="AddonsControl" />
+                    <!-- Game launcher -->
+                    <ContentControl x:Name="GameControl" />
+                    <!-- Server status -->
+                    <ContentControl x:Name="ServerStatusControl" />
+                    <!-- Repository status -->
+                    <ContentControl x:Name="RepositoryStatusControl" />
                 </Grid>
             </TabItem>
-            <TabItem Header="{x:Static resx:Resources.S_PARAMETERS}" HeaderTemplate="{StaticResource TabTitle}">
+            <TabItem Header="{x:Static resx:Strings.S_PARAMETERS}" HeaderTemplate="{StaticResource TabTitle}">
                 <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
                     <!-- Parameters -->
-                    <ContentControl x:Name="Parameters" />
+                    <ContentControl x:Name="ParametersControl" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static resx:Strings.S_SERVERS}" HeaderTemplate="{StaticResource TabTitle}">
+                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
+                    <!-- Server query -->
+                    <ContentControl x:Name="ServerQueryControl" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static resx:Strings.S_PROFILES}" HeaderTemplate="{StaticResource TabTitle}">
+                <Grid HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="615">
+                    <!-- Profile manager -->
+                    <ContentControl x:Name="ProfileManagerControl" />
                 </Grid>
             </TabItem>
         </controls:MetroAnimatedSingleRowTabControl>
 
         <!-- Profile selector -->
-        <ContentControl x:Name="ProfileSelector"/>
+        <ContentControl x:Name="ProfileSelectorControl"/>
 
         <!-- Logo & version -->
-        <Image Source="/Resources/a3logo.png" 
-               Height="140" 
-               Width="365" 
+        <Image Source="{Binding LogoImage}" 
+               Height="106" 
+               Width="279" 
                HorizontalAlignment="Left" 
                VerticalAlignment="Top" 
-               Margin="273,-10,0,0" 
+               Margin="334,0,0,0" 
                IsHitTestVisible="False" />
         <Label Content="{Binding GameVersion}" 
                FontWeight="Bold"
                HorizontalAlignment="Left" 
                VerticalAlignment="Top"
-               Margin="527,93,0,0" />
-        <Image Source="/Resources/warning.png" 
-               ToolTip="{Binding VersionMismatchTooltip}"
-               Visibility="{Binding ShowVersionMismatch}"
-               Height="24"
-               Width="24"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top" 
-               Margin="611,95,0,0" 
-               IsHitTestVisible="True" />
+               Margin="524,75,0,0" />
+        <Rectangle ToolTip="{Binding VersionMismatchTooltip}"
+                   Visibility="{Binding ShowVersionMismatch}"
+                   Height="20"
+                   Width="20"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top" 
+                   Margin="608,77,0,0" 
+                   IsHitTestVisible="True"
+                   Fill="{DynamicResource HighlightBrush}">
+            <Rectangle.OpacityMask>
+                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_warning}" />
+            </Rectangle.OpacityMask>
+        </Rectangle>
 
         <!-- Statusbar -->
         <DockPanel Margin="0,464,0,0">
-            <ContentControl x:Name="Statusbar"/>
+            <ContentControl x:Name="StatusbarControl"/>
         </DockPanel>
         <!-- Notification icon -->
         <ni:TaskbarIcon Visibility="{Binding ShowTrayIcon}"
-                        ToolTipText="{x:Static resx:Resources.S_APP_NAME}"
+                        ToolTipText="{x:Static resx:Strings.S_APP_NAME}"
                         IconSource="../Resources/icon.ico"
                         cal:Message.Attach="[Event TrayRightMouseDown] = [Action TrayIcon_Click]; [Event TrayLeftMouseDown] = [Action TrayIcon_Click];">
         </ni:TaskbarIcon>
