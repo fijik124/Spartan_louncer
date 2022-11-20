@@ -1,6 +1,6 @@
-<h1 align="center">11th Marine Expeditionary Unit Launcher</h1>
+<h1 align="center">Spartans Launcher</h1>
 <p align="center">
-	<img src="https://raw.githubusercontent.com/11thmeu/launcher/master/doc/logo-transparent.png" width="250px" />
+	<img src="https://b5431c9f6c.clvaw-cdnwnd.com/2c0224c6694656a13a3daef3cdb9e663/200000331-8483e84840/450/icon.png" width="250px" />
 </p>
 
 <p align="center">
